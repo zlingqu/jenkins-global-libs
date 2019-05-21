@@ -62,7 +62,7 @@ class ArrayWrapper implements Serializable {
         array.length
     }
 
-    @NonCPS
+//    @NonCPS
     String toString() {
         Arrays.asList(array).toString()
     }
