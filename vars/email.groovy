@@ -27,7 +27,8 @@ def showEnv(env, String buildResult) {
     def text = """Job build ${buildResult}. Address : http://jenkins.ops.dm-ai.cn/blue/organizations/jenkins/${jobName}/detail/${branchName}/${buildNumber}/pipeline"""
     def template = new groovy.text.StreamingTemplateEngine().createTemplate(text)
     def binding = [
-            'jobName' : env.JOB_NAME.split("/")[0],
+//            'jobName' : env.JOB_NAME.split("/")[0],
+            'jobName' : '11111',
             'branchName' : env.BRANCH_NAME,
             'buildNumber' : env.BUILD_NUMBER,
             'buildResult': buildResult,
