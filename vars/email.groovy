@@ -1,3 +1,6 @@
+import groovy.text.*
+import java.io.*
+
 def call() {
     println("test")
 }
@@ -20,6 +23,17 @@ def faildBody(jobName) {
 //    return """http://jenkins.ops.dm-ai.cn/blue/organizations/jenkins/${env.JOB_NAME}}/detail/${env.BRANCH_NAME}/${env.BUILD_NUMBER}/pipeline"""
 //}
 
-def showEnv(env) {
-    println(env)
+def showEnv(env, String buildResult) {
+    def text = """Job build ${buildResult}. Address : http://jenkins.ops.dm-ai.cn/blue/organizations/jenkins/${jobName}/detail/${branchName}/${buildNumber}/pipeline"""
+    def template = new groovy.text.StreamingTemplateEngine().createTemplate(text)
+    def binding = [
+            'jobName' : env.JOB_NAME.split("/")[0],
+            'branchName' : env.BRANCH_NAME,
+            'buildNumber' : env.BUILD_NUMBER,
+            'buildResult': buildResult,
+    ]
+    String response = template.make(binding)
+    return response
 }
+
+
