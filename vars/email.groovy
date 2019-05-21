@@ -16,14 +16,14 @@ def faildBody(jobName) {
 def showEnv(env, buildResult) {
     def text = 'Job build $buildResult Address : http://jenkins.ops.dm-ai.cn/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline'
     def binding = [
-            'jobName' : '11111',
+            'jobName' :  env.JOB_NAME.split("/")[0],
             'branchName' : env.BRANCH_NAME,
             'buildNumber' : env.BUILD_NUMBER,
             'buildResult': buildResult,
     ]
     def engine = new groovy.text.SimpleTemplateEngine()
     def template = engine.createTemplate(text).make(binding)
-    println(template)
+    return template
 }
 
 
