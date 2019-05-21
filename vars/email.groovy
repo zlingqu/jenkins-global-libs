@@ -23,7 +23,7 @@ def showEnv(env, buildResult) {
     ]
     def engine = new groovy.text.SimpleTemplateEngine()
     def template = engine.createTemplate(text).make(binding)
-    return template
+    return template.toString()
 }
 
 
