@@ -19,3 +19,7 @@ def faildBody(jobName) {
 //def getBuildAddress() {
 //    return """http://jenkins.ops.dm-ai.cn/blue/organizations/jenkins/${env.JOB_NAME}}/detail/${env.BRANCH_NAME}/${env.BUILD_NUMBER}/pipeline"""
 //}
+
+def showEnv(env) {
+    println(env)
+}
