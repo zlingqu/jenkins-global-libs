@@ -43,4 +43,33 @@ spec:
 """
 }
 
+def notComplieTemplate() {
+    return """
+apiVersion: v1
+kind: Pod
+metadata:
+  name: notComplieTemplate
+  namespace: devops
+spec:
+  imagePullSecrets:
+  - name: regsecret
+  containers:
+  - name: docker-compose
+    image: docker.dm-ai.cn/devops/base-image-docker-compose:0.04
+    imagePullPolicy: IfNotPresent
+    command:
+    - "/bin/sh"
+    - "-c"
+    args:
+    - "cat"
+    tty: true
+    resources:
+      limits:
+        memory: 500Mi
+        cpu: 300m
+      requests:
+        cpu: 100m
+        memory: 200Mi
+"""
+}
 //call()
