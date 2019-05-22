@@ -60,6 +60,7 @@ spec:
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
       value: docker.dm-ai.cn  
+    volumeMounts:
     - name: sock
       mountPath: /var/run/docker.sock
     command:
