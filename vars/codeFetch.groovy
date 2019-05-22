@@ -60,6 +60,8 @@ spec:
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
       value: docker.dm-ai.cn  
+    - name: sock
+      mountPath: /var/run/docker.sock
     command:
     - "/bin/sh"
     - "-c"
@@ -73,6 +75,10 @@ spec:
       requests:
         cpu: 100m
         memory: 200Mi
+  volumes:
+  - name: sock
+    hostPath:
+      path: /var/run/docker.sock      
 """
 }
 //call()
