@@ -57,6 +57,9 @@ spec:
   - name: docker-compose
     image: docker.dm-ai.cn/devops/base-image-docker-compose:0.04
     imagePullPolicy: IfNotPresent
+    env: #指定容器中的环境变量
+    - name: DMAI_PRIVATE_DOCKER_REGISTRY
+      value: docker.dm-ai.cn  
     command:
     - "/bin/sh"
     - "-c"
