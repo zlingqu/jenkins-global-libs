@@ -2,30 +2,30 @@ import java.io.File
 
 def call(Map map, env) {
     println(env)
-//    pipeline {
-//        agent {
-//            kubernetes {
-//                cloud 'kubernetes-test'
-//                label 'yarnTemplate'
-//                defaultContainer 'jnlp'
-//                namespace 'devops'
-//                inheritFrom baseTemplateName()
-//                yaml yarnTemplate()
-//            }
-//        }
-//
-//        // 设置整个pipeline 的超时时间为 1个小时
-//
-//        options {
-//            timeout(time:1, unit: 'HOURS')
-//            retry(2)
-//        }
-//
-//        // 添加环境变量
-//        environment {
-//            tags = map.imageTags
-//        }
-//
+    pipeline {
+        agent {
+            kubernetes {
+                cloud 'kubernetes-test'
+                label 'yarnTemplate'
+                defaultContainer 'jnlp'
+                namespace 'devops'
+                inheritFrom baseTemplateName()
+                yaml yarnTemplate()
+            }
+        }
+
+        // 设置整个pipeline 的超时时间为 1个小时
+
+        options {
+            timeout(time:1, unit: 'HOURS')
+            retry(2)
+        }
+
+        // 添加环境变量
+        environment {
+            tags = map.imageTags
+        }
+
 //        stages {
 //            stage('Compile') {
 //                steps {
@@ -58,7 +58,7 @@ def call(Map map, env) {
 //            }
 //
 //        }
-//
+
 //        post {
 //            always {
 //                echo "over!!"
@@ -89,7 +89,7 @@ def call(Map map, env) {
 //                }
 //            }
 //        }
-//    }
+    }
 }
 
 def baseTemplateName() {
