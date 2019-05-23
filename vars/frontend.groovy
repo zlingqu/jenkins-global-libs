@@ -2,6 +2,7 @@ import java.io.File
 
 def call(Map map, env) {
     println(env)
+
     pipeline {
         agent {
             kubernetes {
@@ -22,9 +23,17 @@ def call(Map map, env) {
         }
 
         // 添加环境变量
-//        environment {
-//            tags = map.imageTags
-//        }
+        environment {
+            tags = "${map.REPO_URL}"
+        }
+
+        stages {
+            stage('Compile') {
+                steps {
+                    echo '11111'
+                }
+            }
+        }
 
 //        stages {
 //            stage('Compile') {
