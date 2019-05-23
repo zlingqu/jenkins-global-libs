@@ -2,6 +2,94 @@ import java.io.File
 
 def call(Map map, env) {
     println(env)
+    pipeline {
+        agent {
+            kubernetes {
+                cloud 'kubernetes-test'
+                label 'yarnTemplate'
+                defaultContainer 'jnlp'
+                namespace 'devops'
+                inheritFrom baseTemplateName()
+                yaml yarnTemplate()
+            }
+        }
+
+        // 设置整个pipeline 的超时时间为 1个小时
+
+        options {
+            timeout(time:1, unit: 'HOURS')
+            retry(2)
+        }
+
+        // 添加环境变量
+        environment {
+            tags = map.imageTags
+        }
+
+        stages {
+            stage('Compile') {
+                steps {
+                    container('yarn-compile') {
+                        sh '''
+                    chmod -R 777 `pwd`
+                    npm config set registry=http://192.168.3.13:8081/repository/npm/
+                    npm install
+                    npm config set registry=http://192.168.3.13:8081/repository/npm/
+                    npm run build
+                    '''
+                    }
+                }
+            }
+
+            stage('Make image') {
+                steps {
+                    container('docker-compose') {
+                        sh 'docker-compose build'
+                        sh 'docker-compose push'
+                    }
+                }
+            }
+
+            stage('Deploy') {
+                steps {
+                    kubernetesDeploy configs: 'Deploy-k8s.yml', kubeConfig: [path: ''], kubeconfigId: 'k8s-deploy-test', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
+
+                }
+            }
+
+        }
+
+        post {
+            always {
+                echo "over!!"
+            }
+
+            failure {
+                echo "fail"
+                script {
+                    def jobName = env.JOB_NAME.split("/")[0]
+                    echo jobName
+                    emailext (
+                            body: faildBody(jobName),
+                            subject: 'Jenkins build faild info',
+                            to: 'zuosheng@dm-ai.cn'
+                    )
+                }
+            }
+
+            success {
+                script {
+                    def jobName = env.JOB_NAME.split("/")[0]
+                    echo jobName
+                    emailext (
+                            body: showEnv(env, 'success'),
+                            subject: 'Jenkins build success info',
+                            to: 'qinyadong@dm-ai.cn'
+                    )
+                }
+            }
+        }
+    }
 }
 
 def baseTemplateName() {
@@ -93,6 +181,23 @@ def createDockerFile(fileName = 'Dockerfile') {
     printWriter.close()
 }
 
+
+def faildBody(jobName) {
+    return """Job build faild. Address : Address : http://jenkins.ops.dm-ai.cn/blue/organizations/jenkins/""" + jobName + """/detail/${env.BRANCH_NAME}/${env.BUILD_NUMBER}/pipeline"""
+}
+
+def showEnv(env, buildResult) {
+    def text = 'Job build $buildResult Address : http://jenkins.ops.dm-ai.cn/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline'
+    def binding = [
+            'jobName' :  env.JOB_NAME.split("/")[0],
+            'branchName' : env.BRANCH_NAME,
+            'buildNumber' : env.BUILD_NUMBER,
+            'buildResult': buildResult,
+    ]
+    def engine = new groovy.text.SimpleTemplateEngine()
+    def template = engine.createTemplate(text).make(binding)
+    return template.toString()
+}
 //new File(fileName).withPrintWriter { printWriter ->
 //    printWriter.println('The first content of file')
 //}
