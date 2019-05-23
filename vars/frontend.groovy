@@ -22,9 +22,9 @@ def call(Map map, env) {
         }
 
         // 添加环境变量
-        environment {
-            tags = map.imageTags
-        }
+//        environment {
+//            tags = map.imageTags
+//        }
 
 //        stages {
 //            stage('Compile') {
