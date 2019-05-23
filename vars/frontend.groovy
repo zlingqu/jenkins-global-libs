@@ -78,7 +78,7 @@ ENTRYPOINT nginx -g "daemon off;"
 '''
 }
 
-def createDockerFile(fileName = 'Dockerfile', content) {
+def createDockerFile(fileName = 'Dockerfile') {
     def file = new File(fileName)
     if (file.exists())
         file.delete()
