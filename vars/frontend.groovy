@@ -1,3 +1,5 @@
+import java.io.File
+
 def baseTemplateName() {
     return 'base-template'
 }
@@ -49,14 +51,44 @@ spec:
     tty: true
     resources:
       limits:
-        memory: 9000Mi
-        cpu: 6000m
-      requests:
-        cpu: 5000m
         memory: 8000Mi
+        cpu: 5500m
+      requests:
+        cpu: 4500m
+        memory: 7000Mi
   volumes:
   - name: sock
     hostPath:
       path: /var/run/docker.sock      
 """
+}
+
+
+def dockerFileContent() {
+    return '''
+FROM nginx
+LABEL maintainer="qinyadong"
+ENV TZ=Asia/Shanghai
+ADD dist /usr/share/nginx/html
+ADD nginx.conf /etc/nginx/conf.d/default.conf
+RUN ln -sf /dev/stdout /var/log/nginx/access.log
+RUN ln -sf /dev/stderr /var/log/nginx/error.log
+EXPOSE 80
+ENTRYPOINT nginx -g "daemon off;"
+'''
+}
+
+def createDockerFile(fileName = 'Dockerfile', content) {
+    def file = new File(fileName)
+    if (file.exists())
+        file.delete()
+    def printWriter = file.newPrintWriter() //
+    printWriter.write(dockerFileContent())
+
+    printWriter.flush()
+    printWriter.close()
+}
+
+new File(fileName).withPrintWriter { printWriter ->
+    printWriter.println('The first content of file')
 }
