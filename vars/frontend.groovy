@@ -35,6 +35,32 @@ def call(Map map, env) {
             }
         }
 
+        post {
+            always {
+                echo "over!!"
+            }
+
+            failure {
+                script {
+                    emailext (
+                            body: showEnv(env, 'success'),
+                            subject: 'Jenkins build faild info',
+                            to: 'zuosheng@dm-ai.cn'
+                    )
+                }
+            }
+
+            success {
+                script {
+                    emailext (
+                            body: showEnv(env, 'success'),
+                            subject: 'Jenkins build success info',
+                            to: 'zuosheng@dm-ai.cn'
+                    )
+                }
+            }
+        }
+
 //        stages {
 //            stage('Compile') {
 //                steps {
