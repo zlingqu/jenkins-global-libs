@@ -33,8 +33,8 @@ spec:
         memory: 4000Mi
         cpu: 2000m
       requests:
-        cpu: 200m
-        memory: 500Mi
+        cpu: 1500m
+        memory: 3000Mi
   - name: yarn-compile
     image: docker.dm-ai.cn/devops/base-image-compile-frontend:0.01
     imagePullPolicy: IfNotPresent

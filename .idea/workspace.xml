@@ -40,8 +40,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/frontend.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="32" column="17" selection-start-line="32" selection-start-column="17" selection-end-line="32" selection-end-column="17" />
+            <state relative-caret-position="495">
+              <caret line="33" column="14" selection-start-line="33" selection-start-column="14" selection-end-line="33" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -162,54 +162,11 @@
             <path>
               <item name="jenkins-global-libs" type="b2602c69:ProjectViewProjectNode" />
               <item name="jenkins-global-libs" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="jenkins-global-libs" type="b2602c69:ProjectViewProjectNode" />
-              <item name="jenkins-global-libs" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="jenkins" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="jenkins-global-libs" type="b2602c69:ProjectViewProjectNode" />
-              <item name="jenkins-global-libs" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="jenkins" type="462c0819:PsiDirectoryNode" />
-              <item name="docker" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="jenkins-global-libs" type="b2602c69:ProjectViewProjectNode" />
-              <item name="jenkins-global-libs" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="jenkins" type="462c0819:PsiDirectoryNode" />
-              <item name="util" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="jenkins-global-libs" type="b2602c69:ProjectViewProjectNode" />
-              <item name="jenkins-global-libs" type="462c0819:PsiDirectoryNode" />
               <item name="vars" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="jenkins-global-libs" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-            </path>
-            <path>
-              <item name="jenkins-global-libs" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="groovy-2.5.6" type="70bed36:NamedLibraryElementNode" />
-            </path>
-            <path>
-              <item name="jenkins-global-libs" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="groovy-2.5.6" type="70bed36:NamedLibraryElementNode" />
-              <item name="groovy-templates-2.5.6.jar" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="jenkins-global-libs" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="groovy-2.5.6" type="70bed36:NamedLibraryElementNode" />
-              <item name="groovy-templates-2.5.6.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="text" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -501,8 +458,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/frontend.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="32" column="17" selection-start-line="32" selection-start-column="17" selection-end-line="32" selection-end-column="17" />
+        <state relative-caret-position="495">
+          <caret line="33" column="14" selection-start-line="33" selection-start-column="14" selection-end-line="33" selection-end-column="14" />
         </state>
       </provider>
     </entry>
