@@ -30,11 +30,11 @@ spec:
     tty: true
     resources:
       limits:
-        memory: 10000Mi
-        cpu: 6000m
+        memory: 500Mi
+        cpu: 300m
       requests:
-        cpu: 2000m
-        memory: 4000Mi
+        cpu: 100m
+        memory: 2000Mi
   - name: yarn-compile
     image: docker.dm-ai.cn/devops/base-image-compile-frontend:0.03
     imagePullPolicy: IfNotPresent
@@ -49,11 +49,11 @@ spec:
     tty: true
     resources:
       limits:
-        memory: 500Mi
-        cpu: 300m
+        memory: 9000Mi
+        cpu: 5000m
       requests:
-        cpu: 100m
-        memory: 200Mi        
+        cpu: 4000m
+        memory: 8000Mi
   volumes:
   - name: sock
     hostPath:
