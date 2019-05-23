@@ -35,6 +35,25 @@ spec:
       requests:
         cpu: 100m
         memory: 200Mi
+  - name: yarn-compile
+    image: docker.dm-ai.cn/devops/base-image-compile-frontend:0.01
+    imagePullPolicy: IfNotPresent
+    env: #指定容器中的环境变量
+    - name: DMAI_PRIVATE_DOCKER_REGISTRY
+      value: docker.dm-ai.cn
+    command:
+    - "/bin/sh"
+    - "-c"
+    args:
+    - "cat"
+    tty: true
+    resources:
+      limits:
+        memory: 500Mi
+        cpu: 300m
+      requests:
+        cpu: 100m
+        memory: 200Mi        
   volumes:
   - name: sock
     hostPath:
