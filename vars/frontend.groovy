@@ -1,5 +1,9 @@
 import java.io.File
 
+def call(Map map, env) {
+    println(env)
+}
+
 def baseTemplateName() {
     return 'base-template'
 }
