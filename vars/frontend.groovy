@@ -79,16 +79,16 @@ ENTRYPOINT nginx -g "daemon off;"
 }
 
 def createDockerFile(fileName = 'Dockerfile') {
+    println("woshitest")
     def file = new File(fileName)
     if (file.exists())
         file.delete()
     def printWriter = file.newPrintWriter() //
     printWriter.write(dockerFileContent())
-
     printWriter.flush()
     printWriter.close()
 }
 
-new File(fileName).withPrintWriter { printWriter ->
-    printWriter.println('The first content of file')
-}
+//new File(fileName).withPrintWriter { printWriter ->
+//    printWriter.println('The first content of file')
+//}
