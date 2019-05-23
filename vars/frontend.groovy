@@ -49,11 +49,11 @@ spec:
     tty: true
     resources:
       limits:
-        memory: 8000Mi
-        cpu: 4000m
+        memory: 9000Mi
+        cpu: 6000m
       requests:
-        cpu: 3000m
-        memory: 6000Mi
+        cpu: 5000m
+        memory: 8000Mi
   volumes:
   - name: sock
     hostPath:
