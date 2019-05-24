@@ -213,12 +213,13 @@ ENTRYPOINT nginx -g "daemon off;"
 def createDockerFile(fileName = 'Dockerfile') {
     println("woshitest")
     def file = new File(fileName)
-    if (file.exists())
-        file.delete()
-    def printWriter = file.newPrintWriter() //
-    printWriter.write(dockerFileContent())
-    printWriter.flush()
-    printWriter.close()
+    println(file.getCanonicalPath())
+//    if (file.exists())
+//        file.delete()
+//    def printWriter = file.newPrintWriter() //
+//    printWriter.write(dockerFileContent())
+//    printWriter.flush()
+//    printWriter.close()
 }
 
 
