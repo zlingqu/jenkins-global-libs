@@ -31,7 +31,12 @@ def call(Map map, env) {
         stages {
             stage('Compile') {
                 steps {
-                    container('yarn-compile') {
+                    container('compile') {
+                        script {
+                            println("创建构建需要的标准化Dockerfile。")
+                            def dockerFileContent = createDockerFile()
+                            sh 'echo ${dockerFileContent}'
+                        }
                         sh 'hostname'
                         sh 'pwd && chmod -R 777 `pwd`'
                         createDockerFile('/tmp/test')
@@ -72,7 +77,7 @@ def call(Map map, env) {
 //        stages {
 //            stage('Compile') {
 //                steps {
-//                    container('yarn-compile') {
+//                    container('compile') {
 //                        sh '''
 //                    chmod -R 777 `pwd`
 //                    npm config set registry=http://192.168.3.13:8081/repository/npm/
@@ -172,7 +177,7 @@ spec:
       requests:
         cpu: 400m
         memory: 600Mi
-  - name: yarn-compile
+  - name: compile
     image: docker.dm-ai.cn/devops/base-image-compile-frontend:0.03
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
