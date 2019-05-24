@@ -32,6 +32,7 @@ def call(Map map, env) {
             stage('Compile') {
                 steps {
                     container('yarn-compile') {
+                        sh 'hostname'
                         sh 'pwd && chmod -R 777 `pwd`'
                         sh 'sleep 60000'
                         createDockerFile('/home/jenkins/workspace/' + env.JOB_NAME.split("/")[0] + '_' + env.BRANCH_NAME + '/Dockerfile')
