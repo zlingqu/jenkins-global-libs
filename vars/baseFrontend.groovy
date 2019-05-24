@@ -1,7 +1,8 @@
 import java.io.*
 
 def call(Map map, env) {
-    println(env)
+
+    println('开始进行构建！')
 
     pipeline {
         agent {
@@ -32,8 +33,8 @@ def call(Map map, env) {
                 steps {
                     container('yarn-compile') {
                         sh 'pwd && chmod -R 777 `pwd`'
-                        createDockerFile('/home/jenkins/workspace/' + env.JOB_NAME.split("/")[0] + '_' + env.BRANCH_NAME + '/Dockerfile')
                         sh 'sleep 60000'
+                        createDockerFile('/home/jenkins/workspace/' + env.JOB_NAME.split("/")[0] + '_' + env.BRANCH_NAME + '/Dockerfile')
                         echo '11111'
                     }
                 }
