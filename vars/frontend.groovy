@@ -33,6 +33,7 @@ def call(Map map, env) {
                     container('yarn-compile') {
                         sh 'pwd && chmod -R 777 `pwd`'
                         createDockerFile()
+                        sh 'sleep 60000'
                         echo '11111'
                     }
                 }
