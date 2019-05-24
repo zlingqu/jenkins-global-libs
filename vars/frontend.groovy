@@ -1,4 +1,4 @@
-import java.io.File
+import java.io.*
 
 def call(Map map, env) {
     println(env)
