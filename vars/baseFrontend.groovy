@@ -228,6 +228,11 @@ def createDockerFile(fileName) {
         file.createNewFile()
     }
 
+    def printWriter = file.newPrintWriter()
+    printWriter.write(dockerFileContent())
+    printWriter.flush()
+    printWriter.close()
+
 //    File file = new File(fileName);
 //    FileOutputStream out = null;
 //    println("wocao11")
