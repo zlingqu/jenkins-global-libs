@@ -214,6 +214,19 @@ def createDockerFile(fileName) {
     println("woshitest")
     def file = new File(fileName)
     println(file.getCanonicalPath())
+
+    if(!file.exists()){
+        //先得到文件的上级目录，并创建上级目录，在创建文件
+        file.getParentFile().mkdir();
+        try {
+            //创建文件
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    println(22222222222)
     if (file.exists())
         file.delete()
     println(1111111111)
