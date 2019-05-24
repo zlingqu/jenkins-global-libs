@@ -212,32 +212,33 @@ ENTRYPOINT nginx -g "daemon off;"
 
 def createDockerFile(fileName) {
 
-    File file = new File(fileName);
-    FileOutputStream out = null;
-    println("wocao11")
-    try {
-        System.out.println(fileName);
-        if (file.exists()) {
-            file.delete()
-        }
 
-        if (!file.exists()) {
-            // 先得到文件的上级目录，并创建上级目录，在创建文件
-            file.getParentFile().mkdir();
-            file.createNewFile();
-        }
-
-        //创建文件输出流
-        out = new FileOutputStream(file);
-        //将字符串转化为字节
-        byte[] byteArr = "FileInputStream Test".getBytes();
-        out.write(byteArr);
-        out.close();
-    } catch (FileNotFoundException e) {
-        e.printStackTrace();
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
+//    File file = new File(fileName);
+//    FileOutputStream out = null;
+//    println("wocao11")
+//    try {
+//        System.out.println(fileName);
+//        if (file.exists()) {
+//            file.delete()
+//        }
+//
+//        if (!file.exists()) {
+//            // 先得到文件的上级目录，并创建上级目录，在创建文件
+//            file.getParentFile().mkdir();
+//            file.createNewFile();
+//        }
+//
+//        //创建文件输出流
+//        out = new FileOutputStream(file);
+//        //将字符串转化为字节
+//        byte[] byteArr = "FileInputStream Test".getBytes();
+//        out.write(byteArr);
+//        out.close();
+//    } catch (FileNotFoundException e) {
+//        e.printStackTrace();
+//    } catch (IOException e) {
+//        e.printStackTrace();
+//    }
 
 //    println("woshitest")
 //
