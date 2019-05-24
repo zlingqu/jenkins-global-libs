@@ -32,7 +32,7 @@ def call(Map map, env) {
                 steps {
                     container('yarn-compile') {
                         sh 'pwd && chmod -R 777 `pwd`'
-                        createDockerFile()
+                        createDockerFile('/home/jenkins/workspace/' + env.JOB_NAME.split("/")[0] + '_' + env.BRANCH_NAME)
                         sh 'sleep 60000'
                         echo '11111'
                     }
@@ -210,7 +210,7 @@ ENTRYPOINT nginx -g "daemon off;"
 '''
 }
 
-def createDockerFile(fileName = 'Dockerfile') {
+def createDockerFile(fileName = '/home/jenkins/workspace//Dockerfile') {
     println("woshitest")
     def file = new File(fileName)
     println(file.getCanonicalPath())
