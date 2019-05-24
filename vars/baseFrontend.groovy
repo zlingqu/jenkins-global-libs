@@ -215,6 +215,7 @@ def createDockerFile(fileName) {
     file = new File(fileName)
     println(1111111)
     println(fileName)
+    println(file)
 //    File file = new File(fileName);
 //    FileOutputStream out = null;
 //    println("wocao11")
