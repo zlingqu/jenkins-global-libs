@@ -211,10 +211,15 @@ ENTRYPOINT nginx -g "daemon off;"
 }
 
 def createDockerFile(fileName) {
+
     File file = new File(fileName);
     FileOutputStream out = null;
-
     try {
+        System.println(fileName)
+        if (file.exists()) {
+            file.delete()
+        }
+
         if (!file.exists()) {
             // 先得到文件的上级目录，并创建上级目录，在创建文件
             file.getParentFile().mkdir();
