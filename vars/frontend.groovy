@@ -214,6 +214,7 @@ def createDockerFile(fileName) {
 
     File file = new File(fileName);
     FileOutputStream out = null;
+    println("wocao11")
     try {
         System.println(fileName)
         if (file.exists()) {
