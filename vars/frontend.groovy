@@ -30,7 +30,11 @@ def call(Map map, env) {
         stages {
             stage('Compile') {
                 steps {
-                    echo '11111'
+                    container('yarn-compile') {
+                        sh 'pwd && chmod -R 777 `pwd`'
+                        createDockerFile()
+                        echo '11111'
+                    }
                 }
             }
         }
