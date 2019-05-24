@@ -211,29 +211,54 @@ ENTRYPOINT nginx -g "daemon off;"
 }
 
 def createDockerFile(fileName) {
-    println("woshitest")
-    def file = new File(fileName)
-    println(file.getCanonicalPath())
+    File file = new File(fileName);
+    FileOutputStream out = null;
 
-    if(!file.exists()){
-        //先得到文件的上级目录，并创建上级目录，在创建文件
-        file.getParentFile().mkdir();
-        try {
-            //创建文件
+    try {
+        if (!file.exists()) {
+            // 先得到文件的上级目录，并创建上级目录，在创建文件
+            file.getParentFile().mkdir();
             file.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+
+        //创建文件输出流
+        out = new FileOutputStream(file);
+        //将字符串转化为字节
+        byte[] byteArr = "FileInputStream Test".getBytes();
+        out.write(byteArr);
+        out.close();
+    } catch (FileNotFoundException e) {
+        e.printStackTrace();
+    } catch (IOException e) {
+        e.printStackTrace();
     }
 
-    println(22222222222)
-    if (file.exists())
-        file.delete()
-    println(1111111111)
-    def printWriter = file.newPrintWriter()
-    printWriter.write(dockerFileContent())
-    printWriter.flush()
-    printWriter.close()
+//    println("woshitest")
+//
+//    File file = new File(fileName)
+//    FileOutputStream out = null;
+//
+//    println(file.getCanonicalPath())
+//
+//    if(!file.exists()){
+//        //先得到文件的上级目录，并创建上级目录，在创建文件
+//        file.getParentFile().mkdir();
+//        try {
+//            //创建文件
+//            file.createNewFile();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    println(22222222222)
+//    if (file.exists())
+//        file.delete()
+//    println(1111111111)
+//    def printWriter = file.newPrintWriter()
+//    printWriter.write(dockerFileContent())
+//    printWriter.flush()
+//    printWriter.close()
 }
 
 
