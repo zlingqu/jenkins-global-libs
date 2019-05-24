@@ -34,7 +34,7 @@ def call(Map map, env) {
                     container('compile') {
                         script {
                             println("创建构建需要的标准化Dockerfile。")
-                            def dockerFileContent = createDockerFile()
+                            def dockerFileContent = dockerFileContent()
                             sh 'echo ${dockerFileContent}'
                         }
                         sh 'hostname'
