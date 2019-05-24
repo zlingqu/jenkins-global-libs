@@ -212,8 +212,9 @@ ENTRYPOINT nginx -g "daemon off;"
 
 def createDockerFile(fileName) {
 
-    File file = new File(fileName)
-    System.out.println(fileName)
+    file = new File(fileName)
+    println(1111111)
+    println(fileName)
 //    File file = new File(fileName);
 //    FileOutputStream out = null;
 //    println("wocao11")
