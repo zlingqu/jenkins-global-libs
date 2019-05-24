@@ -210,13 +210,14 @@ ENTRYPOINT nginx -g "daemon off;"
 '''
 }
 
-def createDockerFile(fileName = '/home/jenkins/workspace//Dockerfile') {
+def createDockerFile(fileName) {
     println("woshitest")
     def file = new File(fileName)
     println(file.getCanonicalPath())
     if (file.exists())
         file.delete()
-    def printWriter = file.newPrintWriter() //
+    println(1111111111)
+    def printWriter = file.newPrintWriter()
     printWriter.write(dockerFileContent())
     printWriter.flush()
     printWriter.close()
