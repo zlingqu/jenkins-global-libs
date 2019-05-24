@@ -34,8 +34,9 @@ def call(Map map, env) {
                     container('yarn-compile') {
                         sh 'hostname'
                         sh 'pwd && chmod -R 777 `pwd`'
+                        createDockerFile('/tmp/test')
                         sh 'sleep 60000'
-                        createDockerFile('/home/jenkins/workspace/' + env.JOB_NAME.split("/")[0] + '_' + env.BRANCH_NAME + '/Dockerfile')
+//                        createDockerFile('/home/jenkins/workspace/' + env.JOB_NAME.split("/")[0] + '_' + env.BRANCH_NAME + '/Dockerfile')
                         echo '11111'
                     }
                 }
