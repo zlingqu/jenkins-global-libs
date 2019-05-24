@@ -216,6 +216,15 @@ def createDockerFile(fileName) {
     println(1111111)
     println(fileName)
     println(file)
+
+    if (file.exists()) {
+        println("文件存在，删除文件！！")
+        file.delete()
+    } else {
+        println("文件不存在！！！")
+        file.createNewFile()
+    }
+
 //    File file = new File(fileName);
 //    FileOutputStream out = null;
 //    println("wocao11")
