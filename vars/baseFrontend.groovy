@@ -26,6 +26,7 @@ def call(Map map, env) {
         // 添加环境变量
         environment {
             tags = "${map.REPO_URL}"
+            dockerFile = dockerFileContent()
         }
 
         stages {
@@ -35,7 +36,7 @@ def call(Map map, env) {
                         script {
                             println("创建构建需要的标准化Dockerfile。")
                             def dockerFileContent = dockerFileContent()
-                            sh 'echo ${dockerFileContent}'
+                            sh 'echo $dockerFile'
                         }
                         sh 'hostname'
                         sh 'pwd && chmod -R 777 `pwd`'
