@@ -52,8 +52,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/baseFrontend.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="327">
-              <caret line="396" selection-start-line="396" selection-end-line="396" />
+            <state relative-caret-position="540">
+              <caret line="36" selection-start-line="36" selection-end-line="36" />
             </state>
           </provider>
         </entry>
@@ -139,8 +139,8 @@
       <find>$dockerComposeFile</find>
       <find>dockerComposeFile</find>
       <find>\n</find>
-      <find>yarnTemplate</find>
       <find>map</find>
+      <find>yarnTemplate</find>
     </findStrings>
     <replaceStrings>
       <replace>compile</replace>
@@ -604,8 +604,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/baseFrontend.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="396" selection-start-line="396" selection-end-line="396" />
+        <state relative-caret-position="540">
+          <caret line="36" selection-start-line="36" selection-end-line="36" />
         </state>
       </provider>
     </entry>
