@@ -318,14 +318,21 @@ ENTRYPOINT nginx -g "daemon off;"
 '''
 }
 
-def dockerComposeFile() {
-    return """
-version: '2'\n
-services:\n
-  service-docker-build:\n
-    build: ./\n
-    image: ${DMAI_PRIVATE_DOCKER_REGISTRY}/mis/work-attendance-frontend:0.0.0.11\n
+def dockerComposeFile(map) {
+    def text = """
+version: '2'
+services:
+  service-docker-build:
+    build: ./
+    image: $dockerRegistryHost/$imageUrlPath:$imageTags
 """
+    def binding = [
+            'imageUrlPath' : map.imageUrlPath,
+            'imageTags' : map.imageTags,
+            'dockerRegistryHost' : map.dockerRegistryHost,
+    ]
+
+    return simpleTemplate(text, binding)
 }
 
 def kubernetesContent() {
@@ -474,6 +481,11 @@ def emailBody(env, buildResult) {
     return template.toString()
 }
 
+def simpleTemplate(text, binding) {
+    def engine = new groovy.text.SimpleTemplateEngine()
+    def template = engine.createTemplate(text).make(binding)
+    return template.toString()
+}
 //new File(fileName).withPrintWriter { printWriter ->
 //    printWriter.println('The first content of file')
 //}
