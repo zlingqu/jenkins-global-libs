@@ -48,7 +48,7 @@ def call(Map map, env) {
                     container('docker-compose') {
                         println('【创建Dockerfile】')
                         echo dockerFile
-                        sh 'echo "${$dockerFile}"'
+                        sh 'echo "${dockerFile}"'
                         sh 'echo -e $dockerFile > Dockerfile'
                         sh 'printf $dockerFile'
 
