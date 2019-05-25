@@ -5,16 +5,16 @@ def call(Map map, env) {
     println('开始进行构建！')
 
     pipeline {
-        agent {
-            kubernetes {
-                cloud 'kubernetes-test'
-                label 'yarnTemplate'
-                defaultContainer 'jnlp'
-                namespace 'devops'
-                inheritFrom baseTemplateName()
-                yaml yarnTemplate()
-            }
-        }
+//        agent {
+//            kubernetes {
+//                cloud 'kubernetes-test'
+//                label 'yarnTemplate'
+//                defaultContainer 'jnlp'
+//                namespace 'devops'
+//                inheritFrom baseTemplateName()
+//                yaml yarnTemplate()
+//            }
+//        }
 
         // 设置整个pipeline 的超时时间为 1个小时
 
