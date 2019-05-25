@@ -34,8 +34,6 @@ def call(Map map, env) {
                         println("【开始进行编译】")
                         sh '''
                             npm config set registry=http://192.168.3.13:8081/repository/npm/
-//                            npm install
-//                            npm run build
                            '''
                     }
                 }
