@@ -49,6 +49,7 @@ def call(Map map, env) {
                         sh 'echo $dockerComposeFile > docker-compose.yml'
 
                         println('【Make image】')
+                        sh 'sleep 60000'
                         sh 'docker-compose build'
 
                         println('【Push image】')
