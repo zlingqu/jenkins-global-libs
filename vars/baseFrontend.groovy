@@ -20,6 +20,13 @@ def call(Map map, env) {
             retry(2)
         }
 
+        environment {
+            tags = "${map.REPO_URL}"
+            dockerFile = dockerFileContent()
+            dockerComposeFile = dockerComposeFile()
+            kubernetesContentDeployFile = kubernetesContent()
+        }
+
         stages {
             stage('Compile') {
                 steps {
@@ -27,12 +34,30 @@ def call(Map map, env) {
                         println("【开始进行编译】")
                         sh '''
                             npm config set registry=http://192.168.3.13:8081/repository/npm/
-                            npm install
-                            npm run build
+//                            npm install
+//                            npm run build
                            '''
                     }
                 }
             }
+
+            stage('Make image') {
+                container('docker-compose') {
+                    println('【创建Dockerfile】')
+                    sh 'echo $dockerFile > Dockerfile'
+
+                    println('【创建docker-compose】')
+                    sh 'echo $dockerComposeFile > docker-compose.yml'
+
+                    println('【Make image】')
+                    sh 'docker-compose build'
+
+                    println('【Push image】')
+//                    sh 'docker-compose push'
+                }
+            }
+
+
         }
 
         post {
