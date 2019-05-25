@@ -226,7 +226,7 @@ spec:
   - port: 80
     protocol: TCP
     targetPort: 80
-    nodePort: 31399
+    nodePort: $nodePort
   selector:
     app: $appName
   type: NodePort
@@ -266,7 +266,8 @@ spec:
             'imageUrlPath' : map.imageUrlPath,
             'imageTags' : map.imageTags,
             'dockerRegistryHost' : map.dockerRegistryHost,
-            'appName' : map.appName
+            'appName' : map.appName,
+            'nodePort' : '31377'
     ]
 
     return simpleTemplate(text, binding)
@@ -291,6 +292,7 @@ def simpleTemplate(text, binding) {
 /*
 nodePort : 部署在k8s集群环境上的，nodePort默认暴露的端口
 */
+
 def globalAppPort = [
         'frontend-test': [
                 'nodePort' : '31377',
