@@ -319,13 +319,13 @@ ENTRYPOINT nginx -g "daemon off;"
 }
 
 def dockerComposeFile(map) {
-    def text = """
-version: '2'
+    def text = '''
+version: "2"
 services:
   service-docker-build:
     build: ./
     image: $dockerRegistryHost/$imageUrlPath:$imageTags
-"""
+'''
     def binding = [
             'imageUrlPath' : map.imageUrlPath,
             'imageTags' : map.imageTags,
@@ -386,6 +386,7 @@ spec:
         ports:
         - containerPort: 80
 '''
+
 }
 
 def createDockerFile(fileName) {
