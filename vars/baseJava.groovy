@@ -15,7 +15,7 @@ def call(Map map, env) {
     pipeline {
         agent {
             kubernetes {
-                cloud 'kubernetes-test'
+                cloud 'kubernetes-online'
                 label 'dmaiConfluencePluginTemplate'
                 defaultContainer 'jnlp'
                 namespace 'devops'
@@ -165,7 +165,7 @@ spec:
         cpu: 400m
         memory: 600Mi
         
-  - name: compile
+  - name: plugin
     image: docker.dm-ai.cn/devops/base-image-compiledmai-confluence-plugin:0.03
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
@@ -174,6 +174,9 @@ spec:
     volumeMounts:
     - name: sock
       mountPath: /var/run/docker.sock
+    - name: dmai-confluence-plugin
+      mountPath: /root/.m2
+      subPath: jenkins_home/dmai-confluence-plugin       
     command:
     - "/bin/sh"
     - "-c"
@@ -191,6 +194,9 @@ spec:
   - name: sock
     hostPath:
       path: /var/run/docker.sock
+  - name: dmai-confluence-plugin
+      persistentVolumeClaim:
+        claimName: mypvc         
 """
 }
 
@@ -280,7 +286,7 @@ spec:
       volumes:
       - name: dmai-confluence-plugin
         persistentVolumeClaim:
-          claimName: mypvc      
+          claimName: mypvc     
 '''
     def binding = [
             'imageUrlPath' : map.imageUrlPath,
