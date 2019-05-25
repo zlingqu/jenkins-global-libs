@@ -24,12 +24,12 @@ def call(Map map, env) {
         }
 
         // 添加环境变量
-        environment {
-            tags = "${map.REPO_URL}"
+//        environment {
+//            tags = "${map.REPO_URL}"
 //            dockerFile = dockerFileContent()
 //            dockerComposeFile = dockerComposeFile()
 //            kubernetesContentDeployFile = kubernetesContent()
-        }
+//        }
 
 //        stages {
 //            stage('Compile') {
