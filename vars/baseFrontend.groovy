@@ -289,6 +289,7 @@ def simpleTemplate(text, binding) {
     def template = engine.createTemplate(text).make(binding)
     return template.toString()
 }
+
 /*
 nodePort : 部署在k8s集群环境上的，nodePort默认暴露的端口
 */
