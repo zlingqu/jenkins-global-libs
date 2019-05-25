@@ -200,6 +200,7 @@ def dockerFileContent() {
 FROM docker.dm-ai.cn/devops/base-image-compiledmai-confluence-plugin:0.01
 ENV TZ=Asia/Shanghai
 ADD ./ /workspace/code
+WORKDIR /workspace/code
 '''
 }
 
