@@ -14,6 +14,20 @@ def call(Map map, env) {
                 yaml yarnTemplate()
             }
         }
+
+        options {
+            timeout(time:1, unit: 'HOURS')
+            retry(2)
+        }
+
+        stages {
+            stage('Compile') {
+                steps {
+                    println("wocao")
+                }
+            }
+        }
+
     }
     pipeline {
 //        agent {
