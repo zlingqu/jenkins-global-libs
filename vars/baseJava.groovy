@@ -285,10 +285,10 @@ spec:
           value: Asia/Shanghai
         resources:
           limits:
-            memory: 2000Mi
+            memory: 5000Mi
           requests:
-            cpu: 500m
-            memory: 1000Mi
+            cpu: 2000m
+            memory: 3000Mi
         ports:
         - containerPort: 1990
         volumeMounts:
