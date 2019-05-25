@@ -49,11 +49,10 @@ def call(Map map, env) {
                         sh 'echo -e "${dockerComposeFile}" > docker-compose.yml'
 
                         println('【Make image】')
-                        sh 'sleep 60000'
                         sh 'docker-compose build'
 
                         println('【Push image】')
-                    sh 'docker-compose push'
+                        sh 'docker-compose push'
                     }
                 }
             }
@@ -219,8 +218,8 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: work-attendance-frontend
-  name: work-attendance-frontend
+    app: $appName
+  name: $appName
   namespace: mis
 spec:
   ports:
@@ -229,21 +228,21 @@ spec:
     targetPort: 80
     nodePort: 31399
   selector:
-    app: work-attendance-frontend
+    app: $appName
   type: NodePort
 
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: work-attendance-frontend
+  name: $appName
   namespace: mis
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: work-attendance-frontend
+        app: $appName
     spec:
       imagePullSecrets:
       - name: regsecret
@@ -267,6 +266,7 @@ spec:
             'imageUrlPath' : map.imageUrlPath,
             'imageTags' : map.imageTags,
             'dockerRegistryHost' : map.dockerRegistryHost,
+            'appName' : map.appName
     ]
 
     return simpleTemplate(text, binding)
@@ -294,6 +294,11 @@ def simpleTemplate(text, binding) {
     def template = engine.createTemplate(text).make(binding)
     return template.toString()
 }
-//new File(fileName).withPrintWriter { printWriter ->
-//    printWriter.println('The first content of file')
-//}
+/*
+nodePort : 部署在k8s集群环境上的，nodePort默认暴露的端口
+*/
+def globalAppPort = [
+        'frontend-test': [
+                'nodePort' : '31377',
+        ]
+]
