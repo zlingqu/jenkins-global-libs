@@ -5,11 +5,11 @@ def call(Map map, env) {
     println('开始进行构建！')
 
     pipeline {
-        agent {
-            kubernetes {
-                cloud 'kubernetes-test'
-            }
-        }
+//        agent {
+//            kubernetes {
+//                cloud 'kubernetes-test'
+//            }
+//        }
 
         // 设置整个pipeline 的超时时间为 1个小时
 
