@@ -61,7 +61,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/baseJava.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
+            <state relative-caret-position="262">
               <caret line="202" column="23" lean-forward="true" selection-start-line="202" selection-start-column="23" selection-end-line="202" selection-end-column="23" />
             </state>
           </provider>
@@ -150,12 +150,15 @@
       <find>emailBody</find>
       <find>yarnTemplate</find>
       <find>base-image-compiledmai-confluence-plugin:</find>
+      <find>0.01</find>
+      <find>0.02</find>
     </findStrings>
     <replaceStrings>
       <replace>compile</replace>
       <replace>emailBody</replace>
       <replace>$appName</replace>
       <replace>dmaiConfluencePluginTemplate</replace>
+      <replace>0.03</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -631,7 +634,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/baseJava.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
+        <state relative-caret-position="262">
           <caret line="202" column="23" lean-forward="true" selection-start-line="202" selection-start-column="23" selection-end-line="202" selection-end-column="23" />
         </state>
       </provider>
