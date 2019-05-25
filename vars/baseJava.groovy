@@ -246,7 +246,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: $appName
-  namespace: mis
+  namespace: devops
 spec:
   replicas: 1
   template:
