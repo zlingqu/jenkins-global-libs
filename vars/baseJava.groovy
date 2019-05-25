@@ -64,9 +64,6 @@ def call(Map map, env) {
                         println('【Push image】')
                         sh 'docker-compose push'
 
-                        println('【执行插件热拔插】')
-                        sh 'sleep 6000'
-                        sh '$plugCommand'
                     }
                 }
             }
@@ -78,6 +75,16 @@ def call(Map map, env) {
                         sh 'echo "${kubernetesContentDeployFile}" > Deploy-k8s.yml'
                         println('【执行部署】')
                         sh 'kubectl apply -f Deploy-k8s.yml'
+                    }
+                }
+            }
+
+            stage('plug') {
+                steps {
+                    container('plugin') {
+                        println('【Plugin】') {
+                            sh '$plugCommand'
+                        }
                     }
                 }
             }
