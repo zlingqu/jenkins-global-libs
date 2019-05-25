@@ -23,7 +23,12 @@ def call(Map map, env) {
         stages {
             stage('Compile') {
                 steps {
-                    println("wocao")
+                    container('compile') {
+                        println("【开始进行编译】")
+                        sh '''
+                            echo 111111
+                           '''
+                    }
                 }
             }
         }
