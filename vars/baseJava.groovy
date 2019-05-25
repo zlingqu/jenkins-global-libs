@@ -262,7 +262,7 @@ spec:
         image: $dockerRegistryHost/$imageUrlPath:$imageTags
         imagePullPolicy: Always #
         command:
-        - "/workspace/alertmanager/alertmanager""
+        - "/workspace/atlassian-plugin/bin/atlas-debug"
         env: #指定容器中的环境变量
         - name: TZ
           value: Asia/Shanghai
