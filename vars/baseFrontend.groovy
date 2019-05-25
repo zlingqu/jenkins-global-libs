@@ -227,7 +227,7 @@ spec:
   - port: 80
     protocol: TCP
     targetPort: 80
-    nodePort: 30800
+    nodePort: 31399
   selector:
     app: work-attendance-frontend
   type: NodePort
