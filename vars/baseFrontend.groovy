@@ -20,10 +20,6 @@ def call(Map map, env) {
             retry(2)
         }
 
-        parameters {
-            string(name:'Jenkins',defaultValue:'Hello\n22222222222',description:'How should I greet the world')
-        }
-
         environment {
             tags = "${map.REPO_URL}"
             dockerFile = dockerFileContent()
@@ -47,13 +43,10 @@ def call(Map map, env) {
                 steps {
                     container('docker-compose') {
                         println('【创建Dockerfile】')
-                        echo dockerFile
-                        sh 'echo "${dockerFile}"'
-                        sh 'echo -e $dockerFile > Dockerfile'
-                        sh 'printf $dockerFile'
+                        sh 'echo "${dockerFile}" > Dockerfile'
 
                         println('【创建docker-compose】')
-                        sh 'echo -e $dockerComposeFile > docker-compose.yml'
+                        sh 'echo -e "${dockerComposeFile}" > docker-compose.yml'
 
                         println('【Make image】')
                         sh 'sleep 60000'
