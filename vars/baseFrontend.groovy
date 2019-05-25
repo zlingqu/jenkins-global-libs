@@ -325,7 +325,6 @@ services:
   service-docker-build:
     build: ./
     image: ${DMAI_PRIVATE_DOCKER_REGISTRY}/mis/work-attendance-frontend:0.0.0.11
-
 """
 }
 
