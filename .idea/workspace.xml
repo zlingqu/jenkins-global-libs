@@ -52,8 +52,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/baseFrontend.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
-              <caret line="265" column="46" lean-forward="true" selection-start-line="265" selection-start-column="46" selection-end-line="265" selection-end-column="46" />
+            <state relative-caret-position="233">
+              <caret line="274" selection-start-line="274" selection-end-line="274" />
             </state>
           </provider>
         </entry>
@@ -145,6 +145,8 @@
       <find>Kubectl</find>
       <find>30800</find>
       <find>work-attendance-frontend</find>
+      <find>emailBody</find>
+      <find>faildBody</find>
     </findStrings>
     <replaceStrings>
       <replace>compile</replace>
@@ -608,8 +610,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/baseFrontend.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="265" column="46" lean-forward="true" selection-start-line="265" selection-start-column="46" selection-end-line="265" selection-end-column="46" />
+        <state relative-caret-position="233">
+          <caret line="274" selection-start-line="274" selection-end-line="274" />
         </state>
       </provider>
     </entry>

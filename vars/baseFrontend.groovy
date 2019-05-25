@@ -272,10 +272,6 @@ spec:
     return simpleTemplate(text, binding)
 }
 
-def faildBody(jobName) {
-    return """Job build faild. Address : Address : http://jenkins.ops.dm-ai.cn/blue/organizations/jenkins/""" + jobName + """/detail/${env.BRANCH_NAME}/${env.BUILD_NUMBER}/pipeline"""
-}
-
 def emailBody(env, buildResult) {
     def text = 'Job build $buildResult Address : http://jenkins.ops.dm-ai.cn/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline'
     def binding = [
@@ -284,9 +280,7 @@ def emailBody(env, buildResult) {
             'buildNumber' : env.BUILD_NUMBER,
             'buildResult': buildResult,
     ]
-    def engine = new groovy.text.SimpleTemplateEngine()
-    def template = engine.createTemplate(text).make(binding)
-    return template.toString()
+    return simpleTemplate(text, binding)
 }
 
 def simpleTemplate(text, binding) {
