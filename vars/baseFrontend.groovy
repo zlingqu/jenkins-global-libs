@@ -18,10 +18,10 @@ def call(Map map, env) {
 
         // 设置整个pipeline 的超时时间为 1个小时
 
-        options {
-            timeout(time:1, unit: 'HOURS')
-            retry(2)
-        }
+//        options {
+//            timeout(time:1, unit: 'HOURS')
+//            retry(2)
+//        }
 
         // 添加环境变量
 //        environment {
