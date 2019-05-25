@@ -327,9 +327,9 @@ services:
     image: $dockerRegistryHost/$imageUrlPath:$imageTags
 '''
     def binding = [
-            'imageUrlPath' : map.imageUrlPath,
-            'imageTags' : map.imageTags,
-            'dockerRegistryHost' : map.dockerRegistryHost,
+            'imageUrlPath' : '11111',
+            'imageTags' : '22222',
+            'dockerRegistryHost' : '3333',
     ]
 
     return simpleTemplate(text, binding)
