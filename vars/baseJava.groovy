@@ -257,13 +257,11 @@ spec:
       imagePullSecrets:
       - name: regsecret
       containers:
-      - name: service-prometheus
+      - name: server
         image: $dockerRegistryHost/$imageUrlPath:$imageTags
         imagePullPolicy: Always #
         command:
-        - "/workspace/alertmanager/alertmanager"
-        args:
-        - "--config.file=/data/prometheus/alertmanager/alertmanager.yml"        
+        - "/workspace/alertmanager/alertmanager""
         env: #指定容器中的环境变量
         - name: TZ
           value: Asia/Shanghai
@@ -275,6 +273,14 @@ spec:
             memory: 1000Mi
         ports:
         - containerPort: 1990
+        volumeMounts:
+        - name: dmai-confluence-plugin
+          mountPath: /root/.m2
+          subPath: jenkins_home/dmai-confluence-plugin        
+      volumes:
+      - name: dmai-confluence-plugin
+        persistentVolumeClaim:
+          claimName: mypvc      
 '''
     def binding = [
             'imageUrlPath' : map.imageUrlPath,

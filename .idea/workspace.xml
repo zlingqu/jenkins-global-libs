@@ -61,8 +61,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/baseJava.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="433">
-              <caret line="248" column="19" selection-start-line="248" selection-start-column="19" selection-end-line="248" selection-end-column="19" />
+            <state relative-caret-position="578">
+              <caret line="278" column="54" selection-start-line="278" selection-start-column="54" selection-end-line="278" selection-end-column="54" />
             </state>
           </provider>
         </entry>
@@ -367,8 +367,8 @@
     <frame x="0" y="0" width="1920" height="1200" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49868074" visible="true" weight="0.23535676" />
-      <window_info active="true" id="Structure" order="1" sideWeight="0.5013193" side_tool="true" visible="true" weight="0.23535676" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49868074" visible="true" weight="0.23535676" />
+      <window_info id="Structure" order="1" sideWeight="0.5013193" side_tool="true" visible="true" weight="0.23535676" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Capture Tool" order="4" />
@@ -630,8 +630,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/baseJava.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="433">
-          <caret line="248" column="19" selection-start-line="248" selection-start-column="19" selection-end-line="248" selection-end-column="19" />
+        <state relative-caret-position="578">
+          <caret line="278" column="54" selection-start-line="278" selection-start-column="54" selection-end-line="278" selection-end-column="54" />
         </state>
       </provider>
     </entry>
