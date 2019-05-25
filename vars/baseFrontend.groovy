@@ -111,6 +111,25 @@ spec:
   imagePullSecrets:
   - name: regsecret
   containers:
+  - name: kubectl 
+    image: docker.dm-ai.cn/devops/base-image-kubectl:test-0.01
+    imagePullPolicy: IfNotPresent
+    env: #指定容器中的环境变量
+    - name: DMAI_PRIVATE_DOCKER_REGISTRY
+      value: docker.dm-ai.cn  
+    command:
+    - "/bin/sh"
+    - "-c"
+    args:
+    - "cat"
+    tty: true
+    resources:
+      limits:
+        memory: 300Mi
+        cpu: 200m
+      requests:
+        cpu: 100m
+        memory: 200Mi  
   - name: docker-compose
     image: docker.dm-ai.cn/devops/base-image-docker-compose:0.04
     imagePullPolicy: IfNotPresent
