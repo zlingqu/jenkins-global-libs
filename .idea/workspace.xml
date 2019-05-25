@@ -52,8 +52,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/baseFrontend.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="491">
-              <caret line="393" column="40" lean-forward="true" selection-start-line="393" selection-start-column="40" selection-end-line="393" selection-end-column="40" />
+            <state relative-caret-position="327">
+              <caret line="396" selection-start-line="396" selection-end-line="396" />
             </state>
           </provider>
         </entry>
@@ -604,8 +604,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/baseFrontend.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="491">
-          <caret line="393" column="40" lean-forward="true" selection-start-line="393" selection-start-column="40" selection-end-line="393" selection-end-column="40" />
+        <state relative-caret-position="327">
+          <caret line="396" selection-start-line="396" selection-end-line="396" />
         </state>
       </provider>
     </entry>
