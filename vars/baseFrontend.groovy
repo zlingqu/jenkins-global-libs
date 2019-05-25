@@ -307,7 +307,6 @@ spec:
 def dockerFileContent() {
     return '''
 FROM nginx
-LABEL maintainer="qinyadong"
 ENV TZ=Asia/Shanghai
 ADD dist /usr/share/nginx/html
 ADD nginx.conf /etc/nginx/conf.d/default.conf
