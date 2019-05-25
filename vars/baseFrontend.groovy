@@ -23,8 +23,8 @@ def call(Map map, env) {
         environment {
             tags = "${map.REPO_URL}"
             dockerFile = dockerFileContent()
-            dockerComposeFile = dockerComposeFile()
-            kubernetesContentDeployFile = kubernetesContent()
+            dockerComposeFile = dockerComposeFile(map)
+            kubernetesContentDeployFile = kubernetesContent(map)
         }
 
         stages {
@@ -327,15 +327,15 @@ services:
     image: $dockerRegistryHost/$imageUrlPath:$imageTags
 '''
     def binding = [
-            'imageUrlPath' : '11111',
-            'imageTags' : '22222',
-            'dockerRegistryHost' : '3333',
+            'imageUrlPath' : map.imageUrlPath,
+            'imageTags' : map.imageTags,
+            'dockerRegistryHost' : map.dockerRegistryHost,
     ]
 
     return simpleTemplate(text, binding)
 }
 
-def kubernetesContent() {
+def kubernetesContent(map) {
     return '''
 ---
 apiVersion: v1
