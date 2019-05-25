@@ -27,26 +27,41 @@ def call(Map map, env) {
         environment {
             tags = "${map.REPO_URL}"
             dockerFile = dockerFileContent()
+            dockerComposeFile = dockerComposeFile()
+            kubernetesContentDeployFile = kubernetesContent()
         }
 
         stages {
             stage('Compile') {
                 steps {
                     container('compile') {
-                        script {
-                            println("创建构建需要的标准化Dockerfile。")
-                            def dockerFileContent = dockerFileContent()
-                            sh 'echo $dockerFile'
-                        }
-                        sh 'hostname'
-                        sh 'pwd && chmod -R 777 `pwd`'
-                        createDockerFile('/tmp/test')
-                        sh 'sleep 60000'
-//                        createDockerFile('/home/jenkins/workspace/' + env.JOB_NAME.split("/")[0] + '_' + env.BRANCH_NAME + '/Dockerfile')
-                        echo '11111'
+                        println("【开始进行编译】")
                     }
+                    sh '''
+                       npm config set registry=http://192.168.3.13:8081/repository/npm/
+                       npm install
+                       npm run build
+                       '''
                 }
             }
+
+            stage('Make image') {
+                container('docker-compose') {
+                    println('【创建Dockerfile】')
+                    sh 'echo $dockerFile > Dockerfile'
+
+                    println('【创建docker-compose】')
+                    sh 'echo $dockerComposeFile > docker-compose.yml'
+
+                    println('【Make image】')
+                    sh 'docker-compose build'
+
+                    println('【Push image】')
+//                    sh 'docker-compose push'
+                }
+            }
+
+
         }
 
         post {
@@ -216,6 +231,70 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log
 RUN ln -sf /dev/stderr /var/log/nginx/error.log
 EXPOSE 80
 ENTRYPOINT nginx -g "daemon off;"
+'''
+}
+
+def dockerComposeFile() {
+    return """
+version: '2'
+services:
+  service-docker-build:
+    build: ./
+    image: ${DMAI_PRIVATE_DOCKER_REGISTRY}/mis/work-attendance-frontend:0.0.0.11
+
+"""
+}
+
+def kubernetesContent() {
+    return '''
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: work-attendance-frontend
+  name: work-attendance-frontend
+  namespace: mis
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+    nodePort: 30800
+  selector:
+    app: work-attendance-frontend
+  type: NodePort
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: work-attendance-frontend
+  namespace: mis
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: work-attendance-frontend
+    spec:
+      imagePullSecrets:
+      - name: regsecret
+      containers:
+      - name: service-prometheus
+        image: docker.dm-ai.cn/mis/work-attendance-frontend:0.0.1
+        imagePullPolicy: Always #
+        env: #指定容器中的环境变量
+        - name: TZ
+          value: Asia/Shanghai
+        resources:
+          limits:
+            memory: 500Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+        ports:
+        - containerPort: 80
 '''
 }
 
