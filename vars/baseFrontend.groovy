@@ -42,18 +42,20 @@ def call(Map map, env) {
             }
 
             stage('Make image') {
-                container('docker-compose') {
-                    println('【创建Dockerfile】')
-                    sh 'echo $dockerFile > Dockerfile'
+                steps {
+                    container('docker-compose') {
+                        println('【创建Dockerfile】')
+                        sh 'echo $dockerFile > Dockerfile'
 
-                    println('【创建docker-compose】')
-                    sh 'echo $dockerComposeFile > docker-compose.yml'
+                        println('【创建docker-compose】')
+                        sh 'echo $dockerComposeFile > docker-compose.yml'
 
-                    println('【Make image】')
-                    sh 'docker-compose build'
+                        println('【Make image】')
+                        sh 'docker-compose build'
 
-                    println('【Push image】')
+                        println('【Push image】')
 //                    sh 'docker-compose push'
+                    }
                 }
             }
 
