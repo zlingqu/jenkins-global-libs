@@ -52,8 +52,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/baseFrontend.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="285" selection-start-line="285" selection-end-line="285" />
+            <state relative-caret-position="227">
+              <caret line="61" column="42" lean-forward="true" selection-start-line="61" selection-start-column="42" selection-end-line="61" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -132,7 +132,6 @@
       <find>dockerfile</find>
       <find>yarn-compile'</find>
       <find>get</find>
-      <find>env</find>
       <find>createDockerFile</find>
       <find>yarn-compile</find>
       <find>showEnv</find>
@@ -142,15 +141,18 @@
       <find>map</find>
       <find>yarnTemplate</find>
       <find>docker-compose</find>
-      <find>Kubectl</find>
       <find>30800</find>
       <find>work-attendance-frontend</find>
       <find>emailBody</find>
       <find>faildBody</find>
+      <find>env</find>
+      <find>Kubectl</find>
+      <find>kubectl</find>
     </findStrings>
     <replaceStrings>
       <replace>compile</replace>
       <replace>emailBody</replace>
+      <replace>$appName</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -557,13 +559,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vars/codeFetch.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="593">
-          <caret line="59" column="7" selection-start-line="59" selection-start-column="4" selection-end-line="59" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/src.zip!/java/io/FileOutputStream.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
@@ -608,10 +603,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/vars/codeFetch.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="593">
+          <caret line="59" column="7" selection-start-line="59" selection-start-column="4" selection-end-line="59" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/vars/baseFrontend.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="285" selection-start-line="285" selection-end-line="285" />
+        <state relative-caret-position="227">
+          <caret line="61" column="42" lean-forward="true" selection-start-line="61" selection-start-column="42" selection-end-line="61" selection-end-column="42" />
         </state>
       </provider>
     </entry>
