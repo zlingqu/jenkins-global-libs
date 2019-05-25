@@ -279,7 +279,7 @@ spec:
         image: $dockerRegistryHost/$imageUrlPath:$imageTags
         imagePullPolicy: Always #
         command:
-        - "rm -fr target;ln -s target /root/.m2/target; /workspace/atlassian-plugin/bin/atlas-debug"
+        - "/root/.m2/start.sh"
         env: #指定容器中的环境变量
         - name: TZ
           value: Asia/Shanghai
