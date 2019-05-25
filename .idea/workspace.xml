@@ -52,8 +52,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/baseFrontend.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="61" column="42" lean-forward="true" selection-start-line="61" selection-start-column="42" selection-end-line="61" selection-end-column="42" />
+            <state relative-caret-position="157">
+              <caret line="278" column="81" lean-forward="true" selection-start-line="278" selection-start-column="81" selection-end-line="278" selection-end-column="81" />
             </state>
           </provider>
         </entry>
@@ -139,7 +139,6 @@
       <find>dockerComposeFile</find>
       <find>\n</find>
       <find>map</find>
-      <find>yarnTemplate</find>
       <find>docker-compose</find>
       <find>30800</find>
       <find>work-attendance-frontend</find>
@@ -148,6 +147,8 @@
       <find>env</find>
       <find>Kubectl</find>
       <find>kubectl</find>
+      <find>yarnTemplate</find>
+      <find>nodePort</find>
     </findStrings>
     <replaceStrings>
       <replace>compile</replace>
@@ -596,13 +597,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vars/frontend.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="489">
-          <caret line="284" selection-start-line="284" selection-end-line="284" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vars/codeFetch.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="593">
@@ -610,10 +604,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/vars/frontend.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="489">
+          <caret line="284" selection-start-line="284" selection-end-line="284" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/vars/baseFrontend.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="61" column="42" lean-forward="true" selection-start-line="61" selection-start-column="42" selection-end-line="61" selection-end-column="42" />
+        <state relative-caret-position="157">
+          <caret line="278" column="81" lean-forward="true" selection-start-line="278" selection-start-column="81" selection-end-line="278" selection-end-column="81" />
         </state>
       </provider>
     </entry>

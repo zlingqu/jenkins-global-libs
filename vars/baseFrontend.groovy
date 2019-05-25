@@ -2,7 +2,16 @@ import java.io.*
 
 def call(Map map, env) {
 
-    println('开始进行构建！')
+    // 临时的，后面再进行抽取
+    def globalConfig = [
+            'frontend-test' : [
+                    'nodePort': '31377'
+            ]
+    ]
+
+    map.put('globalConfig', globalConfig)
+
+    println('【开始进行构建】')
     pipeline {
         agent {
             kubernetes {
@@ -267,7 +276,7 @@ spec:
             'imageTags' : map.imageTags,
             'dockerRegistryHost' : map.dockerRegistryHost,
             'appName' : map.appName,
-            'nodePort' : '31377'
+            'nodePort' : map.get('globalConfig').get(map.appName).get('nodePort')
     ]
 
     return simpleTemplate(text, binding)
@@ -299,3 +308,9 @@ def globalAppPort = [
                 'nodePort' : '31377',
         ]
 ]
+
+class ConfigInfo {
+    def configMap = [
+            'test' : 'test'
+    ]
+}
