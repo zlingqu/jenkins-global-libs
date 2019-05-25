@@ -35,6 +35,32 @@ def call(Map map, env) {
             }
         }
 
+        post {
+            always {
+                echo "over!!"
+            }
+
+            failure {
+                script {
+                    emailext (
+                            body: emailBody(env, 'success'),
+                            subject: 'Jenkins build faild info',
+                            to: "${map.emailAddress}"
+                    )
+                }
+            }
+
+            success {
+                script {
+                    emailext (
+                            body: emailBody(env, 'success'),
+                            subject: 'Jenkins build success info',
+                            to: "${map.emailAddress}"
+                    )
+                }
+            }
+        }
+
     }
     pipeline {
 //        agent {
@@ -104,7 +130,7 @@ def call(Map map, env) {
 //            failure {
 //                script {
 //                    emailext (
-//                            body: showEnv(env, 'success'),
+//                            body: emailBody(env, 'success'),
 //                            subject: 'Jenkins build faild info',
 //                            to: 'zuosheng@dm-ai.cn'
 //                    )
@@ -114,7 +140,7 @@ def call(Map map, env) {
 //            success {
 //                script {
 //                    emailext (
-//                            body: showEnv(env, 'success'),
+//                            body: emailBody(env, 'success'),
 //                            subject: 'Jenkins build success info',
 //                            to: 'zuosheng@dm-ai.cn'
 //                    )
@@ -178,7 +204,7 @@ def call(Map map, env) {
 //                    def jobName = env.JOB_NAME.split("/")[0]
 //                    echo jobName
 //                    emailext (
-//                            body: showEnv(env, 'success'),
+//                            body: emailBody(env, 'success'),
 //                            subject: 'Jenkins build success info',
 //                            to: 'qinyadong@dm-ai.cn'
 //                    )
@@ -410,7 +436,7 @@ def faildBody(jobName) {
     return """Job build faild. Address : Address : http://jenkins.ops.dm-ai.cn/blue/organizations/jenkins/""" + jobName + """/detail/${env.BRANCH_NAME}/${env.BUILD_NUMBER}/pipeline"""
 }
 
-def showEnv(env, buildResult) {
+def emailBody(env, buildResult) {
     def text = 'Job build $buildResult Address : http://jenkins.ops.dm-ai.cn/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline'
     def binding = [
             'jobName' :  env.JOB_NAME.split("/")[0],
@@ -422,6 +448,7 @@ def showEnv(env, buildResult) {
     def template = engine.createTemplate(text).make(binding)
     return template.toString()
 }
+
 //new File(fileName).withPrintWriter { printWriter ->
 //    printWriter.println('The first content of file')
 //}
