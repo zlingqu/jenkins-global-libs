@@ -34,6 +34,7 @@ def call(Map map, env) {
             dockerFile = dockerFileContent()
             dockerComposeFile = dockerComposeFile(map)
             kubernetesContentDeployFile = kubernetesContent(map)
+            plugCommand = "${map.command}"
         }
 
         stages {
@@ -62,6 +63,9 @@ def call(Map map, env) {
 
                         println('【Push image】')
                         sh 'docker-compose push'
+
+                        println('【执行插件热拔插】')
+                        sh '$plugCommand'
                     }
                 }
             }
@@ -290,7 +294,7 @@ spec:
 '''
     def binding = [
             'imageUrlPath' : map.imageUrlPath,
-            'imageTags' : map.imageTags,
+            'imageTags' : map.serverImageTags,
             'dockerRegistryHost' : map.dockerRegistryHost,
             'appName' : map.appName,
             'nodePort' : map.get('globalConfig').get(map.appName).get('nodePort')
