@@ -52,8 +52,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vars/baseFrontend.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="213">
-              <caret line="158" column="4" selection-start-line="158" selection-start-column="4" selection-end-line="158" selection-end-column="4" />
+            <state relative-caret-position="225">
+              <caret line="15" column="11" lean-forward="true" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -269,7 +269,18 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Groovy.frontend">
+  <component name="RunManager" selected="Groovy.baseFrontend">
+    <configuration name="baseFrontend" type="GroovyScriptRunConfiguration" factoryName="Groovy" temporary="true">
+      <module name="jenkins-global-libs" />
+      <setting name="path" value="file://$PROJECT_DIR$/vars/baseFrontend.groovy" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workDir" value="file://$PROJECT_DIR$/vars" />
+      <setting name="debug" value="false" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="codeFetch" type="GroovyScriptRunConfiguration" factoryName="Groovy" temporary="true">
       <module name="jenkins-global-libs" />
       <setting name="path" value="file://$PROJECT_DIR$/vars/codeFetch.groovy" />
@@ -305,6 +316,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Groovy.baseFrontend" />
         <item itemvalue="Groovy.frontend" />
         <item itemvalue="Groovy.email" />
         <item itemvalue="Groovy.codeFetch" />
@@ -338,7 +350,7 @@
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49868074" visible="true" weight="0.23535676" />
-      <window_info active="true" id="Structure" order="1" sideWeight="0.5013193" side_tool="true" visible="true" weight="0.23535676" />
+      <window_info id="Structure" order="1" sideWeight="0.5013193" side_tool="true" visible="true" weight="0.23535676" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Capture Tool" order="4" />
@@ -347,7 +359,7 @@
       <window_info id="Favorites" order="7" sideWeight="0.5013193" side_tool="true" weight="0.25239617" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32920355" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32920355" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -579,8 +591,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/baseFrontend.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="158" column="4" selection-start-line="158" selection-start-column="4" selection-end-line="158" selection-end-column="4" />
+        <state relative-caret-position="225">
+          <caret line="15" column="11" lean-forward="true" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
         </state>
       </provider>
     </entry>
