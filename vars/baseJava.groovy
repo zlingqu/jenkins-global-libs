@@ -4,7 +4,7 @@ def call(Map map, env) {
 
     // 临时的，后面再进行抽取
     def globalConfig = [
-            'frontend-test' : [
+            'dmai-confluence-plugin' : [
                     'nodePort': '31378'
             ]
     ]
