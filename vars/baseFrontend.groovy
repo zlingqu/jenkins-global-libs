@@ -4,137 +4,75 @@ def call(Map map, env) {
 
     println('开始进行构建！')
 
-    pipeline {
-        agent {
-            kubernetes {
-                cloud 'kubernetes-test'
-                label 'yarnTemplate'
-                defaultContainer 'jnlp'
-                namespace 'devops'
-                inheritFrom baseTemplateName()
-                yaml yarnTemplate()
-            }
-        }
-
-        // 设置整个pipeline 的超时时间为 1个小时
-
-        options {
-            timeout(time:1, unit: 'HOURS')
-            retry(2)
-        }
-
-        // 添加环境变量
-        environment {
-            tags = "${map.REPO_URL}"
-            dockerFile = dockerFileContent()
-            dockerComposeFile = dockerComposeFile()
-            kubernetesContentDeployFile = kubernetesContent()
-        }
-
-        stages {
-            stage('Compile') {
-                steps {
-                    container('compile') {
-                        println("【开始进行编译】")
-                    }
-                    sh '''
-                       npm config set registry=http://192.168.3.13:8081/repository/npm/
-                       npm install
-                       npm run build
-                       '''
-                }
-            }
-
-            stage('Make image') {
-                container('docker-compose') {
-                    println('【创建Dockerfile】')
-                    sh 'echo $dockerFile > Dockerfile'
-
-                    println('【创建docker-compose】')
-                    sh 'echo $dockerComposeFile > docker-compose.yml'
-
-                    println('【Make image】')
-                    sh 'docker-compose build'
-
-                    println('【Push image】')
-//                    sh 'docker-compose push'
-                }
-            }
-
-
-        }
-
-        post {
-            always {
-                echo "over!!"
-            }
-
-            failure {
-                script {
-                    emailext (
-                            body: showEnv(env, 'success'),
-                            subject: 'Jenkins build faild info',
-                            to: 'zuosheng@dm-ai.cn'
-                    )
-                }
-            }
-
-            success {
-                script {
-                    emailext (
-                            body: showEnv(env, 'success'),
-                            subject: 'Jenkins build success info',
-                            to: 'zuosheng@dm-ai.cn'
-                    )
-                }
-            }
-        }
-
+//    pipeline {
+//        agent {
+//            kubernetes {
+//                cloud 'kubernetes-test'
+//                label 'yarnTemplate'
+//                defaultContainer 'jnlp'
+//                namespace 'devops'
+//                inheritFrom baseTemplateName()
+//                yaml yarnTemplate()
+//            }
+//        }
+//
+//        // 设置整个pipeline 的超时时间为 1个小时
+//
+//        options {
+//            timeout(time:1, unit: 'HOURS')
+//            retry(2)
+//        }
+//
+//        // 添加环境变量
+//        environment {
+//            tags = "${map.REPO_URL}"
+//            dockerFile = dockerFileContent()
+//            dockerComposeFile = dockerComposeFile()
+//            kubernetesContentDeployFile = kubernetesContent()
+//        }
+//
 //        stages {
 //            stage('Compile') {
 //                steps {
 //                    container('compile') {
-//                        sh '''
-//                    chmod -R 777 `pwd`
-//                    npm config set registry=http://192.168.3.13:8081/repository/npm/
-//                    npm install
-//                    npm config set registry=http://192.168.3.13:8081/repository/npm/
-//                    npm run build
-//                    '''
+//                        println("【开始进行编译】")
 //                    }
+//                    sh '''
+//                       npm config set registry=http://192.168.3.13:8081/repository/npm/
+//                       npm install
+//                       npm run build
+//                       '''
 //                }
 //            }
 //
 //            stage('Make image') {
-//                steps {
-//                    container('docker-compose') {
-//                        sh 'docker-compose build'
-//                        sh 'docker-compose push'
-//                    }
+//                container('docker-compose') {
+//                    println('【创建Dockerfile】')
+//                    sh 'echo $dockerFile > Dockerfile'
+//
+//                    println('【创建docker-compose】')
+//                    sh 'echo $dockerComposeFile > docker-compose.yml'
+//
+//                    println('【Make image】')
+//                    sh 'docker-compose build'
+//
+//                    println('【Push image】')
+////                    sh 'docker-compose push'
 //                }
 //            }
 //
-//            stage('Deploy') {
-//                steps {
-//                    kubernetesDeploy configs: 'Deploy-k8s.yml', kubeConfig: [path: ''], kubeconfigId: 'k8s-deploy-test', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
-//
-//                }
-//            }
 //
 //        }
-
+//
 //        post {
 //            always {
 //                echo "over!!"
 //            }
 //
 //            failure {
-//                echo "fail"
 //                script {
-//                    def jobName = env.JOB_NAME.split("/")[0]
-//                    echo jobName
 //                    emailext (
-//                            body: faildBody(jobName),
+//                            body: showEnv(env, 'success'),
 //                            subject: 'Jenkins build faild info',
 //                            to: 'zuosheng@dm-ai.cn'
 //                    )
@@ -143,17 +81,79 @@ def call(Map map, env) {
 //
 //            success {
 //                script {
-//                    def jobName = env.JOB_NAME.split("/")[0]
-//                    echo jobName
 //                    emailext (
 //                            body: showEnv(env, 'success'),
 //                            subject: 'Jenkins build success info',
-//                            to: 'qinyadong@dm-ai.cn'
+//                            to: 'zuosheng@dm-ai.cn'
 //                    )
 //                }
 //            }
 //        }
-    }
+//
+////        stages {
+////            stage('Compile') {
+////                steps {
+////                    container('compile') {
+////                        sh '''
+////                    chmod -R 777 `pwd`
+////                    npm config set registry=http://192.168.3.13:8081/repository/npm/
+////                    npm install
+////                    npm config set registry=http://192.168.3.13:8081/repository/npm/
+////                    npm run build
+////                    '''
+////                    }
+////                }
+////            }
+////
+////            stage('Make image') {
+////                steps {
+////                    container('docker-compose') {
+////                        sh 'docker-compose build'
+////                        sh 'docker-compose push'
+////                    }
+////                }
+////            }
+////
+////            stage('Deploy') {
+////                steps {
+////                    kubernetesDeploy configs: 'Deploy-k8s.yml', kubeConfig: [path: ''], kubeconfigId: 'k8s-deploy-test', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
+////
+////                }
+////            }
+////
+////        }
+//
+////        post {
+////            always {
+////                echo "over!!"
+////            }
+////
+////            failure {
+////                echo "fail"
+////                script {
+////                    def jobName = env.JOB_NAME.split("/")[0]
+////                    echo jobName
+////                    emailext (
+////                            body: faildBody(jobName),
+////                            subject: 'Jenkins build faild info',
+////                            to: 'zuosheng@dm-ai.cn'
+////                    )
+////                }
+////            }
+////
+////            success {
+////                script {
+////                    def jobName = env.JOB_NAME.split("/")[0]
+////                    echo jobName
+////                    emailext (
+////                            body: showEnv(env, 'success'),
+////                            subject: 'Jenkins build success info',
+////                            to: 'qinyadong@dm-ai.cn'
+////                    )
+////                }
+////            }
+////        }
+//    }
 }
 
 def baseTemplateName() {
