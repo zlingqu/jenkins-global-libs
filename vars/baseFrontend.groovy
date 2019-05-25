@@ -335,7 +335,7 @@ services:
 }
 
 def kubernetesContent(map) {
-    return '''
+    def text = '''
 ---
 apiVersion: v1
 kind: Service
@@ -371,7 +371,7 @@ spec:
       - name: regsecret
       containers:
       - name: service-prometheus
-        image: docker.dm-ai.cn/mis/work-attendance-frontend:0.0.1
+        image: $dockerRegistryHost/$imageUrlPath:$imageTags
         imagePullPolicy: Always #
         env: #指定容器中的环境变量
         - name: TZ
@@ -385,7 +385,13 @@ spec:
         ports:
         - containerPort: 80
 '''
+    def binding = [
+            'imageUrlPath' : map.imageUrlPath,
+            'imageTags' : map.imageTags,
+            'dockerRegistryHost' : map.dockerRegistryHost,
+    ]
 
+    return simpleTemplate(text, binding)
 }
 
 def createDockerFile(fileName) {
