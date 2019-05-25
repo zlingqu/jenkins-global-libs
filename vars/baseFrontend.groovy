@@ -43,10 +43,10 @@ def call(Map map, env) {
                 steps {
                     container('docker-compose') {
                         println('【创建Dockerfile】')
-                        sh 'echo $dockerFile > Dockerfile'
+                        sh 'echo -e $dockerFile > Dockerfile'
 
                         println('【创建docker-compose】')
-                        sh 'echo $dockerComposeFile > docker-compose.yml'
+                        sh 'echo -e $dockerComposeFile > docker-compose.yml'
 
                         println('【Make image】')
                         sh 'sleep 60000'
