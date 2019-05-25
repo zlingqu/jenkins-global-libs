@@ -60,8 +60,11 @@ def call(Map map, env) {
 
             stage('Deploy') {
                 steps {
-                    container('Kubectl-test') {
-
+                    container('Kubectl') {
+                        println('【创建k8s部署文件】')
+                        sh 'echo "${kubernetesContentDeployFile}" > Deploy-k8s.yml'
+                        println('【执行部署】')
+                        sh 'kubectl apply -f Deploy-k8s.yml'
                     }
                 }
             }
