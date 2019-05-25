@@ -61,8 +61,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/baseJava.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="497">
-              <caret line="296" column="45" selection-start-line="296" selection-start-column="45" selection-end-line="296" selection-end-column="45" />
+            <state relative-caret-position="591">
+              <caret line="202" column="6" selection-start-line="202" selection-start-column="6" selection-end-line="202" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -153,6 +153,7 @@
       <find>0.01</find>
       <find>0.02</find>
       <find>com</find>
+      <find>persistentVolumeClaim</find>
     </findStrings>
     <replaceStrings>
       <replace>compile</replace>
@@ -635,8 +636,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/baseJava.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="497">
-          <caret line="296" column="45" selection-start-line="296" selection-start-column="45" selection-end-line="296" selection-end-column="45" />
+        <state relative-caret-position="591">
+          <caret line="202" column="6" selection-start-line="202" selection-start-column="6" selection-end-line="202" selection-end-column="6" />
         </state>
       </provider>
     </entry>

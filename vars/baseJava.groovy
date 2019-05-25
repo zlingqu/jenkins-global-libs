@@ -199,8 +199,8 @@ spec:
     hostPath:
       path: /var/run/docker.sock
   - name: dmai-confluence-plugin
-      persistentVolumeClaim:
-        claimName: mypvc         
+    persistentVolumeClaim:
+      claimName: mypvc         
 """
 }
 
