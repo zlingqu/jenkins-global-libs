@@ -61,8 +61,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/baseJava.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="591">
-              <caret line="202" column="6" selection-start-line="202" selection-start-column="6" selection-end-line="202" selection-end-column="6" />
+            <state relative-caret-position="409">
+              <caret line="67" column="38" selection-start-line="67" selection-start-column="38" selection-end-line="67" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -126,8 +126,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>jobName</find>
-      <find>volumeMounts</find>
       <find>docker</find>
       <find>dockerfile</find>
       <find>yarn-compile'</find>
@@ -154,6 +152,10 @@
       <find>0.02</find>
       <find>com</find>
       <find>persistentVolumeClaim</find>
+      <find>baseTemplateName</find>
+      <find>0.03</find>
+      <find>imageTags</find>
+      <find>test-0.0.3</find>
     </findStrings>
     <replaceStrings>
       <replace>compile</replace>
@@ -162,6 +164,9 @@
       <replace>dmaiConfluencePluginTemplate</replace>
       <replace>0.03</replace>
     </replaceStrings>
+    <dirStrings>
+      <dir>$PROJECT_DIR$</dir>
+    </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -636,8 +641,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/baseJava.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="591">
-          <caret line="202" column="6" selection-start-line="202" selection-start-column="6" selection-end-line="202" selection-end-column="6" />
+        <state relative-caret-position="409">
+          <caret line="67" column="38" selection-start-line="67" selection-start-column="38" selection-end-line="67" selection-end-column="38" />
         </state>
       </provider>
     </entry>

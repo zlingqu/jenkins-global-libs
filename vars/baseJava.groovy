@@ -65,6 +65,7 @@ def call(Map map, env) {
                         sh 'docker-compose push'
 
                         println('【执行插件热拔插】')
+                        sh 'sleep 6000'
                         sh '$plugCommand'
                     }
                 }
