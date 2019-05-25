@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="520bcbd9-cf09-4e27-bdf5-d707a5026e8c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/vars/baseFrontend.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/vars/baseFrontend.groovy" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vars/baseJava.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -49,11 +50,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vars/baseFrontend.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="613">
-              <caret line="293" column="106" selection-start-line="293" selection-start-column="106" selection-end-line="293" selection-end-column="106" />
+            <state relative-caret-position="225">
+              <caret line="15" column="15" lean-forward="true" selection-end-line="303" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/vars/baseJava.groovy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="632">
+              <caret line="63" column="48" lean-forward="true" selection-start-line="63" selection-start-column="48" selection-end-line="63" selection-end-column="48" />
             </state>
           </provider>
         </entry>
@@ -87,15 +97,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="227">
               <caret line="1005" column="19" selection-start-line="1005" selection-start-column="19" selection-end-line="1005" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/Downloads/groovy-2.5.6/lib/groovy-2.5.6.jar!/org/codehaus/groovy/runtime/ResourceGroovyMethods.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="933">
-              <caret line="895" lean-forward="true" selection-start-line="895" selection-end-line="895" />
             </state>
           </provider>
         </entry>
@@ -143,17 +144,18 @@
       <find>30800</find>
       <find>work-attendance-frontend</find>
       <find>faildBody</find>
-      <find>env</find>
       <find>Kubectl</find>
       <find>kubectl</find>
-      <find>yarnTemplate</find>
       <find>nodePort</find>
+      <find>env</find>
       <find>emailBody</find>
+      <find>yarnTemplate</find>
     </findStrings>
     <replaceStrings>
       <replace>compile</replace>
       <replace>emailBody</replace>
       <replace>$appName</replace>
+      <replace>dmaiConfluencePluginTemplate</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -168,6 +170,8 @@
         <option value="$PROJECT_DIR$/vars/codeFetch.groovy" />
         <option value="$PROJECT_DIR$/vars/frontend.groovy" />
         <option value="$PROJECT_DIR$/vars/baseFrontend.groovy" />
+        <option value="$PROJECT_DIR$/vars/base.groovy" />
+        <option value="$PROJECT_DIR$/vars/baseJava.groovy" />
       </list>
     </option>
   </component>
@@ -362,10 +366,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1200" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49868074" visible="true" weight="0.23535676" />
-      <window_info active="true" id="Structure" order="1" sideWeight="0.5013193" side_tool="true" visible="true" weight="0.23535676" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49868074" visible="true" weight="0.23535676" />
+      <window_info id="Structure" order="1" sideWeight="0.5013193" side_tool="true" visible="true" weight="0.23535676" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Capture Tool" order="4" />
@@ -611,10 +614,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/vars/base.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1583">
+          <caret line="113" column="4" selection-start-line="113" selection-start-column="4" selection-end-line="113" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/vars/baseFrontend.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="613">
-          <caret line="293" column="106" selection-start-line="293" selection-start-column="106" selection-end-line="293" selection-end-column="106" />
+        <state relative-caret-position="225">
+          <caret line="15" column="15" lean-forward="true" selection-end-line="303" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vars/baseJava.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="632">
+          <caret line="63" column="48" lean-forward="true" selection-start-line="63" selection-start-column="48" selection-end-line="63" selection-end-column="48" />
         </state>
       </provider>
     </entry>
