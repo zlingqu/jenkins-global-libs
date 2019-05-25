@@ -86,7 +86,7 @@ def call(Map map, env) {
             failure {
                 script {
                     emailext (
-                            body: emailBody(env, 'success'),
+                            body: emailBody(env, 'success', map),
                             subject: 'Jenkins build faild info',
                             to: "${map.emailAddress}"
                     )
@@ -96,7 +96,7 @@ def call(Map map, env) {
             success {
                 script {
                     emailext (
-                            body: emailBody(env, 'success'),
+                            body: emailBody(env, 'success', map),
                             subject: 'Jenkins build success info',
                             to: "${map.emailAddress}"
                     )
@@ -282,13 +282,16 @@ spec:
     return simpleTemplate(text, binding)
 }
 
-def emailBody(env, buildResult) {
-    def text = 'Job build $buildResult Address : http://jenkins.ops.dm-ai.cn/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline'
+def emailBody(env, buildResult, Map map) {
+    def text = '''Job build $buildResult Address : http://jenkins.ops.dm-ai.cn/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline
+App url addRess :  $appurl
+'''
     def binding = [
             'jobName' :  env.JOB_NAME.split("/")[0],
             'branchName' : env.BRANCH_NAME,
             'buildNumber' : env.BUILD_NUMBER,
             'buildResult': buildResult,
+            'appurl' : 'http://192.168.3.140:' +  map.get('globalConfig').get(map.appName).get('nodePort')
     ]
     return simpleTemplate(text, binding)
 }
