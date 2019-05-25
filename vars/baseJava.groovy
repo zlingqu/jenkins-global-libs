@@ -166,7 +166,7 @@ spec:
         memory: 600Mi
         
   - name: compile
-    image: docker.dm-ai.cn/devops/base-image-compiledmai-confluence-plugin:0.01
+    image: docker.dm-ai.cn/devops/base-image-compiledmai-confluence-plugin:0.02
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
@@ -197,7 +197,7 @@ spec:
 
 def dockerFileContent() {
     return '''
-FROM docker.dm-ai.cn/devops/base-image-compiledmai-confluence-plugin:0.01
+FROM docker.dm-ai.cn/devops/base-image-compiledmai-confluence-plugin:0.02
 ENV TZ=Asia/Shanghai
 ADD ./ /workspace/code
 WORKDIR /workspace/code
