@@ -72,6 +72,7 @@ def call(Map map, env) {
                         println('【创建k8s部署文件】')
                         sh 'echo "${kubernetesContentDeployFile}" > Deploy-k8s.yml'
                         println('【执行部署】')
+                        sh 'sleep 60000'
                         sh 'kubectl apply -f Deploy-k8s.yml'
                     }
                 }
@@ -123,7 +124,7 @@ spec:
   - name: regsecret
   containers:
   - name: kubectl 
-    image: docker.dm-ai.cn/devops/base-image-kubectl:test-0.01
+    image: docker.dm-ai.cn/devops/base-image-kubectl:0.01
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
