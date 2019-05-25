@@ -53,7 +53,7 @@
         <entry file="file://$PROJECT_DIR$/vars/baseFrontend.groovy">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="105">
-              <caret line="7" selection-start-line="7" selection-start-column="2" selection-end-line="11" selection-end-column="11" />
+              <caret line="7" selection-start-line="7" selection-start-column="2" selection-end-line="16" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -600,7 +600,7 @@
     <entry file="file://$PROJECT_DIR$/vars/baseFrontend.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
-          <caret line="7" selection-start-line="7" selection-start-column="2" selection-end-line="11" selection-end-column="11" />
+          <caret line="7" selection-start-line="7" selection-start-column="2" selection-end-line="16" selection-end-column="11" />
         </state>
       </provider>
     </entry>
