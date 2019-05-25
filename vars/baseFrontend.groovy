@@ -11,7 +11,7 @@ def call(Map map, env) {
                 label 'yarnTemplate'
                 defaultContainer 'jnlp'
                 namespace 'devops'
-                inheritFrom baseTemplateName()
+//                inheritFrom baseTemplateName()
 //                yaml yarnTemplate()
             }
         }
