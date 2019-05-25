@@ -45,6 +45,7 @@ def call(Map map, env) {
                         println('【创建Dockerfile】')
                         echo dockerFile
                         sh 'echo -e $dockerFile > Dockerfile'
+                        sh 'printf $$dockerFile'
 
                         println('【创建docker-compose】')
                         sh 'echo -e $dockerComposeFile > docker-compose.yml'
