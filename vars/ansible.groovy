@@ -43,31 +43,10 @@ def call(Map map, env) {
         }
 
         stages {
-            stage('Make image') {
+            stage('Exec Ansible') {
                 steps {
-                    container('docker-compose') {
-                        println('【创建Dockerfile】')
-                        sh 'echo "${dockerFile}" > Dockerfile'
-
-                        println('【创建docker-compose】')
-                        sh 'echo -e "${dockerComposeFile}" > docker-compose.yml'
-
-                        println('【Make image】')
-                        sh 'docker-compose build'
-
-                        println('【Push image】')
-                        sh 'docker-compose push'
-                    }
-                }
-            }
-
-            stage('Deploy') {
-                steps {
-                    container('kubectl') {
-                        println('【创建k8s部署文件】')
-                        sh 'echo "${kubernetesContentDeployFile}" > Deploy-k8s.yml'
-                        println('【执行部署】')
-                        sh 'kubectl apply -f Deploy-k8s.yml'
+                    container('ansible') {
+                        sh '${map.execComand}'
                     }
                 }
             }
@@ -117,8 +96,8 @@ spec:
   imagePullSecrets:
   - name: regsecret
   containers:
-  - name: kubectl 
-    image: docker.dm-ai.cn/devops/base-image-kubectl:0.01
+  - name: ansible
+    image: docker.dm-ai.cn/devops/base-image-exec-ansible:0.02
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
@@ -131,37 +110,11 @@ spec:
     tty: true
     resources:
       limits:
-        memory: 300Mi
-        cpu: 200m
+        memory: 5000Mi
+        cpu: 3000m
       requests:
-        cpu: 100m
-        memory: 200Mi  
-  - name: docker-compose
-    image: docker.dm-ai.cn/devops/base-image-docker-compose:0.04
-    imagePullPolicy: IfNotPresent
-    env: #指定容器中的环境变量
-    - name: DMAI_PRIVATE_DOCKER_REGISTRY
-      value: docker.dm-ai.cn  
-    volumeMounts:
-    - name: sock
-      mountPath: /var/run/docker.sock
-    command:
-    - "/bin/sh"
-    - "-c"
-    args:
-    - "cat"
-    tty: true
-    resources:
-      limits:
-        memory: 1000Mi
-        cpu: 800m
-      requests:
-        cpu: 400m
-        memory: 600Mi
-  volumes:
-  - name: sock
-    hostPath:
-      path: /var/run/docker.sock      
+        cpu: 2000m
+        memory: 4000Mi     
 """
 }
 
