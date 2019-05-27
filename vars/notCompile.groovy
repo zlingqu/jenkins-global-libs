@@ -178,7 +178,7 @@ def dockerFileContent(appName) {
 //ENTRYPOINT nginx -g "daemon off;"
 //'''
     switch (appName) {
-        case 'service-prometheus:
+        case 'service-prometheus':
             return '''
 FROM centos:latest
 ENV VERSION 2.9.2
