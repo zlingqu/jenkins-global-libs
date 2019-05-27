@@ -43,8 +43,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/baseNode.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="803">
-              <caret line="301" selection-start-line="301" selection-end-line="301" />
+            <state relative-caret-position="516">
+              <caret line="335" column="11" selection-start-line="335" selection-start-column="11" selection-end-line="335" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -112,7 +112,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>30800</find>
       <find>work-attendance-frontend</find>
       <find>faildBody</find>
       <find>Kubectl</find>
@@ -136,12 +135,13 @@
       <find>yarnTemplate</find>
       <find>node</find>
       <find>SimpleTemplateScript</find>
-      <find>appPort</find>
       <find>nodeTemplate</find>
       <find>kubectl</find>
       <find>namespace</find>
       <find>buildBranch</find>
       <find>imagePullPolicy</find>
+      <find>containerPort</find>
+      <find>appPort</find>
     </findStrings>
     <replaceStrings>
       <replace>compile</replace>
@@ -386,8 +386,8 @@
     <frame x="0" y="0" width="1920" height="1200" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4982301" visible="true" weight="0.23748669" />
-      <window_info active="true" id="Structure" order="1" sideWeight="0.5017699" side_tool="true" visible="true" weight="0.23748669" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4982301" visible="true" weight="0.23748669" />
+      <window_info id="Structure" order="1" sideWeight="0.5017699" side_tool="true" visible="true" weight="0.23748669" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Capture Tool" order="4" />
@@ -675,8 +675,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/baseNode.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="803">
-          <caret line="301" selection-start-line="301" selection-end-line="301" />
+        <state relative-caret-position="516">
+          <caret line="335" column="11" selection-start-line="335" selection-start-column="11" selection-end-line="335" selection-end-column="11" />
         </state>
       </provider>
     </entry>

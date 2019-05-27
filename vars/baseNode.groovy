@@ -304,7 +304,7 @@ spec:
         configMap:
           name: $appName
       - name: data
-$getData 
+$getData
 '''
     def binding = [
             'imageUrlPath' : map.imageUrlPath,
@@ -332,8 +332,8 @@ def getDate(appName, branchName) {
 
     if (appName == "mis-admin-backend" && branchName == "develop") {
         return '''
-       hostPath:
-          path: /data/mis
+        hostPath:
+           path: /data/mis
 '''
     }
 
