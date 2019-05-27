@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="520bcbd9-cf09-4e27-bdf5-d707a5026e8c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/vars/ansible.groovy" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vars/node.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vars/node.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/vars/node.groovy" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -45,8 +43,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/node.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1335">
-              <caret line="89" column="9" lean-forward="true" selection-start-line="89" selection-start-column="9" selection-end-line="89" selection-end-column="9" />
+            <state relative-caret-position="4560">
+              <caret line="304" column="65" selection-start-line="304" selection-start-column="65" selection-end-line="304" selection-end-column="65" />
             </state>
           </provider>
         </entry>
@@ -394,8 +392,8 @@
     <frame x="1" y="143" width="1920" height="1057" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4974093" visible="true" weight="0.23748669" />
-      <window_info active="true" id="Structure" order="1" sideWeight="0.50259066" side_tool="true" visible="true" weight="0.23748669" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4974093" visible="true" weight="0.23748669" />
+      <window_info id="Structure" order="1" sideWeight="0.50259066" side_tool="true" visible="true" weight="0.23748669" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Capture Tool" order="4" />
@@ -676,8 +674,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/node.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1335">
-          <caret line="89" column="9" lean-forward="true" selection-start-line="89" selection-start-column="9" selection-end-line="89" selection-end-column="9" />
+        <state relative-caret-position="4560">
+          <caret line="304" column="65" selection-start-line="304" selection-start-column="65" selection-end-line="304" selection-end-column="65" />
         </state>
       </provider>
     </entry>

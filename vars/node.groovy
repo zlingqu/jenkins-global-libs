@@ -16,8 +16,8 @@ def call(Map map, env) {
                     'namespace': 'mis'
             ],
             'mis-admin-backend': [
-                    'nodePort': '31500',
-                    'namespace': 'mis'
+                    'nodePort': '32500',
+                    'namespace': 'devops'
             ]
     ]
 
