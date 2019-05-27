@@ -79,7 +79,6 @@ def call(Map map, env) {
                     container('kubectl') {
                         println('【创建k8s部署文件】')
                         sh 'echo "${kubernetesContentDeployFile}" > Deploy-k8s.yml'
-                        sleep(6000000)
                         println('【执行部署】')
                         sh 'kubectl apply -f Deploy-k8s.yml'
                     }
