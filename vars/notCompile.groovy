@@ -12,6 +12,10 @@ def call(Map map, env) {
                     'nodePort': '30090',
                     'namespace': 'devops',
                     'containerPort': '9090'
+            ],
+            'prometheus-alertmanager': [
+                    'namespace': 'devops',
+                    'containerPort': '9093'
             ]
     ]
 
@@ -223,42 +227,42 @@ services:
 
 def kubernetesContent(map) {
     if (map.appName == "prometheus-alertmanager") {
-        return '''
+        def text =  '''
 ---
 apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: prometheus-alertmanager
-  name: prometheus-alertmanager
-  namespace: devops
+    app: $appName
+  name: $appName
+  namespace: $namespace
 spec:
   ports:
-  - port: 9093
+  - port: $containerPort
     protocol: TCP
-    targetPort: 9093
+    targetPort: $containerPort
   selector:
-    app: prometheus-alertmanager
+    app: $appName
   type: ClusterIP
 
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: prometheus-alertmanager
-  namespace: devops
+  name: $appName
+  namespace: $namespace
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: prometheus-alertmanager
+        app: $appName
     spec:
       imagePullSecrets:
       - name: regsecret
       containers:
       - name: service-prometheus
-        image: docker.dm-ai.cn/devops/prometheus-alertmanager:0.16
+        image: $dockerRegistryHost/$imageUrlPath:$imageTags
         imagePullPolicy: Always #
         command:
         - "/workspace/alertmanager/alertmanager"
@@ -271,8 +275,18 @@ spec:
             cpu: 100m
             memory: 200Mi
         ports:
-        - containerPort: 9093
+        - containerPort: $containerPort
 '''
+        def binding = [
+                'imageUrlPath' : map.imageUrlPath,
+                'imageTags' : map.imageTags,
+                'dockerRegistryHost' : map.dockerRegistryHost,
+                'appName' : map.appName,
+                'namespace' : getGlobal(map, 'namespace'),
+                'containerPort': getGlobal(map, 'containerPort')
+        ]
+
+        return simpleTemplate(text, binding)
     }
 
     def text = '''
