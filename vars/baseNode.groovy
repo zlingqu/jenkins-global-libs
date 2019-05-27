@@ -53,7 +53,7 @@ def call(Map map, env) {
 
             stage('Make image') {
                 when {
-                    branch map.buildBranch
+                    branch 'master|develop'
                 }
 
                 steps {
@@ -75,7 +75,7 @@ def call(Map map, env) {
 
             stage('Deploy') {
                 when {
-                    branch map.buildBranch
+                    branch 'master|develop'
                 }
                 steps {
                     container('kubectl') {
