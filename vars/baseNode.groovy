@@ -292,15 +292,13 @@ spec:
         - name: TZ
           value: Asia/Shanghai
         ports:
-        - containerPort: $nodePort
+        - containerPort: $appPort
         volumeMounts:
         - name: myconf
           mountPath: /app/config.env
           subPath: config.env
         - name: data
           mountPath: /app/data
-        ports:
-        - containerPort: $appPort      
       volumes:
       - name: myconf
         configMap:
