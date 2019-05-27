@@ -190,7 +190,7 @@ COPY ./prometheus.yml /workspace/prometheus.yml
 COPY ./alert_rule.yml /data/prometheus/etc/rules/alert_rule.yml
 COPY ./test_server.yml /data/prometheus/etc/jobs/test_server.yml
 COPY ./conf/ceph.yml /data/prometheus/etc/jobs/ceph.yml
-RUN tar xf prometheus-2.9.2linux-amd64.tar.gz && mv prometheus-2.9.2linux-amd64 prometheus
+RUN tar xf prometheus-2.9.2.linux-amd64.tar.gz && mv prometheus-2.9.2.linux-amd64 prometheus
 '''
     }
 //
