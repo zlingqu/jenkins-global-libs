@@ -8,7 +8,7 @@ def call(Map map, env) {
             'frontend-test' : [
                     'nodePort': '31377'
             ],
-            'prometheus-server' : [
+            'service-prometheus' : [
                     'nodePort': '30090',
                     'namespace': 'devops',
                     'containerPort': '9090'
