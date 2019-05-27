@@ -17,7 +17,8 @@ def call(Map map, env) {
             ],
             'mis-admin-backend': [
                     'nodePort': '32500',
-                    'namespace': 'devops'
+                    'namespace': 'devops',
+                    'appPort': '5000'
             ]
     ]
 
@@ -242,20 +243,50 @@ metadata:
   namespace: $namespace
 spec:
   ports:
-  - port: 80
+  - port: $appPort
     protocol: TCP
-    targetPort: 80
+    targetPort: $appPort
     nodePort: $nodePort
   selector:
     app: $appName
   type: NodePort
 
 ---
-apiVersion: extensions/v1beta1
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: $appName
+  namespace: $namespace
+data:
+  config.env: |-
+    NODE_ENV=prod
+    PORT=5000
+    APP_NAME=admin
+
+    # MongoDB配置
+    MONGODB_CONNECTION="mongodb://dm-mis:c243419c3afc7ece77c@192.168.11.51:27500,192.168.12.51:27500,192.168.13.51:27500/dm-mis?authSource=dm-mis"
+
+    # 默认每页显示条数
+    PAGE_SIZE=10
+
+    # LDAP服务器配置
+    LDAP_URL="ldap://192.168.3.41:389"
+    LDAP_BASE="dc=dmai,dc=com"
+    LDAP_USER="cn=mis_bind,ou=apps,dc=dmai,dc=com"
+    LDAP_PASSWD="Dm@imis19"
+    LDAP_TIMEOUT=120
+
+    # 微信请求相关配置
+    WX_BASE_URL="https://qyapi.weixin.qq.com/cgi-bin"
+    WX_REQUEST_TIMEOUT=3000
+    WX_CORP_ID=ww399a98a04dfbcda4
+    WX_CONTACT_SECRET=gZazZkwuoPcrmli8tu4-h6op6CTnL5o7LvoU8wEPuqA
+---
+apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: $appName
-  namespace: mis
+  namespace: $namespace
 spec:
   replicas: 1
   template:
@@ -263,23 +294,30 @@ spec:
       labels:
         app: $appName
     spec:
-      imagePullSecrets:
-      - name: regsecret
       containers:
-      - name: service-prometheus
+      - name: $appName
         image: $dockerRegistryHost/$imageUrlPath:$imageTags
-        imagePullPolicy: Always #
-        env: #指定容器中的环境变量
+        #imagePullPolicy: Always
+        command: ['npm']
+        args: ["start"]
+        env:
         - name: TZ
           value: Asia/Shanghai
-        resources:
-          limits:
-            memory: 500Mi
-          requests:
-            cpu: 100m
-            memory: 200Mi
         ports:
-        - containerPort: 80
+        - containerPort: $nodePort
+        volumeMounts:
+        - name: myconf
+          mountPath: /app/config.env
+          subPath: config.env
+        - name: data
+          mountPath: /app/data
+      volumes:
+      - name: myconf
+        configMap:
+          name: $appName
+      - name: data
+        persistentVolumeClaim:
+          claimName: mypvc
 '''
     def binding = [
             'imageUrlPath' : map.imageUrlPath,
