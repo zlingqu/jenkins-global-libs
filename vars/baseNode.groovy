@@ -329,6 +329,7 @@ spec:
             'appName' : map.appName,
             'nodePort' : map.get('globalConfig').get(map.appName).get('nodePort'),
             'namespace': map.get('globalConfig').get(map.appName).get('namespace'),
+            'appPort': map.get('globalConfig').get(map.appName).get('appPort'),
     ]
 
     return simpleTemplate(text, binding)
