@@ -67,8 +67,6 @@ def call(Map map, env) {
                         println('【创建k8s部署文件】')
                         sh 'echo "${kubernetesContentDeployFile}" > Deploy-k8s.yml'
                         println('【执行部署】')
-                        sh 'kubectl delete -f Deploy-k8s.yml; echo 1'
-                        sh 'sleep 2'
                         sh 'kubectl apply -f Deploy-k8s.yml'
                     }
                 }

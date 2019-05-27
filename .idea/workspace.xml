@@ -62,7 +62,7 @@
         <entry file="file://$PROJECT_DIR$/vars/notCompile.groovy">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="426">
-              <caret line="69" column="67" selection-start-line="69" selection-start-column="67" selection-end-line="69" selection-end-column="67" />
+              <caret line="69" selection-start-line="69" selection-end-line="69" />
             </state>
           </provider>
         </entry>
@@ -387,6 +387,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="143" width="1920" height="1057" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4974093" visible="true" weight="0.23748669" />
       <window_info id="Structure" order="1" sideWeight="0.50259066" side_tool="true" visible="true" weight="0.23748669" />
@@ -654,7 +655,7 @@
     <entry file="file://$PROJECT_DIR$/vars/notCompile.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="426">
-          <caret line="69" column="67" selection-start-line="69" selection-start-column="67" selection-end-line="69" selection-end-column="67" />
+          <caret line="69" selection-start-line="69" selection-end-line="69" />
         </state>
       </provider>
     </entry>
