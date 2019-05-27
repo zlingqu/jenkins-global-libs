@@ -190,6 +190,16 @@ COPY ./test_server.yml /data/prometheus/etc/jobs/test_server.yml
 COPY ./conf/ceph.yml /data/prometheus/etc/jobs/ceph.yml
 RUN tar xf prometheus-2.9.2.linux-amd64.tar.gz && mv prometheus-2.9.2.linux-amd64 prometheus
 '''
+        case 'prometheus-alertmanager':
+            return '''
+FROM centos:latest
+WORKDIR /workspace
+RUN mkdir -p /data/prometheus/alertmanager
+COPY ./alertmanager.yml /data/prometheus/alertmanager/alertmanager.yml
+COPY ./template /data/prometheus/alertmanager/template
+COPY ./alertmanager-0.17.0.linux-amd64.tar.gz /workspace/
+RUN tar xf alertmanager-0.17.0.linux-amd64.tar.gz && mv alertmanager-0.17.0.linux-amd64 alertmanager
+'''
     }
 //
 }
@@ -212,6 +222,59 @@ services:
 }
 
 def kubernetesContent(map) {
+    if (map.appName == "prometheus-alertmanager") {
+        return '''
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: prometheus-alertmanager
+  name: prometheus-alertmanager
+  namespace: devops
+spec:
+  ports:
+  - port: 9093
+    protocol: TCP
+    targetPort: 9093
+  selector:
+    app: prometheus-alertmanager
+  type: ClusterIP
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: prometheus-alertmanager
+  namespace: devops
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: prometheus-alertmanager
+    spec:
+      imagePullSecrets:
+      - name: regsecret
+      containers:
+      - name: service-prometheus
+        image: docker.dm-ai.cn/devops/prometheus-alertmanager:0.16
+        imagePullPolicy: Always #
+        command:
+        - "/workspace/alertmanager/alertmanager"
+        args:
+        - "--config.file=/data/prometheus/alertmanager/alertmanager.yml"
+        resources:
+          limits:
+            memory: 200Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+        ports:
+        - containerPort: 9093
+'''
+    }
+
     def text = '''
 ---
 apiVersion: v1

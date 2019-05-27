@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="520bcbd9-cf09-4e27-bdf5-d707a5026e8c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/vars/ansible.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/vars/ansible.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vars/notCompile.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/vars/notCompile.groovy" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -49,16 +49,16 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/notCompile.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4155">
-              <caret line="277" column="40" lean-forward="true" selection-start-line="277" selection-start-column="40" selection-end-line="277" selection-end-column="40" />
+            <state relative-caret-position="679">
+              <caret line="69" column="60" lean-forward="true" selection-start-line="69" selection-start-column="60" selection-end-line="69" selection-end-column="60" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vars/ansible.groovy">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="480">
@@ -140,8 +140,8 @@
       <find>containerPort</find>
       <find>appPort</find>
       <find>globalConfig</find>
-      <find>kubernetesContentDeployFile</find>
       <find>dockerComposeFile</find>
+      <find>kubernetesContentDeployFile</find>
     </findStrings>
     <replaceStrings>
       <replace>compile</replace>
@@ -171,11 +171,11 @@
         <option value="$PROJECT_DIR$/vars/base.groovy" />
         <option value="$PROJECT_DIR$/vars/baseJava.groovy" />
         <option value="$PROJECT_DIR$/vars/prometheus.groovy" />
-        <option value="$PROJECT_DIR$/vars/notCompile.groovy" />
         <option value="$PROJECT_DIR$/vars/baseFrontend.groovy" />
         <option value="$PROJECT_DIR$/vars/node.groovy" />
         <option value="$PROJECT_DIR$/vars/baseNode.groovy" />
         <option value="$PROJECT_DIR$/vars/ansible.groovy" />
+        <option value="$PROJECT_DIR$/vars/notCompile.groovy" />
       </list>
     </option>
   </component>
@@ -386,8 +386,8 @@
     <frame x="0" y="0" width="1920" height="1200" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4982301" visible="true" weight="0.23748669" />
-      <window_info id="Structure" order="1" sideWeight="0.5017699" side_tool="true" visible="true" weight="0.23748669" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4982301" visible="true" weight="0.23748669" />
+      <window_info active="true" id="Structure" order="1" sideWeight="0.5017699" side_tool="true" visible="true" weight="0.23748669" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Capture Tool" order="4" />
@@ -635,13 +635,6 @@
     <entry file="file://$PROJECT_DIR$/node.groovy">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/vars/notCompile.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4155">
-          <caret line="277" column="40" lean-forward="true" selection-start-line="277" selection-start-column="40" selection-end-line="277" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vars/node.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
@@ -677,6 +670,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
           <caret line="32" column="39" selection-start-line="32" selection-start-column="39" selection-end-line="32" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vars/notCompile.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="679">
+          <caret line="69" column="60" lean-forward="true" selection-start-line="69" selection-start-column="60" selection-end-line="69" selection-end-column="60" />
         </state>
       </provider>
     </entry>
