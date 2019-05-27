@@ -34,8 +34,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vars/baseFrontend.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3283">
-              <caret line="275" selection-start-line="275" selection-end-line="276" selection-end-column="23" />
+            <state relative-caret-position="644">
+              <caret line="280" column="23" selection-start-line="280" selection-start-column="8" selection-end-line="280" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -43,8 +43,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/baseNode.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="735">
-              <caret line="76" selection-start-line="76" selection-end-line="76" />
+            <state relative-caret-position="930">
+              <caret line="307" column="8" selection-start-line="307" selection-start-column="8" selection-end-line="307" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -112,7 +112,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>docker-compose</find>
       <find>30800</find>
       <find>work-attendance-frontend</find>
       <find>faildBody</find>
@@ -142,6 +141,7 @@
       <find>kubectl</find>
       <find>namespace</find>
       <find>buildBranch</find>
+      <find>imagePullPolicy</find>
     </findStrings>
     <replaceStrings>
       <replace>compile</replace>
@@ -386,8 +386,8 @@
     <frame x="0" y="0" width="1920" height="1200" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4982301" visible="true" weight="0.23748669" />
-      <window_info id="Structure" order="1" sideWeight="0.5017699" side_tool="true" visible="true" weight="0.23748669" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4982301" visible="true" weight="0.23748669" />
+      <window_info active="true" id="Structure" order="1" sideWeight="0.5017699" side_tool="true" visible="true" weight="0.23748669" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Capture Tool" order="4" />
@@ -668,15 +668,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/baseFrontend.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3283">
-          <caret line="275" selection-start-line="275" selection-end-line="276" selection-end-column="23" />
+        <state relative-caret-position="644">
+          <caret line="280" column="23" selection-start-line="280" selection-start-column="8" selection-end-line="280" selection-end-column="23" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/baseNode.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="735">
-          <caret line="76" selection-start-line="76" selection-end-line="76" />
+        <state relative-caret-position="930">
+          <caret line="307" column="8" selection-start-line="307" selection-start-column="8" selection-end-line="307" selection-end-column="8" />
         </state>
       </provider>
     </entry>

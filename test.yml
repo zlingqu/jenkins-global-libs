@@ -1,0 +1,128 @@
+---
+
+apiVersion: v1
+
+kind: Service
+
+metadata:
+
+  labels:
+
+    app: mis-admin-backend
+
+  name: mis-admin-backend
+
+  namespace: devops
+
+spec:
+
+  ports:
+
+  - port: 5000
+
+    protocol: TCP
+
+    targetPort: 5000
+
+    nodePort: 32500
+
+  selector:
+
+    app: mis-admin-backend
+
+  type: NodePort
+
+
+
+---
+
+
+
+---
+
+apiVersion: apps/v1beta1
+
+kind: Deployment
+
+metadata:
+
+  name: mis-admin-backend
+
+  namespace: devops
+
+spec:
+
+  replicas: 1
+
+  template:
+
+    metadata:
+
+      labels:
+
+        app: mis-admin-backend
+
+    spec:
+
+      imagePullSecrets:
+
+      - name: regsecret    
+
+      containers:
+
+      - name: mis-admin-backend
+
+        image: docker.dm-ai.cn/mis/mis-admin-backend-develop:0.0.1.4
+
+        #imagePullPolicy: Always
+
+        command: 
+
+        - npm
+
+        args: 
+
+        - start
+
+        env:
+
+        - name: TZ
+
+          value: Asia/Shanghai
+
+        ports:
+
+        - containerPort: 32500
+
+        volumeMounts:
+
+        - name: myconf
+
+          mountPath: /app/config.env
+
+          subPath: config.env
+
+        - name: data
+
+          mountPath: /app/data
+
+        ports:
+
+        - containerPort: 5000      
+
+      volumes:
+
+      - name: myconf
+
+        configMap:
+
+          name: mis-admin-backend
+
+      - name: data
+
+
+
+       hostPath:
+
+          path: /data/mis
+

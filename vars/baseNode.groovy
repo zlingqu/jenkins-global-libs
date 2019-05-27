@@ -282,10 +282,10 @@ spec:
       containers:
       - name: $appName
         image: $dockerRegistryHost/$imageUrlPath-$branchName:$imageTags
-        #imagePullPolicy: Always
-        command: 
+        imagePullPolicy: Always
+        command:
         - npm
-        args: 
+        args:
         - start
         env:
         - name: TZ
