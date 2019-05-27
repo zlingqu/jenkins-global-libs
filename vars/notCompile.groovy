@@ -118,7 +118,7 @@ spec:
   - name: regsecret
   containers:
   - name: kubectl 
-    image: docker.dm-ai.cn/devops/base-image-kubectl:test-0.01
+    image: docker.dm-ai.cn/devops/base-image-kubectl:0.01
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
