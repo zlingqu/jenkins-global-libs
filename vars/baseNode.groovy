@@ -311,6 +311,7 @@ spec:
           subPath: config.env
         - name: data
           mountPath: /app/data
+          subPath: test_home
       volumes:
       - name: myconf
         configMap:
