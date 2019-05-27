@@ -8,7 +8,12 @@ def call(Map map, env) {
                     'nodePort': '31377'
             ],
             'work-attendance-frontend': [
-                    'nodePort': '30800'
+                    'nodePort': '30800',
+                    'namespace': 'mis'
+            ],
+            'mis-admin-frontend': [
+                    'nodePort': '30801',
+                    'namespace': 'mis'
             ]
     ]
 
@@ -244,7 +249,7 @@ metadata:
   labels:
     app: $appName
   name: $appName
-  namespace: mis
+  namespace: $namespace
 spec:
   ports:
   - port: 80
@@ -291,7 +296,8 @@ spec:
             'imageTags' : map.imageTags,
             'dockerRegistryHost' : map.dockerRegistryHost,
             'appName' : map.appName,
-            'nodePort' : map.get('globalConfig').get(map.appName).get('nodePort')
+            'nodePort' : map.get('globalConfig').get(map.appName).get('nodePort'),
+            'namespace': map.get('globalConfig').get(map.appName).get('namespace'),
     ]
 
     return simpleTemplate(text, binding)
