@@ -203,7 +203,7 @@ spec:
 
 def dockerFileContent() {
     return '''
-FROM node:10
+FROM docker.dm-ai.cn/devops/node-10:0.0.1
 WORKDIR /app
 COPY package*.json ./
 RUN npm config set registry http://192.168.3.13:8081/repository/npm/ && npm install
