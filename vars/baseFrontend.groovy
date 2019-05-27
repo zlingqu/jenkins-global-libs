@@ -40,11 +40,11 @@ def call(Map map, env) {
         }
 
         stages {
-            when {
-                branch map.buildBranch
-            }
-
             stage('Compile') {
+                when {
+                    branch map.buildBranch
+                }
+
                 steps {
                     container('compile') {
                         println("【开始进行编译】")
@@ -56,6 +56,9 @@ def call(Map map, env) {
             }
 
             stage('Make image') {
+                when {
+                    branch map.buildBranch
+                }
                 steps {
                     container('docker-compose') {
                         println('【创建Dockerfile】')
@@ -74,6 +77,9 @@ def call(Map map, env) {
             }
 
             stage('Deploy') {
+                when {
+                    branch map.buildBranch
+                }
                 steps {
                     container('kubectl') {
                         println('【创建k8s部署文件】')
