@@ -22,11 +22,11 @@ def call(Map map, env) {
         agent {
             kubernetes {
                 cloud 'kubernetes-test'
-                label 'yarnTemplate'
+                label 'jenkinsTemplate'
                 defaultContainer 'jnlp'
                 namespace 'devops'
                 inheritFrom baseTemplateName()
-                yaml yarnTemplate()
+                yaml jenkinsTemplate()
             }
         }
 
@@ -122,7 +122,7 @@ def jenkinsTemplate() {
 apiVersion: v1
 kind: Pod
 metadata:
-  name: yarnTemplate
+  name: jenkinsTemplate
   namespace: devops
 spec:
   imagePullSecrets:
@@ -169,25 +169,6 @@ spec:
       requests:
         cpu: 400m
         memory: 600Mi
-  - name: compile
-    image: docker.dm-ai.cn/devops/base-image-compile-frontend:0.03
-    imagePullPolicy: IfNotPresent
-    env: #指定容器中的环境变量
-    - name: DMAI_PRIVATE_DOCKER_REGISTRY
-      value: docker.dm-ai.cn
-    command:
-    - "/bin/sh"
-    - "-c"
-    args:
-    - "cat"
-    tty: true
-    resources:
-      limits:
-        memory: 8000Mi
-        cpu: 5500m
-      requests:
-        cpu: 4500m
-        memory: 7000Mi
   volumes:
   - name: sock
     hostPath:
