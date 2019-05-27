@@ -285,8 +285,10 @@ spec:
       - name: $appName
         image: $dockerRegistryHost/$imageUrlPath-$branchName:$imageTags
         #imagePullPolicy: Always
-        command: ['npm']
-        args: ["start"]
+        command: 
+        - npm
+        args: 
+        - start
         env:
         - name: TZ
           value: Asia/Shanghai
@@ -346,8 +348,8 @@ def getConfigContent(appName, branchName) {
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: $appName
-  namespace: $namespace
+  name: mis-admin-backend
+  namespace: mis
 data:
   config.env: |-
     NODE_ENV=prod
