@@ -43,8 +43,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vars/baseNode.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3390">
-              <caret line="226" column="21" selection-start-line="226" selection-start-column="4" selection-end-line="226" selection-end-column="21" />
+            <state relative-caret-position="415">
+              <caret line="45" column="36" lean-forward="true" selection-start-line="45" selection-start-column="12" selection-end-line="45" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -61,8 +61,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/ansible.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="875">
-              <caret line="115" column="4" selection-start-line="115" selection-start-column="4" selection-end-line="115" selection-end-column="4" />
+            <state relative-caret-position="480">
+              <caret line="32" column="39" selection-start-line="32" selection-start-column="39" selection-end-line="32" selection-end-column="39" />
             </state>
           </provider>
         </entry>
@@ -112,7 +112,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Kubectl</find>
       <find>nodePort</find>
       <find>base-image-compiledmai-confluence-plugin:</find>
       <find>0.01</find>
@@ -140,8 +139,9 @@
       <find>imagePullPolicy</find>
       <find>containerPort</find>
       <find>appPort</find>
-      <find>dockerComposeFile</find>
       <find>globalConfig</find>
+      <find>kubernetesContentDeployFile</find>
+      <find>dockerComposeFile</find>
     </findStrings>
     <replaceStrings>
       <replace>compile</replace>
@@ -384,9 +384,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1200" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4982301" visible="true" weight="0.23748669" />
-      <window_info active="true" id="Structure" order="1" sideWeight="0.5017699" side_tool="true" visible="true" weight="0.23748669" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4982301" visible="true" weight="0.23748669" />
+      <window_info id="Structure" order="1" sideWeight="0.5017699" side_tool="true" visible="true" weight="0.23748669" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Capture Tool" order="4" />
@@ -667,15 +668,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/baseNode.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3390">
-          <caret line="226" column="21" selection-start-line="226" selection-start-column="4" selection-end-line="226" selection-end-column="21" />
+        <state relative-caret-position="415">
+          <caret line="45" column="36" lean-forward="true" selection-start-line="45" selection-start-column="12" selection-end-line="45" selection-end-column="36" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/ansible.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="875">
-          <caret line="115" column="4" selection-start-line="115" selection-start-column="4" selection-end-line="115" selection-end-column="4" />
+        <state relative-caret-position="480">
+          <caret line="32" column="39" selection-start-line="32" selection-start-column="39" selection-end-line="32" selection-end-column="39" />
         </state>
       </provider>
     </entry>

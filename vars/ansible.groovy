@@ -23,13 +23,14 @@ def call(Map map, env) {
 
         environment {
             tags = "${map.REPO_URL}"
+            execComand = "${map.execComand}"
         }
 
         stages {
             stage('Exec Ansible') {
                 steps {
                     container('ansible') {
-                        sh '${map.execComand}'
+                        sh '$execComand'
                     }
                 }
             }
