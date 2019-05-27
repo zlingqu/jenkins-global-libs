@@ -312,6 +312,8 @@ spec:
         - name: data
           mountPath: /app/data
           subPath: test_home
+        ports:
+        - containerPort: $appPort      
       volumes:
       - name: myconf
         configMap:
