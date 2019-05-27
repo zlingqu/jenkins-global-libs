@@ -122,7 +122,7 @@ def baseTemplateName() {
 }
 
 def nodeTemplate(env) {
-    def text = """
+    def text = '''
 apiVersion: v1
 kind: Pod
 metadata:
@@ -195,12 +195,12 @@ spec:
   volumes:
   - name: sock
     hostPath:
-      path: /var/run/docker.sock      
-"""
-
+      path: /var/run/docker.sock 
+'''
     def binding = [
             'kubectl' :  getKubectImage(env.BRANCH_NAME)
     ]
+
     return simpleTemplate(text, binding)
 }
 
