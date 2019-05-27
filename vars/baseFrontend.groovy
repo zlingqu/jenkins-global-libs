@@ -40,6 +40,10 @@ def call(Map map, env) {
         }
 
         stages {
+            when {
+                branch map.buildBranch
+            }
+
             stage('Compile') {
                 steps {
                     container('compile') {
