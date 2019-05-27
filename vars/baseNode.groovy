@@ -292,6 +292,8 @@ spec:
       labels:
         app: $appName
     spec:
+      imagePullSecrets:
+      - name: regsecret    
       containers:
       - name: $appName
         image: $dockerRegistryHost/$imageUrlPath:$imageTags
