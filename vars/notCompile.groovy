@@ -1,3 +1,4 @@
+
 import java.io.*
 
 def call(Map map, env) {
@@ -7,8 +8,10 @@ def call(Map map, env) {
             'frontend-test' : [
                     'nodePort': '31377'
             ],
-            'work-attendance-frontend': [
-                    'nodePort': '30800'
+            'prometheus-server' : [
+                    'nodePort': '30090',
+                    'namespace': 'devops',
+                    'containerPort': '9090'
             ]
     ]
 
@@ -114,7 +117,7 @@ def baseTemplateName() {
     return 'base-template'
 }
 
-def yarnTemplate() {
+def jenkinsTemplate() {
     return """
 apiVersion: v1
 kind: Pod
@@ -193,17 +196,33 @@ spec:
 }
 
 
-def dockerFileContent() {
-    return '''
-FROM nginx
-ENV TZ=Asia/Shanghai
-ADD dist /usr/share/nginx/html
-ADD nginx.conf /etc/nginx/conf.d/default.conf
-RUN ln -sf /dev/stdout /var/log/nginx/access.log
-RUN ln -sf /dev/stderr /var/log/nginx/error.log
-EXPOSE 80
-ENTRYPOINT nginx -g "daemon off;"
+def dockerFileContent(appName) {
+//    return '''
+//FROM nginx
+//ENV TZ=Asia/Shanghai
+//ADD dist /usr/share/nginx/html
+//ADD nginx.conf /etc/nginx/conf.d/default.conf
+//RUN ln -sf /dev/stdout /var/log/nginx/access.log
+//RUN ln -sf /dev/stderr /var/log/nginx/error.log
+//EXPOSE 80
+//ENTRYPOINT nginx -g "daemon off;"
+//'''
+    switch (appName) {
+        case 'prometheus-server':
+            return '''
+FROM centos:latest
+ENV VERSION 2.9.2
+WORKDIR /workspace
+RUN mkdir -p /data/prometheus/etc/jobs && mkdir -p /data/prometheus/etc/rules/
+COPY ./prometheus-$VERSION.linux-amd64.tar.gz /workspace/
+COPY ./prometheus.yml /workspace/prometheus.yml
+COPY ./alert_rule.yml /data/prometheus/etc/rules/alert_rule.yml
+COPY ./test_server.yml /data/prometheus/etc/jobs/test_server.yml
+COPY ./conf/ceph.yml /data/prometheus/etc/jobs/ceph.yml
+RUN tar xf prometheus-$VERSION.linux-amd64.tar.gz && mv prometheus-$VERSION.linux-amd64 prometheus
 '''
+    }
+//
 }
 
 def dockerComposeFile(map) {
@@ -232,12 +251,12 @@ metadata:
   labels:
     app: $appName
   name: $appName
-  namespace: mis
+  namespace: $namespace
 spec:
   ports:
-  - port: 80
+  - port: $containerPort
     protocol: TCP
-    targetPort: 80
+    targetPort: $containerPort
     nodePort: $nodePort
   selector:
     app: $appName
@@ -248,7 +267,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: $appName
-  namespace: mis
+  namespace: $namespace
 spec:
   replicas: 1
   template:
@@ -259,7 +278,7 @@ spec:
       imagePullSecrets:
       - name: regsecret
       containers:
-      - name: service-prometheus
+      - name: $appName
         image: $dockerRegistryHost/$imageUrlPath:$imageTags
         imagePullPolicy: Always #
         env: #指定容器中的环境变量
@@ -267,22 +286,28 @@ spec:
           value: Asia/Shanghai
         resources:
           limits:
-            memory: 500Mi
+            memory: 1000Mi
           requests:
             cpu: 100m
             memory: 200Mi
         ports:
-        - containerPort: 80
+        - containerPort: $containerPort
 '''
     def binding = [
             'imageUrlPath' : map.imageUrlPath,
             'imageTags' : map.imageTags,
             'dockerRegistryHost' : map.dockerRegistryHost,
             'appName' : map.appName,
-            'nodePort' : map.get('globalConfig').get(map.appName).get('nodePort')
+            'nodePort' : getGlobal(map, 'nodePort'),
+            'namespace' : getGlobal(map, 'namespace'),
+            'containerPort': getGlobal(map, 'containerPort')
     ]
 
     return simpleTemplate(text, binding)
+}
+
+def getGlobal(map, getKey) {
+    return map.get('globalConfig').get(map.appName).get(getKey)
 }
 
 def emailBody(env, buildResult, Map map) {

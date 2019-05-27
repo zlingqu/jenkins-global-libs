@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="520bcbd9-cf09-4e27-bdf5-d707a5026e8c" name="Default Changelist" comment="" />
+    <list default="true" id="520bcbd9-cf09-4e27-bdf5-d707a5026e8c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/vars/notCompile.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vars/baseFrontend.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/vars/baseFrontend.groovy" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -41,26 +45,35 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vars/frontend.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="489">
-              <caret line="284" selection-start-line="284" selection-end-line="284" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vars/baseFrontend.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="15" lean-forward="true" selection-end-line="303" />
+            <state relative-caret-position="223">
+              <caret line="138" column="4" selection-start-line="138" selection-start-column="4" selection-end-line="138" selection-end-column="4" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/vars/baseFrontend.groovy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="10" column="38" selection-start-line="10" selection-start-column="38" selection-end-line="10" selection-end-column="38" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vars/notCompile.groovy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="237">
+              <caret line="119" column="18" selection-start-line="119" selection-start-column="18" selection-end-line="119" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vars/baseJava.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="337">
-              <caret line="281" column="87" selection-start-line="281" selection-start-column="56" selection-end-line="281" selection-end-column="88" />
+            <state relative-caret-position="4395">
+              <caret line="293" column="28" selection-start-line="293" selection-start-column="28" selection-end-line="293" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -99,17 +112,6 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vars/interactiveGroovyShell.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vars/waitForEndpoint.groovy">
           <provider selected="true" editor-type-id="text-editor">
             <state>
@@ -124,7 +126,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>dockerfile</find>
       <find>yarn-compile'</find>
       <find>get</find>
       <find>createDockerFile</find>
@@ -141,9 +142,6 @@
       <find>Kubectl</find>
       <find>kubectl</find>
       <find>nodePort</find>
-      <find>env</find>
-      <find>emailBody</find>
-      <find>yarnTemplate</find>
       <find>base-image-compiledmai-confluence-plugin:</find>
       <find>0.01</find>
       <find>0.02</find>
@@ -154,16 +152,21 @@
       <find>imageTags</find>
       <find>test-0.0.3</find>
       <find>command</find>
+      <find>env</find>
+      <find>-test</find>
+      <find>emailBody</find>
+      <find>yarnTemplate</find>
     </findStrings>
     <replaceStrings>
       <replace>compile</replace>
       <replace>emailBody</replace>
-      <replace>$appName</replace>
       <replace>dmaiConfluencePluginTemplate</replace>
       <replace>0.03</replace>
+      <replace>$appName</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$</dir>
+      <dir>$PROJECT_DIR$/vars</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -177,9 +180,11 @@
         <option value="$PROJECT_DIR$/vars/email.groovy" />
         <option value="$PROJECT_DIR$/vars/codeFetch.groovy" />
         <option value="$PROJECT_DIR$/vars/frontend.groovy" />
-        <option value="$PROJECT_DIR$/vars/baseFrontend.groovy" />
         <option value="$PROJECT_DIR$/vars/base.groovy" />
         <option value="$PROJECT_DIR$/vars/baseJava.groovy" />
+        <option value="$PROJECT_DIR$/vars/prometheus.groovy" />
+        <option value="$PROJECT_DIR$/vars/notCompile.groovy" />
+        <option value="$PROJECT_DIR$/vars/baseFrontend.groovy" />
       </list>
     </option>
   </component>
@@ -616,13 +621,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vars/frontend.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="489">
-          <caret line="284" selection-start-line="284" selection-end-line="284" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vars/base.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1583">
@@ -630,17 +628,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vars/baseFrontend.groovy">
+    <entry file="file://$PROJECT_DIR$/vars/baseJava.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="15" lean-forward="true" selection-end-line="303" />
+        <state relative-caret-position="4395">
+          <caret line="293" column="28" selection-start-line="293" selection-start-column="28" selection-end-line="293" selection-end-column="28" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vars/baseJava.groovy">
+    <entry file="file://$PROJECT_DIR$/vars/prometheus.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="337">
-          <caret line="281" column="87" selection-start-line="281" selection-start-column="56" selection-end-line="281" selection-end-column="88" />
+        <state relative-caret-position="492">
+          <caret line="222" column="4" selection-start-line="222" selection-start-column="4" selection-end-line="222" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vars/notCompile.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="237">
+          <caret line="119" column="18" selection-start-line="119" selection-start-column="18" selection-end-line="119" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vars/frontend.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="138" column="4" selection-start-line="138" selection-start-column="4" selection-end-line="138" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vars/baseFrontend.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="38" selection-start-line="10" selection-start-column="38" selection-end-line="10" selection-end-column="38" />
         </state>
       </provider>
     </entry>
