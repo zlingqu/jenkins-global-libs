@@ -250,17 +250,28 @@ spec:
       - name: $appName
         image: $dockerRegistryHost/$imageUrlPath:$imageTags
         imagePullPolicy: Always #
-        env: #指定容器中的环境变量
-        - name: TZ
-          value: Asia/Shanghai
+        volumeMounts:
+        - name: cephfs
+          mountPath: /data/tsdb
+          subPath: prometheus_home/prometheus_server_data_home/tsdb
+        command:
+        - "/workspace/prometheus/prometheus"
+        args:
+        - "--config.file=/workspace/prometheus.yml"
+        - "--storage.tsdb.path=/data/tsdb"
         resources:
           limits:
+            cpu: 500m
             memory: 1000Mi
           requests:
             cpu: 100m
             memory: 200Mi
         ports:
         - containerPort: $containerPort
+      volumes:
+      - name: cephfs
+        persistentVolumeClaim:
+          claimName: mypvc
 '''
     def binding = [
             'imageUrlPath' : map.imageUrlPath,
