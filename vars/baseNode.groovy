@@ -52,9 +52,8 @@ def call(Map map, env) {
         stages {
 
             stage('Make image') {
-                when {
-                    branch 'master || develop'
-                }
+                when { anyOf { branch 'master'; branch 'develop' } }
+
 
                 steps {
                     container('docker-compose') {
@@ -74,9 +73,8 @@ def call(Map map, env) {
             }
 
             stage('Deploy') {
-                when {
-                    branch 'master || develop'
-                }
+                when { anyOf { branch 'master'; branch 'develop' } }
+
                 steps {
                     container('kubectl') {
                         println('【创建k8s部署文件】')
