@@ -33,7 +33,7 @@ def call(Map map, env) {
                 defaultContainer 'jnlp'
                 namespace 'devops'
                 inheritFrom baseTemplateName()
-                yaml nodeTemplate()
+                yaml nodeTemplate(env)
             }
         }
 
@@ -45,8 +45,8 @@ def call(Map map, env) {
         environment {
             tags = "${map.REPO_URL}"
             dockerFile = dockerFileContent()
-            dockerComposeFile = dockerComposeFile(map)
-            kubernetesContentDeployFile = kubernetesContent(map)
+            dockerComposeFile = dockerComposeFile(map, env)
+            kubernetesContentDeployFile = kubernetesContent(map, env)
         }
 
         stages {
@@ -121,8 +121,8 @@ def baseTemplateName() {
     return 'base-template'
 }
 
-def nodeTemplate() {
-    return """
+def nodeTemplate(env) {
+    def text = """
 apiVersion: v1
 kind: Pod
 metadata:
@@ -133,7 +133,7 @@ spec:
   - name: regsecret
   containers:
   - name: kubectl 
-    image: docker.dm-ai.cn/devops/base-image-kubectl:0.01
+    image: $kubectl
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
@@ -197,8 +197,22 @@ spec:
     hostPath:
       path: /var/run/docker.sock      
 """
+
+    def binding = [
+            'kubectl' :  getKubectImage(env.BRANCH_NAME)
+    ]
+    return simpleTemplate(text, binding)
 }
 
+def getKubectImage(branch) {
+    if (branch == "master") {
+        return 'docker.dm-ai.cn/devops/base-image-kubectl:0.01'
+    }
+
+    if (branch == "develop") {
+        return 'docker.dm-ai.cn/devops/base-image-kubectl:test-0.01'
+    }
+}
 
 def dockerFileContent() {
     return '''
@@ -212,24 +226,25 @@ CMD [ "npm", "start" ]
 '''
 }
 
-def dockerComposeFile(map) {
+def dockerComposeFile(map, env) {
     def text = '''
 version: "2"
 services:
   service-docker-build:
     build: ./
-    image: $dockerRegistryHost/$imageUrlPath:$imageTags
+    image: $dockerRegistryHost/$imageUrlPath-$branchName:$imageTags
 '''
     def binding = [
             'imageUrlPath' : map.imageUrlPath,
             'imageTags' : map.imageTags,
             'dockerRegistryHost' : map.dockerRegistryHost,
+            'branchName' : env.BRANCH_NAME
     ]
 
     return simpleTemplate(text, binding)
 }
 
-def kubernetesContent(map) {
+def kubernetesContent(map, env) {
     def text = '''
 ---
 apiVersion: v1
@@ -250,6 +265,84 @@ spec:
   type: NodePort
 
 ---
+$configMapContent
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: $appName
+  namespace: $namespace
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: $appName
+    spec:
+      imagePullSecrets:
+      - name: regsecret    
+      containers:
+      - name: $appName
+        image: $dockerRegistryHost/$imageUrlPath-$branchName:$imageTags
+        #imagePullPolicy: Always
+        command: ['npm']
+        args: ["start"]
+        env:
+        - name: TZ
+          value: Asia/Shanghai
+        ports:
+        - containerPort: $nodePort
+        volumeMounts:
+        - name: myconf
+          mountPath: /app/config.env
+          subPath: config.env
+        - name: data
+          mountPath: /app/data
+        ports:
+        - containerPort: $appPort      
+      volumes:
+      - name: myconf
+        configMap:
+          name: $appName
+      - name: data
+$getData 
+'''
+    def binding = [
+            'imageUrlPath' : map.imageUrlPath,
+            'imageTags' : map.imageTags,
+            'dockerRegistryHost' : map.dockerRegistryHost,
+            'appName' : map.appName,
+            'nodePort' : map.get('globalConfig').get(map.appName).get('nodePort'),
+            'namespace': map.get('globalConfig').get(map.appName).get('namespace'),
+            'appPort': map.get('globalConfig').get(map.appName).get('appPort'),
+            'configMapContent': getConfigContent(map.appName, env.BRANCH_NAME),
+            'branchName': env.BRANCH_NAME,
+            'getData': getDate(map.appName, env.BRANCH_NAME)
+    ]
+
+    return simpleTemplate(text, binding)
+}
+
+def getDate(appName, branchName) {
+    if (appName == "mis-admin-backend" && branchName == "master") {
+        return '''
+        persistentVolumeClaim:
+          claimName: mypvc
+'''
+    }
+
+    if (appName == "mis-admin-backend" && branchName == "develop") {
+        return '''
+       hostPath:
+          path: /data/mis
+'''
+    }
+
+}
+
+def getConfigContent(appName, branchName) {
+    if (appName == "mis-admin-backend" && branchName == "master") {
+        return '''
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -279,60 +372,12 @@ data:
     WX_REQUEST_TIMEOUT=3000
     WX_CORP_ID=ww399a98a04dfbcda4
     WX_CONTACT_SECRET=gZazZkwuoPcrmli8tu4-h6op6CTnL5o7LvoU8wEPuqA
----
-apiVersion: apps/v1beta1
-kind: Deployment
-metadata:
-  name: $appName
-  namespace: $namespace
-spec:
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: $appName
-    spec:
-      imagePullSecrets:
-      - name: regsecret    
-      containers:
-      - name: $appName
-        image: $dockerRegistryHost/$imageUrlPath:$imageTags
-        #imagePullPolicy: Always
-        command: ['npm']
-        args: ["start"]
-        env:
-        - name: TZ
-          value: Asia/Shanghai
-        ports:
-        - containerPort: $nodePort
-        volumeMounts:
-        - name: myconf
-          mountPath: /app/config.env
-          subPath: config.env
-        - name: data
-          mountPath: /app/data
-          subPath: test_home
-        ports:
-        - containerPort: $appPort      
-      volumes:
-      - name: myconf
-        configMap:
-          name: $appName
-      - name: data
-        persistentVolumeClaim:
-          claimName: mypvc
 '''
-    def binding = [
-            'imageUrlPath' : map.imageUrlPath,
-            'imageTags' : map.imageTags,
-            'dockerRegistryHost' : map.dockerRegistryHost,
-            'appName' : map.appName,
-            'nodePort' : map.get('globalConfig').get(map.appName).get('nodePort'),
-            'namespace': map.get('globalConfig').get(map.appName).get('namespace'),
-            'appPort': map.get('globalConfig').get(map.appName).get('appPort'),
-    ]
+    }
 
-    return simpleTemplate(text, binding)
+    if (appName == "mis-admin-backend" && branchName == "develop") {
+        return ''
+    }
 }
 
 def emailBody(env, buildResult, Map map) {
