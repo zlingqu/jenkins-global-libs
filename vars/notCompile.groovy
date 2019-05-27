@@ -37,7 +37,7 @@ def call(Map map, env) {
 
         environment {
             tags = "${map.REPO_URL}"
-            dockerFile = dockerFileContent()
+            dockerFile = dockerFileContent(map)
             dockerComposeFile = dockerComposeFile(map)
             kubernetesContentDeployFile = kubernetesContent(map)
         }
@@ -166,7 +166,7 @@ spec:
 }
 
 
-def dockerFileContent(appName) {
+def dockerFileContent(map) {
 //    return '''
 //FROM nginx
 //ENV TZ=Asia/Shanghai
@@ -177,7 +177,7 @@ def dockerFileContent(appName) {
 //EXPOSE 80
 //ENTRYPOINT nginx -g "daemon off;"
 //'''
-    switch (appName) {
+    switch (map.get('appName')) {
         case 'service-prometheus':
             return '''
 FROM centos:latest
