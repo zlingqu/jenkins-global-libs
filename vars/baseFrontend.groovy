@@ -304,7 +304,7 @@ def emailBody(env, buildResult, Map map) {
             'branchName' : env.BRANCH_NAME,
             'buildNumber' : env.BUILD_NUMBER,
             'buildResult': buildResult,
-            'appurl' : 'http://192.168.3.140:' +  map.get('globalConfig').get(map.appName).get('nodePort')
+            'appurl' : 'http://192.168.3.140:' +  map.get('globalConfig').get(map.appName).get('nodePort'),
             'appCN' : map.get('appCN')
     ]
     return simpleTemplate(text, binding)
