@@ -22,6 +22,7 @@ def call(Map map, env) {
     map.put('globalConfig', globalConfig)
 
     println('【开始进行构建】')
+
     pipeline {
         agent {
             kubernetes {
@@ -47,24 +48,6 @@ def call(Map map, env) {
         }
 
         stages {
-//            stage('Make image') {
-//                steps {
-//                    container('docker-compose') {
-//                        println('【创建Dockerfile】')
-//                        sh 'echo "${dockerFile}" > Dockerfile'
-//
-//                        println('【创建docker-compose】')
-//                        sh 'echo -e "${dockerComposeFile}" > docker-compose.yml'
-//
-//                        println('【Make image】')
-//                        sh 'docker-compose build'
-//
-//                        println('【Push image】')
-//                        sh 'docker-compose push'
-//                    }
-//                }
-//            }
-
             stage('Deploy') {
                 steps {
                     container('kubectl') {
