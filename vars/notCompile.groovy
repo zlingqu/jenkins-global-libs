@@ -50,6 +50,7 @@ def call(Map map, env) {
             stage('Make image') {
                 steps {
                     container('docker-compose') {
+                        sh 'sleep 6000'
                         println('【创建Dockerfile】')
                         sh 'echo "${dockerFile}" > Dockerfile'
 
