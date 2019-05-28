@@ -45,7 +45,7 @@ def call(Map map, env) {
                 steps {
                     container('kubectl') {
                         println('【创建configMap】')
-                        sh 'kubeclt apply -f fluentd-es-configmap.yaml'
+                        sh 'kubectl apply -f fluentd-es-configmap.yaml'
                         println('【执行采集器部署】')
                         sh 'kubectl apply -f fluentd-es-ds.yaml'
                     }
