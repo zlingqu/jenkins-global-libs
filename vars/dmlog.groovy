@@ -40,13 +40,6 @@ def call(Map map, env) {
             retry(2)
         }
 
-        environment {
-            tags = "${map.REPO_URL}"
-            dockerFile = dockerFileContent(map)
-            dockerComposeFile = dockerComposeFile(map)
-            kubernetesContentDeployFile = kubernetesContent(map)
-        }
-
         stages {
             stage('Deploy') {
                 steps {
