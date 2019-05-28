@@ -370,6 +370,7 @@ data:
     WX_REQUEST_TIMEOUT=3000
     WX_CORP_ID=ww399a98a04dfbcda4
     WX_CONTACT_SECRET=gZazZkwuoPcrmli8tu4-h6op6CTnL5o7LvoU8wEPuqA
+    WX_APPROVAL_SECRET="hFw3-lNcqlD4ilT8YwnAJwk650sElWXyVi8n3EEsgDs"
 '''
     }
 
