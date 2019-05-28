@@ -4,7 +4,7 @@ import java.io.*
 def call(Map map, env) {
     // 临时的，后面再进行抽取
     println("开始构建")
-    if (env.BRANCH_NAME != "master" && env.BRANCH_NAME != "develog") {
+    if (env.BRANCH_NAME != "master" && env.BRANCH_NAME != "develop") {
         return
     }
 
