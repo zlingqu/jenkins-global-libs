@@ -29,7 +29,7 @@ def call(Map map, env) {
 
     map.put('globalConfig', globalConfig)
 
-    println('【开始进行构建】')
+    println('【开始执行pipeline】')
     pipeline {
         agent {
             kubernetes {
