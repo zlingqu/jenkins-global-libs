@@ -22,23 +22,29 @@ def call(Map map, env) {
         }
 
         stages {
-                stage('Compile') {
-                    steps {
-                        container('compile') {
-                            sh '''
-                           echo ${gpuExporterCompilePath}
-                           mkdir -p ${gpuExporterCompilePath}
-                           cp -rp . ${gpuExporterCompilePath}
-                           currentPath=pwd
-                           cd ${gpuExporterCompilePath} && go build
-                           go build -o ${currentPath}/dmai_gpu_exporter
-                        '''
-                            withCredentials([usernamePassword(credentialsId: 'passwd-zs', passwordVariable: 'password', usernameVariable: 'username')]) {
-                                sh 'git clone http://$username:$password@192.168.3.221:8082/application-engineering/devops/ansible.git'
-                            }
+            stage('Compile') {
+                steps {
+                    container('compile') {
+                        sh '''
+                       echo ${gpuExporterCompilePath}
+                       mkdir -p ${gpuExporterCompilePath}
+                       cp -rp . ${gpuExporterCompilePath}
+                       currentPath=pwd
+                       cd ${gpuExporterCompilePath} && go build
+                       go build -o ${currentPath}/dmai_gpu_exporter
+                    '''
+                        withCredentials([usernamePassword(credentialsId: 'passwd-zs', passwordVariable: 'password', usernameVariable: 'username')]) {
+                            sh 'git clone http://$username:$password@192.168.3.221:8082/application-engineering/devops/ansible.git'
                         }
                     }
                 }
+            }
+
+            stage('Install gpu exporter') {
+                container('ansible') {
+                    sh 'cd ansible; '
+                }
+            }
         }
     }
 }
