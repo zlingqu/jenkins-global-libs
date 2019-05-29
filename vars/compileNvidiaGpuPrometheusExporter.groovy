@@ -9,7 +9,7 @@ def call(Map map, env) {
                 defaultContainer 'jnlp'
                 namespace 'devops'
                 inheritFrom baseTemplateName()
-                yaml nodeTemplate(env)
+                yaml jenkinsTemplate(env)
             }
         }
         options {
@@ -44,7 +44,7 @@ def baseTemplateName() {
     return 'base-template'
 }
 
-jenkinsTemplate(env) {
+def jenkinsTemplate(env) {
     return """
 apiVersion: v1
 kind: Pod
@@ -60,7 +60,7 @@ spec:
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
-      value: docker.dm-ai.cn  
+      value: docker.dm-ai.cn 
     command:
     - "/bin/sh"
     - "-c"
@@ -92,6 +92,6 @@ spec:
         cpu: 2000m
       requests:
         cpu: 1000m
-        memory: 2000Mi          
+        memory: 2000Mi    
 """
 }
