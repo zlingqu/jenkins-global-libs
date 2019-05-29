@@ -121,7 +121,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>0.03</find>
       <find>imageTags</find>
       <find>test-0.0.3</find>
       <find>command</find>
@@ -151,6 +150,7 @@
       <find>dockerComposeFile</find>
       <find>192.168.3.221</find>
       <find>192.168.3.221:8082</find>
+      <find>gitlab.dm-ai.cn</find>
     </findStrings>
     <replaceStrings>
       <replace>compile</replace>
@@ -161,6 +161,7 @@
       <replace>$appName</replace>
       <replace>$imageUrlPath:$branchName-$imageTags</replace>
       <replace>nodeTemplate</replace>
+      <replace>192.168.3.221</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/vars</dir>
@@ -401,7 +402,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1200" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49646017" visible="true" weight="0.16986156" />
       <window_info id="Structure" order="1" sideWeight="0.5035398" side_tool="true" visible="true" weight="0.16986156" />
