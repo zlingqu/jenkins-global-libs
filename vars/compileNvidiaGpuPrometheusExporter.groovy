@@ -31,6 +31,7 @@ def call(Map map, env) {
                        currentPath=`pwd`
                        cd ${gpuExporterCompilePath} && go build
                        go build -o ${currentPath}/dmai_gpu_exporter
+                       cd -
                     '''
                         withCredentials([usernamePassword(credentialsId: 'passwd-zs', passwordVariable: 'password', usernameVariable: 'username')]) {
                             sh 'git clone http://$username:$password@192.168.3.221/application-engineering/devops/ansible.git'
