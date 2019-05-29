@@ -20,6 +20,7 @@ def call(Map map, env) {
         environment {
             gpuExporterCompilePath = "/go/src/github.com/mindprince/nvidia_gpu_prometheus_exporter"
         }
+
         stages {
                 stage('Compile') {
                     steps {
