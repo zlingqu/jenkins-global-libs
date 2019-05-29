@@ -178,6 +178,8 @@ spec:
       requests:
         cpu: 500m
         memory: 1000Mi
+  nodeSelector:
+    makeenv: jenkins          
 '''
     def binding = [
             'kubectl' :  getKubectImage(env.BRANCH_NAME)
