@@ -173,11 +173,11 @@ spec:
     tty: true
     resources:
       limits:
-        memory: 1000Mi
-        cpu: 800m
-      requests:
+        memory: 500Mi
         cpu: 400m
-        memory: 600Mi
+      requests:
+        cpu: 200m
+        memory: 300Mi
   - name: compile
     image: docker.dm-ai.cn/devops/base-image-compile-frontend:0.03
     imagePullPolicy: IfNotPresent
