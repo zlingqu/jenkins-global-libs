@@ -39,12 +39,6 @@ def call(Map map, env) {
                         }
                     }
                 }
-
-                stage('Exec Ansible') {
-                    container('ansible') {
-
-                    }
-                }
         }
     }
 }
