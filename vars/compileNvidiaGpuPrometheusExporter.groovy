@@ -33,7 +33,16 @@ def call(Map map, env) {
                            cd ${gpuExporterCompilePath} && go build
                            go build -o ${currentPath}/dmai_gpu_exporter
                         '''
+                            withCredentials([usernamePassword(credentialsId: 'passwd-zs', passwordVariable: 'password', usernameVariable: 'username')]) {
+                                sh 'git clone http://$username:$password@192.168.3.221:8082/application-engineering/devops/ansible.git'
+                            }
                         }
+                    }
+                }
+
+                stage('Exec Ansible') {
+                    container('ansible') {
+
                     }
                 }
         }
