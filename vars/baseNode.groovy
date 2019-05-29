@@ -235,7 +235,7 @@ version: "2"
 services:
   service-docker-build:
     build: ./
-    image: $dockerRegistryHost/$imageUrlPath-$branchName:$imageTags
+    image: $dockerRegistryHost/$imageUrlPath:$branchName-$imageTags
 '''
     def binding = [
             'imageUrlPath' : map.imageUrlPath,
@@ -286,7 +286,7 @@ spec:
       - name: regsecret    
       containers:
       - name: $appName
-        image: $dockerRegistryHost/$imageUrlPath-$branchName:$imageTags
+        image: $dockerRegistryHost/$imageUrlPath:$branchName-$imageTags
         imagePullPolicy: Always
         command:
         - npm

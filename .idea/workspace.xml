@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="520bcbd9-cf09-4e27-bdf5-d707a5026e8c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vars/compileNvidiaGpuPrometheusExporter.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/vars/compileNvidiaGpuPrometheusExporter.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vars/baseNode.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/vars/baseNode.groovy" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -81,11 +81,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/baseNode.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="341">
-              <caret line="269" column="3" lean-forward="true" selection-start-line="269" selection-start-column="3" selection-end-line="269" selection-end-column="3" />
+            <state relative-caret-position="313">
+              <caret line="268" lean-forward="true" selection-start-line="268" selection-end-line="268" />
             </state>
           </provider>
         </entry>
@@ -99,11 +99,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vars/compileNvidiaGpuPrometheusExporter.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-32">
-              <caret line="11" column="36" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="36" />
+            <state relative-caret-position="225">
+              <caret line="15" column="42" lean-forward="true" selection-start-line="15" selection-start-column="42" selection-end-line="15" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -121,7 +121,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>0.01</find>
       <find>0.02</find>
       <find>com</find>
       <find>persistentVolumeClaim</find>
@@ -151,6 +150,7 @@
       <find>dockerComposeFile</find>
       <find>kubernetesContent</find>
       <find>jenkinsTemplate</find>
+      <find>$imageUrlPath-$branchName:$imageTags</find>
     </findStrings>
     <replaceStrings>
       <replace>compile</replace>
@@ -160,10 +160,11 @@
       <replace>jenkinsTemplate</replace>
       <replace>$appName</replace>
       <replace>nodeTemplate</replace>
+      <replace>$imageUrlPath:$branchName-$imageTags</replace>
     </replaceStrings>
     <dirStrings>
-      <dir>$PROJECT_DIR$</dir>
       <dir>$PROJECT_DIR$/vars</dir>
+      <dir>$PROJECT_DIR$</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -183,10 +184,10 @@
         <option value="$PROJECT_DIR$/vars/baseFrontend.groovy" />
         <option value="$PROJECT_DIR$/vars/node.groovy" />
         <option value="$PROJECT_DIR$/vars/ansible.groovy" />
-        <option value="$PROJECT_DIR$/vars/baseNode.groovy" />
         <option value="$PROJECT_DIR$/vars/notCompile.groovy" />
         <option value="$PROJECT_DIR$/vars/dmlog.groovy" />
         <option value="$PROJECT_DIR$/vars/compileNvidiaGpuPrometheusExporter.groovy" />
+        <option value="$PROJECT_DIR$/vars/baseNode.groovy" />
       </list>
     </option>
   </component>
@@ -640,13 +641,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vars/baseNode.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="269" column="3" lean-forward="true" selection-start-line="269" selection-start-column="3" selection-end-line="269" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vars/notCompile.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
@@ -705,8 +699,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/compileNvidiaGpuPrometheusExporter.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-32">
-          <caret line="11" column="36" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="36" />
+        <state relative-caret-position="225">
+          <caret line="15" column="42" lean-forward="true" selection-start-line="15" selection-start-column="42" selection-end-line="15" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vars/baseNode.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="313">
+          <caret line="268" lean-forward="true" selection-start-line="268" selection-end-line="268" />
         </state>
       </provider>
     </entry>
