@@ -106,6 +106,6 @@ spec:
         cpu: 1000m
         memory: 1500Mi
   nodeSelector:
-    makeenv:jenkins       
+    makeenv: jenkins       
 """
 }
