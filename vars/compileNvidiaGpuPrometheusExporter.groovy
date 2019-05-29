@@ -42,8 +42,10 @@ def call(Map map, env) {
             }
 
             stage('Install gpu exporter') {
-                container('ansible') {
-                    sh 'cd ansible; '
+                steps {
+                    container('ansible') {
+                        sh 'cd ansible; '
+                    }
                 }
             }
         }
