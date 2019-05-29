@@ -70,11 +70,11 @@ spec:
     tty: true
     resources:
       limits:
-        memory: 5000Mi
-        cpu: 3000m
+        memory: 2000Mi
+        cpu: 1500m
       requests:
-        cpu: 2000m
-        memory: 4000Mi
+        cpu: 1000m
+        memory: 1500Mi
   - name: compile
     image: golang:1.10
     imagePullPolicy: IfNotPresent
@@ -89,10 +89,10 @@ spec:
     tty: true
     resources:
       limits:
-        memory: 4000Mi
-        cpu: 2000m
+        memory: 2000Mi
+        cpu: 1500m
       requests:
         cpu: 1000m
-        memory: 2000Mi    
+        memory: 1500Mi
 """
 }
