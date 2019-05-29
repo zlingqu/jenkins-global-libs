@@ -34,7 +34,7 @@ def call(Map map, env) {
                        go build -o ${currentPath}/dmai_gpu_exporter
                     '''
                         withCredentials([usernamePassword(credentialsId: 'passwd-zs', passwordVariable: 'password', usernameVariable: 'username')]) {
-                            sh 'git clone http://$username:$password@192.168.3.221:8082/application-engineering/devops/ansible.git'
+                            sh 'git clone http://$username:$password@gitlab.dm-ai.cn/application-engineering/devops/ansible.git'
                         }
                         sh 'cp -rp dmai_gpu_exporter ansible/roles/prometheus.gpu_exporter/files/dmai_gpu_exporter'
                     }
