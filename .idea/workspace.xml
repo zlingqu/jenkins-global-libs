@@ -102,8 +102,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/compileNvidiaGpuPrometheusExporter.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="675">
-              <caret line="45" selection-start-line="45" selection-end-line="45" />
+            <state relative-caret-position="585">
+              <caret line="39" selection-start-line="39" selection-end-line="39" />
             </state>
           </provider>
         </entry>
@@ -121,7 +121,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>persistentVolumeClaim</find>
       <find>baseTemplateName</find>
       <find>0.03</find>
       <find>imageTags</find>
@@ -151,6 +150,7 @@
       <find>withCredentials</find>
       <find>jenkinsTemplate</find>
       <find>dockerComposeFile</find>
+      <find>192.168.3.221</find>
     </findStrings>
     <replaceStrings>
       <replace>compile</replace>
@@ -698,8 +698,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/compileNvidiaGpuPrometheusExporter.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="45" selection-start-line="45" selection-end-line="45" />
+        <state relative-caret-position="585">
+          <caret line="39" selection-start-line="39" selection-end-line="39" />
         </state>
       </provider>
     </entry>
