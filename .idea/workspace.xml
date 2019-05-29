@@ -29,18 +29,6 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vars/email.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="27" selection-start-line="27" selection-end-line="27" />
-              <folding>
-                <element signature="e#0#20#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vars/frontend.groovy">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1061">
@@ -61,8 +49,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vars/baseNode.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="44" selection-start-line="44" selection-end-line="54" selection-end-column="9" />
+            <state relative-caret-position="341">
+              <caret line="269" column="3" lean-forward="true" selection-start-line="269" selection-start-column="3" selection-end-line="269" selection-end-column="3" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vars/ansible.groovy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="411">
+              <caret line="31" selection-start-line="31" selection-end-line="33" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -70,8 +67,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/compileNvidiaGpuPrometheusExporter.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="26" column="24" selection-start-line="26" selection-start-column="24" selection-end-line="26" selection-end-column="24" />
+            <state relative-caret-position="480">
+              <caret line="32" column="71" lean-forward="true" selection-start-line="32" selection-start-column="71" selection-end-line="32" selection-end-column="71" />
             </state>
           </provider>
         </entry>
@@ -625,13 +622,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vars/ansible.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="32" column="39" selection-start-line="32" selection-start-column="39" selection-end-line="32" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vars/email.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="405">
@@ -694,17 +684,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/vars/ansible.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="411">
+          <caret line="31" selection-start-line="31" selection-end-line="33" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/vars/baseNode.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="44" selection-start-line="44" selection-end-line="54" selection-end-column="9" />
+        <state relative-caret-position="341">
+          <caret line="269" column="3" lean-forward="true" selection-start-line="269" selection-start-column="3" selection-end-line="269" selection-end-column="3" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/compileNvidiaGpuPrometheusExporter.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="26" column="24" selection-start-line="26" selection-start-column="24" selection-end-line="26" selection-end-column="24" />
+        <state relative-caret-position="480">
+          <caret line="32" column="71" lean-forward="true" selection-start-line="32" selection-start-column="71" selection-end-line="32" selection-end-column="71" />
         </state>
       </provider>
     </entry>
