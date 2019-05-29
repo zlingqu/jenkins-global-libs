@@ -44,7 +44,7 @@ def call(Map map, env) {
             stage('Install gpu exporter') {
                 steps {
                     container('ansible') {
-                        sh 'cd ansible; '
+                        sh 'cd ansible; ansible-playbook common.yml -t prometheus-gpu-exporter'
                     }
                 }
             }
