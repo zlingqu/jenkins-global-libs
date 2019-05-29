@@ -30,11 +30,12 @@ def call(Map map, env) {
                        cp -rp . ${gpuExporterCompilePath}
                        currentPath=`pwd`
                        cd ${gpuExporterCompilePath} && go build -o ${currentPath}/dmai_gpu_exporter && cd -
+                       pwd
                     '''
                         withCredentials([usernamePassword(credentialsId: 'passwd-zs', passwordVariable: 'password', usernameVariable: 'username')]) {
                             sh 'git clone http://$username:$password@192.168.3.221/application-engineering/devops/ansible.git'
                         }
-                        sh 'cp -rp dmai_gpu_exporter ansible/roles/prometheus.gpu_exporter/files/dmai_gpu_exporter'
+                        sh 'pwd && sleep 6000 && cp -rp dmai_gpu_exporter ansible/roles/prometheus.gpu_exporter/files/dmai_gpu_exporter'
                     }
                 }
             }
