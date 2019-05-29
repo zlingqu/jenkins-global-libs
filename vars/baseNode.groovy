@@ -151,11 +151,11 @@ spec:
     tty: true
     resources:
       limits:
-        memory: 300Mi
-        cpu: 200m
+        memory: 2000Mi
+        cpu: 1000m
       requests:
-        cpu: 100m
-        memory: 200Mi  
+        cpu: 500m
+        memory: 1000Mi  
   - name: docker-compose
     image: docker.dm-ai.cn/devops/base-image-docker-compose:0.04
     imagePullPolicy: IfNotPresent
@@ -173,11 +173,11 @@ spec:
     tty: true
     resources:
       limits:
-        memory: 500Mi
-        cpu: 400m
+        memory: 2000Mi
+        cpu: 1000m
       requests:
-        cpu: 200m
-        memory: 300Mi
+        cpu: 500m
+        memory: 1000Mi
 '''
     def binding = [
             'kubectl' :  getKubectImage(env.BRANCH_NAME)
