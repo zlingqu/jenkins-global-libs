@@ -178,29 +178,6 @@ spec:
       requests:
         cpu: 200m
         memory: 300Mi
-  - name: compile
-    image: docker.dm-ai.cn/devops/base-image-compile-frontend:0.03
-    imagePullPolicy: IfNotPresent
-    env: #指定容器中的环境变量
-    - name: DMAI_PRIVATE_DOCKER_REGISTRY
-      value: docker.dm-ai.cn
-    command:
-    - "/bin/sh"
-    - "-c"
-    args:
-    - "cat"
-    tty: true
-    resources:
-      limits:
-        memory: 5000Mi
-        cpu: 3000m
-      requests:
-        cpu: 2000m
-        memory: 4000Mi
-  volumes:
-  - name: sock
-    hostPath:
-      path: /var/run/docker.sock 
 '''
     def binding = [
             'kubectl' :  getKubectImage(env.BRANCH_NAME)
