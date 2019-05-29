@@ -29,7 +29,7 @@ def call(Map map, env) {
                        echo ${gpuExporterCompilePath}
                        mkdir -p ${gpuExporterCompilePath}
                        cp -rp . ${gpuExporterCompilePath}
-                       currentPath=pwd
+                       currentPath=`pwd`
                        cd ${gpuExporterCompilePath} && go build
                        go build -o ${currentPath}/dmai_gpu_exporter
                     '''
