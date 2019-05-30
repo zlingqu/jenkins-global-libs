@@ -1,8 +1,7 @@
 import java.io.*
 
 def call(Map map, env) {
-
-    if ( env.BRANCH_NAME != map.buildBranch ) {
+    if (env.BRANCH_NAME != "master" && env.BRANCH_NAME != "develop") {
         return
     }
     // 临时的，后面再进行抽取
@@ -53,9 +52,9 @@ def call(Map map, env) {
 
         stages {
             stage('Compile') {
-                when {
-                    branch map.buildBranch
-                }
+//                when {
+//                    branch map.buildBranch
+//                }
 
                 steps {
                     container('compile') {
@@ -68,9 +67,9 @@ def call(Map map, env) {
             }
 
             stage('Make image') {
-                when {
-                    branch map.buildBranch
-                }
+//                when {
+//                    branch map.buildBranch
+//                }
                 steps {
                     container('docker-compose') {
                         println('【创建Dockerfile】')
@@ -89,9 +88,9 @@ def call(Map map, env) {
             }
 
             stage('Deploy') {
-                when {
-                    branch map.buildBranch
-                }
+//                when {
+//                    branch map.buildBranch
+//                }
                 steps {
                     container('kubectl') {
                         println('【创建k8s部署文件】')
