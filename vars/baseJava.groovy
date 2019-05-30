@@ -141,10 +141,9 @@ spec:
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
       value: docker.dm-ai.cn  
     command:
-    - "/bin/sh"
-    - "-c"
+    - "sleep"
     args:
-    - "cat"
+    - "1200"
     tty: true
     resources:
       limits:
@@ -164,10 +163,9 @@ spec:
     - name: sock
       mountPath: /var/run/docker.sock
     command:
-    - "/bin/sh"
-    - "-c"
+    - "sleep"
     args:
-    - "cat"
+    - "1200"
     tty: true
     resources:
       limits:
@@ -190,10 +188,9 @@ spec:
       mountPath: /root/.m2
       subPath: jenkins_home/dmai-confluence-plugin       
     command:
-    - "/bin/sh"
-    - "-c"
+    - "sleep"
     args:
-    - "cat"
+    - "1200"
     tty: true
     resources:
       limits:
