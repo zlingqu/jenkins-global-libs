@@ -35,7 +35,7 @@ def call(Map map, env) {
                 defaultContainer 'jnlp'
                 namespace 'devops'
                 inheritFrom baseTemplateName()
-                yaml yarnTemplate()
+                yaml yarnTemplate(env.BRANCH_NAME)
             }
         }
 
@@ -138,8 +138,9 @@ def baseTemplateName() {
     return 'base-template'
 }
 
-def yarnTemplate() {
-    return """
+def yarnTemplate(branchName) {
+
+    def text = """
 apiVersion: v1
 kind: Pod
 metadata:
@@ -150,7 +151,7 @@ spec:
   - name: regsecret
   containers:
   - name: kubectl 
-    image: docker.dm-ai.cn/devops/base-image-kubectl:test-0.01
+    image: docker.dm-ai.cn/devops/base-image-kubectl:$branchName-0.01
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
@@ -216,6 +217,10 @@ spec:
   nodeSelector:
     makeenv: jenkins         
 """
+    def binding = [
+            'branchName' : branchName,
+    ]
+    return simpleTemplate(text, binding)
 }
 
 
