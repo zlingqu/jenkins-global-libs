@@ -22,8 +22,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/codeFetch.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2250">
-              <caret line="150" selection-start-line="150" selection-end-line="190" selection-end-column="8" />
+            <state relative-caret-position="351">
+              <caret line="38" selection-start-line="38" selection-end-line="38" />
             </state>
           </provider>
         </entry>
@@ -119,7 +119,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>VERSION</find>
       <find>branch</find>
       <find>SimpleTemplateScript</find>
       <find>kubectl</find>
@@ -149,6 +148,7 @@
       <find>compile-node-exporter</find>
       <find>notComplieTemplate</find>
       <find>yarnTemplate</find>
+      <find>codeFetch</find>
     </findStrings>
     <replaceStrings>
       <replace>compile</replace>
@@ -703,8 +703,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/codeFetch.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2250">
-          <caret line="150" selection-start-line="150" selection-end-line="190" selection-end-column="8" />
+        <state relative-caret-position="351">
+          <caret line="38" selection-start-line="38" selection-end-line="38" />
         </state>
       </provider>
     </entry>

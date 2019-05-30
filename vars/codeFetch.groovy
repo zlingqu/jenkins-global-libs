@@ -36,7 +36,6 @@ def call(Map map, env) {
 
                 steps {
                     container('compile') {
-                        codeFetch()
                         sh '''
                     cp -rp `pwd` /go/src/node_exporter
                     cd /go/src/node_exporter
