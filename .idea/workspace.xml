@@ -45,8 +45,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/baseFrontend.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="741">
-              <caret line="90" selection-start-line="90" selection-start-column="2" selection-end-line="92" selection-end-column="19" />
+            <state relative-caret-position="1061">
+              <caret line="316" column="43" selection-start-line="316" selection-start-column="43" selection-end-line="316" selection-end-column="43" />
             </state>
           </provider>
         </entry>
@@ -93,8 +93,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vars/baseNode.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" selection-start-line="6" selection-end-line="8" selection-end-column="5" />
+            <state relative-caret-position="3312">
+              <caret line="224" column="42" lean-forward="true" selection-start-line="224" selection-start-column="12" selection-end-line="224" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -145,12 +145,12 @@
       <find>apply -f</find>
       <find>withCredentials</find>
       <find>jenkinsTemplate</find>
-      <find>dockerComposeFile</find>
       <find>192.168.3.221</find>
       <find>192.168.3.221:8082</find>
       <find>gitlab.dm-ai.cn</find>
       <find>nodeSelector</find>
       <find>yarnTemplate</find>
+      <find>dockerComposeFile</find>
     </findStrings>
     <replaceStrings>
       <replace>compile</replace>
@@ -404,8 +404,8 @@
     <frame x="0" y="0" width="1920" height="1200" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49646017" visible="true" weight="0.16986156" />
-      <window_info id="Structure" order="1" sideWeight="0.5035398" side_tool="true" visible="true" weight="0.16986156" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49646017" visible="true" weight="0.16986156" />
+      <window_info active="true" id="Structure" order="1" sideWeight="0.5035398" side_tool="true" visible="true" weight="0.16986156" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Capture Tool" order="4" />
@@ -692,15 +692,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/baseNode.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" selection-start-line="6" selection-end-line="8" selection-end-column="5" />
+        <state relative-caret-position="3312">
+          <caret line="224" column="42" lean-forward="true" selection-start-line="224" selection-start-column="12" selection-end-line="224" selection-end-column="42" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/baseFrontend.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="741">
-          <caret line="90" selection-start-line="90" selection-start-column="2" selection-end-line="92" selection-end-column="19" />
+        <state relative-caret-position="1061">
+          <caret line="316" column="43" selection-start-line="316" selection-start-column="43" selection-end-line="316" selection-end-column="43" />
         </state>
       </provider>
     </entry>

@@ -46,8 +46,8 @@ def call(Map map, env) {
         environment {
             tags = "${map.REPO_URL}"
             dockerFile = dockerFileContent()
-            dockerComposeFile = dockerComposeFile(map)
-            kubernetesContentDeployFile = kubernetesContent(map)
+            dockerComposeFile = dockerComposeFile(map, env)
+            kubernetesContentDeployFile = kubernetesContent(map, env)
         }
 
         stages {
@@ -236,24 +236,25 @@ ENTRYPOINT nginx -g "daemon off;"
 '''
 }
 
-def dockerComposeFile(map) {
+def dockerComposeFile(map, env) {
     def text = '''
 version: "2"
 services:
   service-docker-build:
     build: ./
-    image: $dockerRegistryHost/$imageUrlPath:$imageTags
+    image: $dockerRegistryHost/$imageUrlPath:$branchName-$imageTags
 '''
     def binding = [
             'imageUrlPath' : map.imageUrlPath,
             'imageTags' : map.imageTags,
             'dockerRegistryHost' : map.dockerRegistryHost,
-    ]
+            'branchName' : env.BRANCH_NAME,
+            ]
 
     return simpleTemplate(text, binding)
 }
 
-def kubernetesContent(map) {
+def kubernetesContent(map, env) {
     def text = '''
 ---
 apiVersion: v1
@@ -290,7 +291,7 @@ spec:
       - name: regsecret
       containers:
       - name: service-prometheus
-        image: $dockerRegistryHost/$imageUrlPath:$imageTags
+        image: $dockerRegistryHost/$imageUrlPath:$branchName-$imageTags
         imagePullPolicy: Always #
         env: #指定容器中的环境变量
         - name: TZ
@@ -313,6 +314,7 @@ spec:
             'appName' : map.appName,
             'nodePort' : map.get('globalConfig').get(map.appName).get('nodePort'),
             'namespace': map.get('globalConfig').get(map.appName).get('namespace'),
+            'branchName' : env.BRANCH_NAME,
     ]
 
     return simpleTemplate(text, binding)
