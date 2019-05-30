@@ -14,6 +14,10 @@ def call(Map map, env) {
             'mis-admin-frontend': [
                     'nodePort': '30090',
                     'namespace': 'mis'
+            ],
+            'org-frontend': [
+                    'nodePort': '30091',
+                    'namespace': 'mis'
             ]
     ]
 
