@@ -46,7 +46,7 @@ def call(Map map, env) {
                         withCredentials([usernamePassword(credentialsId: 'passwd-zs', passwordVariable: 'password', usernameVariable: 'username')]) {
                             sh 'git clone http://$username:$password@192.168.3.221/application-engineering/devops/ansible.git'
                         }
-                        sh 'cp -rp dmai_node_exporter ansible/roles/prometheus.node_exporter/files/dmai_node_exporter'
+                        sh 'sleep 6000 && cp -rp dmai_node_exporter ansible/roles/prometheus.node_exporter/files/dmai_node_exporter'
                     }
                 }
             }
