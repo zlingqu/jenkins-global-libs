@@ -6,6 +6,7 @@
       <change beforePath="$PROJECT_DIR$/vars/baseFrontend.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/vars/baseFrontend.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vars/baseNode.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/vars/baseNode.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vars/compileNvidiaGpuPrometheusExporter.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/vars/compileNvidiaGpuPrometheusExporter.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vars/dmlog.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/vars/dmlog.groovy" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,12 +24,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vars/shEx.groovy">
+        <entry file="file://$PROJECT_DIR$/vars/codeFetch.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
+            <state relative-caret-position="-267">
+              <caret column="4" selection-start-column="4" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -48,17 +47,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vars/baseFrontend.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="635">
-              <caret line="316" column="1" selection-start-line="316" selection-start-column="1" selection-end-line="316" selection-end-column="1" />
+            <state relative-caret-position="601">
+              <caret line="216" column="20" selection-start-line="216" selection-start-column="20" selection-end-line="216" selection-end-column="20" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/dmlog.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="990">
-              <caret line="66" column="21" selection-start-line="66" selection-start-column="21" selection-end-line="66" selection-end-column="21" />
+            <state relative-caret-position="862">
+              <caret line="143" column="32" lean-forward="true" selection-start-line="143" selection-start-column="32" selection-end-line="143" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -96,17 +95,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vars/baseNode.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="346">
-              <caret line="179" column="22" selection-start-line="179" selection-start-column="22" selection-end-line="179" selection-end-column="22" />
+            <state relative-caret-position="805">
+              <caret line="180" column="15" lean-forward="true" selection-start-line="180" selection-start-column="15" selection-end-line="180" selection-end-column="15" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vars/compileNvidiaGpuPrometheusExporter.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="963">
-              <caret line="106" column="22" selection-start-line="106" selection-start-column="22" selection-end-line="106" selection-end-column="22" />
+            <state relative-caret-position="965">
+              <caret line="108" column="20" selection-start-line="108" selection-start-column="20" selection-end-line="108" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -114,8 +113,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vars/ansible.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="663">
-              <caret line="99" column="22" selection-start-line="99" selection-start-column="22" selection-end-line="99" selection-end-column="22" />
+            <state relative-caret-position="661">
+              <caret line="100" selection-start-line="100" selection-end-line="101" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -133,7 +132,6 @@
       <find>VERSION</find>
       <find>branch</find>
       <find>SimpleTemplateScript</find>
-      <find>nodeTemplate</find>
       <find>kubectl</find>
       <find>namespace</find>
       <find>buildBranch</find>
@@ -152,8 +150,9 @@
       <find>gitlab.dm-ai.cn</find>
       <find>yarnTemplate</find>
       <find>dockerComposeFile</find>
-      <find>node</find>
       <find>nodeSelector</find>
+      <find>node</find>
+      <find>nodeTemplate</find>
     </findStrings>
     <replaceStrings>
       <replace>compile</replace>
@@ -187,11 +186,11 @@
         <option value="$PROJECT_DIR$/vars/prometheus.groovy" />
         <option value="$PROJECT_DIR$/vars/node.groovy" />
         <option value="$PROJECT_DIR$/vars/notCompile.groovy" />
-        <option value="$PROJECT_DIR$/vars/dmlog.groovy" />
-        <option value="$PROJECT_DIR$/vars/baseFrontend.groovy" />
         <option value="$PROJECT_DIR$/vars/ansible.groovy" />
+        <option value="$PROJECT_DIR$/vars/baseFrontend.groovy" />
         <option value="$PROJECT_DIR$/vars/baseNode.groovy" />
         <option value="$PROJECT_DIR$/vars/compileNvidiaGpuPrometheusExporter.groovy" />
+        <option value="$PROJECT_DIR$/vars/dmlog.groovy" />
       </list>
     </option>
   </component>
@@ -622,13 +621,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vars/codeFetch.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="4" selection-start-column="4" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vars/shEx.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -645,13 +637,6 @@
           <folding>
             <element signature="e#0#20#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vars/dmlog.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="990">
-          <caret line="66" column="21" selection-start-line="66" selection-start-column="21" selection-end-line="66" selection-end-column="21" />
         </state>
       </provider>
     </entry>
@@ -679,31 +664,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vars/baseFrontend.groovy">
+    <entry file="file://$PROJECT_DIR$/vars/ansible.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="635">
-          <caret line="316" column="1" selection-start-line="316" selection-start-column="1" selection-end-line="316" selection-end-column="1" />
+        <state relative-caret-position="661">
+          <caret line="100" selection-start-line="100" selection-end-line="101" selection-end-column="22" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vars/ansible.groovy">
+    <entry file="file://$PROJECT_DIR$/vars/baseFrontend.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="99" column="22" selection-start-line="99" selection-start-column="22" selection-end-line="99" selection-end-column="22" />
+        <state relative-caret-position="601">
+          <caret line="216" column="20" selection-start-line="216" selection-start-column="20" selection-end-line="216" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/baseNode.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="346">
-          <caret line="179" column="22" selection-start-line="179" selection-start-column="22" selection-end-line="179" selection-end-column="22" />
+        <state relative-caret-position="805">
+          <caret line="180" column="15" lean-forward="true" selection-start-line="180" selection-start-column="15" selection-end-line="180" selection-end-column="15" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/compileNvidiaGpuPrometheusExporter.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="963">
-          <caret line="106" column="22" selection-start-line="106" selection-start-column="22" selection-end-line="106" selection-end-column="22" />
+        <state relative-caret-position="965">
+          <caret line="108" column="20" selection-start-line="108" selection-start-column="20" selection-end-line="108" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vars/codeFetch.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-267">
+          <caret column="4" selection-start-column="4" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vars/dmlog.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="862">
+          <caret line="143" column="32" lean-forward="true" selection-start-line="143" selection-start-column="32" selection-end-line="143" selection-end-column="32" />
         </state>
       </provider>
     </entry>
