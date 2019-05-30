@@ -369,7 +369,7 @@ def emailBody(env, buildResult, Map map) {
     def text = '''Job build $buildResult Address : http://jenkins.ops.dm-ai.cn/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline
 应用名称 $appCN :  $appurl
 '''
-    def k8sAddress = "192.168.11.20"
+    def k8sAddress = "192.168.12.20"
     if (env.BRANCH_NAME != "master") {
         k8sAddress = "192.168.3.140"
     }
