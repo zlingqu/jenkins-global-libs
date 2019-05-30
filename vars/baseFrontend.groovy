@@ -2,6 +2,9 @@ import java.io.*
 
 def call(Map map, env) {
 
+    if ( env.BRANCH_NAME != map.buildBranch ) {
+        return
+    }
     // 临时的，后面再进行抽取
     def globalConfig = [
             'frontend-test' : [
