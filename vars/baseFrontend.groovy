@@ -212,9 +212,7 @@ spec:
   volumes:
   - name: sock
     hostPath:
-      path: /var/run/docker.sock   
-  nodeSelector:
-    makeenv: jenkins         
+      path: /var/run/docker.sock      
 """
     def binding = [
             'branchName' : branchName,
@@ -304,7 +302,6 @@ spec:
             memory: 200Mi
         ports:
         - containerPort: 80
-$nodeSelect         
 '''
     def binding = [
             'imageUrlPath' : map.imageUrlPath,
@@ -314,21 +311,9 @@ $nodeSelect
             'nodePort' : map.get('globalConfig').get(map.appName).get('nodePort'),
             'namespace': map.get('globalConfig').get(map.appName).get('namespace'),
             'branchName' : env.BRANCH_NAME,
-            'nodeSelect': nodeSelect(env),
     ]
 
     return simpleTemplate(text, binding)
-}
-
-def nodeSelect(env) {
-    if (env.BRANCH_NAME == 'develop') {
-        return '''
-      nodeSelector:
-        makeenv: jenkins
-'''
-    } else {
-        return ''
-    }
 }
 
 def emailBody(env, buildResult, Map map) {
