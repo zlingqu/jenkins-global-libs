@@ -296,6 +296,8 @@ spec:
             memory: 200Mi
         ports:
         - containerPort: 80
+      nodeSelector:
+        makeenv: jenkins          
 '''
     def binding = [
             'imageUrlPath' : map.imageUrlPath,
