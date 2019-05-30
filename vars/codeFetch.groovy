@@ -38,15 +38,15 @@ def call(Map map, env) {
                     container('compile') {
                         sh '''
                     cp -rp `pwd` /go/src/node_exporter
-                    cd /go/src/node_exporter
                     currentPath=`pwd`
+                    cd /go/src/node_exporter
                     CGO_ENABLED=0 go build -o ${currentPath}/dmai_node_exporter
                     cd -
                     '''
                         withCredentials([usernamePassword(credentialsId: 'passwd-zs', passwordVariable: 'password', usernameVariable: 'username')]) {
                             sh 'git clone http://$username:$password@192.168.3.221/application-engineering/devops/ansible.git'
                         }
-                        sh 'sleep 6000 && cp -rp dmai_node_exporter ansible/roles/prometheus.node_exporter/files/dmai_node_exporter'
+                        sh 'cp -rp dmai_node_exporter ansible/roles/prometheus.node_exporter/files/dmai_node_exporter'
                     }
                 }
             }
