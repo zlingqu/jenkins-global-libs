@@ -22,8 +22,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/codeFetch.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="965">
-              <caret line="149" column="1" selection-start-line="149" selection-start-column="1" selection-end-line="149" selection-end-column="1" />
+            <state relative-caret-position="2250">
+              <caret line="150" selection-start-line="150" selection-end-line="190" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -43,7 +43,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vars/baseFrontend.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="877">
+            <state relative-caret-position="3225">
               <caret line="215" selection-start-line="215" selection-end-line="216" selection-end-column="21" />
             </state>
           </provider>
@@ -147,8 +147,8 @@
       <find>compileNodeExporterTemplate</find>
       <find>jenkinsTemplate</find>
       <find>compile-node-exporter</find>
-      <find>yarnTemplate</find>
       <find>notComplieTemplate</find>
+      <find>yarnTemplate</find>
     </findStrings>
     <replaceStrings>
       <replace>compile</replace>
@@ -408,8 +408,8 @@
     <frame x="0" y="0" width="1920" height="1200" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49646017" visible="true" weight="0.16986156" />
-      <window_info active="true" id="Structure" order="1" sideWeight="0.5035398" side_tool="true" visible="true" weight="0.16986156" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49646017" visible="true" weight="0.16986156" />
+      <window_info id="Structure" order="1" sideWeight="0.5035398" side_tool="true" visible="true" weight="0.16986156" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Capture Tool" order="4" />
@@ -696,15 +696,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/baseFrontend.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="877">
+        <state relative-caret-position="3225">
           <caret line="215" selection-start-line="215" selection-end-line="216" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/codeFetch.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="965">
-          <caret line="149" column="1" selection-start-line="149" selection-start-column="1" selection-end-line="149" selection-end-column="1" />
+        <state relative-caret-position="2250">
+          <caret line="150" selection-start-line="150" selection-end-line="190" selection-end-column="8" />
         </state>
       </provider>
     </entry>
