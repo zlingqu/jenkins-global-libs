@@ -182,11 +182,11 @@ spec:
     tty: true
     resources:
       limits:
-        memory: 1000Mi
-        cpu: 800m
-      requests:
-        cpu: 400m
         memory: 600Mi
+        cpu: 400m
+      requests:
+        cpu: 200m
+        memory: 400Mi
   - name: compile
     image: docker.dm-ai.cn/devops/base-image-compile-frontend:0.03
     imagePullPolicy: IfNotPresent
@@ -201,11 +201,11 @@ spec:
     tty: true
     resources:
       limits:
-        memory: 5000Mi
-        cpu: 3000m
-      requests:
-        cpu: 2000m
         memory: 4000Mi
+        cpu: 2000m
+      requests:
+        cpu: 1500m
+        memory: 3000Mi
   volumes:
   - name: sock
     hostPath:
