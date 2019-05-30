@@ -304,8 +304,7 @@ spec:
             memory: 200Mi
         ports:
         - containerPort: 80
-      nodeSelector:
-        makeenv: jenkins          
+$nodeSelect         
 '''
     def binding = [
             'imageUrlPath' : map.imageUrlPath,
@@ -315,9 +314,21 @@ spec:
             'nodePort' : map.get('globalConfig').get(map.appName).get('nodePort'),
             'namespace': map.get('globalConfig').get(map.appName).get('namespace'),
             'branchName' : env.BRANCH_NAME,
+            'nodeSelect': nodeSelect(env),
     ]
 
     return simpleTemplate(text, binding)
+}
+
+def nodeSelect(env) {
+    if (env.BRANCH_NAME == 'develop') {
+        return '''
+      nodeSelector:
+        makeenv: jenkins
+'''
+    } else {
+        return ''
+    }
 }
 
 def emailBody(env, buildResult, Map map) {
