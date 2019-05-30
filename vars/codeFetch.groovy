@@ -1,4 +1,4 @@
-def call() {
+def call(Map map, env) {
     println("this is a test")
 
     pipeline {
