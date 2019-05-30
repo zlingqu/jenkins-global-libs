@@ -144,14 +144,6 @@ spec:
       requests:
         cpu: 100m
         memory: 200Mi
-    volumeMounts:
-    - name: prometheus-node-exporter-home
-      mountPath: /data
-      subPath: prometheus_home/node_exporter
-  volumes:
-  - name: prometheus-node-exporter-home
-    persistentVolumeClaim:
-      claimName: mypvc
 """
 }
 
