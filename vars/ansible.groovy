@@ -15,10 +15,10 @@ def call(Map map, env) {
                 yaml jenkinsTemplate()
             }
         }
-
-        options {
-            timeout(time:1, unit: 'HOURS')
-        }
+//
+//        options {
+//            timeout(time:1, unit: 'HOURS')
+//        }
 
         environment {
             tags = "${map.REPO_URL}"
