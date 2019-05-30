@@ -26,7 +26,7 @@ def call(Map map, env) {
         agent {
             kubernetes {
                 cloud 'kubernetes-test'
-                label 'jenkinsTemplate'
+                label map.get('appName')
                 defaultContainer 'jnlp'
                 namespace 'devops'
                 inheritFrom baseTemplateName()
