@@ -270,11 +270,11 @@ spec:
         - "--config.file=/data/prometheus/alertmanager/alertmanager.yml"
         resources:
           limits:
-            memory: 5000Mi
-            cpu: 3000m
+            memory: 1500Mi
+            cpu: 1000m
           requests:
-            cpu: 2000m
-            memory: 4000Mi
+            cpu: 500m
+            memory: 1000Mi
         ports:
         - containerPort: $containerPort
 '''
@@ -339,11 +339,11 @@ spec:
         - "--storage.tsdb.path=/data/tsdb"
         resources:
           limits:
-            cpu: 500m
-            memory: 1000Mi
+            cpu: 3500m
+            memory: 5000Mi
           requests:
-            cpu: 100m
-            memory: 200Mi
+            cpu: 2000m
+            memory: 4000Mi
         ports:
         - containerPort: $containerPort
       volumes:
