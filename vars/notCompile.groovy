@@ -189,6 +189,7 @@ RUN mkdir -p /data/prometheus/etc/jobs && mkdir -p /data/prometheus/etc/rules/
 COPY ./prometheus-2.9.2.linux-amd64.tar.gz /workspace/
 COPY ./prometheus.yml /workspace/prometheus.yml
 COPY ./alert_rule.yml /data/prometheus/etc/rules/alert_rule.yml
+RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 RUN tar xf prometheus-2.9.2.linux-amd64.tar.gz && mv prometheus-2.9.2.linux-amd64 prometheus
 '''
         case 'prometheus-alertmanager':
@@ -199,6 +200,7 @@ RUN mkdir -p /data/prometheus/alertmanager
 COPY ./alertmanager.yml /data/prometheus/alertmanager/alertmanager.yml
 COPY ./template /data/prometheus/alertmanager/template
 COPY ./alertmanager-0.17.0.linux-amd64.tar.gz /workspace/
+RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 RUN tar xf alertmanager-0.17.0.linux-amd64.tar.gz && mv alertmanager-0.17.0.linux-amd64 alertmanager
 '''
     }
