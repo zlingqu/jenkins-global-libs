@@ -52,9 +52,6 @@ def call(Map map, env) {
 
         stages {
             stage('Compile') {
-//                when {
-//                    branch map.buildBranch
-//                }
 
                 steps {
                     container('compile') {
@@ -67,9 +64,6 @@ def call(Map map, env) {
             }
 
             stage('Make image') {
-//                when {
-//                    branch map.buildBranch
-//                }
                 steps {
                     container('docker-compose') {
                         println('【创建Dockerfile】')

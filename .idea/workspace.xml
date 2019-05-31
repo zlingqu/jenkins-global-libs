@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="520bcbd9-cf09-4e27-bdf5-d707a5026e8c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/vars/baseFrontend.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/vars/baseFrontend.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vars/baseNode.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/vars/baseNode.groovy" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -44,8 +43,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/baseFrontend.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="66" lean-forward="true" selection-start-line="3" selection-start-column="66" selection-end-line="3" selection-end-column="66" />
+            <state relative-caret-position="716">
+              <caret line="66" selection-start-line="66" selection-end-line="66" />
             </state>
           </provider>
         </entry>
@@ -80,8 +79,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vars/notCompile.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="229">
-              <caret line="176" column="47" lean-forward="true" selection-start-line="176" selection-start-column="47" selection-end-line="176" selection-end-column="47" />
+            <state relative-caret-position="349">
+              <caret line="184" column="22" lean-forward="true" selection-start-line="184" selection-start-column="22" selection-end-line="184" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -144,9 +143,9 @@
       <find>jenkinsTemplate</find>
       <find>yarnTemplate</find>
       <find>sleep</find>
-      <find>notCompile</find>
       <find>cat</find>
       <find>develop</find>
+      <find>notCompile</find>
     </findStrings>
     <replaceStrings>
       <replace>compile</replace>
@@ -184,8 +183,8 @@
         <option value="$PROJECT_DIR$/vars/dmlog.groovy" />
         <option value="$PROJECT_DIR$/vars/frontend.groovy" />
         <option value="$PROJECT_DIR$/vars/notCompile.groovy" />
-        <option value="$PROJECT_DIR$/vars/baseFrontend.groovy" />
         <option value="$PROJECT_DIR$/vars/baseNode.groovy" />
+        <option value="$PROJECT_DIR$/vars/baseFrontend.groovy" />
       </list>
     </option>
   </component>
@@ -405,7 +404,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1200" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49646017" visible="true" weight="0.16986156" />
       <window_info id="Structure" order="1" sideWeight="0.5035398" side_tool="true" visible="true" weight="0.16986156" />
@@ -686,13 +684,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vars/notCompile.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="176" column="47" lean-forward="true" selection-start-line="176" selection-start-column="47" selection-end-line="176" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vars/baseNode.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -700,10 +691,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/vars/notCompile.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="349">
+          <caret line="184" column="22" lean-forward="true" selection-start-line="184" selection-start-column="22" selection-end-line="184" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/vars/baseFrontend.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="66" lean-forward="true" selection-start-line="3" selection-start-column="66" selection-end-line="3" selection-end-column="66" />
+        <state relative-caret-position="716">
+          <caret line="66" selection-start-line="66" selection-end-line="66" />
         </state>
       </provider>
     </entry>
