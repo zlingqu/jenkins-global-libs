@@ -1,7 +1,7 @@
 import java.io.*
 
 def call(Map map, env) {
-    if (env.BRANCH_NAME != "master" && env.BRANCH_NAME != "develop") {
+    if (env.BRANCH_NAME != "master" && env.BRANCH_NAME != "dev") {
         return
     }
     // 临时的，后面再进行抽取

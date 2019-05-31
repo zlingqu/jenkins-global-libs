@@ -4,7 +4,7 @@ import java.io.*
 def call(Map map, env) {
     // 临时的，后面再进行抽取
     println("开始构建")
-    if (env.BRANCH_NAME != "master" && env.BRANCH_NAME != "develop") {
+    if (env.BRANCH_NAME != "master" && env.BRANCH_NAME != "dev") {
         return
     }
 
@@ -57,7 +57,7 @@ def call(Map map, env) {
         stages {
 
             stage('Make image') {
-                when { anyOf { branch 'master'; branch 'develop' } }
+                when { anyOf { branch 'master'; branch 'dev' } }
 
 
                 steps {
@@ -78,7 +78,7 @@ def call(Map map, env) {
             }
 
             stage('Deploy') {
-                when { anyOf { branch 'master'; branch 'develop' } }
+                when { anyOf { branch 'master'; branch 'dev' } }
 
                 steps {
                     container('kubectl') {
@@ -191,7 +191,7 @@ def getKubectImage(branch) {
         return 'docker.dm-ai.cn/devops/base-image-kubectl:0.01'
     }
 
-    if (branch == "develop") {
+    if (branch == "dev") {
         return 'docker.dm-ai.cn/devops/base-image-kubectl:test-0.01'
     }
 }
@@ -313,7 +313,7 @@ def getDate(appName, branchName) {
 '''
     }
 
-    if (appName == "mis-admin-backend" && branchName == "develop") {
+    if (appName == "mis-admin-backend" && branchName == "dev") {
         return '''
         hostPath:
            path: /data/mis
@@ -358,7 +358,7 @@ data:
 '''
     }
 
-    if (appName == "mis-admin-backend" && branchName == "develop") {
+    if (appName == "mis-admin-backend" && branchName == "dev") {
         return ''
     }
 }
