@@ -337,8 +337,6 @@ spec:
         args:
         - "--config.file=/workspace/prometheus.yml"
         - "--storage.tsdb.path=/data/tsdb"
-        - "-storage.local.retention"
-        - "168h0m0s"
         resources:
           limits:
             cpu: 3500m
