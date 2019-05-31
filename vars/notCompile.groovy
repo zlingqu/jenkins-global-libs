@@ -16,7 +16,8 @@ def call(Map map, env) {
             ],
             'prometheus-alertmanager': [
                     'namespace': 'devops',
-                    'containerPort': '9093'
+                    'containerPort': '9093',
+                    'domain': '9093'
             ]
     ]
 
