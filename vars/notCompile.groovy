@@ -269,11 +269,11 @@ spec:
         - "--config.file=/data/prometheus/alertmanager/alertmanager.yml"
         resources:
           limits:
-            cpu: 1500
-            memory: 3000Mi
+            memory: 5000Mi
+            cpu: 3000m
           requests:
-            cpu: 1000m
-            memory: 2000Mi
+            cpu: 2000m
+            memory: 4000Mi
         ports:
         - containerPort: $containerPort
 '''
