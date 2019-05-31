@@ -11,7 +11,8 @@ def call(Map map, env) {
             'service-prometheus' : [
                     'nodePort': '30090',
                     'namespace': 'devops',
-                    'containerPort': '9090'
+                    'containerPort': '9090',
+                    'domain': 'http://prometheus.ops.dm-ai.cn'
             ],
             'prometheus-alertmanager': [
                     'namespace': 'devops',
@@ -375,7 +376,7 @@ App url addRess :  $appurl
             'branchName' : env.BRANCH_NAME,
             'buildNumber' : env.BUILD_NUMBER,
             'buildResult': buildResult,
-            'appurl' : 'http://192.168.3.140:' +  map.get('globalConfig').get(map.appName).get('nodePort')
+            'appurl' : map.get('globalConfig').get(map.appName).get('domain')
     ]
     return simpleTemplate(text, binding)
 }
