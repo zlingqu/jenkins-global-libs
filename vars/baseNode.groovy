@@ -176,6 +176,10 @@ spec:
       requests:
         cpu: 500m
         memory: 1000Mi
+  volumes:
+  - name: sock
+    hostPath:
+      path: /var/run/docker.sock         
   nodeSelector:
     makeenv: jenkins                 
 '''
