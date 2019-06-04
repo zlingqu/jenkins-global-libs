@@ -107,11 +107,11 @@ spec:
     tty: true
     resources:
       limits:
-        memory: 1000Mi
-        cpu: 800m
+        memory: 4000Mi
+        cpu: 2000m
       requests:
-        cpu: 400m
-        memory: 600Mi
+        cpu: 1000m
+        memory: 2000Mi
   volumes:
   - name: sock
     hostPath:
@@ -127,7 +127,7 @@ def dockerFileContent(map, env) {
                 case 'k8s-deploy-dev':
                     return '''
 FROM docker.dm-ai.cn/devops/base-image-exec-ansible:master-0.0.1
-RUN yum install -y git && mkdir -p /etc/ansible/bin
+RUN yum install -y git
 ADD ./bin /etc/ansible/bin
 '''
                 default:
