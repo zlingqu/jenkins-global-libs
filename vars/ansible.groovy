@@ -70,7 +70,7 @@ def baseTemplateName() {
 }
 
 def jenkinsTemplate(Map map) {
-    def text = """
+    def text = '''
 apiVersion: v1
 kind: Pod
 metadata:
@@ -99,8 +99,8 @@ spec:
         cpu: 2000m
         memory: 4000Mi
   nodeSelector:
-    makeenv: jenkins             
-"""
+    makeenv: jenkins 
+'''
     def binding = [
             'ansibleImage' :  map.get('ansibleImage'),
     ]
