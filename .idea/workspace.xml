@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="520bcbd9-cf09-4e27-bdf5-d707a5026e8c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/vars/makeImage.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/vars/makeImage.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vars/ansible.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/vars/ansible.groovy" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,11 +28,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vars/makeImage.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="129" column="22" selection-start-line="129" selection-start-column="22" selection-end-line="129" selection-end-column="22" />
+            <state relative-caret-position="516">
+              <caret line="93" column="24" lean-forward="true" selection-start-line="93" selection-start-column="10" selection-end-line="93" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -103,11 +103,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/ansible.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="351">
-              <caret line="70" column="4" selection-start-line="70" selection-start-column="4" selection-end-line="70" selection-end-column="4" />
+            <state relative-caret-position="105">
+              <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -131,7 +131,6 @@
       <find>compile-node-exporter</find>
       <find>notComplieTemplate</find>
       <find>codeFetch</find>
-      <find>jenkinsTemplate</find>
       <find>yarnTemplate</find>
       <find>mountPath: /var/run/docker.sock</find>
       <find>develop</find>
@@ -144,8 +143,9 @@
       <find>mis-admin-backend</find>
       <find>kubernetesContentDeployFile</find>
       <find>emailBody</find>
-      <find>dockerFileContent</find>
       <find>case</find>
+      <find>dockerFileContent</find>
+      <find>jenkinsTemplate</find>
     </findStrings>
     <replaceStrings>
       <replace>compile</replace>
@@ -176,7 +176,6 @@
         <option value="$PROJECT_DIR$/vars/base.groovy" />
         <option value="$PROJECT_DIR$/vars/prometheus.groovy" />
         <option value="$PROJECT_DIR$/vars/node.groovy" />
-        <option value="$PROJECT_DIR$/vars/ansible.groovy" />
         <option value="$PROJECT_DIR$/vars/baseJava.groovy" />
         <option value="$PROJECT_DIR$/vars/codeFetch.groovy" />
         <option value="$PROJECT_DIR$/vars/compileNvidiaGpuPrometheusExporter.groovy" />
@@ -186,6 +185,7 @@
         <option value="$PROJECT_DIR$/vars/notCompile.groovy" />
         <option value="$PROJECT_DIR$/vars/baseNode.groovy" />
         <option value="$PROJECT_DIR$/vars/makeImage.groovy" />
+        <option value="$PROJECT_DIR$/vars/ansible.groovy" />
       </list>
     </option>
   </component>
@@ -679,13 +679,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vars/ansible.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="70" column="4" selection-start-line="70" selection-start-column="4" selection-end-line="70" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vars/codeFetch.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="351">
@@ -709,8 +702,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/makeImage.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="129" column="22" selection-start-line="129" selection-start-column="22" selection-end-line="129" selection-end-column="22" />
+        <state relative-caret-position="516">
+          <caret line="93" column="24" lean-forward="true" selection-start-line="93" selection-start-column="10" selection-end-line="93" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vars/ansible.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
         </state>
       </provider>
     </entry>

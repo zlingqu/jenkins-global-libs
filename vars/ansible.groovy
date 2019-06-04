@@ -4,6 +4,8 @@ import java.io.*
 def call(Map map, env) {
 
     println('【开始进行构建】')
+    println(map.ansibleImage)
+
     pipeline {
         agent {
             kubernetes {
@@ -12,7 +14,7 @@ def call(Map map, env) {
                 defaultContainer 'jnlp'
                 namespace 'devops'
                 inheritFrom baseTemplateName()
-                yaml jenkinsTemplate()
+                yaml jenkinsTemplate(map)
             }
         }
 //
@@ -68,8 +70,8 @@ def baseTemplateName() {
     return 'base-template'
 }
 
-def jenkinsTemplate() {
-    return """
+def jenkinsTemplate(Map map) {
+    def text = """
 apiVersion: v1
 kind: Pod
 metadata:
@@ -80,7 +82,7 @@ spec:
   - name: regsecret
   containers:
   - name: ansible
-    image: docker.dm-ai.cn/devops/base-image-exec-ansible:0.02
+    image: $ansibleImage
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
@@ -100,6 +102,11 @@ spec:
   nodeSelector:
     makeenv: jenkins             
 """
+    def binding = [
+            'ansibleImage' :  map.ansibleImage ? map.get('ansibleImage') : 'docker.dm-ai.cn/devops/base-image-exec-ansible:0.02' ,
+    ]
+
+    return simpleTemplate(text, binding)
 }
 
 def emailBody(env, buildResult, Map map) {
