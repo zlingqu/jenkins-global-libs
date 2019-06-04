@@ -106,8 +106,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/ansible.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="691">
-              <caret line="105" column="59" selection-start-line="105" selection-start-column="59" selection-end-line="105" selection-end-column="59" />
+            <state relative-caret-position="90">
+              <caret line="6" selection-start-line="6" selection-end-line="6" />
             </state>
           </provider>
         </entry>
@@ -116,7 +116,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>$imageUrlPath-$branchName:$imageTags</find>
       <find>apply -f</find>
       <find>withCredentials</find>
       <find>192.168.3.221</find>
@@ -146,6 +145,7 @@
       <find>case</find>
       <find>dockerFileContent</find>
       <find>jenkinsTemplate</find>
+      <find>ansibleImage</find>
     </findStrings>
     <replaceStrings>
       <replace>compile</replace>
@@ -407,8 +407,8 @@
     <frame x="0" y="0" width="1920" height="1200" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49646017" visible="true" weight="0.16986156" />
-      <window_info active="true" id="Structure" order="1" sideWeight="0.5035398" side_tool="true" visible="true" weight="0.16986156" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49646017" visible="true" weight="0.16986156" />
+      <window_info id="Structure" order="1" sideWeight="0.5035398" side_tool="true" visible="true" weight="0.16986156" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Capture Tool" order="4" />
@@ -709,8 +709,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/ansible.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="691">
-          <caret line="105" column="59" selection-start-line="105" selection-start-column="59" selection-end-line="105" selection-end-column="59" />
+        <state relative-caret-position="90">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
         </state>
       </provider>
     </entry>

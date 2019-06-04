@@ -4,7 +4,6 @@ import java.io.*
 def call(Map map, env) {
 
     println('【开始进行构建】')
-    println(map.ansibleImage)
 
     pipeline {
         agent {
