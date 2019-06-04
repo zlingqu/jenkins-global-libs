@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="520bcbd9-cf09-4e27-bdf5-d707a5026e8c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/vars/makeImage.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/vars/makeImage.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vars/kubernetesDeploy.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/vars/kubernetesDeploy.groovy" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,7 +28,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vars/makeImage.groovy">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="756">
@@ -94,11 +94,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/kubernetesDeploy.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="503">
-              <caret line="43" column="28" lean-forward="true" selection-start-line="43" selection-start-column="28" selection-end-line="43" selection-end-column="28" />
+            <state relative-caret-position="383">
+              <caret line="35" column="89" selection-start-line="35" selection-start-column="89" selection-end-line="35" selection-end-column="89" />
             </state>
           </provider>
         </entry>
@@ -146,8 +146,8 @@
       <find>codeFetch</find>
       <find>nodeTemplate</find>
       <find>mis-admin-backend</find>
-      <find>dockerFileContent</find>
       <find>kubernetesDeploy</find>
+      <find>dockerFileContent</find>
     </findStrings>
     <replaceStrings>
       <replace>compile</replace>
@@ -187,8 +187,8 @@
         <option value="$PROJECT_DIR$/vars/notCompile.groovy" />
         <option value="$PROJECT_DIR$/vars/baseNode.groovy" />
         <option value="$PROJECT_DIR$/vars/ansible.groovy" />
-        <option value="$PROJECT_DIR$/vars/kubernetesDeploy.groovy" />
         <option value="$PROJECT_DIR$/vars/makeImage.groovy" />
+        <option value="$PROJECT_DIR$/vars/kubernetesDeploy.groovy" />
       </list>
     </option>
   </component>
@@ -404,8 +404,8 @@
     <frame x="0" y="0" width="1920" height="1200" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49646017" visible="true" weight="0.16986156" />
-      <window_info active="true" id="Structure" order="1" sideWeight="0.5035398" side_tool="true" visible="true" weight="0.16986156" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49646017" visible="true" weight="0.16986156" />
+      <window_info id="Structure" order="1" sideWeight="0.5035398" side_tool="true" visible="true" weight="0.16986156" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Capture Tool" order="4" />
@@ -704,17 +704,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vars/kubernetesDeploy.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="503">
-          <caret line="43" column="28" lean-forward="true" selection-start-line="43" selection-start-column="28" selection-end-line="43" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vars/makeImage.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="756">
           <caret line="109" column="17" selection-start-line="109" selection-start-column="17" selection-end-line="109" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vars/kubernetesDeploy.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="383">
+          <caret line="35" column="89" selection-start-line="35" selection-start-column="89" selection-end-line="35" selection-end-column="89" />
         </state>
       </provider>
     </entry>
