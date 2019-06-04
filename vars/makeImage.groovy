@@ -127,8 +127,8 @@ def dockerFileContent(map, env) {
                 case 'k8s-deploy-dev':
                     return '''
 FROM docker.dm-ai.cn/devops/base-image-exec-ansible:master-0.0.1
-RUN yum install -y git
-ADD ./bin /etc/ansible 
+RUN yum install -y git && mkdir -p /etc/ansible/bin
+ADD ./bin /etc/ansible/bin
 '''
                 default:
                     return '''

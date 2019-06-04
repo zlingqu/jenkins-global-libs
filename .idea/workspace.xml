@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="520bcbd9-cf09-4e27-bdf5-d707a5026e8c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/vars/kubernetesDeploy.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vars/makeImage.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/vars/makeImage.groovy" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -33,8 +31,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/makeImage.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="129" column="22" selection-start-line="129" selection-start-column="22" selection-end-line="129" selection-end-column="22" />
+            <state relative-caret-position="471">
+              <caret line="130" column="26" selection-start-line="130" selection-start-column="26" selection-end-line="130" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -142,12 +140,12 @@
       <find>kubernetesContentDeployFile</find>
       <find>emailBody</find>
       <find>case</find>
-      <find>dockerFileContent</find>
       <find>jenkinsTemplate</find>
       <find>ansibleImage</find>
       <find>mis-admin-backend</find>
       <find>$ansibleImage</find>
       <find>codeFetch</find>
+      <find>dockerFileContent</find>
     </findStrings>
     <replaceStrings>
       <replace>compile</replace>
@@ -404,8 +402,8 @@
     <frame x="0" y="0" width="1920" height="1200" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49646017" visible="true" weight="0.16986156" />
-      <window_info active="true" id="Structure" order="1" sideWeight="0.5035398" side_tool="true" visible="true" weight="0.16986156" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49646017" visible="true" weight="0.16986156" />
+      <window_info id="Structure" order="1" sideWeight="0.5035398" side_tool="true" visible="true" weight="0.16986156" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Capture Tool" order="4" />
@@ -713,8 +711,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/makeImage.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="129" column="22" selection-start-line="129" selection-start-column="22" selection-end-line="129" selection-end-column="22" />
+        <state relative-caret-position="471">
+          <caret line="130" column="26" selection-start-line="130" selection-start-column="26" selection-end-line="130" selection-end-column="26" />
         </state>
       </provider>
     </entry>
