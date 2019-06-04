@@ -102,7 +102,7 @@ spec:
     makeenv: jenkins             
 """
     def binding = [
-            'ansibleImage' :  map.containsKey('ansibleImage') ? map.get('ansibleImage') : 'docker.dm-ai.cn/devops/base-image-exec-ansible:0.02' ,
+            'ansibleImage' :  map.get('ansibleImage'),
     ]
 
     return simpleTemplate(text, binding)
