@@ -4,6 +4,7 @@ import java.io.*
 def call(Map map, env) {
 
     println('【开始进行构建】')
+
     pipeline {
         agent {
             kubernetes {
@@ -12,36 +13,27 @@ def call(Map map, env) {
                 defaultContainer 'jnlp'
                 namespace 'devops'
                 inheritFrom baseTemplateName()
-                yaml jenkinsTemplate()
+                yaml jenkinsTemplate(map)
             }
         }
-
-        options {
-            timeout(time:1, unit: 'HOURS')
-            retry(2)
-        }
+//
+//        options {
+//            timeout(time:1, unit: 'HOURS')
+//        }
 
         environment {
             tags = "${map.REPO_URL}"
-            dockerFile = dockerFileContent(map, env)
-            dockerComposeFile = dockerComposeFile(map, env)
+            execComand = "${map.execComand}"
         }
 
         stages {
-            stage('Make image') {
+            stage('Exec Ansible') {
                 steps {
-                    container('docker-compose') {
-                        println('【创建Dockerfile】')
-                        sh 'echo "${dockerFile}" > Dockerfile'
-
-                        println('【创建docker-compose】')
-                        sh 'echo -e "${dockerComposeFile}" > docker-compose.yml'
-
-                        println('【Make image】')
-                        sh 'docker-compose build'
-
-                        println('【Push image】')
-                        sh 'docker-compose push'
+                    container('ansible') {
+                        withCredentials([usernamePassword(credentialsId: 'passwd-zs', passwordVariable: 'password', usernameVariable: 'username')]) {
+                            sh 'git clone http://$username:$password@192.168.3.221/application-engineering/devops/ansible.git'
+                        }
+                        sh '$execComand'
                     }
                 }
             }
@@ -80,8 +72,8 @@ def baseTemplateName() {
     return 'base-template'
 }
 
-def jenkinsTemplate() {
-    return """
+def jenkinsTemplate(Map map) {
+    def text = '''
 apiVersion: v1
 kind: Pod
 metadata:
@@ -90,16 +82,13 @@ metadata:
 spec:
   imagePullSecrets:
   - name: regsecret
-  containers: 
-  - name: docker-compose
-    image: docker.dm-ai.cn/devops/base-image-docker-compose:0.04
+  containers:
+  - name: ansible
+    image: $ansibleImage
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
       value: docker.dm-ai.cn  
-    volumeMounts:
-    - name: sock
-      mountPath: /var/run/docker.sock
     command:
     - "sleep"
     args:
@@ -107,55 +96,16 @@ spec:
     tty: true
     resources:
       limits:
-        memory: 1000Mi
-        cpu: 800m
+        memory: 5000Mi
+        cpu: 3000m
       requests:
-        cpu: 400m
-        memory: 600Mi
-  volumes:
-  - name: sock
-    hostPath:
-      path: /var/run/docker.sock      
-"""
-}
-
-
-def dockerFileContent(map, env) {
-    switch (map.get('appName')) {
-        case 'base-image-exec-ansible' :
-            switch (env.BRANCH_NAME) {
-                case 'k8s-deploy-dev':
-                    return '''
-FROM docker.dm-ai.cn/devops/base-image-exec-ansible:master-0.0.1
-RUN yum install -y git
-ADD ./bin /etc/ansible 
-'''
-                default:
-                    return '''
-FROM williamyeh/ansible:master-centos7
-RUN mkdir -p /root/.ssh
-COPY ./id_rsa /root/.ssh/id_rsa
-COPY ./id_rsa.pub /root/.ssh/id_rsa.pub
-RUN chmod 0600 /root/.ssh/id_rsa && eval `ssh-agent` && ssh-add ~/.ssh/id_rsa
-'''
-            }
-    }
-//
-}
-
-def dockerComposeFile(map, env) {
-    def text = '''
-version: "2"
-services:
-  service-docker-build:
-    build: ./
-    image: $dockerRegistryHost/$imageUrlPath:$branchName-$imageTags
+        cpu: 2000m
+        memory: 4000Mi
+  nodeSelector:
+    makeenv: jenkins 
 '''
     def binding = [
-            'imageUrlPath' : map.imageUrlPath,
-            'imageTags' : map.imageTags,
-            'dockerRegistryHost' : map.dockerRegistryHost,
-            'branchName' : env.BRANCH_NAME
+            'ansibleImage' :  map.containsKey('ansibleImage') ? map.get('ansibleImage'): 'docker.dm-ai.cn/devops/base-image-exec-ansible:0.02',
     ]
 
     return simpleTemplate(text, binding)
@@ -178,4 +128,5 @@ def simpleTemplate(text, binding) {
     def template = engine.createTemplate(text).make(binding)
     return template.toString()
 }
+
 
