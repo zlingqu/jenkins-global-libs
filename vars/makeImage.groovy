@@ -23,7 +23,7 @@ def call(Map map, env) {
 
         environment {
             tags = "${map.REPO_URL}"
-            dockerFile = dockerFileContent(map)
+            dockerFile = dockerFileContent(map, env)
             dockerComposeFile = dockerComposeFile(map, env)
         }
 
@@ -120,16 +120,24 @@ spec:
 }
 
 
-def dockerFileContent(map) {
+def dockerFileContent(map, env) {
     switch (map.get('appName')) {
-        case 'base-image-exec-ansible':
-            return '''
+        case 'base-image-exec-ansible' :
+            switch (env.BRANCH_NAME) {
+                case 'k8s-deploy-dev':
+                    return '''
+FROM docker.dm-ai.cn/devops/base-image-exec-ansible:master-0.0.1
+ADD ./bin /etc/ansible 
+'''
+                default:
+                    return '''
 FROM williamyeh/ansible:master-centos7
 RUN mkdir -p /root/.ssh
 COPY ./id_rsa /root/.ssh/id_rsa
 COPY ./id_rsa.pub /root/.ssh/id_rsa.pub
 RUN chmod 0600 /root/.ssh/id_rsa && eval `ssh-agent` && ssh-add ~/.ssh/id_rsa
 '''
+            }
     }
 //
 }
