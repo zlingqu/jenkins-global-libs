@@ -32,8 +32,8 @@ def call(Map map, env) {
                     container('ansible') {
                         withCredentials([usernamePassword(credentialsId: 'passwd-zs', passwordVariable: 'password', usernameVariable: 'username')]) {
                             sh 'git clone http://$username:$password@192.168.3.221/application-engineering/devops/ansible.git'
+                            sh 'git clone http://$username:$password@192.168.3.221/application-engineering/devops/kubeasz.git /opt/kubeasz && cp -rp /opt/kubeasz/* /etc/ansible'
                         }
-                        sh 'git clone https://github.com/easzlab/kubeasz.git /opt/kubeasz && cp -rp /opt/kubeasz/* /etc/ansible'
                         sh '$execComand'
                     }
                 }
