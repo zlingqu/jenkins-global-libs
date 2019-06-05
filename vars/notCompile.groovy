@@ -350,6 +350,8 @@ spec:
       - name: cephfs
         persistentVolumeClaim:
           claimName: mypvc
+      nodeSelector:
+        makeenv: prometheus
 '''
     def binding = [
             'imageUrlPath' : map.imageUrlPath,
