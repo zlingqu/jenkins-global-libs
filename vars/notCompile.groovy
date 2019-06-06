@@ -209,7 +209,7 @@ COPY ./alertmanager-0.17.0.linux-amd64.tar.gz /workspace/
 RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 RUN tar xf alertmanager-0.17.0.linux-amd64.tar.gz && mv alertmanager-0.17.0.linux-amd64 alertmanager
 '''
-        case 'blackbox_exporter':
+        case 'blackbox-exporter':
             return '''
 FROM golang:1.12.5-alpine3.9
 ADD ./blackbox_exporter-0.14.0.linux-amd64 /go/blackbox_exporter-0.14.0.linux-amd64
@@ -236,7 +236,7 @@ services:
 }
 
 def kubernetesContent(map) {
-    if (map.appName == "blackbox_exporter") {
+    if (map.appName == "blackbox-exporter") {
         def text = '''
 apiVersion: v1
 kind: Service
