@@ -61,8 +61,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/notCompile.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="727">
-              <caret line="353" column="6" lean-forward="true" selection-start-line="353" selection-start-column="6" selection-end-line="353" selection-end-column="6" />
+            <state relative-caret-position="868">
+              <caret line="281" column="22" selection-start-line="281" selection-start-column="22" selection-end-line="281" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -79,8 +79,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vars/compileNvidiaGpuPrometheusExporter.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="351">
-              <caret line="35" column="91" selection-start-line="35" selection-start-column="88" selection-end-line="35" selection-end-column="91" />
+            <state relative-caret-position="810">
+              <caret line="54" column="4" selection-start-line="54" selection-start-column="4" selection-end-line="54" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -131,12 +131,10 @@
       <find>develop</find>
       <find>ansible</find>
       <find>sleep</find>
-      <find>cat</find>
       <find>notCompile</find>
       <find>global</find>
       <find>kubernetesContentDeployFile</find>
       <find>emailBody</find>
-      <find>case</find>
       <find>jenkinsTemplate</find>
       <find>ansibleImage</find>
       <find>nodese</find>
@@ -148,6 +146,8 @@
       <find>git</find>
       <find>$ansibleImage</find>
       <find>kubernetesDeploy</find>
+      <find>case</find>
+      <find>cat</find>
     </findStrings>
     <replaceStrings>
       <replace>compile</replace>
@@ -643,13 +643,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vars/compileNvidiaGpuPrometheusExporter.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="35" column="91" selection-start-line="35" selection-start-column="88" selection-end-line="35" selection-end-column="91" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vars/email.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="405">
@@ -711,10 +704,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/vars/compileNvidiaGpuPrometheusExporter.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="810">
+          <caret line="54" column="4" selection-start-line="54" selection-start-column="4" selection-end-line="54" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/vars/notCompile.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="727">
-          <caret line="353" column="6" lean-forward="true" selection-start-line="353" selection-start-column="6" selection-end-line="353" selection-end-column="6" />
+        <state relative-caret-position="868">
+          <caret line="281" column="22" selection-start-line="281" selection-start-column="22" selection-end-line="281" selection-end-column="22" />
         </state>
       </provider>
     </entry>

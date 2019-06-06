@@ -18,6 +18,11 @@ def call(Map map, env) {
                     'namespace': 'devops',
                     'containerPort': '9093',
                     'domain': '9093'
+            ],
+            'blackbox_exporter': [
+                    'namespace': 'devops',
+                    'containerPort': '9115',
+                    'domain': '9115'
             ]
     ]
 
@@ -204,6 +209,11 @@ COPY ./alertmanager-0.17.0.linux-amd64.tar.gz /workspace/
 RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 RUN tar xf alertmanager-0.17.0.linux-amd64.tar.gz && mv alertmanager-0.17.0.linux-amd64 alertmanager
 '''
+        case 'blackbox_exporter':
+            return '''
+FROM golang:1.12.5-alpine3.9
+ADD ./blackbox_exporter-0.14.0.linux-amd64 /go/blackbox_exporter-0.14.0.linux-amd64
+'''
     }
 //
 }
@@ -226,6 +236,69 @@ services:
 }
 
 def kubernetesContent(map) {
+    if (map.appName == "blackbox_exporter") {
+        def text = '''
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: $appName
+  name: $appName
+  namespace: $namespace
+spec:
+  ports:
+  - port: $containerPort
+    protocol: TCP
+    targetPort: $containerPort
+  selector:
+    app: $appName
+  type: ClusterIP
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: $appName
+  namespace: $namespace
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: $appName
+    spec:
+      imagePullSecrets:
+      - name: regsecret
+      containers:
+      - name: service-prometheus
+        image: $dockerRegistryHost/$imageUrlPath:$imageTags
+        imagePullPolicy: Always #
+        command:
+        - "/go/blackbox_exporter/blackbox_exporter-0.14.0.linux-amd64/blackbox_exporter"
+        args:
+        - "--config.file=/go/blackbox_exporter/blackbox_exporter-0.14.0.linux-amd64/blackbox.yml"
+        resources:
+          limits:
+            memory: 1500Mi
+            cpu: 1000m
+          requests:
+            cpu: 500m
+            memory: 1000Mi
+        ports:
+        - containerPort: $containerPort
+'''
+        def binding = [
+                'imageUrlPath' : map.imageUrlPath,
+                'imageTags' : map.imageTags,
+                'dockerRegistryHost' : map.dockerRegistryHost,
+                'appName' : map.appName,
+                'namespace' : getGlobal(map, 'namespace'),
+                'containerPort': getGlobal(map, 'containerPort')
+        ]
+
+        return simpleTemplate(text, binding)
+    }
+
     if (map.appName == "prometheus-alertmanager") {
         def text =  '''
 ---
