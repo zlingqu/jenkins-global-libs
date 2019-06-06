@@ -19,7 +19,7 @@ def call(Map map, env) {
                     'containerPort': '9093',
                     'domain': '9093'
             ],
-            'blackbox_exporter': [
+            'blackbox-exporter': [
                     'namespace': 'devops',
                     'containerPort': '9115',
                     'domain': '9115'
