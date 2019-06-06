@@ -212,7 +212,7 @@ RUN tar xf alertmanager-0.17.0.linux-amd64.tar.gz && mv alertmanager-0.17.0.linu
         case 'blackbox-exporter':
             return '''
 FROM golang:1.12.5-alpine3.9
-ADD ./blackbox_exporter-0.14.0.linux-amd64 /go/blackbox_exporter-0.14.0.linux-amd64
+ADD . /go/blackbox_exporter
 '''
     }
 //
