@@ -22,7 +22,8 @@ def call(Map map, env) {
             'blackbox-exporter': [
                     'namespace': 'devops',
                     'containerPort': '9115',
-                    'domain': '9115'
+                    'domain': '9115',
+                    'nodePort': '30915',
             ]
     ]
 
@@ -250,9 +251,10 @@ spec:
   - port: $containerPort
     protocol: TCP
     targetPort: $containerPort
+    nodePort: $nodePort
   selector:
     app: $appName
-  type: ClusterIP
+  type: NodePort
 
 ---
 apiVersion: extensions/v1beta1
@@ -293,7 +295,8 @@ spec:
                 'dockerRegistryHost' : map.dockerRegistryHost,
                 'appName' : map.appName,
                 'namespace' : getGlobal(map, 'namespace'),
-                'containerPort': getGlobal(map, 'containerPort')
+                'containerPort': getGlobal(map, 'containerPort'),
+                'nodePort' : getGlobal(map, 'nodePort'),
         ]
 
         return simpleTemplate(text, binding)
