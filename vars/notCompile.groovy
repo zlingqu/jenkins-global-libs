@@ -12,18 +12,21 @@ def call(Map map, env) {
                     'nodePort': '30090',
                     'namespace': 'devops',
                     'containerPort': '9090',
-                    'domain': 'http://prometheus.ops.dm-ai.cn'
+                    'domain': 'http://prometheus.ops.dm-ai.cn',
+                    'kubectlImage': 'devops/base-image-kubectl:0.01'
             ],
             'prometheus-alertmanager': [
                     'namespace': 'devops',
                     'containerPort': '9093',
-                    'domain': '9093'
+                    'domain': '9093',
+                    'kubectlImage': 'devops/base-image-kubectl:0.01'
             ],
             'blackbox-exporter': [
                     'namespace': 'devops',
                     'containerPort': '9115',
                     'domain': '9115',
                     'nodePort': '30915',
+                    'kubectlImage': 'devops/base-image-kubectl:dev-0.01'
             ]
     ]
 
@@ -38,7 +41,7 @@ def call(Map map, env) {
                 defaultContainer 'jnlp'
                 namespace 'devops'
                 inheritFrom baseTemplateName()
-                yaml jenkinsTemplate()
+                yaml jenkinsTemplate(map)
             }
         }
 
@@ -118,8 +121,8 @@ def baseTemplateName() {
     return 'base-template'
 }
 
-def jenkinsTemplate() {
-    return """
+def jenkinsTemplate(map) {
+    def text = '''
 apiVersion: v1
 kind: Pod
 metadata:
@@ -130,7 +133,7 @@ spec:
   - name: regsecret
   containers:
   - name: kubectl 
-    image: docker.dm-ai.cn/devops/base-image-kubectl:0.01
+    image: docker.dm-ai.cn/$kubectlImage
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
@@ -171,22 +174,17 @@ spec:
   volumes:
   - name: sock
     hostPath:
-      path: /var/run/docker.sock      
-"""
+      path: /var/run/docker.sock
+'''
+    def binding = [
+            '$kubectlImage' : getGlobal(map, 'kubectlImage'),
+    ]
+
+    return simpleTemplate(text, binding)
 }
 
 
 def dockerFileContent(map) {
-//    return '''
-//FROM nginx
-//ENV TZ=Asia/Shanghai
-//ADD dist /usr/share/nginx/html
-//ADD nginx.conf /etc/nginx/conf.d/default.conf
-//RUN ln -sf /dev/stdout /var/log/nginx/access.log
-//RUN ln -sf /dev/stderr /var/log/nginx/error.log
-//EXPOSE 80
-//ENTRYPOINT nginx -g "daemon off;"
-//'''
     switch (map.get('appName')) {
         case 'service-prometheus':
             return '''
