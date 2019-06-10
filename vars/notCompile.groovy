@@ -177,7 +177,7 @@ spec:
       path: /var/run/docker.sock
 '''
     def binding = [
-            '$kubectlImage' : getGlobal(map, 'kubectlImage'),
+            'kubectlImage' : getGlobal(map, 'kubectlImage'),
     ]
 
     return simpleTemplate(text, binding)

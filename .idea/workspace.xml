@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="520bcbd9-cf09-4e27-bdf5-d707a5026e8c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vars/notCompile.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/vars/notCompile.groovy" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -62,8 +61,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/notCompile.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="351">
-              <caret line="43" column="41" lean-forward="true" selection-start-line="43" selection-start-column="41" selection-end-line="43" selection-end-column="41" />
+            <state relative-caret-position="881">
+              <caret line="179" column="13" selection-start-line="179" selection-start-column="13" selection-end-line="179" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -405,8 +404,8 @@
     <frame x="0" y="0" width="1920" height="1200" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49557522" visible="true" weight="0.171459" />
-      <window_info active="true" id="Structure" order="1" sideWeight="0.50442475" side_tool="true" visible="true" weight="0.171459" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49557522" visible="true" weight="0.171459" />
+      <window_info id="Structure" order="1" sideWeight="0.50442475" side_tool="true" visible="true" weight="0.171459" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Capture Tool" order="4" />
@@ -714,8 +713,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/notCompile.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="43" column="41" lean-forward="true" selection-start-line="43" selection-start-column="41" selection-end-line="43" selection-end-column="41" />
+        <state relative-caret-position="881">
+          <caret line="179" column="13" selection-start-line="179" selection-start-column="13" selection-end-line="179" selection-end-column="13" />
         </state>
       </provider>
     </entry>
