@@ -22,8 +22,15 @@ def call(Map map, env) {
                     'namespace': 'mis'
             ]
     ]
+    // 临时 定义下，分支和环境的对应关系
+    def envBranch = [
+            'master': '192.168.11.20',
+            'dev': '192.168.3.18',
+            'release': '192.168.3.140'
+    ]
 
     map.put('globalConfig', globalConfig)
+    map.put('envBranch', envBranch)
 
     println('【开始进行构建】')
     pipeline {
@@ -318,7 +325,7 @@ def emailBody(env, buildResult, Map map) {
             'branchName' : env.BRANCH_NAME,
             'buildNumber' : env.BUILD_NUMBER,
             'buildResult': buildResult,
-            'appurl' : 'http://192.168.3.140:' +  map.get('globalConfig').get(map.appName).get('nodePort'),
+            'appurl' : 'http://' + map.get('envBranch').get(env.BRANCH_NAME) + ':' +  map.get('globalConfig').get(map.appName).get('nodePort'),
             'appCN' : map.get('appCN')
     ]
     return simpleTemplate(text, binding)

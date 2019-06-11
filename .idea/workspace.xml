@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="520bcbd9-cf09-4e27-bdf5-d707a5026e8c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/vars/notCompile.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/vars/notCompile.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vars/baseFrontend.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/vars/baseFrontend.groovy" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,15 +19,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vars/codeFetch.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2145">
-              <caret line="143" selection-start-line="143" selection-end-line="144" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vars/makeImage.groovy">
           <provider selected="true" editor-type-id="text-editor">
@@ -58,11 +49,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vars/notCompile.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="881">
-              <caret line="179" column="13" selection-start-line="179" selection-start-column="13" selection-end-line="179" selection-end-column="13" />
+            <state relative-caret-position="45">
+              <caret line="3" column="24" lean-forward="true" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/vars/baseFrontend.groovy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="800">
+              <caret line="327" column="75" selection-start-line="327" selection-start-column="64" selection-end-line="327" selection-end-column="75" />
             </state>
           </provider>
         </entry>
@@ -129,10 +129,8 @@
       <find>develop</find>
       <find>ansible</find>
       <find>sleep</find>
-      <find>notCompile</find>
       <find>global</find>
       <find>kubernetesContentDeployFile</find>
-      <find>emailBody</find>
       <find>ansibleImage</find>
       <find>nodese</find>
       <find>codeFetch</find>
@@ -148,6 +146,8 @@
       <find>blackbox</find>
       <find>kubectl</find>
       <find>jenkinsTemplate</find>
+      <find>notCompile</find>
+      <find>emailBody</find>
     </findStrings>
     <replaceStrings>
       <replace>compile</replace>
@@ -183,12 +183,12 @@
         <option value="$PROJECT_DIR$/vars/compileNvidiaGpuPrometheusExporter.groovy" />
         <option value="$PROJECT_DIR$/vars/dmlog.groovy" />
         <option value="$PROJECT_DIR$/vars/frontend.groovy" />
-        <option value="$PROJECT_DIR$/vars/baseFrontend.groovy" />
         <option value="$PROJECT_DIR$/vars/baseNode.groovy" />
         <option value="$PROJECT_DIR$/vars/ansible.groovy" />
         <option value="$PROJECT_DIR$/vars/makeImage.groovy" />
         <option value="$PROJECT_DIR$/vars/kubernetesDeploy.groovy" />
         <option value="$PROJECT_DIR$/vars/notCompile.groovy" />
+        <option value="$PROJECT_DIR$/vars/baseFrontend.groovy" />
       </list>
     </option>
   </component>
@@ -404,8 +404,8 @@
     <frame x="0" y="0" width="1920" height="1200" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49557522" visible="true" weight="0.171459" />
-      <window_info id="Structure" order="1" sideWeight="0.50442475" side_tool="true" visible="true" weight="0.171459" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49557522" visible="true" weight="0.171459" />
+      <window_info active="true" id="Structure" order="1" sideWeight="0.50442475" side_tool="true" visible="true" weight="0.171459" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Capture Tool" order="4" />
@@ -636,13 +636,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vars/baseFrontend.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-240">
-          <caret line="129" column="4" selection-start-line="129" selection-start-column="4" selection-end-line="129" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vars/codeFetch.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2145">
@@ -713,8 +706,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/notCompile.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="881">
-          <caret line="179" column="13" selection-start-line="179" selection-start-column="13" selection-end-line="179" selection-end-column="13" />
+        <state relative-caret-position="45">
+          <caret line="3" column="24" lean-forward="true" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vars/baseFrontend.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="800">
+          <caret line="327" column="75" selection-start-line="327" selection-start-column="64" selection-end-line="327" selection-end-column="75" />
         </state>
       </provider>
     </entry>
