@@ -2,12 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="520bcbd9-cf09-4e27-bdf5-d707a5026e8c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/dmai/DockerFileTemplate.groovy" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/dmai/MakeDockerImage.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/dmai/Conf.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dmai/Conf.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/dmai/GlobalConfig.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dmai/GlobalConfig.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/dmai/JenkinsRunTemplate.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dmai/JenkinsRunTemplate.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vars/dmaiBuild.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/vars/dmaiBuild.groovy" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -64,8 +58,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/dmaiBuild.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="550">
-              <caret line="46" column="24" selection-start-line="46" selection-start-column="24" selection-end-line="46" selection-end-column="24" />
+            <state relative-caret-position="515">
+              <caret line="45" column="30" selection-start-line="45" selection-start-column="30" selection-end-line="45" selection-end-column="30" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
               </folding>
@@ -913,8 +907,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/dmaiBuild.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="550">
-          <caret line="46" column="24" selection-start-line="46" selection-start-column="24" selection-end-line="46" selection-end-column="24" />
+        <state relative-caret-position="515">
+          <caret line="45" column="30" selection-start-line="45" selection-start-column="30" selection-end-line="45" selection-end-column="30" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
           </folding>
