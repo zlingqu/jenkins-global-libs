@@ -22,7 +22,7 @@ def call(Map map, env) {
                 defaultContainer 'jnlp'
                 namespace 'devops'
                 inheritFrom 'base-template'
-                yaml new JenkinsRunTemplate(conf).jenkinsRunTemplate
+                yaml new JenkinsRunTemplate(conf).getJenkinsRunTemplate()
             }
         }
 
@@ -97,69 +97,6 @@ def call(Map map, env) {
 
     }
 }
-
-def jenkinsTemplate(Conf conf) {
-    def text = '''
-apiVersion: v1
-kind: Pod
-metadata:
-  name: jenkinsTemplate
-  namespace: devops
-spec:
-  imagePullSecrets:
-  - name: regsecret
-  containers:
-  - name: kubectl 
-    image: docker.dm-ai.cn/$kubectlImage
-    imagePullPolicy: IfNotPresent
-    env: #指定容器中的环境变量
-    - name: DMAI_PRIVATE_DOCKER_REGISTRY
-      value: docker.dm-ai.cn  
-    command:
-    - "sleep"
-    args:
-    - "1200"
-    tty: true
-    resources:
-      limits:
-        memory: 300Mi
-        cpu: 200m
-      requests:
-        cpu: 100m
-        memory: 200Mi  
-  - name: docker-compose
-    image: docker.dm-ai.cn/devops/base-image-docker-compose:0.04
-    imagePullPolicy: IfNotPresent
-    env: #指定容器中的环境变量
-    - name: DMAI_PRIVATE_DOCKER_REGISTRY
-      value: docker.dm-ai.cn  
-    volumeMounts:
-    - name: sock
-      mountPath: /var/run/docker.sock
-    command:
-    - "sleep"
-    args:
-    - "1200"
-    tty: true
-    resources:
-      limits:
-        memory: 1000Mi
-        cpu: 800m
-      requests:
-        cpu: 400m
-        memory: 600Mi
-  volumes:
-  - name: sock
-    hostPath:
-      path: /var/run/docker.sock
-'''
-    def binding = [
-            'kubectlImage' : conf.getAttr('kubectlImage'),
-    ]
-
-    return simpleTemplate(text, binding)
-}
-
 
 def dockerFileContent(Conf conf) {
     switch (conf.appName) {

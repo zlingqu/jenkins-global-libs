@@ -4,11 +4,13 @@ import com.tool.Tools
 
 class JenkinsRunTemplate {
     private Conf conf
-    public String jenkinsRunTemplate
 
     JenkinsRunTemplate(Conf conf) {
         this.conf = conf
-        this.jenkinsRunTemplate = this.templateTop() + this.templateDockerKubectl() + this.templateDockerCompose()
+    }
+
+    public String getJenkinsRunTemplate() {
+        return this.templateTop() + this.templateDockerKubectl() + this.templateDockerCompose()
     }
 
     private def templateTop() {
