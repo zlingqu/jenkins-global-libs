@@ -181,7 +181,6 @@ spec:
       path: /var/run/docker.sock
 '''
     def binding = [
-//            'kubectlImage' : getGlobal(map, 'kubectlImage'),
             'kubectlImage' : conf.getAttr('kubectlImage'),
     ]
 
@@ -231,11 +230,8 @@ services:
     image: $dockerRegistryHost/$imageUrlPath:$imageTags
 '''
     def binding = [
-//            'imageUrlPath' : map.imageUrlPath,
             'imageUrlPath' : conf.getAttr('imageUrlPath'),
-//            'imageTags' : map.imageTags,
             'imageTags' : conf.getAttr('imageTags'),
-//            'dockerRegistryHost' : map.dockerRegistryHost,
             'dockerRegistryHost' : conf.getAttr('dockerRegistryHost'),
     ]
 
@@ -296,26 +292,19 @@ spec:
         - containerPort: $containerPort
 '''
         def binding = [
-//                'imageUrlPath' : map.imageUrlPath,
                 'imageUrlPath' : conf.getAttr('imageUrlPath'),
-//                'imageTags' : map.imageTags,
                 'imageTags' : conf.getAttr('imageTags'),
-//                'dockerRegistryHost' : map.dockerRegistryHost,
                 'dockerRegistryHost' : conf.getAttr('dockerRegistryHost'),
-//                'appName' : map.appName,
                 'appName' : conf.appName,
-//                'namespace' : getGlobal(map, 'namespace'),
                 'namespace' : conf.getAttr('namespace'),
-//                'containerPort': getGlobal(map, 'containerPort'),
                 'containerPort': conf.getAttr(containerPort),
-//                'nodePort' : getGlobal(map, 'nodePort'),
                 'nodePort' : conf.getAttr('nodePort'),
         ]
 
         return simpleTemplate(text, binding)
     }
 
-    if (map.appName == "prometheus-alertmanager") {
+    if (conf.appName == "prometheus-alertmanager") {
         def text =  '''
 ---
 apiVersion: v1
@@ -454,10 +443,6 @@ spec:
 
     return simpleTemplate(text, binding)
 }
-
-//def getGlobal(map, getKey) {
-//    return map.get('globalConfig').get(map.appName).get(getKey)
-//}
 
 def emailBody(env, buildResult, Map map) {
     def text = '''Job build $buildResult Address : http://jenkins.ops.dm-ai.cn/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline

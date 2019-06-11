@@ -85,8 +85,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/notCompile.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="772">
-              <caret line="94" selection-start-line="94" selection-start-column="2" selection-end-line="118" selection-end-column="11" />
+            <state relative-caret-position="548">
+              <caret line="465" lean-forward="true" selection-start-line="465" selection-end-line="465" />
             </state>
           </provider>
         </entry>
@@ -886,8 +886,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/notCompile.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="772">
-          <caret line="94" selection-start-line="94" selection-start-column="2" selection-end-line="118" selection-end-column="11" />
+        <state relative-caret-position="548">
+          <caret line="465" lean-forward="true" selection-start-line="465" selection-end-line="465" />
         </state>
       </provider>
     </entry>
