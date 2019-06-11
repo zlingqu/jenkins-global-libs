@@ -1,5 +1,7 @@
 package com.dmai
 
+import com.tool.Test
+
 class Conf implements Serializable{
 
     private Map<String, Map<String, String>> conf
@@ -10,6 +12,7 @@ class Conf implements Serializable{
         this.conf = new GlobalConfig().globalConfig
         this.userSetMap = userSetMap
         this.setUserAttr(appName, userSetMap, jenkinsEnv)
+        new Test().PrintMap(jenkinsEnv)
     }
 
     // get attr
