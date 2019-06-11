@@ -4,7 +4,7 @@ import com.tool.Test
 def call(Map map, env) {
     // 定义定义的全局的配置项目
     Conf conf = new Conf(map.get('appName'), map, env)
-    Test.printMap(env)
+    new Test().PrintMap(env)
 
     // 临时的，后面再进行抽取
     def globalConfig = [
