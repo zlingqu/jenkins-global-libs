@@ -13,7 +13,7 @@ class Conf implements Serializable{
 //        userSetMap.each {k, v ->
 //            System.out.println(k)
 //        }
-        this.setUserAttr(userSetMap)
+        this.SetUserAttr(userSetMap)
     }
 
     // get attr
@@ -22,7 +22,7 @@ class Conf implements Serializable{
     }
 
     // set user attr
-    def setUserAttr(Map<String, String> userSetMap) {
+    def SetUserAttr(Map<String, String> userSetMap) {
         userSetMap.each {k, v ->
             System.out.println(k)
         }
