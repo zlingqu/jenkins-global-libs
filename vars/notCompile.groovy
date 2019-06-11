@@ -10,6 +10,7 @@ def call(Map map, env) {
     conf.setUserAttr(map)
 
     // 注入jenkins的环境变量到全局的Conf
+    conf.setJenkinsAttrToConf(env)
 
 
 
