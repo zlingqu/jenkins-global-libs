@@ -4,6 +4,7 @@ def call(Map map, env) {
     // 定义定义的全局的配置项目
     String appName = map.get('appName')
     Conf conf = new Conf(appName, map)
+    // 把用户设置的全局的属性，加入到默认的全局的设置当中
     conf.setUserAttr(map)
 
 
@@ -91,31 +92,31 @@ def call(Map map, env) {
             }
         }
 
-        post {
-            always {
-                echo "over!!"
-            }
-
-            failure {
-                script {
-                    emailext (
-                            body: emailBody(env, 'success', map),
-                            subject: 'Jenkins build faild info',
-                            to: "${map.emailAddress}"
-                    )
-                }
-            }
-
-            success {
-                script {
-                    emailext (
-                            body: emailBody(env, 'success', map),
-                            subject: 'Jenkins build success info',
-                            to: "${map.emailAddress}"
-                    )
-                }
-            }
-        }
+//        post {
+//            always {
+//                echo "over!!"
+//            }
+//
+//            failure {
+//                script {
+//                    emailext (
+//                            body: emailBody(env, 'success', map),
+//                            subject: 'Jenkins build faild info',
+//                            to: "${map.emailAddress}"
+//                    )
+//                }
+//            }
+//
+//            success {
+//                script {
+//                    emailext (
+//                            body: emailBody(env, 'success', map),
+//                            subject: 'Jenkins build success info',
+//                            to: "${map.emailAddress}"
+//                    )
+//                }
+//            }
+//        }
 
     }
 }

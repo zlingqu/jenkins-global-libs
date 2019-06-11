@@ -85,8 +85,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/notCompile.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="21" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
+            <state relative-caret-position="772">
+              <caret line="94" selection-start-line="94" selection-start-column="2" selection-end-line="118" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -120,8 +120,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>global</find>
-      <find>kubernetesContentDeployFile</find>
       <find>ansibleImage</find>
       <find>nodese</find>
       <find>codeFetch</find>
@@ -150,6 +148,8 @@
       <find>创建Dockerfile</find>
       <find>tags</find>
       <find>SetUserAttr</find>
+      <find>setUserAttr</find>
+      <find>map</find>
     </findStrings>
     <replaceStrings>
       <replace>compile</replace>
@@ -886,8 +886,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/notCompile.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="21" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
+        <state relative-caret-position="772">
+          <caret line="94" selection-start-line="94" selection-start-column="2" selection-end-line="118" selection-end-column="11" />
         </state>
       </provider>
     </entry>
