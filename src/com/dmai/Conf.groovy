@@ -17,12 +17,12 @@ class Conf implements Serializable{
     }
 
     // get attr
-    public GetAttr(String attrName) {
+    def GetAttr(String attrName) {
         return this.appConf.get(attrName)
     }
 
     // set user attr
-    void setUserAttr(Map<String, String> userSetMap) {
+    def setUserAttr(Map<String, String> userSetMap) {
         userSetMap.each {k, v ->
             System.out.println(k)
         }
