@@ -33,7 +33,10 @@ class GlobalConfig implements Serializable {
                     'namespace': 'devops',
                     'containerPort': '9093',
                     'domain': '9093',
-                    'kubectlImage': 'devops/base-image-kubectl:0.01'
+                    'kubectlImage': 'devops/base-image-kubectl:0.01',
+                    'compile': false, // 是否编译
+                    'buildImage': true, // 是否打make docker镜像
+                    'deploy': true // 是否按照规则进行，自动化部署
             ],
             'blackbox-exporter': [
                     'namespace': 'devops',

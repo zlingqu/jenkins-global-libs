@@ -1,4 +1,5 @@
 import com.dmai.Conf
+import com.dmai.JenkinsRunTemplate
 
 def call(Map map, env) {
 
@@ -21,7 +22,7 @@ def call(Map map, env) {
                 defaultContainer 'jnlp'
                 namespace 'devops'
                 inheritFrom 'base-template'
-                yaml jenkinsTemplate(conf)
+                yaml new JenkinsRunTemplate(conf).jenkinsRunTemplate
             }
         }
 
