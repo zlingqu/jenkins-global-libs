@@ -1,11 +1,16 @@
 import com.dmai.Conf
 
 def call(Map map, env) {
+
     // 定义定义的全局的配置项目
     String appName = map.get('appName')
     Conf conf = new Conf(appName, map)
+
     // 把用户设置的全局的属性，加入到默认的全局的设置当中
     conf.setUserAttr(map)
+
+    // 注入jenkins的环境变量到全局的Conf
+
 
 
     // 临时的，后面再进行抽取
