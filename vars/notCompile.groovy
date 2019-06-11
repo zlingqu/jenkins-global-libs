@@ -1,5 +1,4 @@
 import com.dmai.Conf
-import com.tool.Test
 
 def call(Map map, env) {
     // 定义定义的全局的配置项目
