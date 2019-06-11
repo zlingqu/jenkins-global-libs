@@ -21,10 +21,6 @@ class Conf implements Serializable{
     // set user attr
     public def setUserAttr(Map<String, String> userSetMap) {
         this.appConf.putAll(userSetMap)
-//        userSetMap.each {k, v ->
-//            this.appConf.pu
-//            System.out.println(k)
-//        }
     }
 
     public def setJenkinsAttrToConf(env) {

@@ -98,31 +98,32 @@ def call(Map map, env) {
             }
         }
 
-//        post {
-//            always {
-//                echo "over!!"
-//            }
-//
-//            failure {
-//                script {
-//                    emailext (
-//                            body: emailBody(env, 'success', map),
-//                            subject: 'Jenkins build faild info',
-//                            to: "${map.emailAddress}"
-//                    )
-//                }
-//            }
-//
-//            success {
-//                script {
-//                    emailext (
-//                            body: emailBody(env, 'success', map),
-//                            subject: 'Jenkins build success info',
-//                            to: "${map.emailAddress}"
-//                    )
-//                }
-//            }
-//        }
+        post {
+            always {
+                echo "over!!"
+            }
+
+            failure {
+                script {
+                    emailext (
+                            body: emailBody(conf, 'success'),
+                            subject: 'Jenkins build faild info',
+                            to: conf.getAttr('emailAddress')
+
+                    )
+                }
+            }
+
+            success {
+                script {
+                    emailext (
+                            body: emailBody(conf, 'success'),
+                            subject: 'Jenkins build success info',
+                            to: conf.getAttr('emailAddress')
+                    )
+                }
+            }
+        }
 
     }
 }
@@ -450,16 +451,16 @@ spec:
     return simpleTemplate(text, binding)
 }
 
-def emailBody(env, buildResult, Map map) {
+def emailBody(Conf conf, String buildResult) {
     def text = '''Job build $buildResult Address : http://jenkins.ops.dm-ai.cn/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline
 App url addRess :  $appurl
 '''
     def binding = [
-            'jobName' :  env.JOB_NAME.split("/")[0],
-            'branchName' : env.BRANCH_NAME,
-            'buildNumber' : env.BUILD_NUMBER,
+            'jobName' :  conf.getAttr('jobName'),
+            'branchName' : conf.getAttr('branchName'),
+            'buildNumber' : conf.getAttr('buildNumber'),
             'buildResult': buildResult,
-            'appurl' : map.get('globalConfig').get(map.appName).get('domain')
+            'appurl' : conf.getAttr('domain')
     ]
     return simpleTemplate(text, binding)
 }
