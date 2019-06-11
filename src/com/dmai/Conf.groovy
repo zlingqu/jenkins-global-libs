@@ -6,14 +6,11 @@ class Conf implements Serializable{
     private Map<String, String> userSetMap
     private String appName
 
-    // init
-//    Conf(String appName, Map<String, String> userSetMap, Map<String, String> jenkinsEnv) {
     Conf(String appName, Map<String, String> userSetMap) {
         this.appName = appName
         this.userSetMap = userSetMap
         this.conf = new GlobalConfig().globalConfig
         this.setUserAttr(userSetMap)
-//        this.setUserAttr(appName, userSetMap, jenkinsEnv)
     }
 
     // get attr
