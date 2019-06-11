@@ -28,8 +28,7 @@ spec:
     }
 
     private String templateDockerCompose() {
-        if (this.conf.getAttr('buildImage')) {
-            return '''
+        return '''
   - name: docker-compose
     image: docker.dm-ai.cn/devops/base-image-docker-compose:0.04
     imagePullPolicy: IfNotPresent
@@ -56,8 +55,6 @@ spec:
     hostPath:
       path: /var/run/docker.sock
 '''
-        }
-        return ''
     }
 
     private String templateDockerKubectl() {

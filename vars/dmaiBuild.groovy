@@ -1,5 +1,7 @@
 import com.dmai.Conf
 import com.dmai.JenkinsRunTemplate
+import com.dmai.DockerFileTemplate
+import com.dmai.MakeDockerImage
 
 def call(Map map, env) {
 
@@ -32,8 +34,8 @@ def call(Map map, env) {
         }
 
         environment {
-            dockerFile = dockerFileContent(conf)
-            dockerComposeFile = dockerComposeFile(conf)
+            dockerFile = new DockerFileTemplate().getDockerFile()
+            dockerComposeFile = new DockerFileTemplate().getDockerComposeFile()
             kubernetesContentDeployFile = kubernetesContent(conf)
         }
 
@@ -41,6 +43,8 @@ def call(Map map, env) {
             stage('Make image') {
                 steps {
                     container('docker-compose') {
+                        new MakeDockerImage(this).makeImage()
+
                         println('【创建Dockerfile】')
                         sh 'echo "${dockerFile}" > Dockerfile'
 
@@ -110,17 +114,6 @@ COPY ./prometheus.yml /workspace/prometheus.yml
 COPY ./alert_rule.yml /data/prometheus/etc/rules/alert_rule.yml
 RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 RUN tar xf prometheus-2.9.2.linux-amd64.tar.gz && mv prometheus-2.9.2.linux-amd64 prometheus
-'''
-        case 'prometheus-alertmanager':
-            return '''
-FROM centos:latest
-WORKDIR /workspace
-RUN mkdir -p /data/prometheus/alertmanager
-COPY ./alertmanager.yml /data/prometheus/alertmanager/alertmanager.yml
-COPY ./template /data/prometheus/alertmanager/template
-COPY ./alertmanager-0.17.0.linux-amd64.tar.gz /workspace/
-RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-RUN tar xf alertmanager-0.17.0.linux-amd64.tar.gz && mv alertmanager-0.17.0.linux-amd64 alertmanager
 '''
         case 'blackbox-exporter':
             return '''

@@ -3,12 +3,14 @@ package com.dmai
 class Conf implements Serializable{
 
     public String appName
+    public String dockerRegistryHost
     private Map<String, String> userSetMap
     private Map<String, String> appConf
     private Map<String, String> jenkinsEnv
 
     Conf(String appName, Map<String, String> userSetMap) {
         this.appName = appName
+        this.dockerRegistryHost = 'docker.dm-ai.cn'
         this.userSetMap = userSetMap
         this.appConf = new GlobalConfig().globalConfig.get(appName)
     }
