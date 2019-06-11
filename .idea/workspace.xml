@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="520bcbd9-cf09-4e27-bdf5-d707a5026e8c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/com/dmai/Conf.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dmai/Conf.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vars/notCompile.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/vars/notCompile.groovy" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -86,8 +85,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/notCompile.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="398">
-              <caret line="469" column="77" lean-forward="true" selection-start-line="469" selection-start-column="77" selection-end-line="469" selection-end-column="77" />
+            <state relative-caret-position="90">
+              <caret line="6" column="21" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -121,7 +120,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>sleep</find>
       <find>global</find>
       <find>kubernetesContentDeployFile</find>
       <find>ansibleImage</find>
@@ -151,6 +149,7 @@
       <find>DockerExCompose</find>
       <find>创建Dockerfile</find>
       <find>tags</find>
+      <find>SetUserAttr</find>
     </findStrings>
     <replaceStrings>
       <replace>compile</replace>
@@ -496,8 +495,8 @@
     <frame x="0" y="0" width="1920" height="1200" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5672823" visible="true" weight="0.171459" />
-      <window_info active="true" id="Structure" order="1" sideWeight="0.43271768" side_tool="true" visible="true" weight="0.171459" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.5672823" visible="true" weight="0.171459" />
+      <window_info id="Structure" order="1" sideWeight="0.43271768" side_tool="true" visible="true" weight="0.171459" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Capture Tool" order="4" />
@@ -887,8 +886,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/notCompile.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="469" column="77" lean-forward="true" selection-start-line="469" selection-start-column="77" selection-end-line="469" selection-end-column="77" />
+        <state relative-caret-position="90">
+          <caret line="6" column="21" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
         </state>
       </provider>
     </entry>
