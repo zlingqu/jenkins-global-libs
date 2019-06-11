@@ -43,9 +43,9 @@ def call(Map map, env) {
             stage('Make image') {
                 steps {
                     container('docker-compose') {
-                        script {
-                            new MakeDockerImage(this).makeImage()
-                        }
+//                        script {
+//                            new MakeDockerImage(this).makeImage()
+//                        }
 
                         println('【创建Dockerfile】')
                         sh 'echo "${dockerFile}" > Dockerfile'
