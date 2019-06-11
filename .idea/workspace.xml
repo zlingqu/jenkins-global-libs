@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="520bcbd9-cf09-4e27-bdf5-d707a5026e8c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/com/dmai/Conf.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dmai/Conf.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vars/notCompile.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/vars/notCompile.groovy" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -86,8 +85,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/notCompile.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-6367">
-              <caret line="11" column="29" lean-forward="true" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
+            <state relative-caret-position="270">
+              <caret line="18" column="38" lean-forward="true" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -139,7 +138,6 @@
       <find>notCompile</find>
       <find>emailBody</find>
       <find>ArrayMap</find>
-      <find>globalConfig</find>
       <find>e</find>
       <find>GlobalConfig</find>
       <find>getDockerComposeCmd</find>
@@ -151,6 +149,7 @@
       <find>SetUserAttr</find>
       <find>setUserAttr</find>
       <find>map</find>
+      <find>globalConfig</find>
     </findStrings>
     <replaceStrings>
       <replace>compile</replace>
@@ -887,8 +886,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vars/notCompile.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-6367">
-          <caret line="11" column="29" lean-forward="true" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
+        <state relative-caret-position="270">
+          <caret line="18" column="38" lean-forward="true" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
         </state>
       </provider>
     </entry>
