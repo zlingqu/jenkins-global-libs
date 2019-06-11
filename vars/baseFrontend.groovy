@@ -47,7 +47,7 @@ def call(Map map, env) {
 
         options {
             timeout(time:1, unit: 'HOURS')
-            retry(2)
+//            retry(2)
         }
 
         environment {
