@@ -34,8 +34,8 @@ def call(Map map, env) {
         }
 
         environment {
-            dockerFile = new DockerFileTemplate().getDockerFile()
-            dockerComposeFile = new DockerFileTemplate().getDockerComposeFile()
+            dockerFile = new DockerFileTemplate(conf).getDockerFile()
+            dockerComposeFile = new DockerFileTemplate(conf).getDockerComposeFile()
             kubernetesContentDeployFile = kubernetesContent(conf)
         }
 
@@ -43,9 +43,9 @@ def call(Map map, env) {
             stage('Make image') {
                 steps {
                     container('docker-compose') {
-//                        script {
-//                            new MakeDockerImage(this).makeImage()
-//                        }
+                        script {
+                            new MakeDockerImage(this).makeImage()
+                        }
 
                         println('【创建Dockerfile】')
                         sh 'echo "${dockerFile}" > Dockerfile'
