@@ -468,6 +468,6 @@ def simpleTemplate(text, binding) {
     return template.toString()
 }
 
-def map = [:]
-map.put('appName','service-prometheus')
-call(map, [:])
+//def map = [:]
+//map.put('appName','service-prometheus')
+//call(map, [:])
