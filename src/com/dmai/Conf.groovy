@@ -2,7 +2,7 @@ package com.dmai
 
 class Conf implements Serializable{
 
-    private String appName
+    public String appName
     private Map<String, String> userSetMap
     private Map<String, String> appConf
 
@@ -17,12 +17,12 @@ class Conf implements Serializable{
     }
 
     // get attr
-    def GetAttr(String attrName) {
+    def getAttr(String attrName) {
         return this.appConf.get(attrName)
     }
 
     // set user attr
-    def SetUserAttr(Map<String, String> userSetMap) {
+    def setUserAttr(Map<String, String> userSetMap) {
         this.appConf.putAll(userSetMap)
 //        userSetMap.each {k, v ->
 //            this.appConf.pu

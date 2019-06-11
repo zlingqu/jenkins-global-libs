@@ -45,20 +45,19 @@ def call(Map map, env) {
                 defaultContainer 'jnlp'
                 namespace 'devops'
                 inheritFrom baseTemplateName()
-                yaml jenkinsTemplate(map)
+                yaml jenkinsTemplate(conf)
             }
         }
 
         options {
             timeout(time:1, unit: 'HOURS')
-            retry(2)
+//            retry(2)
         }
 
         environment {
-            tags = "${map.REPO_URL}"
-            dockerFile = dockerFileContent(map)
-            dockerComposeFile = dockerComposeFile(map)
-            kubernetesContentDeployFile = kubernetesContent(map)
+            dockerFile = dockerFileContent(conf)
+            dockerComposeFile = dockerComposeFile(conf)
+            kubernetesContentDeployFile = kubernetesContent(conf)
         }
 
         stages {
@@ -125,7 +124,7 @@ def baseTemplateName() {
     return 'base-template'
 }
 
-def jenkinsTemplate(map) {
+def jenkinsTemplate(Conf conf) {
     def text = '''
 apiVersion: v1
 kind: Pod
@@ -181,15 +180,16 @@ spec:
       path: /var/run/docker.sock
 '''
     def binding = [
-            'kubectlImage' : getGlobal(map, 'kubectlImage'),
+//            'kubectlImage' : getGlobal(map, 'kubectlImage'),
+            'kubectlImage' : conf.getAttr('kubectlImage'),
     ]
 
     return simpleTemplate(text, binding)
 }
 
 
-def dockerFileContent(map) {
-    switch (map.get('appName')) {
+def dockerFileContent(Conf conf) {
+    switch (conf.appName) {
         case 'service-prometheus':
             return '''
 FROM centos:latest
@@ -221,7 +221,7 @@ ADD . /go/blackbox_exporter
 //
 }
 
-def dockerComposeFile(map) {
+def dockerComposeFile(Conf conf) {
     def text = '''
 version: "2"
 services:
@@ -230,16 +230,19 @@ services:
     image: $dockerRegistryHost/$imageUrlPath:$imageTags
 '''
     def binding = [
-            'imageUrlPath' : map.imageUrlPath,
-            'imageTags' : map.imageTags,
-            'dockerRegistryHost' : map.dockerRegistryHost,
+//            'imageUrlPath' : map.imageUrlPath,
+            'imageUrlPath' : conf.getAttr('imageUrlPath'),
+//            'imageTags' : map.imageTags,
+            'imageTags' : conf.getAttr('imageTags'),
+//            'dockerRegistryHost' : map.dockerRegistryHost,
+            'dockerRegistryHost' : conf.getAttr('dockerRegistryHost'),
     ]
 
     return simpleTemplate(text, binding)
 }
 
-def kubernetesContent(map) {
-    if (map.appName == "blackbox-exporter") {
+def kubernetesContent(Conf conf) {
+    if (conf.appName == "blackbox-exporter") {
         def text = '''
 apiVersion: v1
 kind: Service
@@ -292,13 +295,20 @@ spec:
         - containerPort: $containerPort
 '''
         def binding = [
-                'imageUrlPath' : map.imageUrlPath,
-                'imageTags' : map.imageTags,
-                'dockerRegistryHost' : map.dockerRegistryHost,
-                'appName' : map.appName,
-                'namespace' : getGlobal(map, 'namespace'),
-                'containerPort': getGlobal(map, 'containerPort'),
-                'nodePort' : getGlobal(map, 'nodePort'),
+//                'imageUrlPath' : map.imageUrlPath,
+                'imageUrlPath' : conf.getAttr('imageUrlPath'),
+//                'imageTags' : map.imageTags,
+                'imageTags' : conf.getAttr('imageTags'),
+//                'dockerRegistryHost' : map.dockerRegistryHost,
+                'dockerRegistryHost' : conf.getAttr('dockerRegistryHost'),
+//                'appName' : map.appName,
+                'appName' : conf.appName,
+//                'namespace' : getGlobal(map, 'namespace'),
+                'namespace' : conf.getAttr('namespace'),
+//                'containerPort': getGlobal(map, 'containerPort'),
+                'containerPort': conf.getAttr(containerPort),
+//                'nodePort' : getGlobal(map, 'nodePort'),
+                'nodePort' : conf.getAttr('nodePort'),
         ]
 
         return simpleTemplate(text, binding)
@@ -357,12 +367,12 @@ spec:
         - containerPort: $containerPort
 '''
         def binding = [
-                'imageUrlPath' : map.imageUrlPath,
-                'imageTags' : map.imageTags,
-                'dockerRegistryHost' : map.dockerRegistryHost,
-                'appName' : map.appName,
-                'namespace' : getGlobal(map, 'namespace'),
-                'containerPort': getGlobal(map, 'containerPort')
+                'imageUrlPath' : conf.getAttr('imageUrlPath'),
+                'imageTags' : conf.getAttr('imageTags'),
+                'dockerRegistryHost' : conf.getAttr('dockerRegistryHost'),
+                'appName' : conf.appName,
+                'namespace' : conf.getAttr('namespace'),
+                'containerPort': conf.getAttr('containerPort')
         ]
 
         return simpleTemplate(text, binding)
@@ -432,21 +442,21 @@ spec:
         makeenv: prometheus
 '''
     def binding = [
-            'imageUrlPath' : map.imageUrlPath,
-            'imageTags' : map.imageTags,
-            'dockerRegistryHost' : map.dockerRegistryHost,
-            'appName' : map.appName,
-            'nodePort' : getGlobal(map, 'nodePort'),
-            'namespace' : getGlobal(map, 'namespace'),
-            'containerPort': getGlobal(map, 'containerPort')
+            'imageUrlPath' : conf.getAttr('imageUrlPath'),
+            'imageTags' : conf.getAttr('imageTags'),
+            'dockerRegistryHost' : conf.getAttr('dockerRegistryHost'),
+            'appName' : conf.appName,
+            'nodePort' : conf.getAttr('nodePort'),
+            'namespace' : conf.getAttr('namespace'),
+            'containerPort': conf.getAttr('containerPort')
     ]
 
     return simpleTemplate(text, binding)
 }
 
-def getGlobal(map, getKey) {
-    return map.get('globalConfig').get(map.appName).get(getKey)
-}
+//def getGlobal(map, getKey) {
+//    return map.get('globalConfig').get(map.appName).get(getKey)
+//}
 
 def emailBody(env, buildResult, Map map) {
     def text = '''Job build $buildResult Address : http://jenkins.ops.dm-ai.cn/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline
