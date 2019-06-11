@@ -15,10 +15,10 @@ class MakeDockerImage {
         this.dockerFileTemplate = new DockerFileTemplate(this.conf)
 
         if (! conf.getAttr('customDockerfile')) {
-            this.script.sh 'echo ${this.dockerFileTemplate.getDockerFile()} > Dockerfile'
+            this.script.sh "echo '${this.dockerFileTemplate.getDockerFile()}' > Dockerfile"
         }
 
-        this.script.sh 'echo ${ this.dockerFileTemplate.getDockerComposeFile() } > docker-compose.yml'
+        this.script.sh "echo '${ this.dockerFileTemplate.getDockerComposeFile() }' > docker-compose.yml"
 
         this.script.sh 'docker-compose build'
     }
