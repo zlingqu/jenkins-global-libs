@@ -15,7 +15,7 @@ class Conf implements Serializable{
 
     // get attr
     public GetAttr(String attrName) {
-        return this.conf.get(this.appName).get(attrName)
+        return this.appConf.get(attrName)
     }
 
     // set user attr
