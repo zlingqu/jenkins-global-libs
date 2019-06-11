@@ -1,6 +1,6 @@
 package com.tool
 
-class Test {
+class Test implements Serializable{
 
     Test() {
     }
