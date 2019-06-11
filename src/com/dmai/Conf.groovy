@@ -4,23 +4,25 @@ class Conf implements Serializable{
 
     private Map<String, Map<String, String>> conf
     private Map<String, String> userSetMap
+    private String appName
 
     // init
 //    Conf(String appName, Map<String, String> userSetMap, Map<String, String> jenkinsEnv) {
     Conf(String appName, Map<String, String> userSetMap) {
-        this.conf = new GlobalConfig().globalConfig
+        this.appName = appName
         this.userSetMap = userSetMap
+        this.conf = new GlobalConfig().globalConfig
+        this.setUserAttr(userSetMap)
 //        this.setUserAttr(appName, userSetMap, jenkinsEnv)
     }
 
     // get attr
-    public GetAttr(String appName, String attrName) {
-        return this.conf.get(appName).get(attrName)
+    public GetAttr(String attrName) {
+        return this.conf.get(this.appName).get(attrName)
     }
 
     // set user attr
-    private setUserAttr(String appName, Map<String, String> userMap, Map<String, String> jenkinsEnv) {
-        this.conf.get(appName).putAll(userMap)
-        this.conf.get(appName).putAll(jenkinsEnv)
+    private setUserAttr(Map<String, String> userMap) {
+        this.conf.get(this.appName).putAll(userMap)
     }
 }

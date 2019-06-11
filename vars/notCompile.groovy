@@ -2,7 +2,8 @@ import com.dmai.Conf
 
 def call(Map map, env) {
     // 定义定义的全局的配置项目
-    Conf conf = new Conf(map.get('appName'), map)
+    String appName = map.get('appName')
+    Conf conf = new Conf(appName, map)
 
     // 临时的，后面再进行抽取
     def globalConfig = [
@@ -38,11 +39,11 @@ def call(Map map, env) {
         agent {
             kubernetes {
                 cloud 'kubernetes-dev'
-                label map.get('appName')
+                label appName
                 defaultContainer 'jnlp'
                 namespace 'devops'
                 inheritFrom baseTemplateName()
-                yaml jenkinsTemplate(map)
+                yaml jenkinsTemplate(conf)
             }
         }
 
@@ -122,7 +123,7 @@ def baseTemplateName() {
     return 'base-template'
 }
 
-def jenkinsTemplate(map) {
+def jenkinsTemplate(Conf conf) {
     def text = '''
 apiVersion: v1
 kind: Pod

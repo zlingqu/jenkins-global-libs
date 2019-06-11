@@ -27,7 +27,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'devops',
                     'containerPort': '9090',
                     'domain': 'http://prometheus.ops.dm-ai.cn',
-                    'kubectlImage': 'devops/base-image-kubectl:0.01'
+                    'kubectlImage': 'devops/base-image-kubectl:0.01',
             ],
             'prometheus-alertmanager': [
                     'namespace': 'devops',
