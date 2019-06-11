@@ -19,9 +19,7 @@ class MakeDockerImage {
         }
 
         this.script.sh "echo '${ this.dockerFileTemplate.getDockerComposeFile() }' > docker-compose.yml"
-
-        this.script.sh "sleep 6000"
-
+        
         this.script.sh 'docker-compose build'
     }
 }
