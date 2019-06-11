@@ -1,4 +1,6 @@
 package com.dmai
+import java.lang.String
+import java.util.LinkedHashMap
 
 class Conf implements Serializable{
 
@@ -6,10 +8,11 @@ class Conf implements Serializable{
     private Map<String, String> userSetMap
 
     // init
-    Conf(String appName, Map<String, String> userSetMap, Map<String, String> jenkinsEnv) {
+//    Conf(String appName, Map<String, String> userSetMap, Map<String, String> jenkinsEnv) {
+    Conf(String appName, Map<String, String> userSetMap) {
         this.conf = new GlobalConfig().globalConfig
         this.userSetMap = userSetMap
-        this.setUserAttr(appName, userSetMap, jenkinsEnv)
+//        this.setUserAttr(appName, userSetMap, jenkinsEnv)
     }
 
     // get attr

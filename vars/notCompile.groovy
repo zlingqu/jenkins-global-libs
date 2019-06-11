@@ -2,7 +2,7 @@ import com.dmai.Conf
 
 def call(Map map, env) {
     // 定义定义的全局的配置项目
-    Conf conf = new Conf(map.get('appName'), map, env)
+    Conf conf = new Conf(map.get('appName'), map)
 
     // 临时的，后面再进行抽取
     def globalConfig = [
