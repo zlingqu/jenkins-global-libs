@@ -24,7 +24,7 @@ class Conf implements Serializable{
     // set user attr
     void setUserAttr(Map<String, String> userSetMap) {
         userSetMap.each {k, v ->
-            println(k)
+            System.out.println(k)
         }
     }
 }
