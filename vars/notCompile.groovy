@@ -4,9 +4,7 @@ def call(Map map, env) {
     // 定义定义的全局的配置项目
     String appName = map.get('appName')
     Conf conf = new Conf(appName, map)
-    println("this is a test!")
     conf.SetUserAttr(map)
-    println(conf.GetAttr('appName'))
 
 
     // 临时的，后面再进行抽取

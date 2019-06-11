@@ -23,8 +23,10 @@ class Conf implements Serializable{
 
     // set user attr
     def SetUserAttr(Map<String, String> userSetMap) {
-        userSetMap.each {k, v ->
-            System.out.println(k)
-        }
+        this.appConf.putAll(userSetMap)
+//        userSetMap.each {k, v ->
+//            this.appConf.pu
+//            System.out.println(k)
+//        }
     }
 }
