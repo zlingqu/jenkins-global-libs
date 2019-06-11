@@ -1,6 +1,4 @@
 package com.dmai
-import java.lang.String
-import java.util.LinkedHashMap
 
 class Conf implements Serializable{
 
