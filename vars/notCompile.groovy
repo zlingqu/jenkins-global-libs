@@ -43,7 +43,7 @@ def call(Map map, env) {
                 defaultContainer 'jnlp'
                 namespace 'devops'
                 inheritFrom baseTemplateName()
-                yaml jenkinsTemplate(conf)
+                yaml jenkinsTemplate(map)
             }
         }
 
@@ -123,7 +123,7 @@ def baseTemplateName() {
     return 'base-template'
 }
 
-def jenkinsTemplate(Conf conf) {
+def jenkinsTemplate(map) {
     def text = '''
 apiVersion: v1
 kind: Pod
