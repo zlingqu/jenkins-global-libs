@@ -13,7 +13,7 @@ class Conf implements Serializable{
 //        userSetMap.each {k, v ->
 //            System.out.println(k)
 //        }
-        this.SetUserAttr(userSetMap)
+//        this.SetUserAttr(userSetMap)
     }
 
     // get attr
