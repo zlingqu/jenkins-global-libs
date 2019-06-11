@@ -15,6 +15,10 @@ def call(Map map, env) {
     // 注入jenkins的环境变量到全局的Conf
     conf.setJenkinsAttrToConf(env)
 
+    // 全局 docker 镜像生成
+    MakeDockerImage makeDockerImage = new MakeDockerImage(this, conf)
+
+
     println('【开始进行构建】')
     pipeline {
         agent {
@@ -34,32 +38,31 @@ def call(Map map, env) {
         }
 
         environment {
-            dockerFile = new DockerFileTemplate(conf).getDockerFile()
-            dockerComposeFile = new DockerFileTemplate(conf).getDockerComposeFile()
+//            dockerFile = new DockerFileTemplate(conf).getDockerFile()
+//            dockerComposeFile = new DockerFileTemplate(conf).getDockerComposeFile()
             kubernetesContentDeployFile = kubernetesContent(conf)
         }
 
         stages {
-            stage('Make image') {
+            stage('Make Image') {
                 steps {
                     container('docker-compose') {
                         script {
-                            new MakeDockerImage(this, conf).makeImage()
+                            makeDockerImage.makeImage()
                         }
-
-                        println('【创建Dockerfile】')
-                        sh 'echo "${dockerFile}" > Dockerfile'
-                        println('【创建docker-compose】')
-                        sh 'echo -e "${dockerComposeFile}" > docker-compose.yml'
-
-                        println('【Make image】')
-                        sh 'docker-compose build'
-
-                        println('【Push image】')
-                        sh 'docker-compose push'
                     }
                 }
             }
+            stage('Push Image') {
+                steps {
+                    container('docker-compose') {
+                        script {
+                            makeDockerImage.pushImage()
+                        }
+                    }
+                }
+            }
+
 
             stage('Deploy') {
                 steps {
@@ -103,44 +106,44 @@ def call(Map map, env) {
     }
 }
 
-def dockerFileContent(Conf conf) {
-    switch (conf.appName) {
-        case 'service-prometheus':
-            return '''
-FROM centos:latest
-WORKDIR /workspace
-RUN mkdir -p /data/prometheus/etc/jobs && mkdir -p /data/prometheus/etc/rules/
-COPY ./prometheus-2.9.2.linux-amd64.tar.gz /workspace/
-COPY ./prometheus.yml /workspace/prometheus.yml
-COPY ./alert_rule.yml /data/prometheus/etc/rules/alert_rule.yml
-RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-RUN tar xf prometheus-2.9.2.linux-amd64.tar.gz && mv prometheus-2.9.2.linux-amd64 prometheus
-'''
-        case 'blackbox-exporter':
-            return '''
-FROM golang:1.12.5-alpine3.9
-ADD . /go/blackbox_exporter
-'''
-    }
+//def dockerFileContent(Conf conf) {
+//    switch (conf.appName) {
+//        case 'service-prometheus':
+//            return '''
+//FROM centos:latest
+//WORKDIR /workspace
+//RUN mkdir -p /data/prometheus/etc/jobs && mkdir -p /data/prometheus/etc/rules/
+//COPY ./prometheus-2.9.2.linux-amd64.tar.gz /workspace/
+//COPY ./prometheus.yml /workspace/prometheus.yml
+//COPY ./alert_rule.yml /data/prometheus/etc/rules/alert_rule.yml
+//RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+//RUN tar xf prometheus-2.9.2.linux-amd64.tar.gz && mv prometheus-2.9.2.linux-amd64 prometheus
+//'''
+//        case 'blackbox-exporter':
+//            return '''
+//FROM golang:1.12.5-alpine3.9
+//ADD . /go/blackbox_exporter
+//'''
+//    }
+////
+//}
+
+//def dockerComposeFile(Conf conf) {
+//    def text = '''
+//version: "2"
+//services:
+//  service-docker-build:
+//    build: ./
+//    image: $dockerRegistryHost/$imageUrlPath:$imageTags
+//'''
+//    def binding = [
+//            'imageUrlPath' : conf.getAttr('imageUrlPath'),
+//            'imageTags' : conf.getAttr('imageTags'),
+//            'dockerRegistryHost' : conf.getAttr('dockerRegistryHost'),
+//    ]
 //
-}
-
-def dockerComposeFile(Conf conf) {
-    def text = '''
-version: "2"
-services:
-  service-docker-build:
-    build: ./
-    image: $dockerRegistryHost/$imageUrlPath:$imageTags
-'''
-    def binding = [
-            'imageUrlPath' : conf.getAttr('imageUrlPath'),
-            'imageTags' : conf.getAttr('imageTags'),
-            'dockerRegistryHost' : conf.getAttr('dockerRegistryHost'),
-    ]
-
-    return simpleTemplate(text, binding)
-}
+//    return simpleTemplate(text, binding)
+//}
 
 def kubernetesContent(Conf conf) {
     if (conf.appName == "blackbox-exporter") {
