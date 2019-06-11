@@ -11,7 +11,7 @@ class Conf implements Serializable{
         this.userSetMap = userSetMap
         this.appConf = new GlobalConfig().globalConfig.get(appName)
         userSetMap.each {k, v ->
-            System.out.println(k,v)
+            System.out.println(k)
         }
 //        this.setUserAttr(userSetMap)
     }
