@@ -1,9 +1,3 @@
-//import com.dmai.Conf
-//import com.dmai.JenkinsRunTemplate
-//import com.dmai.MakeDockerImage
-//import com.dmai.Deploykubernetes
-//import com.dmai.DmaiEmail
-
 import com.dmai.*
 
 def call(Map map, env) {
@@ -40,13 +34,10 @@ def call(Map map, env) {
             }
         }
 
+        // 设置任务的超时时间为1个小时。
         options {
             timeout(time:1, unit: 'HOURS')
         }
-
-//        environment {
-//            kubernetesContentDeployFile = kubernetesContent(conf)
-//        }
 
         stages {
             stage('Make Image') {
@@ -70,6 +61,10 @@ def call(Map map, env) {
             }
 
             stage('Deploy') {
+
+                // 当项目的全局选项设置为deploy == true的时候，才进行部署的操作
+                when { expression { return conf.getAttr('deploy') } }
+
                 steps {
                     container('kubectl') {
                         script {
@@ -82,9 +77,7 @@ def call(Map map, env) {
 
         post {
             always {
-                script {
-                    dmaiEmail.sendEmail('构建完成！')
-                }
+                echo "构建完成！"
             }
 
             failure {
