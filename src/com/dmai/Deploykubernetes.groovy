@@ -19,7 +19,7 @@ class Deploykubernetes {
                 this.script.sh "echo '${this.kubernetesDeployTemplate.getKubernetesDeployTemplate()}' > Deploy-k8s.yml"
             }
             catch (e) {
-                println(e)
+                this.script.sh "${e}"
             }
         }
 
