@@ -40,8 +40,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/dmai/KubernetesDeployTemplate.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="501">
-              <caret line="68" column="45" selection-start-line="68" selection-start-column="45" selection-end-line="68" selection-end-column="45" />
+            <state relative-caret-position="197">
+              <caret line="42" column="79" lean-forward="true" selection-start-line="42" selection-start-column="79" selection-end-line="42" selection-end-column="79" />
             </state>
           </provider>
         </entry>
@@ -123,7 +123,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>cat</find>
       <find>blackbox</find>
       <find>kubectl</find>
       <find>notCompile</find>
@@ -152,6 +151,7 @@
       <find>simpleTemplate</find>
       <find>Tools</find>
       <find>getVolumeMounts</find>
+      <find>$volumeMounts</find>
       <find>volumeMounts</find>
     </findStrings>
     <replaceStrings>
@@ -893,8 +893,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/dmai/KubernetesDeployTemplate.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="501">
-          <caret line="68" column="45" selection-start-line="68" selection-start-column="45" selection-end-line="68" selection-end-column="45" />
+        <state relative-caret-position="197">
+          <caret line="42" column="79" lean-forward="true" selection-start-line="42" selection-start-column="79" selection-end-line="42" selection-end-column="79" />
         </state>
       </provider>
     </entry>

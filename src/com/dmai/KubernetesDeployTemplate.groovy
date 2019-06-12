@@ -42,8 +42,8 @@ spec:
       - name: $appName
         image: $dockerRegistryHost/$namespace/$appName:$branchName-$buildNumber
         imagePullPolicy: Always #
-$volumeMounts        
-$command        
+$volumeMounts
+$command
         ports:
         - containerPort: $containerPort
         resources:
