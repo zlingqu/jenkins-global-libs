@@ -33,10 +33,18 @@ class GlobalConfig implements Serializable {
                     'namespace': 'devops',
                     'containerPort': '9093',
                     'domain': '9093',
+                    'cpuRequests' : '2000m',
+                    'memoryRequests' : '2000Mi',
+                    'cpuLimits' : '3500m',
+                    'memoryLimits' : '5000Mi',
                     'kubectlImage': 'devops/base-image-kubectl:0.01',
                     'compile': false, // 是否编译
-                    'deploy': true, // 是否按照规则进行，自动化部署
-                    'customDockerfile': true // 是否使用自定义 dockerfile
+                    'deploy': true, // 是否自动化部署
+                    'customDockerfile': true, // 是否使用自定义 dockerfile
+                    'customKubernetesDeployTemplate' : true, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
+                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort']
+                    'codeLanguage' : 'prometheus-alertmanager', // 临时的，默认是【js,node,golang,java,php,python】
+                    'k8sKind': 'deployment' // 部署的服务的类型
             ],
             'blackbox-exporter': [
                     'namespace': 'devops',

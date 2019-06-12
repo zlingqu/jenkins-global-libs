@@ -1,7 +1,8 @@
 import com.dmai.Conf
 import com.dmai.JenkinsRunTemplate
-import com.dmai.DockerFileTemplate
 import com.dmai.MakeDockerImage
+import com.dmai.Deploykubernetes
+import com.tool.Tools
 
 def call(Map map, env) {
 
@@ -18,6 +19,8 @@ def call(Map map, env) {
     // 全局 docker 镜像生成
     MakeDockerImage makeDockerImage = new MakeDockerImage(this, conf)
 
+    // 自动生成的k8s，部署文件
+    Deploykubernetes deploykubernetes = new Deploykubernetes(this, conf)
 
     println('【开始进行构建】')
     pipeline {
@@ -34,14 +37,11 @@ def call(Map map, env) {
 
         options {
             timeout(time:1, unit: 'HOURS')
-//            retry(2)
         }
 
-        environment {
-//            dockerFile = new DockerFileTemplate(conf).getDockerFile()
-//            dockerComposeFile = new DockerFileTemplate(conf).getDockerComposeFile()
-            kubernetesContentDeployFile = kubernetesContent(conf)
-        }
+//        environment {
+//            kubernetesContentDeployFile = kubernetesContent(conf)
+//        }
 
         stages {
             stage('Make Image') {
@@ -53,6 +53,7 @@ def call(Map map, env) {
                     }
                 }
             }
+
             stage('Push Image') {
                 steps {
                     container('docker-compose') {
@@ -63,14 +64,10 @@ def call(Map map, env) {
                 }
             }
 
-
             stage('Deploy') {
                 steps {
                     container('kubectl') {
-                        println('【创建k8s部署文件】')
-                        sh 'echo "${kubernetesContentDeployFile}" > Deploy-k8s.yml'
-                        println('【执行部署】')
-                        sh 'kubectl apply -f Deploy-k8s.yml'
+                        deploykubernetes.deployKubernetes()
                     }
                 }
             }
@@ -106,252 +103,7 @@ def call(Map map, env) {
     }
 }
 
-//def dockerFileContent(Conf conf) {
-//    switch (conf.appName) {
-//        case 'service-prometheus':
-//            return '''
-//FROM centos:latest
-//WORKDIR /workspace
-//RUN mkdir -p /data/prometheus/etc/jobs && mkdir -p /data/prometheus/etc/rules/
-//COPY ./prometheus-2.9.2.linux-amd64.tar.gz /workspace/
-//COPY ./prometheus.yml /workspace/prometheus.yml
-//COPY ./alert_rule.yml /data/prometheus/etc/rules/alert_rule.yml
-//RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-//RUN tar xf prometheus-2.9.2.linux-amd64.tar.gz && mv prometheus-2.9.2.linux-amd64 prometheus
-//'''
-//        case 'blackbox-exporter':
-//            return '''
-//FROM golang:1.12.5-alpine3.9
-//ADD . /go/blackbox_exporter
-//'''
-//    }
-////
-//}
-
-//def dockerComposeFile(Conf conf) {
-//    def text = '''
-//version: "2"
-//services:
-//  service-docker-build:
-//    build: ./
-//    image: $dockerRegistryHost/$imageUrlPath:$imageTags
-//'''
-//    def binding = [
-//            'imageUrlPath' : conf.getAttr('imageUrlPath'),
-//            'imageTags' : conf.getAttr('imageTags'),
-//            'dockerRegistryHost' : conf.getAttr('dockerRegistryHost'),
-//    ]
-//
-//    return simpleTemplate(text, binding)
-//}
-
-def kubernetesContent(Conf conf) {
-    if (conf.appName == "blackbox-exporter") {
-        def text = '''
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    app: $appName
-  name: $appName
-  namespace: $namespace
-spec:
-  ports:
-  - port: $containerPort
-    protocol: TCP
-    targetPort: $containerPort
-    nodePort: $nodePort
-  selector:
-    app: $appName
-  type: NodePort
-
----
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  name: $appName
-  namespace: $namespace
-spec:
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: $appName
-    spec:
-      imagePullSecrets:
-      - name: regsecret
-      containers:
-      - name: service-prometheus
-        image: $dockerRegistryHost/$imageUrlPath:$imageTags
-        imagePullPolicy: Always #
-        command:
-        - "/go/blackbox_exporter/blackbox_exporter-0.14.0.linux-amd64/blackbox_exporter"
-        args:
-        - "--config.file=/go/blackbox_exporter/blackbox_exporter-0.14.0.linux-amd64/blackbox.yml"
-        resources:
-          limits:
-            memory: 1500Mi
-            cpu: 1000m
-          requests:
-            cpu: 500m
-            memory: 1000Mi
-        ports:
-        - containerPort: $containerPort
-'''
-        def binding = [
-                'imageUrlPath' : conf.getAttr('imageUrlPath'),
-                'imageTags' : conf.getAttr('imageTags'),
-                'dockerRegistryHost' : conf.getAttr('dockerRegistryHost'),
-                'appName' : conf.appName,
-                'namespace' : conf.getAttr('namespace'),
-                'containerPort': conf.getAttr(containerPort),
-                'nodePort' : conf.getAttr('nodePort'),
-        ]
-
-        return simpleTemplate(text, binding)
-    }
-
-    if (conf.appName == "prometheus-alertmanager") {
-        def text =  '''
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    app: $appName
-  name: $appName
-  namespace: $namespace
-spec:
-  ports:
-  - port: $containerPort
-    protocol: TCP
-    targetPort: $containerPort
-  selector:
-    app: $appName
-  type: ClusterIP
-
----
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  name: $appName
-  namespace: $namespace
-spec:
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: $appName
-    spec:
-      imagePullSecrets:
-      - name: regsecret
-      containers:
-      - name: service-prometheus
-        image: $dockerRegistryHost/$imageUrlPath:$imageTags
-        imagePullPolicy: Always #
-        command:
-        - "/workspace/alertmanager/alertmanager"
-        args:
-        - "--config.file=/data/prometheus/alertmanager/alertmanager.yml"
-        resources:
-          limits:
-            memory: 1500Mi
-            cpu: 1000m
-          requests:
-            cpu: 500m
-            memory: 1000Mi
-        ports:
-        - containerPort: $containerPort
-'''
-        def binding = [
-                'imageUrlPath' : conf.getAttr('imageUrlPath'),
-                'imageTags' : conf.getAttr('imageTags'),
-                'dockerRegistryHost' : conf.getAttr('dockerRegistryHost'),
-                'appName' : conf.appName,
-                'namespace' : conf.getAttr('namespace'),
-                'containerPort': conf.getAttr('containerPort')
-        ]
-
-        return simpleTemplate(text, binding)
-    }
-
-    def text = '''
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    app: $appName
-  name: $appName
-  namespace: $namespace
-spec:
-  ports:
-  - port: $containerPort
-    protocol: TCP
-    targetPort: $containerPort
-    nodePort: $nodePort
-  selector:
-    app: $appName
-  type: NodePort
-
----
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  name: $appName
-  namespace: $namespace
-spec:
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: $appName
-    spec:
-      imagePullSecrets:
-      - name: regsecret
-      containers:
-      - name: $appName
-        image: $dockerRegistryHost/$imageUrlPath:$imageTags
-        imagePullPolicy: Always #
-        volumeMounts:
-        - name: cephfs
-          mountPath: /data/tsdb
-          subPath: prometheus_home/prometheus_server_data_home/tsdb
-        command:
-        - "/workspace/prometheus/prometheus"
-        args:
-        - "--config.file=/workspace/prometheus.yml"
-        - "--storage.tsdb.path=/data/tsdb"
-        resources:
-          limits:
-            cpu: 3500m
-            memory: 5000Mi
-          requests:
-            cpu: 2000m
-            memory: 4000Mi
-        ports:
-        - containerPort: $containerPort
-      volumes:
-      - name: cephfs
-        persistentVolumeClaim:
-          claimName: mypvc
-      nodeSelector:
-        makeenv: prometheus
-'''
-    def binding = [
-            'imageUrlPath' : conf.getAttr('imageUrlPath'),
-            'imageTags' : conf.getAttr('imageTags'),
-            'dockerRegistryHost' : conf.getAttr('dockerRegistryHost'),
-            'appName' : conf.appName,
-            'nodePort' : conf.getAttr('nodePort'),
-            'namespace' : conf.getAttr('namespace'),
-            'containerPort': conf.getAttr('containerPort')
-    ]
-
-    return simpleTemplate(text, binding)
-}
-
-def emailBody(Conf conf, String buildResult) {
+static def emailBody(Conf conf, String buildResult) {
     def text = '''Job build $buildResult Address : http://jenkins.ops.dm-ai.cn/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline
 App url addRess :  $appurl
 '''
@@ -362,14 +114,14 @@ App url addRess :  $appurl
             'buildResult': buildResult,
             'appurl' : conf.getAttr('domain')
     ]
-    return simpleTemplate(text, binding)
+    return Tools.simpleTemplate(text, binding)
 }
 
-def simpleTemplate(text, binding) {
-    def engine = new groovy.text.SimpleTemplateEngine()
-    def template = engine.createTemplate(text).make(binding)
-    return template.toString()
-}
+//def simpleTemplate(text, binding) {
+//    def engine = new groovy.text.SimpleTemplateEngine()
+//    def template = engine.createTemplate(text).make(binding)
+//    return template.toString()
+//}
 
 //def map = [:]
 //map.put('appName','service-prometheus')
