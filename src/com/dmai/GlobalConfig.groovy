@@ -17,6 +17,23 @@ class GlobalConfig implements Serializable {
                     'nodePort': '30091',
                     'namespace': 'mis'
             ],
+            'mis-org-backend': [
+                    'namespace': 'mis',
+                    'nodePort' : '30300',
+                    'containerPort': '3000',
+                    'domain': '3000',
+                    'cpuRequests' : '300m',
+                    'memoryRequests' : '500Mi',
+                    'cpuLimits' : '800m',
+                    'memoryLimits' : '1000Mi',
+                    'compile': false, // 是否编译
+                    'deploy': true, // 是否自动化部署
+                    'customDockerfile': false, // 是否使用自定义 dockerfile
+                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
+                    'NodePort' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
+                    'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
+                    'k8sKind': 'deployment' // 部署的服务的类型
+            ],
             'mis-admin-backend': [
                     'nodePort': '31500',
                     'namespace': 'mis',
