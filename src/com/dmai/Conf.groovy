@@ -5,16 +5,25 @@ class Conf implements Serializable{
     public String appName
     public String dockerRegistryHost
     public String jenkinsAddress
+    protected final def script
     private Map<String, String> userSetMap
     private Map<String, String> appConf
     private Map<String, String> jenkinsEnv
 
-    Conf(String appName, Map<String, String> userSetMap) {
+    Conf(script, String appName, Map<String, String> userSetMap) {
+        this.script = script
         this.appName = appName
         this.dockerRegistryHost = 'docker.dm-ai.cn'
         this.jenkinsAddress = 'http://jenkins.ops.dm-ai.cn'
         this.userSetMap = userSetMap
-        this.appConf = new GlobalConfig().globalConfig.get(appName)
+
+        // 全局设置中没添加这个项目，需要报错。
+        try {
+            this.appConf = new GlobalConfig().globalConfig.get(appName)
+        }
+        catch (e) {
+            this.script.sh "echo ${e}"
+        }
     }
 
     // get attr

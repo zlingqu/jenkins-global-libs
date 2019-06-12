@@ -4,7 +4,7 @@ def call(Map map, env) {
 
     // 定义定义的全局的配置项目
     String appName = map.get('appName')
-    Conf conf = new Conf(appName, map)
+    Conf conf = new Conf(this, appName, map)
 
     // 把用户设置的全局的属性，加入到默认的全局的设置当中
     conf.setUserAttr(map)
