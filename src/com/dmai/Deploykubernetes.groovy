@@ -14,7 +14,6 @@ class Deploykubernetes {
 
     public void deployKubernetes() {
         if (! conf.getAttr('customKubernetesDeployTemplate')) {
-            this.script.sh 'sleep 6000'
             try {
 
                 this.script.sh "echo '${this.kubernetesDeployTemplate.getKubernetesDeployTemplate()}' > Deploy-k8s.yml"
