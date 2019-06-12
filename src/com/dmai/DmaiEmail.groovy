@@ -12,8 +12,8 @@ class DmaiEmail {
 
     public sendEmail() {
         try {
-            this.script.emailext (
-                    body: this.emailBody(conf, 'success'),
+            this.script.emailext(
+                    body: this.emailBody('success'),
                     subject: 'Jenkins build success info',
                     to: conf.getAttr('emailAddress')
             )
@@ -24,6 +24,6 @@ class DmaiEmail {
     }
 
     private String emailBody(String buildResult) {
-        return "测试！！！！！！"
+        return "测试！！！！！！${buildResult}"
     }
 }
