@@ -1,4 +1,5 @@
 package com.dmai
+import com.tool.Tools
 
 class DmaiEmail {
 
@@ -38,6 +39,7 @@ Jenkins构建地址： $jenkinsAddress/blue/organizations/jenkins/$jobName/detai
                 'appurl'         : this.getAppUrl(),
                 'buildResult'    : buildResult
         ]
+        return Tools.simpleTemplate(text, bind)
     }
 
     private String getAppUrl() {
