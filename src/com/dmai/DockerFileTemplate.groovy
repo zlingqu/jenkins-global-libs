@@ -14,6 +14,23 @@ class DockerFileTemplate {
         if (conf.getAttr('customDockerfile')) {
             return ''
         }
+
+        switch (conf.getAttr('codeLanguage')) {
+            case 'node':
+                return this.getNodeDockerfile()
+        }
+    }
+
+    private String getNodeDockerfile() {
+        return '''
+FROM docker.dm-ai.cn/devops/node-10:0.0.1
+WORKDIR /app
+COPY package*.json ./
+RUN npm config set registry http://192.168.3.13:8081/repository/npm/ && npm install
+COPY . .
+VOLUME ["/app/data"]
+CMD [ "npm", "start" ]
+'''
     }
 
     public String getDockerComposeFile() {

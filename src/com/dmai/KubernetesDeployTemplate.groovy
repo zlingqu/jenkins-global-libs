@@ -16,7 +16,9 @@ class KubernetesDeployTemplate {
     private String getSvcTemplate() {
         switch (conf.getAttr('svcType')) {
             case 'ClusterIP':
-                return svcTemplateClusterIP()
+                return this.svcTemplateClusterIP()
+            case 'NodePort':
+                return this.svcTemplateNodePort()
         }
     }
 
@@ -43,7 +45,6 @@ spec:
         image: $dockerRegistryHost/$namespace/$appName:$branchName-$buildNumber
         imagePullPolicy: Always #
 $volumeMounts
-$command
         ports:
         - containerPort: $containerPort
         resources:
@@ -67,9 +68,38 @@ $volumes
                 'cpuLimits'           : conf.getAttr('cpuLimits'),
                 'memoryLimits'        : conf.getAttr('memoryLimits'),
                 'volumeMounts'        : this.getVolumeMounts(),
-                'command'             : this.getCommand(),
                 'volumes'             : this.getVolumes()
         ]
+        return Tools.simpleTemplate(text, bind)
+    }
+
+    private String svcTemplateNodePort() {
+        def text = '''
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: $appName
+  name: $appName
+  namespace: $namespace
+spec:
+  ports:
+  - port: $containerPort
+    protocol: TCP
+    targetPort: $containerPort
+    nodePort: $nodePort
+  selector:
+    app: $appName
+  type: NodePort
+'''
+        def bind = [
+                'appName' : this.conf.appName,
+                'namespace' : this.conf.getAttr('namespace'),
+                'containerPort' : this.conf.getAttr('containerPort'),
+                'nodePort' : this.conf.getAttr('nodePort')
+        ]
+
         return Tools.simpleTemplate(text, bind)
     }
 
@@ -100,26 +130,11 @@ spec:
 
         return Tools.simpleTemplate(text, bind)
     }
-    /*
-    /
-    / 用途：设置不同类型，镜像启动的时候，需要执行的命令
-    */
-    private String getCommand() {
-        switch (conf.getAttr('codeLanguage')) {
-            case 'prometheus-alertmanager':
-                return '''
-        command:
-        - "/workspace/alertmanager/alertmanager"
-        args:
-        - "--config.file=/data/prometheus/alertmanager/alertmanager.yml"
-'''
-        }
-    }
 
     private String getVolumeMounts() {
         switch (this.conf.getAttr('codeLanguage')) {
-            case 'prometheus-alertmanager':
-                return ''''''
+            case 'node':
+                return this.getVolumeMountsNode()
             default:
                 return ''
         }
@@ -127,10 +142,48 @@ spec:
 
     private String getVolumes() {
         switch (conf.getAttr('codeLanguage')) {
-            case 'prometheus-alertmanager':
-                return ''''''
+            case 'node':
+                return this.getVolumesNode()
             default:
                 return ''
         }
+    }
+
+
+    private String getVolumesNode() {
+        return String.format('''
+      volumes:
+      - name: myconf
+        configMap:
+          name: %s
+      - name: data
+%s
+''', this.conf.appName, this.getDataMode())
+    }
+
+    private String getDataMode() {
+        switch (this.conf.getAttr('branchName')) {
+            case 'master':
+                return '''
+        persistentVolumeClaim:
+          claimName: mypvc
+'''
+            default:
+                return String.format('''
+        hostPath:
+           path: /data/%s/%s
+''', this.conf.getAttr('namespace'), this.conf.appName)
+        }
+    }
+
+    private String getVolumeMountsNode() {
+        return '''
+        volumeMounts:
+        - name: myconf
+          mountPath: /app/config.env
+          subPath: config.env
+        - name: data
+          mountPath: /app/data
+'''
     }
 }
