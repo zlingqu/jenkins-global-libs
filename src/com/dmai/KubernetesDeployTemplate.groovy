@@ -119,7 +119,7 @@ spec:
     String getVolumeMounts() {
         switch (conf.getAttr('codeLanguage')) {
             case 'prometheus-alertmanager':
-                return ''' '''
+                return '''11111'''
             default:
                 return ' '
         }
