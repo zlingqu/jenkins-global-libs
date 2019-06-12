@@ -66,7 +66,7 @@ $volumes
                 'memoryRequests'      : conf.getAttr('memoryRequests'),
                 'cpuLimits'           : conf.getAttr('cpuLimits'),
                 'memoryLimits'        : conf.getAttr('memoryLimits'),
-                'volumeMounts '       : '1119',
+                'volumeMounts'        : this.getVolumeMounts(),
                 'command'             : this.getCommand(),
                 'volumes'             : this.getVolumes()
         ]
@@ -116,21 +116,21 @@ spec:
         }
     }
 
-    String getVolumeMounts() {
+    private String getVolumeMounts() {
         switch (this.conf.getAttr('codeLanguage')) {
             case 'prometheus-alertmanager':
-                return '''11111'''
+                return ''''''
             default:
-                return ' '
+                return ''
         }
     }
 
     private String getVolumes() {
         switch (conf.getAttr('codeLanguage')) {
             case 'prometheus-alertmanager':
-                return ''' '''
+                return ''''''
             default:
-                return ' '
+                return ''
         }
     }
 }
