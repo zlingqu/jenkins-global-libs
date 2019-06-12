@@ -66,7 +66,7 @@ $volumes
                 'memoryRequests'      : conf.getAttr('memoryRequests'),
                 'cpuLimits'           : conf.getAttr('cpuLimits'),
                 'memoryLimits'        : conf.getAttr('memoryLimits'),
-                'volumeMounts '       : this.getVolumeMounts(),
+                'volumeMounts '       : getVolumeMounts(),
                 'command'             : this.getCommand(),
                 'volumes'             : this.getVolumes()
         ]
