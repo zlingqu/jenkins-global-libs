@@ -14,10 +14,10 @@ class Deploykubernetes {
 
     public void deployKubernetes() {
         if (! conf.getAttr('customKubernetesDeployTemplate')) {
+            this.script.sh 'sleep 6000'
             this.script.sh "echo '${this.kubernetesDeployTemplate.getKubernetesDeployTemplate()}' > Deploy-k8s.yml"
         }
 
-        this.script.sh 'sleep 6000'
         this.script.sh 'kubectl apply -f Deploy-k8s.yml'
     }
 }
