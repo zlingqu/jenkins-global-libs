@@ -11,11 +11,16 @@ class DmaiEmail {
     }
 
     public sendEmail() {
-        this.script.emailext (
-                body: this.emailBody(conf, 'success'),
-                subject: 'Jenkins build success info',
-                to: conf.getAttr('emailAddress')
-        )
+        try {
+            this.script.emailext (
+                    body: this.emailBody(conf, 'success'),
+                    subject: 'Jenkins build success info',
+                    to: conf.getAttr('emailAddress')
+            )
+        }
+        catch (e) {
+            this.script.sh "${e}"
+        }
     }
 
     private String emailBody(String buildResult) {
