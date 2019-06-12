@@ -66,7 +66,7 @@ $volumes
                 'memoryRequests'      : conf.getAttr('memoryRequests'),
                 'cpuLimits'           : conf.getAttr('cpuLimits'),
                 'memoryLimits'        : conf.getAttr('memoryLimits'),
-                'volumeMounts '       : getVolumeMounts(),
+                'volumeMounts '       : '1119',
                 'command'             : this.getCommand(),
                 'volumes'             : this.getVolumes()
         ]
@@ -117,7 +117,7 @@ spec:
     }
 
     String getVolumeMounts() {
-        switch (conf.getAttr('codeLanguage')) {
+        switch (this.conf.getAttr('codeLanguage')) {
             case 'prometheus-alertmanager':
                 return '''11111'''
             default:
