@@ -1,9 +1,10 @@
-import com.dmai.Conf
-import com.dmai.JenkinsRunTemplate
-import com.dmai.MakeDockerImage
-import com.dmai.Deploykubernetes
-import com.tool.Tools
-import com.dmai.DmaiEmail
+//import com.dmai.Conf
+//import com.dmai.JenkinsRunTemplate
+//import com.dmai.MakeDockerImage
+//import com.dmai.Deploykubernetes
+//import com.dmai.DmaiEmail
+
+import com.dmai.*
 
 def call(Map map, env) {
 
@@ -82,45 +83,22 @@ def call(Map map, env) {
         post {
             always {
                 script {
-                    dmaiEmail.sendEmail()
+                    dmaiEmail.sendEmail('构建完成！')
                 }
             }
 
             failure {
                 script {
-                    emailext (
-                            body: emailBody(conf, 'success'),
-                            subject: 'Jenkins build faild info',
-                            to: conf.getAttr('emailAddress')
-
-                    )
+                    dmaiEmail.sendEmail('构建失败！')
                 }
             }
 
             success {
                 script {
-                    emailext (
-                            body: emailBody(conf, 'success'),
-                            subject: 'Jenkins build success info',
-                            to: conf.getAttr('emailAddress')
-                    )
+                    dmaiEmail.sendEmail('构建成功！')
                 }
             }
         }
 
     }
-}
-
-static def emailBody(Conf conf, String buildResult) {
-    def text = '''Job build $buildResult Address : http://jenkins.ops.dm-ai.cn/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline
-App url addRess :  $appurl
-'''
-    def binding = [
-            'jobName' :  conf.getAttr('jobName'),
-            'branchName' : conf.getAttr('branchName'),
-            'buildNumber' : conf.getAttr('buildNumber'),
-            'buildResult': buildResult,
-            'appurl' : conf.getAttr('domain')
-    ]
-    return Tools.simpleTemplate(text, binding)
 }

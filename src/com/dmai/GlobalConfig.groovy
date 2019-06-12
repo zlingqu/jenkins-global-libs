@@ -31,6 +31,7 @@ class GlobalConfig implements Serializable {
             ],
             'prometheus-alertmanager': [
                     'namespace': 'devops',
+                    'nodePort' : '30993',
                     'containerPort': '9093',
                     'domain': '9093',
                     'cpuRequests' : '2000m',
@@ -42,7 +43,7 @@ class GlobalConfig implements Serializable {
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': true, // 是否使用自定义 dockerfile
                     'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
-                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort']
+                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'prometheus-alertmanager', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment' // 部署的服务的类型
             ],
