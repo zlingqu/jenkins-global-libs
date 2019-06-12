@@ -116,7 +116,7 @@ spec:
         }
     }
 
-    private String getVolumeMounts() {
+    String getVolumeMounts() {
         switch (conf.getAttr('codeLanguage')) {
             case 'prometheus-alertmanager':
                 return '''
