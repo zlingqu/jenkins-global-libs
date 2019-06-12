@@ -14,6 +14,9 @@ def call(Map map, env) {
     // 注入jenkins的环境变量到全局的Conf
     conf.setJenkinsAttrToConf(env)
 
+    // 初始化编译模块
+    Compile compile = new Compile(this, conf)
+
     // 全局 docker 镜像生成
     MakeDockerImage makeDockerImage = new MakeDockerImage(this, conf)
 
@@ -42,6 +45,19 @@ def call(Map map, env) {
         }
 
         stages {
+            stage('Compile') {
+
+                // 当项目的全局选项设置为compile == true的时候，才进行部署的操作
+                when { expression { return conf.getAttr('compile') } }
+                steps {
+                    container('compile') {
+                        script {
+                            compile.compile()
+                        }
+                    }
+                }
+            }
+
             stage('Make Image') {
                 steps {
                     container('docker-compose') {
