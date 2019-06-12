@@ -155,10 +155,10 @@ spec:
       volumes:
       - name: myconf
         configMap:
-          name: $appName
+          name: %s
       - name: data
 %s
-''', this.getDataMode())
+''', this.conf.appName, this.getDataMode())
     }
 
     private String getDataMode() {
