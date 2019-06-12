@@ -38,8 +38,8 @@ class Deploykubernetes {
                 this.script.sh ""
                 return
             default:
-                this.script.sh String.format("kubectl create configmap %s --from-file=config.env=env/%s.env",
-                this.conf.appName, this.conf.getAttr('branchName'))
+                this.script.sh String.format("kubectl create configmap %s --from-file=config.env=env/%s.env -n %s",
+                this.conf.appName, this.conf.getAttr('branchName'), this.conf.getAttr('namespace'))
         }
     }
 }
