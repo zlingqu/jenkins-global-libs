@@ -67,7 +67,9 @@ def call(Map map, env) {
             stage('Deploy') {
                 steps {
                     container('kubectl') {
-                        deploykubernetes.deployKubernetes()
+                        script {
+                            deploykubernetes.deployKubernetes()
+                        }
                     }
                 }
             }
