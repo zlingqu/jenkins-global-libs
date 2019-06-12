@@ -45,7 +45,6 @@ spec:
         image: $dockerRegistryHost/$namespace/$appName:$branchName-$buildNumber
         imagePullPolicy: Always #
 $volumeMounts
-$command
         ports:
         - containerPort: $containerPort
         resources:
@@ -69,7 +68,6 @@ $volumes
                 'cpuLimits'           : conf.getAttr('cpuLimits'),
                 'memoryLimits'        : conf.getAttr('memoryLimits'),
                 'volumeMounts'        : this.getVolumeMounts(),
-                'command'             : this.getCommand(),
                 'volumes'             : this.getVolumes()
         ]
         return Tools.simpleTemplate(text, bind)
@@ -133,26 +131,10 @@ spec:
         return Tools.simpleTemplate(text, bind)
     }
 
-    /*
-    /
-    / 用途：设置不同类型，镜像启动的时候，需要执行的命令
-    */
-    private String getCommand() {
-        switch (conf.getAttr('codeLanguage')) {
-            case 'prometheus-alertmanager':
-                return '''
-        command:
-        - "/workspace/alertmanager/alertmanager"
-        args:
-        - "--config.file=/data/prometheus/alertmanager/alertmanager.yml"
-'''
-        }
-    }
-
     private String getVolumeMounts() {
         switch (this.conf.getAttr('codeLanguage')) {
-            case 'prometheus-alertmanager':
-                return ''''''
+            case 'node':
+                return this.getVolumeMountsNode()
             default:
                 return ''
         }
@@ -160,10 +142,48 @@ spec:
 
     private String getVolumes() {
         switch (conf.getAttr('codeLanguage')) {
-            case 'prometheus-alertmanager':
-                return ''''''
+            case 'node':
+                return this.getVolumesNode()
             default:
                 return ''
         }
+    }
+
+
+    private String getVolumesNode() {
+        return String.format('''
+      volumes:
+      - name: myconf
+        configMap:
+          name: $appName
+      - name: data
+%s
+''', this.getDataMode())
+    }
+
+    private String getDataMode() {
+        switch (this.conf.getAttr('branchName')) {
+            case 'master':
+                return '''
+        persistentVolumeClaim:
+          claimName: mypvc
+'''
+            default:
+                return String.format('''
+        hostPath:
+           path: /data/%s/%s
+''', this.conf.getAttr('namespace'), this.conf.appName)
+        }
+    }
+
+    private String getVolumeMountsNode() {
+        return '''
+        volumeMounts:
+        - name: myconf
+          mountPath: /app/config.env
+          subPath: config.env
+        - name: data
+          mountPath: /app/data
+'''
     }
 }
