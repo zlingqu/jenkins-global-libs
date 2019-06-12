@@ -3,6 +3,7 @@ import com.dmai.JenkinsRunTemplate
 import com.dmai.MakeDockerImage
 import com.dmai.Deploykubernetes
 import com.tool.Tools
+import com.dmai.DmaiEmail
 
 def call(Map map, env) {
 
@@ -21,6 +22,9 @@ def call(Map map, env) {
 
     // 自动生成的k8s，部署文件
     Deploykubernetes deploykubernetes = new Deploykubernetes(this, conf)
+
+    // 初始化邮件发送模块
+    DmaiEmail dmaiEmail = new DmaiEmail(this, conf)
 
     println('【开始进行构建】')
     pipeline {
@@ -77,7 +81,9 @@ def call(Map map, env) {
 
         post {
             always {
-                echo "over!!"
+                script {
+                    dmaiEmail.sendEmail()
+                }
             }
 
             failure {
@@ -118,13 +124,3 @@ App url addRess :  $appurl
     ]
     return Tools.simpleTemplate(text, binding)
 }
-
-//def simpleTemplate(text, binding) {
-//    def engine = new groovy.text.SimpleTemplateEngine()
-//    def template = engine.createTemplate(text).make(binding)
-//    return template.toString()
-//}
-
-//def map = [:]
-//map.put('appName','service-prometheus')
-//call(map, [:])
