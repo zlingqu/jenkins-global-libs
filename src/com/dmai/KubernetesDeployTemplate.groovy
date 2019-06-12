@@ -9,18 +9,18 @@ class KubernetesDeployTemplate {
         this.conf = conf
     }
 
-    public getKubernetesDeployTemplate() {
+    public String getKubernetesDeployTemplate() {
         return this.getSvcTemplate() + this.getDeploymentTemplate()
     }
 
-    private getSvcTemplate() {
+    private String getSvcTemplate() {
         switch (conf.getAttr('svcType')) {
             case 'ClusterIP':
                 return svcTemplateClusterIP()
         }
     }
 
-    private getDeploymentTemplate() {
+    private String getDeploymentTemplate() {
         if ( this.conf.getAttr('k8sKind') != 'deployment' ) return ''
         def text = '''
 ---
@@ -73,7 +73,7 @@ $volumes
         return Tools.simpleTemplate(text, bind)
     }
 
-    private svcTemplateClusterIP() {
+    private String svcTemplateClusterIP() {
         def text = '''
 ---
 apiVersion: v1
@@ -104,7 +104,7 @@ spec:
     /
     / 用途：设置不同类型，镜像启动的时候，需要执行的命令
     */
-    private getCommand() {
+    private String getCommand() {
         switch (conf.getAttr('codeLanguage')) {
             case 'prometheus-alertmanager':
                 return '''
@@ -116,7 +116,7 @@ spec:
         }
     }
 
-    private getVolumeMounts() {
+    private String getVolumeMounts() {
         switch (conf.getAttr('codeLanguage')) {
             case 'prometheus-alertmanager':
                 return '''
@@ -124,7 +124,7 @@ spec:
         }
     }
 
-    private getVolumes() {
+    private String getVolumes() {
         switch (conf.getAttr('codeLanguage')) {
             case 'prometheus-alertmanager':
                 return '''
