@@ -41,7 +41,7 @@ class GlobalConfig implements Serializable {
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': true, // 是否使用自定义 dockerfile
-                    'customKubernetesDeployTemplate' : true, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
+                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
                     'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort']
                     'codeLanguage' : 'prometheus-alertmanager', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment' // 部署的服务的类型

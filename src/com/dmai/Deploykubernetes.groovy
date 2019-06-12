@@ -14,7 +14,13 @@ class Deploykubernetes {
 
     public void deployKubernetes() {
         if (! conf.getAttr('customKubernetesDeployTemplate')) {
-            this.script.sh "echo '${this.kubernetesDeployTemplate.getKubernetesDeployTemplate()}' > Deploy-k8s.yml"
+            try {
+
+                this.script.sh "echo '${this.kubernetesDeployTemplate.getKubernetesDeployTemplate()}' > Deploy-k8s.yml"
+            }
+            catch (e) {
+                this.script.sh "${e}"
+            }
         }
 
         this.script.sh 'kubectl apply -f Deploy-k8s.yml'
