@@ -44,6 +44,9 @@ spec:
       - name: $appName
         image: $dockerRegistryHost/$namespace/$appName:$branchName-$buildNumber
         imagePullPolicy: Always #
+        env: #指定容器中的环境变量
+        - name: TZ
+          value: Asia/Shanghai        
 $volumeMounts
         ports:
         - containerPort: $containerPort

@@ -10,7 +10,7 @@ class JenkinsRunTemplate {
     }
 
     public String getJenkinsRunTemplate() {
-        return this.templateTop() + this.templateDockerKubectl() + this.templateDockerCompose()
+        return this.templateTop() + this.templateDockerCompile() + this.templateDockerKubectl() + this.templateDockerCompose()
     }
 
     private def templateTop() {
@@ -59,9 +59,9 @@ spec:
 
     private String templateDockerKubectl() {
         if (this.conf.getAttr('deploy')) {
-            def text = '''
+            return  String.format('''
   - name: kubectl 
-    image: docker.dm-ai.cn/devops/base-image-kubectl:${branchName}-0.01
+    image: docker.dm-ai.cn/devops/base-image-kubectl:%s-0.01
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
@@ -78,9 +78,37 @@ spec:
       requests:
         cpu: 100m
         memory: 200Mi
+''', this.conf.getAttr('branchName'))
+        } else {
+            return ''
+        }
+    }
+
+    private String templateDockerCompile() {
+        switch (this.conf.getAttr('codeLanguage')) {
+            case 'js':
+                return '''
+  - name: compile
+    image: docker.dm-ai.cn/devops/base-image-compile-frontend:0.03
+    imagePullPolicy: IfNotPresent
+    env: #指定容器中的环境变量
+    - name: DMAI_PRIVATE_DOCKER_REGISTRY
+      value: docker.dm-ai.cn
+    command:
+    - "sleep"
+    args:
+    - "1200"
+    tty: true
+    resources:
+      limits:
+        memory: 5000Mi
+        cpu: 3000m
+      requests:
+        cpu: 2000m
+        memory: 4000Mi
 '''
-            def binding = ['branchName' : conf.getAttr('branchName')]
-            return Tools.simpleTemplate(text, binding)
+            default:
+                return ''
         }
     }
 }
