@@ -1,8 +1,4 @@
-import com.dmai.Conf
-import com.dmai.JenkinsRunTemplate
-import com.dmai.MakeDockerImage
-import com.dmai.Deploykubernetes
-import com.tool.Tools
+import com.dmai.*
 
 def call(Map map, env) {
 
@@ -22,6 +18,9 @@ def call(Map map, env) {
     // 自动生成的k8s，部署文件
     Deploykubernetes deploykubernetes = new Deploykubernetes(this, conf)
 
+    // 初始化邮件发送模块
+    DmaiEmail dmaiEmail = new DmaiEmail(this, conf)
+
     println('【开始进行构建】')
     pipeline {
         agent {
@@ -35,13 +34,10 @@ def call(Map map, env) {
             }
         }
 
+        // 设置任务的超时时间为1个小时。
         options {
             timeout(time:1, unit: 'HOURS')
         }
-
-//        environment {
-//            kubernetesContentDeployFile = kubernetesContent(conf)
-//        }
 
         stages {
             stage('Make Image') {
@@ -65,6 +61,10 @@ def call(Map map, env) {
             }
 
             stage('Deploy') {
+
+                // 当项目的全局选项设置为deploy == true的时候，才进行部署的操作
+                when { expression { return conf.getAttr('deploy') } }
+
                 steps {
                     container('kubectl') {
                         script {
@@ -77,54 +77,21 @@ def call(Map map, env) {
 
         post {
             always {
-                echo "over!!"
+                echo "构建完成！"
             }
 
             failure {
                 script {
-                    emailext (
-                            body: emailBody(conf, 'success'),
-                            subject: 'Jenkins build faild info',
-                            to: conf.getAttr('emailAddress')
-
-                    )
+                    dmaiEmail.sendEmail('构建失败！')
                 }
             }
 
             success {
                 script {
-                    emailext (
-                            body: emailBody(conf, 'success'),
-                            subject: 'Jenkins build success info',
-                            to: conf.getAttr('emailAddress')
-                    )
+                    dmaiEmail.sendEmail('构建成功！')
                 }
             }
         }
 
     }
 }
-
-static def emailBody(Conf conf, String buildResult) {
-    def text = '''Job build $buildResult Address : http://jenkins.ops.dm-ai.cn/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline
-App url addRess :  $appurl
-'''
-    def binding = [
-            'jobName' :  conf.getAttr('jobName'),
-            'branchName' : conf.getAttr('branchName'),
-            'buildNumber' : conf.getAttr('buildNumber'),
-            'buildResult': buildResult,
-            'appurl' : conf.getAttr('domain')
-    ]
-    return Tools.simpleTemplate(text, binding)
-}
-
-//def simpleTemplate(text, binding) {
-//    def engine = new groovy.text.SimpleTemplateEngine()
-//    def template = engine.createTemplate(text).make(binding)
-//    return template.toString()
-//}
-
-//def map = [:]
-//map.put('appName','service-prometheus')
-//call(map, [:])

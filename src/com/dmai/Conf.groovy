@@ -4,6 +4,7 @@ class Conf implements Serializable{
 
     public String appName
     public String dockerRegistryHost
+    public String jenkinsAddress
     private Map<String, String> userSetMap
     private Map<String, String> appConf
     private Map<String, String> jenkinsEnv
@@ -11,6 +12,7 @@ class Conf implements Serializable{
     Conf(String appName, Map<String, String> userSetMap) {
         this.appName = appName
         this.dockerRegistryHost = 'docker.dm-ai.cn'
+        this.jenkinsAddress = 'http://jenkins.ops.dm-ai.cn'
         this.userSetMap = userSetMap
         this.appConf = new GlobalConfig().globalConfig.get(appName)
     }
