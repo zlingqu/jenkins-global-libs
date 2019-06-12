@@ -121,6 +121,8 @@ spec:
             case 'prometheus-alertmanager':
                 return '''
 '''
+            default:
+                return ''
         }
     }
 
@@ -129,6 +131,8 @@ spec:
             case 'prometheus-alertmanager':
                 return '''
 '''
+            default:
+                return ''
         }
     }
 }
