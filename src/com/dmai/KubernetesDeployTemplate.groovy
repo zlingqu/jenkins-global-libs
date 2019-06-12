@@ -16,7 +16,9 @@ class KubernetesDeployTemplate {
     private String getSvcTemplate() {
         switch (conf.getAttr('svcType')) {
             case 'ClusterIP':
-                return svcTemplateClusterIP()
+                return this.svcTemplateClusterIP()
+            case 'NodePort':
+                return this.svcTemplateNodePort()
         }
     }
 
@@ -73,6 +75,36 @@ $volumes
         return Tools.simpleTemplate(text, bind)
     }
 
+    private String svcTemplateNodePort() {
+        def text = '''
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: $appName
+  name: $appName
+  namespace: $namespace
+spec:
+  ports:
+  - port: $containerPort
+    protocol: TCP
+    targetPort: $containerPort
+    nodePort: $nodePort
+  selector:
+    app: $appName
+  type: NodePort
+'''
+        def bind = [
+                'appName' : this.conf.appName,
+                'namespace' : this.conf.getAttr('namespace'),
+                'containerPort' : this.conf.getAttr('containerPort'),
+                'nodePort' : this.conf.getAttr('nodePort')
+        ]
+
+        return Tools.simpleTemplate(text, bind)
+    }
+
     private String svcTemplateClusterIP() {
         def text = '''
 ---
@@ -100,6 +132,7 @@ spec:
 
         return Tools.simpleTemplate(text, bind)
     }
+
     /*
     /
     / 用途：设置不同类型，镜像启动的时候，需要执行的命令
