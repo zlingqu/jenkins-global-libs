@@ -11,7 +11,7 @@ class GlobalConfig implements Serializable {
             ],
             'mis-admin-frontend': [
                     'namespace': 'mis',
-                    'nodePort': '30090',
+                    'nodePort': '30092',
                     'containerPort': '80',
                     'domain': '80',
                     'cpuRequests' : '100m',
