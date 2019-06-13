@@ -26,6 +26,7 @@ class DmaiEmail {
 
     private String emailBody(String buildResult) {
         def text = '''Jenkins构建信息
+构建项目：$jobName
 构建结果：$buildResult
 Jenkins构建地址： $jenkinsAddress/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline
 构建分支：$branchName
