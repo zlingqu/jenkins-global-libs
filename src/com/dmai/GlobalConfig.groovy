@@ -84,10 +84,10 @@ MONGODB_CONNECTION="mongodb://dm-mis:c243419c3afc7ece77c@192.168.11.51:27500,192
                     'nodePort' : '30993',
                     'containerPort': '9093',
                     'domain': '9093',
-                    'cpuRequests' : '2000m',
-                    'memoryRequests' : '2000Mi',
-                    'cpuLimits' : '3500m',
-                    'memoryLimits' : '5000Mi',
+                    'cpuRequests' : '500m',
+                    'memoryRequests' : '1000Mi',
+                    'cpuLimits' : '1000m',
+                    'memoryLimits' : '1500Mi',
                     'kubectlImage': 'devops/base-image-kubectl:0.01',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
