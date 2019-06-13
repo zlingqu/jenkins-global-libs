@@ -70,7 +70,45 @@ MONGODB_CONNECTION="mongodb://dm-mis:c243419c3afc7ece77c@192.168.11.51:27500,192
             'mis-admin-backend': [
                     'nodePort': '31500',
                     'namespace': 'mis',
-                    'appPort': '5000'
+                    'containerPort': '5000',
+                    'domain': '5000',
+                    'cpuRequests' : '300m',
+                    'memoryRequests' : '500Mi',
+                    'cpuLimits' : '800m',
+                    'memoryLimits' : '1000Mi',
+                    'compile': false, // 是否编译
+                    'deploy': true, // 是否自动化部署
+                    'customDockerfile': false, // 是否使用自定义 dockerfile
+                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
+                    'useConfigMap': true, //是否使用configmap
+                    'configMapFile': '''
+NODE_ENV=prod
+PORT=5000
+APP_NAME=admin
+
+# MongoDB配置
+MONGODB_CONNECTION="mongodb://dm-mis:c243419c3afc7ece77c@192.168.11.51:27500,192.168.12.51:27500,192.168.13.51:27500/dm-mis?authSource=dm-mis"
+
+# 默认每页显示条数
+PAGE_SIZE=10
+
+# LDAP服务器配置
+LDAP_URL="ldap://192.168.3.41:389"
+LDAP_BASE="dc=dmai,dc=com"
+LDAP_USER="cn=mis_bind,ou=apps,dc=dmai,dc=com"
+LDAP_PASSWD="Dm@imis19"
+LDAP_TIMEOUT=120
+
+# 微信请求相关配置
+WX_BASE_URL="https://qyapi.weixin.qq.com/cgi-bin"
+WX_REQUEST_TIMEOUT=3000
+WX_CORP_ID=ww399a98a04dfbcda4
+WX_CONTACT_SECRET=gZazZkwuoPcrmli8tu4-h6op6CTnL5o7LvoU8wEPuqA
+WX_APPROVAL_SECRET="hFw3-lNcqlD4ilT8YwnAJwk650sElWXyVi8n3EEsgDs"
+''',
+                    'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
+                    'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
+                    'k8sKind': 'deployment' // 部署的服务的类型
             ],
             'service-prometheus' : [
                     'nodePort': '30090',
