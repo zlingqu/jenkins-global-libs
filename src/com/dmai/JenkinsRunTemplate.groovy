@@ -10,7 +10,7 @@ class JenkinsRunTemplate {
     }
 
     public String getJenkinsRunTemplate() {
-        return this.templateTop() + this.templateDockerCompile() + this.templateDockerKubectl() + this.templateDockerCompose()
+        return this.templateTop() + this.templateDockerJenkins() + this.templateDockerCompile() + this.templateDockerKubectl() + this.templateDockerCompose()
     }
 
     private def templateTop() {
@@ -110,6 +110,29 @@ spec:
             default:
                 return ''
         }
+    }
+
+    private String templateDockerJenkins() {
+        return '''
+  - name: jnlp 
+    image: docker.dm-ai.cn/devops/base-image-jenkins-jnlp-slave:0.01
+    imagePullPolicy: IfNotPresent
+    env: #指定容器中的环境变量
+    - name: DMAI_PRIVATE_DOCKER_REGISTRY
+      value: docker.dm-ai.cn  
+    command:
+    - "sleep"
+    args:
+    - "1200"
+    tty: true
+    resources:
+      limits:
+        memory: 300Mi
+        cpu: 200m
+      requests:
+        cpu: 100m
+        memory: 200Mi
+'''
     }
 }
 
