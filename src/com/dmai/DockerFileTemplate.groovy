@@ -39,16 +39,18 @@ ENTRYPOINT nginx -g "daemon off;"
     private String getNodeDockerfile() {
         if (this.conf.appName == 'storage-service')
             return '''
-FROM docker.dm-ai.cn/public/node:10.16-alpine
-MAINTAINER 秦小波
-ENV TZ=Asia/Shanghai
-ADD . /usr/local/storage-service
-WORKDIR /usr/local/storage-service
-RUN  npm config set registry http://192.168.3.13:8081/repository/npm && npm install -g node-gyp && npm install
-#对外暴露的端口
-EXPOSE 3000
-#程序启动脚本
-CMD ["npm", "start"]
+FROM docker.dm-ai.cn/public:10-alpine-glibc
+WORKDIR /app
+COPY . .
+RUN npm config set registry http://192.168.3.13:8081/repository/npm && npm install
+#pkg . -o $pname.bin -t node10-linux-x64
+#FROM docker.dm-ai.cn/public/alpine:3.9.4-glibc
+ENV TZ="Asia/Shanghai"
+WORKDIR /app
+#COPY --from=0 /app/$pname.bin .
+EXPOSE $port
+#ENTRYPOINT [ "./$pname.bin" ]
+ENTRYPOINT [ "npm","start" ]
 '''
         return '''
 FROM docker.dm-ai.cn/devops/node-10:0.0.1
