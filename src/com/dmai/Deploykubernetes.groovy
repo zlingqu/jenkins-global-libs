@@ -24,9 +24,7 @@ class Deploykubernetes {
         }
 
         // 先创建configMap
-        if (this.conf.appName == 'stat-service') {
-            this.createConfigMap()
-        }
+//            this.createConfigMap()
 
         this.script.sh 'kubectl apply -f Deploy-k8s.yml'
     }
