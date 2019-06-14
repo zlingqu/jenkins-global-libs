@@ -34,7 +34,7 @@ class Deploykubernetes {
         switch (this.conf.appName) {
             case 'storage-service':
                 this.script.sh String.format("kubectl delete configmap %s -n %s || echo 0", this.conf.appName, this.conf.getAttr('namespace'))
-                this.script.sh "kubectl create configmap '${this.conf.appName}' --from-literal='${this.conf.getAttr('configMapName')}'='${this.conf.getAttr('configMapFile' + this.conf.getAttr('branchName'))}' -n '${this.conf.getAttr('namespace')}'"
+                this.script.sh "kubectl create configmap '${this.conf.appName}' --from-literal='${this.conf.getAttr('configMapName')}'='${this.conf.getAttr('configMapFile-dev')}' -n '${this.conf.getAttr('namespace')}'"
                 return
         }
 
