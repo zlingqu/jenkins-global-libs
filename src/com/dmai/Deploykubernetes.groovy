@@ -24,7 +24,9 @@ class Deploykubernetes {
         }
 
         // 先创建configMap
-        //this.createConfigMap()
+        if (this.conf.appName == 'stat-service') {
+            this.createConfigMap()
+        }
 
         this.script.sh 'kubectl apply -f Deploy-k8s.yml'
     }
@@ -32,7 +34,7 @@ class Deploykubernetes {
     private void createConfigMap() {
         if (! this.conf.getAttr('useConfigMap')) return
         switch (this.conf.appName) {
-            case 'storage-service':
+            case 'stat-service':
                 this.script.sh String.format("kubectl delete configmap %s -n %s || echo 0", this.conf.appName, this.conf.getAttr('namespace'))
                 this.script.sh "kubectl create configmap '${this.conf.appName}' --from-literal='${this.conf.getAttr('configMapName')}'='${this.conf.getAttr('configMapFile-dev')}' -n '${this.conf.getAttr('namespace')}'"
                 return
