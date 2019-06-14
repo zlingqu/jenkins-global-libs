@@ -57,7 +57,7 @@ Jenkins构建地址： $jenkinsAddress/blue/organizations/jenkins/$jobName/detai
             case 'master':
                 return 'http://192.168.11.20'
             case 'dev':
-                return 'http://192.168.3.18'
+                return 'http://192.168.3.140'
             case 'release':
                 return 'http://192.168.3.140'
         }
