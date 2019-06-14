@@ -43,13 +43,9 @@ FROM docker.dm-ai.cn/public:10-alpine-glibc
 WORKDIR /app
 COPY . .
 RUN npm config set registry http://192.168.3.13:8081/repository/npm && npm install
-#pkg . -o $pname.bin -t node10-linux-x64
-#FROM docker.dm-ai.cn/public/alpine:3.9.4-glibc
 ENV TZ="Asia/Shanghai"
 WORKDIR /app
-#COPY --from=0 /app/$pname.bin .
-EXPOSE $port
-#ENTRYPOINT [ "./$pname.bin" ]
+EXPOSE 3000
 ENTRYPOINT [ "npm","start" ]
 '''
         return '''
