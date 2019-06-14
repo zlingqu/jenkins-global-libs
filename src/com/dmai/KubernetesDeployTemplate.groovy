@@ -174,8 +174,8 @@ spec:
             default:
                 return String.format('''
         hostPath:
-           path: /data1/%s/%s
-''', this.conf.getAttr('namespace'), this.conf.appName)
+           path: /data1/%s
+''', this.conf.getAttr('namespace'))
         }
     }
 
@@ -186,7 +186,7 @@ spec:
           mountPath: /app/%s
           subPath: %s
         - name: data
-          mountPath: /app/data
+          mountPath: /data
 ''', this.conf.appName, this.conf.getAttr('configMapName'), this.conf.getAttr('configMapName'))
     }
 }
