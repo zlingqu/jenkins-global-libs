@@ -37,7 +37,7 @@ ENTRYPOINT nginx -g "daemon off;"
     }
 
     private String getNodeDockerfile() {
-        if (this.conf.appName == 'storage-service')
+        if (this.conf.appName in ['storage-service', 'stat-service'])
             return '''
 FROM docker.dm-ai.cn/devops/public:10-alpine-glibc
 WORKDIR /app
