@@ -78,7 +78,7 @@ spec:
       requests:
         cpu: 100m
         memory: 200Mi
-''', this.conf.getAttr('branchName'))
+''', 'test')
         } else {
             return ''
         }
