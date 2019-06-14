@@ -37,6 +37,19 @@ ENTRYPOINT nginx -g "daemon off;"
     }
 
     private String getNodeDockerfile() {
+        if (this.conf.appName == 'storage-service')
+            return '''
+FROM docker.dm-ai.cn/public/node:10.16-alpine
+MAINTAINER 秦小波
+ENV TZ=Asia/Shanghai
+ADD . /usr/local/storage-service
+WORKDIR /usr/local/storage-service
+RUN  npm config set registry http://192.168.3.13:8081/repository/npm && npm install -g node-gyp && npm install
+#对外暴露的端口
+EXPOSE 3000
+#程序启动脚本
+CMD ["npm", "start"]
+'''
         return '''
 FROM docker.dm-ai.cn/devops/node-10:0.0.1
 WORKDIR /app
