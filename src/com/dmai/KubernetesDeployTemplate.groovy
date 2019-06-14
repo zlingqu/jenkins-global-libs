@@ -186,7 +186,7 @@ spec:
           mountPath: /app/%s
           subPath: %s
         - name: data
-          mountPath: /data
+          mountPath: /app/data
 ''', this.conf.appName, this.conf.getAttr('configMapName'), this.conf.getAttr('configMapName'))
     }
 }
