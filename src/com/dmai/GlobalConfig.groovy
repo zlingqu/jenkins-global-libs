@@ -99,8 +99,8 @@ MONGODB_CONNECTION="mongodb://dm-mis:c243419c3afc7ece77c@192.168.11.51:27500,192
             'stat-service': [
                     'namespace': 'xmc2',
                     'nodePort' : '30221',
-                    'containerPort': '8080',
-                    'domain': '8080',
+                    'containerPort': '3000',
+                    'domain': '3000',
                     'cpuRequests' : '300m',
                     'memoryRequests' : '500Mi',
                     'cpuLimits' : '800m',
