@@ -31,6 +31,12 @@ class Deploykubernetes {
 
     private void createConfigMap() {
         if (! this.conf.getAttr('useConfigMap')) return
+        switch (this.conf.appName) {
+            case 'storage-service':
+                this.script.sh String.format("kubectl delete configmap %s -n %s || echo 0", this.conf.appName, this.conf.getAttr('namespace'))
+                this.script.sh "kubectl create configmap '${this.conf.appName}' --from-literal='${this.conf.getAttr('configMapName')}'='${this.conf.getAttr('configMapFile' + this.conf.getAttr('branchName'))}' -n '${this.conf.getAttr('namespace')}'"
+                return
+        }
 
         // 如果使用了configmap，默认configmap的环境变量在代码目录下的env/dev，env/分支名下，master为管理员控制
         switch (this.conf.getAttr('branchName')) {
