@@ -180,13 +180,13 @@ spec:
     }
 
     private String getVolumeMountsNode() {
-        return '''
+        return String.format('''
         volumeMounts:
         - name: myconf
-          mountPath: /app/config.env
-          subPath: config.env
+          mountPath: /app/%s
+          subPath: %s
         - name: data
           mountPath: /app/data
-'''
+''', this.conf.getAttr('configMapName'), this.conf.getAttr('configMapName'))
     }
 }

@@ -36,13 +36,14 @@ class Deploykubernetes {
         switch (this.conf.getAttr('branchName')) {
             case 'master':
                 this.script.sh String.format("kubectl delete configmap %s -n %s || echo 0", this.conf.appName, this.conf.getAttr('namespace'))
-                this.script.sh "kubectl create configmap '${this.conf.appName}' --from-literal=config.env='${this.conf.getAttr('configMapFile')}' -n '${this.conf.getAttr('namespace')}'"
+                this.script.sh "kubectl create configmap '${this.conf.appName}' --from-literal='${this.conf.getAttr('configMapName')}'='${this.conf.getAttr('configMapFile')}' -n '${this.conf.getAttr('namespace')}'"
+
                 return
 
             default:
                 this.script.sh String.format("kubectl delete configmap %s -n %s || echo 0", this.conf.appName, this.conf.getAttr('namespace'))
-                this.script.sh String.format("kubectl create configmap %s --from-file=config.env=env/%s.env -n %s",
-                this.conf.appName, this.conf.getAttr('branchName'), this.conf.getAttr('namespace'))
+                this.script.sh String.format("kubectl create configmap %s --from-file=%s=env/%s.env -n %s",
+                this.conf.appName, this.conf.getAttr('configMapName'),this.conf.getAttr('branchName'), this.conf.getAttr('namespace'))
         }
     }
 }

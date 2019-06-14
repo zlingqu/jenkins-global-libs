@@ -23,6 +23,7 @@ class GlobalConfig implements Serializable {
                     'customDockerfile': true, // 是否使用自定义 dockerfile
                     'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
                     'useConfigMap': true, //是否使用configmap
+                    'configMapName': 'config.js', //是否使用configmap
                     'configMapFile' : '''
 NODE_ENV=prod
 PORT=3000
