@@ -174,7 +174,7 @@ spec:
             default:
                 return String.format('''
         hostPath:
-           path: /data1/%s
+           path: /data/%s
 ''', this.conf.getAttr('namespace'))
         }
     }
