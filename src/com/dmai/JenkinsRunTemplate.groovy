@@ -65,7 +65,7 @@ spec:
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
-      value: docker.dm-ai.cn  
+      value: docker.dm-ai.cn
     command:
     - "sleep"
     args:
@@ -78,7 +78,7 @@ spec:
       requests:
         cpu: 100m
         memory: 200Mi
-''', this.conf.getAttr('branchName'))
+''', this.conf.getAttr('branchName') == 'master' ? this.conf.getAttr('branchName'): this.conf.getAttr('dev'))
         } else {
             return ''
         }

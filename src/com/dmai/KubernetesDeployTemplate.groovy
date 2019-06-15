@@ -156,12 +156,12 @@ spec:
     private String getVolumesNode() {
         return String.format('''
       volumes:
-      - name: myconf
+      - name: %s
         configMap:
           name: %s
       - name: data
 %s
-''', this.conf.appName, this.getDataMode())
+''', this.conf.appName, this.conf.appName, this.getDataMode())
     }
 
     private String getDataMode() {
@@ -174,19 +174,19 @@ spec:
             default:
                 return String.format('''
         hostPath:
-           path: /data/%s/%s
-''', this.conf.getAttr('namespace'), this.conf.appName)
+           path: /data/%s%s
+''', this.conf.getAttr('namespace'), this.conf.appName in ['storage-service', 'stat-service'] ? '' : '/' + this.conf.appName)
         }
     }
 
     private String getVolumeMountsNode() {
-        return '''
+        return String.format('''
         volumeMounts:
-        - name: myconf
-          mountPath: /app/config.env
-          subPath: config.env
+        - name: %s
+          mountPath: /app/%s
+          subPath: %s
         - name: data
           mountPath: /app/data
-'''
+''', this.conf.appName, this.conf.getAttr('configMapName'), this.conf.getAttr('configMapName'))
     }
 }
