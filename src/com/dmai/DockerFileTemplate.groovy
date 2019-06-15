@@ -25,7 +25,7 @@ class DockerFileTemplate {
 
     private String getJsDockerfile() {
         return '''
-FROM docker.dm-ai.cn/devops/base-image-compile-run-frontend:0.01
+FROM docker.dm-ai.cn/devops/base-image-compile-run-frontend:0.02
 ENV TZ=Asia/Shanghai
 ADD dist /usr/share/nginx/html
 ADD nginx.conf /etc/nginx/conf.d/default.conf

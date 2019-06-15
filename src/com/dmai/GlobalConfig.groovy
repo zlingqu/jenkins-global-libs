@@ -18,6 +18,7 @@ class GlobalConfig implements Serializable {
                     'memoryRequests' : '500Mi',
                     'cpuLimits' : '800m',
                     'memoryLimits' : '1000Mi',
+                    'dev': 'test', // dev分支部署到测试环境
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': false, // 是否使用自定义 dockerfile
@@ -105,6 +106,7 @@ MONGODB_CONNECTION="mongodb://dm-mis:c243419c3afc7ece77c@192.168.11.51:27500,192
                     'memoryRequests' : '500Mi',
                     'cpuLimits' : '800m',
                     'memoryLimits' : '1000Mi',
+                    'dev': 'test', // dev分支部署到测试环境
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': false, // 是否使用自定义 dockerfile
@@ -174,6 +176,7 @@ module.exports = config;
                     'memoryRequests' : '200Mi',
                     'cpuLimits' : '300m',
                     'memoryLimits' : '500Mi',
+                    'dev': 'dev', // dev分支部署到开发环境
                     'compile': true, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': false, // 是否使用自定义 dockerfile
@@ -181,7 +184,8 @@ module.exports = config;
                     'useConfigMap': false, //是否使用configmap
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'js', // 临时的，默认是【js,node,golang,java,php,python】
-                    'k8sKind': 'deployment' // 部署的服务的类型
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'configMapName': 'config.env', //是否使用configmap
             ],
             'org-frontend': [
                     'nodePort': '30091',
@@ -196,6 +200,7 @@ module.exports = config;
                     'memoryRequests' : '500Mi',
                     'cpuLimits' : '800m',
                     'memoryLimits' : '1000Mi',
+                    'dev': 'dev', // dev分支部署到开发环境
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': false, // 是否使用自定义 dockerfile
@@ -221,7 +226,8 @@ MONGODB_CONNECTION="mongodb://dm-mis:c243419c3afc7ece77c@192.168.11.51:27500,192
 ''', // master主干的configmap内容
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
-                    'k8sKind': 'deployment' // 部署的服务的类型
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'configMapName': 'config.env', //是否使用configmap
             ],
             'mis-admin-backend': [
                     'nodePort': '31500',
@@ -232,6 +238,7 @@ MONGODB_CONNECTION="mongodb://dm-mis:c243419c3afc7ece77c@192.168.11.51:27500,192
                     'memoryRequests' : '500Mi',
                     'cpuLimits' : '800m',
                     'memoryLimits' : '1000Mi',
+                    'dev': 'dev', // dev分支部署到开发环境
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': false, // 是否使用自定义 dockerfile
@@ -264,7 +271,8 @@ WX_APPROVAL_SECRET="hFw3-lNcqlD4ilT8YwnAJwk650sElWXyVi8n3EEsgDs"
 ''',
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
-                    'k8sKind': 'deployment' // 部署的服务的类型
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'configMapName': 'config.env', //是否使用configmap
             ],
             'service-prometheus' : [
                     'nodePort': '30090',
@@ -282,6 +290,7 @@ WX_APPROVAL_SECRET="hFw3-lNcqlD4ilT8YwnAJwk650sElWXyVi8n3EEsgDs"
                     'memoryRequests' : '1000Mi',
                     'cpuLimits' : '1000m',
                     'memoryLimits' : '1500Mi',
+                    'dev': 'dev', // dev分支部署到开发环境
                     'kubectlImage': 'devops/base-image-kubectl:0.01',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
