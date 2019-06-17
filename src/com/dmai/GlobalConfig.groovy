@@ -172,10 +172,10 @@ module.exports = config;
                     'nodePort': '30092',
                     'containerPort': '80',
                     'domain': '80',
-                    'cpuRequests' : '100m',
-                    'memoryRequests' : '200Mi',
-                    'cpuLimits' : '200m',
-                    'memoryLimits' : '400Mi',
+                    'cpuRequests' : '200m',
+                    'memoryRequests' : '400Mi',
+                    'cpuLimits' : '400m',
+                    'memoryLimits' : '1000Mi',
                     'dev': 'dev', // dev分支部署到开发环境
                     'compile': true, // 是否编译
                     'deploy': true, // 是否自动化部署
@@ -196,10 +196,10 @@ module.exports = config;
                     'nodePort' : '31501',
                     'containerPort': '3000',
                     'domain': '3000',
-                    'cpuRequests' : '100m',
-                    'memoryRequests' : '200Mi',
-                    'cpuLimits' : '200m',
-                    'memoryLimits' : '400Mi',
+                    'cpuRequests' : '200m',
+                    'memoryRequests' : '400Mi',
+                    'cpuLimits' : '400m',
+                    'memoryLimits' : '1000Mi',
                     'dev': 'dev', // dev分支部署到开发环境
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
@@ -234,10 +234,10 @@ MONGODB_CONNECTION="mongodb://dm-mis:c243419c3afc7ece77c@192.168.11.51:27500,192
                     'namespace': 'mis',
                     'containerPort': '5000',
                     'domain': '5000',
-                    'cpuRequests' : '100m',
-                    'memoryRequests' : '200Mi',
-                    'cpuLimits' : '200m',
-                    'memoryLimits' : '400Mi',
+                    'cpuRequests' : '200m',
+                    'memoryRequests' : '400Mi',
+                    'cpuLimits' : '400m',
+                    'memoryLimits' : '1000Mi',
                     'dev': 'dev', // dev分支部署到开发环境
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
