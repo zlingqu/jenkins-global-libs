@@ -101,11 +101,11 @@ spec:
     tty: true
     resources:
       limits:
-        memory: 5000Mi
-        cpu: 3000m
+        memory: 3000Mi
+        cpu: 1500m
       requests:
-        cpu: 2000m
-        memory: 4000Mi
+        cpu: 1000m
+        memory: 2000Mi
 '''
             default:
                 return ''
