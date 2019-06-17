@@ -269,7 +269,7 @@ spec:
                 'dockerRegistryHost' : conf.getAttr('dockerRegistryHost'),
                 'appName' : conf.appName,
                 'namespace' : conf.getAttr('namespace'),
-                'containerPort': conf.getAttr(containerPort),
+                'containerPort': conf.getAttr('containerPort'),
                 'nodePort' : conf.getAttr('nodePort'),
         ]
 
