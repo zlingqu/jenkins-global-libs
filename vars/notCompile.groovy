@@ -255,11 +255,11 @@ spec:
         - "--config.file=/go/blackbox_exporter/blackbox_exporter-0.14.0.linux-amd64/blackbox.yml"
         resources:
           limits:
-            memory: 1500Mi
-            cpu: 1000m
+            memory: 400Mi
+            cpu: 200m
           requests:
-            cpu: 500m
-            memory: 1000Mi
+            cpu: 100m
+            memory: 200Mi
         ports:
         - containerPort: $containerPort
 '''
