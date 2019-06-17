@@ -193,7 +193,7 @@ module.exports = config;
             ],
             'mis-org-backend': [
                     'namespace': 'mis',
-                    'nodePort' : '30300',
+                    'nodePort' : '31501',
                     'containerPort': '3000',
                     'domain': '3000',
                     'cpuRequests' : '300m',
