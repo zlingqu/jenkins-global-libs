@@ -106,6 +106,7 @@ MONGODB_CONNECTION="mongodb://dm-mis:c243419c3afc7ece77c@192.168.11.51:27500,192
                     'memoryRequests' : '500Mi',
                     'cpuLimits' : '800m',
                     'memoryLimits' : '1000Mi',
+                    'replicas' : 5,
                     'dev': 'test', // dev分支部署到测试环境
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
