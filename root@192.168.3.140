@@ -1,0 +1,62 @@
+apiVersion: v1
+data:
+  config.js: |
+    const UUID = require('uuid')
+
+    const config = {
+      PORT: 3000, // service port
+      serviceName: 'ui-backend-service', // service name
+      uuid: UUID.v1().replace(/-/g, ''), // service node uuid
+      NODE_ENV: 'development', // 修改为test、production
+      // 以下一行接口swagger工具配置，正式环境可注释
+      HOST: '192.168.2.182',
+      META_SERVICE: 'http://meta-service:3000',
+      // dm-base-log config
+      log: {
+        level: 'debug',
+        logDir: 'logs',
+        // 服务模块名，统一使用config.serviceName,在utils/logger.js实现
+        serviceName: 'ui-backend-service',
+        env: 'development',
+      },
+
+      // ZooKeeper地址
+      // ZK_SERVER: 'node6:2181,node7:2181,node8:2181',
+      // KAFKA_BROKERS: 'node6:9092,node7:9092,node8:9092',
+
+      // if exist kafka,use the config
+      // TOPIC: {
+      //     topic1: 'topic1',
+      //     topic2: 'topic2'
+      // },
+
+      // if exist mongodb,use the config
+      DB: {
+        // URI: 'mongodb://username:password@ip:port/dbName?authSource=dbName'
+        URI:
+          'mongodb://xmc2-test:c61b071c4b920b@192.168.3.136:27500,192.168.3.137:27500,192.168.3.138:27500/xmc2-test?authSource=xmc2-test',
+        dbName: 'xmc2-test',
+      },
+
+      // if exist redis,use the config
+      REDIS_OPTIONS: {
+        // 配置模式，支持集群模式(cluster)、哨兵模式( sentinel)、单节点(standalone)、内网集群模式适用于k8s或docker(natmap)；
+        // cluster配置路径：https://www.npmjs.com/package/ioredis#cluster
+        // natmap配置路径：https://www.npmjs.com/package/ioredis#nat-mapping
+        // 多机推荐集群相关模式，很多高级特性(事务、管道、lua)只在单机和集群模式实现
+        // mode: 'cluster',
+        // host: '192.168.11.55:7000,192.168.12.55:7000,192.168.13.55:7000,192.168.11.56:7000,192.168.12.56:7000,192.168.13.56:7000',  //单节点为'192.168.11.55:7000'
+        host: 'redis',
+        port: 6379,
+      },
+
+      // other config ...
+    }
+
+    console.log('加载配置', config)
+    module.exports = config
+
+kind: ConfigMap
+metadata:
+  name: ui-backend-service
+  namespace: xmc2
