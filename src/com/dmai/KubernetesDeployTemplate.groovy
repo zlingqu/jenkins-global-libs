@@ -176,7 +176,7 @@ spec:
                 return String.format('''
         hostPath:
            path: /data/%s%s
-''', this.conf.getAttr('namespace'), this.conf.appName in ['storage-service', 'stat-service'] ? '' : '/' + this.conf.appName)
+''', this.conf.getAttr('namespace'), this.conf.appName in ['storage-service', 'stat-service', 'dispatcher-service', 'dispatcher-service'] ? '' : '/' + this.conf.appName)
         }
     }
 
