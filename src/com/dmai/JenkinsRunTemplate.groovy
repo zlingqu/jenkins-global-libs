@@ -107,6 +107,27 @@ spec:
         cpu: 1000m
         memory: 2000Mi
 '''
+            case 'c++':
+                return '''
+  - name: compile
+    image: docker.dm-ai.cn/devops/media-access:r.04
+    imagePullPolicy: IfNotPresent
+    env: #指定容器中的环境变量
+    - name: DMAI_PRIVATE_DOCKER_REGISTRY
+      value: docker.dm-ai.cn
+    command:
+    - "sleep"
+    args:
+    - "1200"
+    tty: true
+    resources:
+      limits:
+        memory: 1500Mi
+        cpu: 1000m
+      requests:
+        cpu: 500m
+        memory: 1000Mi
+'''
             default:
                 return ''
         }
