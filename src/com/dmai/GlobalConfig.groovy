@@ -29,6 +29,26 @@ class GlobalConfig implements Serializable {
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment' // 部署的服务的类型
             ],
+            'media-gateway': [
+                    'namespace': 'xmc2',
+                    'nodePort' : '30223',
+                    'containerPort': '80',
+                    'domain': '80',
+                    'cpuRequests' : '300m',
+                    'memoryRequests' : '500Mi',
+                    'cpuLimits' : '800m',
+                    'memoryLimits' : '1000Mi',
+                    'dev': 'test', // dev分支部署到测试环境
+                    'compile': true, // 是否编译
+                    'deploy': true, // 是否自动化部署
+                    'customDockerfile': false, // 是否使用自定义 dockerfile
+                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
+                    'useConfigMap': false, //是否使用configmap
+                    'configMapName': 'config.js', //挂载的configmap的名称
+                    'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
+                    'codeLanguage' : 'c++', // 临时的，默认是【js,node,golang,java,php,python】
+                    'k8sKind': 'deployment' // 部署的服务的类型
+            ],
             'media-access': [
                     'namespace': 'xmc2',
                     'nodePort' : '30222',
