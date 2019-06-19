@@ -49,7 +49,7 @@ ENTRYPOINT nginx -g "daemon off;"
     private String getNodeDockerfile() {
         if (this.conf.appName in ['storage-service', 'stat-service', 'sync-service'])
             return '''
-FROM docker.dm-ai.cn/public/node:10-slim
+FROM docker.dm-ai.cn/devops/node:0.0.1
 WORKDIR /app
 COPY . .
 RUN npm config set registry http://192.168.3.13:8081/repository/npm && npm install
