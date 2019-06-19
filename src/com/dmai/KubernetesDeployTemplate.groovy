@@ -140,7 +140,7 @@ spec:
             case 'node':
                 return this.getVolumeMountsNode()
             case 'python':
-                return this.getVolumesNode()
+                return this.getVolumeMountsNode()
             default:
                 return ''
         }
