@@ -28,7 +28,11 @@ class Conf implements Serializable{
 
     // get attr
     public def getAttr(String attrName) {
-        return this.appConf.get(attrName)
+        try {
+            return this.appConf.get(attrName)
+        } catch (e) {
+            return null
+        }
     }
 
     // set user attr

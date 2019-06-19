@@ -32,7 +32,7 @@ metadata:
   name: $appName
   namespace: $namespace
 spec:
-  replicas: 1
+  replicas: $replicas
   template:
     metadata:
       labels:
@@ -71,7 +71,8 @@ $volumes
                 'cpuLimits'           : conf.getAttr('cpuLimits'),
                 'memoryLimits'        : conf.getAttr('memoryLimits'),
                 'volumeMounts'        : this.getVolumeMounts(),
-                'volumes'             : this.getVolumes()
+                'volumes'             : this.getVolumes(),
+                'replicas'            : this.conf.getAttr('replicas') ? this.conf.getAttr('replicas') : 1
         ]
         return Tools.simpleTemplate(text, bind)
     }

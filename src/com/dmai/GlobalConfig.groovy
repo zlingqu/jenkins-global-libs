@@ -106,6 +106,7 @@ MONGODB_CONNECTION="mongodb://dm-mis:c243419c3afc7ece77c@192.168.11.51:27500,192
                     'memoryRequests' : '500Mi',
                     'cpuLimits' : '800m',
                     'memoryLimits' : '1000Mi',
+                    'replicas' : 5,
                     'dev': 'test', // dev分支部署到测试环境
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
@@ -268,6 +269,8 @@ WX_REQUEST_TIMEOUT=3000
 WX_CORP_ID=ww399a98a04dfbcda4
 WX_CONTACT_SECRET=gZazZkwuoPcrmli8tu4-h6op6CTnL5o7LvoU8wEPuqA
 WX_APPROVAL_SECRET="hFw3-lNcqlD4ilT8YwnAJwk650sElWXyVi8n3EEsgDs"
+WX_CHECKIN_SECRET="_kvJUlKh4MKlOoo34L-Fl7DDQEODti4SUSfp319cDQw"
+WX_DIAL_SECRET="hqx0u6HFFjLGZMF1a4mx1rUDWIQIUILJ7e3wVeA87fg"
 ''',
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
