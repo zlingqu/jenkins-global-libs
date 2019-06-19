@@ -24,7 +24,7 @@ class Deploykubernetes {
         }
 
         // 先创建configMap
-        if (!(this.conf.appName in ['storage-service', 'stat-service', 'sync-service','dispatcher-service'])) {
+        if (!(this.conf.appName in ['storage-service', 'stat-service', 'sync-service','dispatcher-service', 'ui-backend-service'])) {
             this.createConfigMap()
         }
 
