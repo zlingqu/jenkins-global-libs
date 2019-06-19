@@ -29,7 +29,7 @@ class DockerFileTemplate {
         return '''
 FROM docker.dm-ai.cn/devops/media-access:r.05
 ADD . /src
-ENTRYPOINT 'cd /src/debug && ./MediaAccess'
+ENTRYPOINT '/src/run.sh'
 '''
     }
 
