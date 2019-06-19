@@ -47,7 +47,7 @@ ENTRYPOINT nginx -g "daemon off;"
     }
 
     private String getNodeDockerfile() {
-        if (this.conf.appName in ['storage-service', 'stat-service'])
+        if (this.conf.appName in ['storage-service', 'stat-service', 'sync-service'])
             return '''
 FROM docker.dm-ai.cn/public/node:10-slim
 WORKDIR /app
