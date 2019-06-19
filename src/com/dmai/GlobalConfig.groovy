@@ -89,9 +89,6 @@ class GlobalConfig implements Serializable {
                     'codeLanguage' : 'c++', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment' // 部署的服务的类型
             ],
-            'media-gateway': [
-
-            ],
             'storage-service': [
                     'namespace': 'xmc2',
                     'nodePort' : '30220',
