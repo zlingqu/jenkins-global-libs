@@ -20,7 +20,17 @@ class DockerFileTemplate {
                 return this.getNodeDockerfile()
             case 'js':
                 return this.getJsDockerfile()
+            case 'c++':
+
         }
+    }
+
+    private String getCppDockerfile() {
+        return '''
+FROM docker.dm-ai.cn/devops/media-access:r.05
+ADD . /src
+ENTRYPOINT 'cd /src/debug && ./MediaAccess'
+'''
     }
 
     private String getJsDockerfile() {

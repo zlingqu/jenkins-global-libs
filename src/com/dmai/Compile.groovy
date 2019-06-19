@@ -15,6 +15,8 @@ class Compile {
             switch (this.conf.getAttr('codeLanguage')) {
                 case 'js':
                     this.script.sh "npm config set registry=http://192.168.3.13:8081/repository/npm/ && npm install && npm run build"
+                case 'c++':
+                    this.script.sh "make && make install"
             }
         }
     }
