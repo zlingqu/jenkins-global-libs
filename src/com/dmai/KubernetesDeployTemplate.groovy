@@ -139,6 +139,8 @@ spec:
         switch (this.conf.getAttr('codeLanguage')) {
             case 'node':
                 return this.getVolumeMountsNode()
+            case 'python':
+                return this.getVolumesNode()
             default:
                 return ''
         }
@@ -147,6 +149,8 @@ spec:
     private String getVolumes() {
         switch (conf.getAttr('codeLanguage')) {
             case 'node':
+                return this.getVolumesNode()
+            case 'python':
                 return this.getVolumesNode()
             default:
                 return ''
