@@ -21,7 +21,7 @@ class DockerFileTemplate {
             case 'js':
                 return this.getJsDockerfile()
             case 'c++':
-
+                return this.getCppDockerfile()
         }
     }
 
