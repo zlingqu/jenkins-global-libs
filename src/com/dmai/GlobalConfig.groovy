@@ -31,7 +31,7 @@ class GlobalConfig implements Serializable {
             ],
             'media-gateway': [
                     'namespace': 'xmc2',
-                    'nodePort' : '30223',
+                    'nodePort' : '30224',
                     'containerPort': '80',
                     'domain': '80',
                     'cpuRequests' : '300m',
@@ -51,7 +51,7 @@ class GlobalConfig implements Serializable {
             ],
             'media-access': [
                     'namespace': 'xmc2',
-                    'nodePort' : '30222',
+                    'nodePort' : '30225',
                     'containerPort': '80',
                     'domain': '80',
                     'cpuRequests' : '300m',
