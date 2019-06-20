@@ -112,7 +112,7 @@ class GlobalConfig implements Serializable {
                     'codeLanguage' : 'c++', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'command': 'command: ["/bin/sh", "-c", "cp -rp /src/debug/* /tmp && cd /tmp && ./MediaAccess"]', //自定义命令行
-                    'udpPort': [35000, 35100]
+                    'udpPort': [31600, 31699]
             ],
             'dispatcher-service': [
                     'namespace': 'xmc2',
