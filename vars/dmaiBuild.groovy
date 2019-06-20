@@ -93,14 +93,14 @@ def call(Map map, env) {
                 }
             }
 
-            steps('Deploy stage') {
+            stage('Deploy stage') {
                 when { expression { return conf.getAttr('stage') } }
-            }
 
-            steps {
-                container('kubectl-stage') {
-                    script {
-                        deploykubernetes.deployKubernetes()
+                steps {
+                    container('kubectl-stage') {
+                        script {
+                            deploykubernetes.deployKubernetes()
+                        }
                     }
                 }
             }
