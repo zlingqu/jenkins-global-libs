@@ -135,7 +135,8 @@ $getUdpSvc
     protocol: UDP
     targetPort: %s
     nodePort: %s
-''', i, i, i)
+    name: %-%
+''', i, i, i, this.conf.appName, i)
             }
         }
         return returnString
