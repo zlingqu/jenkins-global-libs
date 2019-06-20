@@ -201,7 +201,7 @@ spec:
                 return String.format('''
         hostPath:
            path: /data/%s%s
-''', this.conf.getAttr('namespace'), this.conf.appName in ['ui-backend-service', 'storage-service', 'stat-service', 'dispatcher-service', 'dispatcher-service'] ? '' : '/' + this.conf.appName)
+''', this.conf.getAttr('namespace'), this.conf.appName in ['vod-service', 'ui-backend-service', 'storage-service', 'stat-service', 'dispatcher-service', 'dispatcher-service'] ? '' : '/' + this.conf.appName)
         }
     }
 
