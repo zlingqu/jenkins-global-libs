@@ -212,7 +212,6 @@ spec:
         - name: config
           mountPath: /src/debug/config.json
           subPath: config.json
-        volumeMounts:
         - name: log
           mountPath: /src/debug/log.conf
           subPath: log.conf         
