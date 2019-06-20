@@ -350,7 +350,7 @@ class GlobalConfig implements Serializable {
                     'memoryRequests' : '400Mi',
                     'cpuLimits' : '400m',
                     'memoryLimits' : '1000Mi',
-                    'dev': 'dev', // dev分支部署到开发环境
+                    'dev': 'test', // dev分支部署到开发环境
                     'compile': true, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': false, // 是否使用自定义 dockerfile
@@ -374,7 +374,7 @@ class GlobalConfig implements Serializable {
                     'memoryRequests' : '400Mi',
                     'cpuLimits' : '400m',
                     'memoryLimits' : '1000Mi',
-                    'dev': 'dev', // dev分支部署到开发环境
+                    'dev': 'test', // dev分支部署到开发环境
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': false, // 是否使用自定义 dockerfile
@@ -412,7 +412,7 @@ MONGODB_CONNECTION="mongodb://dm-mis:c243419c3afc7ece77c@192.168.11.51:27500,192
                     'memoryRequests' : '400Mi',
                     'cpuLimits' : '400m',
                     'memoryLimits' : '1000Mi',
-                    'dev': 'dev', // dev分支部署到开发环境
+                    'dev': 'test', // dev分支部署到开发环境
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': false, // 是否使用自定义 dockerfile
