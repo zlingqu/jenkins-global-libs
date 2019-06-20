@@ -93,8 +93,8 @@ class GlobalConfig implements Serializable {
             'media-access': [
                     'namespace': 'xmc2',
                     'nodePort' : '30225',
-                    'containerPort': '80',
-                    'domain': '80',
+                    'containerPort': '8080',
+                    'domain': '8080',
                     'cpuRequests' : '300m',
                     'memoryRequests' : '500Mi',
                     'cpuLimits' : '800m',

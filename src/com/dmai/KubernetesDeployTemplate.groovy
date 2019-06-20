@@ -210,11 +210,11 @@ spec:
             return '''
         volumeMounts:
         - name: config
-          mountPath: /src/debug
+          mountPath: /src/debug/config.json
           subPath: config.json
         volumeMounts:
         - name: log
-          mountPath: /src/debug
+          mountPath: /src/debug/log.conf
           subPath: log.conf         
 '''
         }
