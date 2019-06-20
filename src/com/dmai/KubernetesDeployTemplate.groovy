@@ -44,6 +44,7 @@ spec:
       - name: $appName
         image: $dockerRegistryHost/$namespace/$appName:$branchName-$buildNumber
         imagePullPolicy: Always #
+        $command
         env: #指定容器中的环境变量
         - name: TZ
           value: Asia/Shanghai        
@@ -72,7 +73,8 @@ $volumes
                 'memoryLimits'        : conf.getAttr('memoryLimits'),
                 'volumeMounts'        : this.getVolumeMounts(),
                 'volumes'             : this.getVolumes(),
-                'replicas'            : this.conf.getAttr('replicas') ? this.conf.getAttr('replicas') : 1
+                'replicas'            : this.conf.getAttr('replicas') ? this.conf.getAttr('replicas') : 1,
+                'command'             : this.conf.getAttr('command') ? this.conf.getAttr('command'): ''
         ]
         return Tools.simpleTemplate(text, bind)
     }

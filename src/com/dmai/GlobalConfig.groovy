@@ -88,7 +88,8 @@ class GlobalConfig implements Serializable {
                     'configMapName': 'config.js', //挂载的configmap的名称
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'c++', // 临时的，默认是【js,node,golang,java,php,python】
-                    'k8sKind': 'deployment' // 部署的服务的类型
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'command': 'command: ["/bin/sh", "-c", "cp -rp /src/debug/* /tmp && cd /tmp && ./MediaGateway"]' //自定义命令行
             ],
             'media-access': [
                     'namespace': 'xmc2',
@@ -109,7 +110,8 @@ class GlobalConfig implements Serializable {
                     'configMapName': 'config.js', //挂载的configmap的名称
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'c++', // 临时的，默认是【js,node,golang,java,php,python】
-                    'k8sKind': 'deployment' // 部署的服务的类型
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'command': 'command: ["/bin/sh", "-c", "cp -rp /src/debug/* /tmp && cd /tmp && ./MediaAccess"]' //自定义命令行
             ],
             'dispatcher-service': [
                     'namespace': 'xmc2',
