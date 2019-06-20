@@ -298,7 +298,7 @@ class GlobalConfig implements Serializable {
                     'k8sKind': 'deployment' // 部署的服务的类型
             ],
             'xmc2-frontend': [
-                    'namespace': 'mis',
+                    'namespace': 'xmc2',
                     'nodePort': '30233',
                     'containerPort': '80',
                     'domain': '80',
