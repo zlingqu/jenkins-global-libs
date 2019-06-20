@@ -51,6 +51,7 @@ spec:
 $volumeMounts
         ports:
         - containerPort: $containerPort
+        $getContainerPort
         resources:
           limits:
             cpu: $cpuLimits
@@ -74,9 +75,23 @@ $volumes
                 'volumeMounts'        : this.getVolumeMounts(),
                 'volumes'             : this.getVolumes(),
                 'replicas'            : this.conf.getAttr('replicas') ? this.conf.getAttr('replicas') : 1,
-                'command'             : this.conf.getAttr('command') ? this.conf.getAttr('command'): ''
+                'command'             : this.conf.getAttr('command') ? this.conf.getAttr('command'): '',
+                'getContainerPort'    : this.getContainerPort()
         ]
         return Tools.simpleTemplate(text, bind)
+    }
+
+    private String getContainerPort() {
+        def returnString = ''
+        if (this.conf.getAttr('udpPort')) {
+            for (int i in this.conf.getAttr('udpPort')[0]..this.conf.getAttr('udpPort')[1]) {
+                returnString += String.format('''
+        - containerPort: %s
+''', i)
+            }
+        }
+
+        return returnString
     }
 
     private String svcTemplateNodePort() {
@@ -95,6 +110,7 @@ spec:
     protocol: TCP
     targetPort: $containerPort
     nodePort: $nodePort
+$getUdpSvc    
   selector:
     app: $appName
   type: NodePort
@@ -103,10 +119,26 @@ spec:
                 'appName' : this.conf.appName,
                 'namespace' : this.conf.getAttr('namespace'),
                 'containerPort' : this.conf.getAttr('containerPort'),
-                'nodePort' : this.conf.getAttr('nodePort')
+                'nodePort' : this.conf.getAttr('nodePort'),
+                'getUdpSvc': this.getUdpSvc()
         ]
 
         return Tools.simpleTemplate(text, bind)
+    }
+
+    private String getUdpSvc() {
+        def returnString = ''
+        if (this.conf.getAttr('udpPort')) {
+            for (int i in this.conf.getAttr('udpPort')[0]..this.conf.getAttr('udpPort')[1]) {
+                returnString += String.format('''
+  - port: %s
+    protocol: UDP
+    targetPort: %s
+    nodePort: %s
+''', i, i, i)
+            }
+        }
+        return returnString
     }
 
     private String svcTemplateClusterIP() {
