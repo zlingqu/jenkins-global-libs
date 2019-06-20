@@ -126,12 +126,9 @@ spec:
     - "1200"
     tty: true
     resources:
-      limits:
-        memory: 3000Mi
-        cpu: 1500m
       requests:
-        cpu: 1000m
-        memory: 2000Mi
+        cpu: 2000m
+        memory: 4000Mi
 '''
             case 'c++':
                 return '''
