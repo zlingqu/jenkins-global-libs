@@ -47,7 +47,7 @@ ENTRYPOINT nginx -g "daemon off;"
     }
 
     private String getNodeDockerfile() {
-        if (this.conf.appName in ['storage-service', 'stat-service', 'sync-service', 'ui-backend-service', 'vod-service'])
+        if (this.conf.appName in ['storage-service', 'stat-service', 'sync-service', 'ui-backend-service', 'vod-service', 'meta-service', 'meta-adapter'])
             return '''
 FROM docker.dm-ai.cn/devops/node:0.0.1
 WORKDIR /app
