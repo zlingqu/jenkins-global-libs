@@ -141,6 +141,8 @@ spec:
                 return this.getVolumeMountsNode()
             case 'python':
                 return this.getVolumeMountsNode()
+            case 'c++':
+                return this.getVolumeMountsNode()
             default:
                 return ''
         }
@@ -152,6 +154,8 @@ spec:
                 return this.getVolumesNode()
             case 'python':
                 return this.getVolumesNode()
+            case 'c++':
+                return this.getVolumesNode()
             default:
                 return ''
         }
@@ -159,6 +163,23 @@ spec:
 
 
     private String getVolumesNode() {
+        if (this.conf.appName in ['media-gateway', 'media-access']) {
+            return String.format('''
+      volumes:
+      - name: config
+        configMap:
+          name: %s
+          items:
+          - key: config.json
+            path: config.json
+      - name: log
+        configMap:
+          name: %s
+          items:
+          - key: log.conf
+            path: log.conf           
+''', this.conf.appName, this.conf.appName)
+        }
         return String.format('''
       volumes:
       - name: %s
@@ -185,6 +206,18 @@ spec:
     }
 
     private String getVolumeMountsNode() {
+        if (this.conf.appName in ['media-gateway', 'media-access']) {
+            return '''
+        volumeMounts:
+        - name: config
+          mountPath: /src/debug
+          subPath: config.json
+        volumeMounts:
+        - name: log
+          mountPath: /src/debug
+          subPath: log.conf         
+'''
+        }
         return String.format('''
         volumeMounts:
         - name: %s

@@ -84,6 +84,7 @@ class GlobalConfig implements Serializable {
                     'customDockerfile': false, // 是否使用自定义 dockerfile
                     'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
                     'useConfigMap': false, //是否使用configmap
+                    'anyCf': true, //多个configmap
                     'configMapName': 'config.js', //挂载的configmap的名称
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'c++', // 临时的，默认是【js,node,golang,java,php,python】
@@ -103,7 +104,8 @@ class GlobalConfig implements Serializable {
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': false, // 是否使用自定义 dockerfile
                     'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
-                    'useConfigMap': false, //是否使用configmap
+                    'useConfigMap': true, //是否使用configmap
+                    'anyCf': true, //多个configmap
                     'configMapName': 'config.js', //挂载的configmap的名称
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'c++', // 临时的，默认是【js,node,golang,java,php,python】
@@ -148,7 +150,8 @@ class GlobalConfig implements Serializable {
                     'configMapName': 'config.js', //是否使用configmap
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
-                    'k8sKind': 'deployment' // 部署的服务的类型
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'storage': true  //是否需要挂载存储
             ],
             'stat-service': [
                     'namespace': 'xmc2',
