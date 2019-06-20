@@ -110,6 +110,7 @@ spec:
     protocol: TCP
     targetPort: $containerPort
     nodePort: $nodePort
+    name: $appName-$containerPort
 $getUdpSvc    
   selector:
     app: $appName
