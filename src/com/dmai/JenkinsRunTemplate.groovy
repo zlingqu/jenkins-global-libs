@@ -84,6 +84,10 @@ spec:
         }
     }
 
+    private getKubectlBranch() {
+        if (this.conf.getAttr('stage')) return
+    }
+
     private String templateDockerCompile() {
         switch (this.conf.getAttr('codeLanguage')) {
             case 'js':

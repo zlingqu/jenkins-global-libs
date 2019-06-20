@@ -139,6 +139,7 @@ class GlobalConfig implements Serializable {
                     'cpuLimits' : '800m',
                     'memoryLimits' : '1000Mi',
                     'dev': 'test', // dev分支部署到测试环境
+                    'stage': true, //是否部署到stage环境
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': false, // 是否使用自定义 dockerfile
@@ -277,7 +278,7 @@ class GlobalConfig implements Serializable {
             ],
             'xmc2-frontend': [
                     'namespace': 'mis',
-                    'nodePort': '30228',
+                    'nodePort': '30233',
                     'containerPort': '80',
                     'domain': '80',
                     'cpuRequests' : '200m',
