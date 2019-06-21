@@ -365,7 +365,7 @@ class GlobalConfig implements Serializable {
                     'configMapName': 'config.env', //是否使用configmap
             ],
             'mis-org-frontend': [
-                    'nodePort': '30092',
+                    'nodePort': '30093',
                     'namespace': 'mis',
                     'containerPort': '80',
                     'domain': '80',
