@@ -464,6 +464,10 @@ WX_CONTACT_SECRET=gZazZkwuoPcrmli8tu4-h6op6CTnL5o7LvoU8wEPuqA
 WX_APPROVAL_SECRET="hFw3-lNcqlD4ilT8YwnAJwk650sElWXyVi8n3EEsgDs"
 WX_CHECKIN_SECRET="_kvJUlKh4MKlOoo34L-Fl7DDQEODti4SUSfp319cDQw"
 WX_DIAL_SECRET="hqx0u6HFFjLGZMF1a4mx1rUDWIQIUILJ7e3wVeA87fg"
+WX_CONFERENCE_SECRET="wFLd7aViBKVoSZTRa291PZWiEptzzauIrC-rH1LnYqQ"
+WX_CONFERENCE_AGENTID="1000006"
+WX_APPROVAL_AGENTID="3010040"
+WX_CHECKIN_AGENTID="3010011"
 ''',
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
