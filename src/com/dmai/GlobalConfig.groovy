@@ -364,9 +364,25 @@ class GlobalConfig implements Serializable {
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'configMapName': 'config.env', //是否使用configmap
             ],
-            'org-frontend': [
-                    'nodePort': '30091',
-                    'namespace': 'mis'
+            'mis-org-frontend': [
+                    'nodePort': '30092',
+                    'namespace': 'mis',
+                    'containerPort': '80',
+                    'domain': '80',
+                    'cpuRequests' : '200m',
+                    'memoryRequests' : '400Mi',
+                    'cpuLimits' : '400m',
+                    'memoryLimits' : '1000Mi',
+                    'dev': 'test', // dev分支部署到开发环境
+                    'compile': true, // 是否编译
+                    'deploy': true, // 是否自动化部署
+                    'customDockerfile': false, // 是否使用自定义 dockerfile
+                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
+                    'useConfigMap': false, //是否使用configmap
+                    'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
+                    'codeLanguage' : 'js', // 临时的，默认是【js,node,golang,java,php,python】
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'configMapName': 'config.env', //是否使用configmap
             ],
             'mis-org-backend': [
                     'namespace': 'mis',
