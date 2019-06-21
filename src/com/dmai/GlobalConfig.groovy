@@ -141,8 +141,8 @@ class GlobalConfig implements Serializable {
                     'domain': '3000',
                     'cpuRequests' : '300m',
                     'memoryRequests' : '500Mi',
-                    'cpuLimits' : '800m',
-                    'memoryLimits' : '1000Mi',
+                    'cpuLimits' : '2000m',
+                    'memoryLimits' : '2000Mi',
                     'dev': 'master', // dev分支部署到测试环境
                     'stage': true, //是否部署到stage环境
                     'compile': false, // 是否编译
@@ -333,6 +333,7 @@ class GlobalConfig implements Serializable {
                     'memoryRequests' : '400Mi',
                     'cpuLimits' : '400m',
                     'memoryLimits' : '800Mi',
+                    'dev-domain' : '',
                     'dev': 'test', // dev分支部署到开发环境
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
