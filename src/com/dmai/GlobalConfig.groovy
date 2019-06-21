@@ -143,7 +143,7 @@ class GlobalConfig implements Serializable {
                     'memoryRequests' : '500Mi',
                     'cpuLimits' : '800m',
                     'memoryLimits' : '1000Mi',
-                    'dev': 'test', // dev分支部署到测试环境
+                    'dev': 'master', // dev分支部署到测试环境
                     'stage': true, //是否部署到stage环境
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
