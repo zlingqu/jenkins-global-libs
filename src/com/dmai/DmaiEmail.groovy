@@ -60,4 +60,16 @@ Jenkins构建地址： $jenkinsAddress/blue/organizations/jenkins/$jobName/detai
                 return this.conf.getAttr('dev') == 'test' ? 'http://192.168.3.140' : 'http://192.168.3.18'
         }
     }
+
+//    根据dev标签来判断用户的dev分支部署在那个环境
+    private String getDevUrl() {
+        switch (this.conf.getAttr('dev')) {
+            case 'test':
+                return 'http://192.168.3.140'
+            case 'dev':
+                return 'http://192.168.3.18'
+            case 'master':
+                return 'http://192.168.11.20'
+        }
+    }
 }

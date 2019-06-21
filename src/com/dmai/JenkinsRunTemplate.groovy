@@ -78,9 +78,20 @@ spec:
       requests:
         cpu: 100m
         memory: 200Mi
-''', this.conf.getAttr('branchName') == 'master' ? this.conf.getAttr('branchName'): this.conf.getAttr('dev'))
+''', this.getKubectlBranch())
         } else {
             return ''
+        }
+    }
+
+//    设置不同的分支部署到不同的环境
+    private String getKubectlBranch(){
+        if (this.conf.getAttr('branchName') == 'master') return 'master'
+
+        switch (this.conf.getAttr('dev')){
+            case 'dev'  : return 'dev'
+            case 'test' : return 'test'
+            case 'master': return 'master'
         }
     }
 
