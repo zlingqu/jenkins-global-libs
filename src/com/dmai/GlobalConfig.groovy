@@ -51,7 +51,7 @@ class GlobalConfig implements Serializable {
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment' // 部署的服务的类型
             ],
-            'video-extract': [
+            'engine-video-extract': [
                     'servicePort' : '80',
                     'namespace': 'xmc2',
                     'nodePort' : '30222',
