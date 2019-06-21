@@ -100,7 +100,7 @@ class GlobalConfig implements Serializable {
                     'memoryRequests' : '500Mi',
                     'cpuLimits' : '800m',
                     'memoryLimits' : '1000Mi',
-                    'dev': 'test', // dev分支部署到测试环境
+                    'dev': 'master', // dev分支部署到测试环境
                     'compile': true, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': false, // 是否使用自定义 dockerfile
