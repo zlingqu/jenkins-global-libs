@@ -24,7 +24,7 @@ class Deploykubernetes {
         }
 
         // 先创建configMap
-        if (!(this.conf.appName in ['engine-image-process', 'media-gateway', 'media-access','meta-adapter', 'meta-service','storage-service', 'vod-service', 'stat-service', 'sync-service','dispatcher-service', 'ui-backend-service', 'engine-audio-process', 'engine-pipeline-manager','engine-metric-service'])) {
+        if (this.conf.getAttr('useConfigMap')) {
             this.createConfigMap()
         }
 
