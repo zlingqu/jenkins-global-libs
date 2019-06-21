@@ -233,6 +233,11 @@ spec:
         persistentVolumeClaim:
           claimName: mypvc
 '''
+            case 'dev':
+                return '''
+        persistentVolumeClaim:
+          claimName: mypvc
+'''
             default:
                 return String.format('''
         hostPath:
