@@ -169,11 +169,11 @@ class GlobalConfig implements Serializable {
                     'nodePort' : '30221',
                     'containerPort': '3000',
                     'domain': '3000',
-                    'cpuRequests' : '300m',
-                    'memoryRequests' : '500Mi',
-                    'cpuLimits' : '800m',
-                    'memoryLimits' : '1000Mi',
-                    'replicas' : 5,
+                    'cpuRequests' : '1000m',
+                    'memoryRequests' : '2000Mi',
+                    'cpuLimits' : '3000m',
+                    'memoryLimits' : '5000Mi',
+                    'replicas' : 1,
                     'dev': 'test', // dev分支部署到测试环境
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
