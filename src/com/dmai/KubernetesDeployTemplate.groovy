@@ -106,7 +106,7 @@ metadata:
   namespace: $namespace
 spec:
   ports:
-  - port: $containerPort
+  - port: $servicePort
     protocol: TCP
     targetPort: $containerPort
     nodePort: $nodePort
@@ -121,7 +121,8 @@ $getUdpSvc
                 'namespace' : this.conf.getAttr('namespace'),
                 'containerPort' : this.conf.getAttr('containerPort'),
                 'nodePort' : this.conf.getAttr('nodePort'),
-                'getUdpSvc': this.getUdpSvc()
+                'getUdpSvc': this.getUdpSvc(),
+                'servicePort': this.conf.getAttr('servicePort')
         ]
 
         return Tools.simpleTemplate(text, bind)

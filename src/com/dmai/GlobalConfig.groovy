@@ -10,6 +10,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'mis'
             ],
             'sync-service': [
+                    'servicePort' : '80',
                     'namespace': 'xmc2',
                     'nodePort' : '30223',
                     'containerPort': '3000',
@@ -30,6 +31,7 @@ class GlobalConfig implements Serializable {
                     'k8sKind': 'deployment' // 部署的服务的类型
             ],
             'ui-backend-service': [
+                    'servicePort' : '80',
                     'namespace': 'xmc2',
                     'nodePort' : '30227',
                     'containerPort': '3000',
@@ -50,6 +52,7 @@ class GlobalConfig implements Serializable {
                     'k8sKind': 'deployment' // 部署的服务的类型
             ],
             'video-extract': [
+                    'servicePort' : '80',
                     'namespace': 'xmc2',
                     'nodePort' : '30222',
                     'containerPort': '8080',
@@ -70,6 +73,7 @@ class GlobalConfig implements Serializable {
                     'k8sKind': 'deployment' // 部署的服务的类型
             ],
             'media-gateway': [
+                    'servicePort' : '80',
                     'namespace': 'xmc2',
                     'nodePort' : '30224',
                     'containerPort': '80',
@@ -92,6 +96,7 @@ class GlobalConfig implements Serializable {
                     'command': 'command: ["/bin/sh", "-c", "cp -rp /src/debug/* /tmp && cd /tmp && ./MediaGateway"]' //自定义命令行
             ],
             'media-access': [
+                    'servicePort' : '80',
                     'namespace': 'xmc2',
                     'nodePort' : '30225',
                     'containerPort': '8080',
@@ -115,6 +120,7 @@ class GlobalConfig implements Serializable {
                     'udpPort': [31600, 31699]
             ],
             'dispatcher-service': [
+                    'servicePort' : '80',
                     'namespace': 'xmc2',
                     'nodePort' : '30226',
                     'containerPort': '3000',
@@ -135,6 +141,7 @@ class GlobalConfig implements Serializable {
                     'k8sKind': 'deployment' // 部署的服务的类型
             ],
             'storage-service': [
+                    'servicePort' : '80',
                     'namespace': 'xmc2',
                     'nodePort' : '30220',
                     'containerPort': '3000',
@@ -157,6 +164,7 @@ class GlobalConfig implements Serializable {
                     'storage': true  //是否需要挂载存储
             ],
             'stat-service': [
+                    'servicePort' : '80',
                     'namespace': 'xmc2',
                     'nodePort' : '30221',
                     'containerPort': '3000',
@@ -178,6 +186,7 @@ class GlobalConfig implements Serializable {
                     'k8sKind': 'deployment' // 部署的服务的类型
             ],
             'vod-service': [
+                    'servicePort' : '80',
                     'namespace': 'xmc2',
                     'nodePort' : '30230',
                     'containerPort': '3000',
@@ -199,6 +208,7 @@ class GlobalConfig implements Serializable {
                     'k8sKind': 'deployment' // 部署的服务的类型
             ],
             'meta-service': [
+                    'servicePort' : '80',
                     'namespace': 'xmc2',
                     'nodePort' : '30231',
                     'containerPort': '3000',
@@ -220,6 +230,7 @@ class GlobalConfig implements Serializable {
                     'k8sKind': 'deployment' // 部署的服务的类型
             ],
             'meta-adapter': [
+                    'servicePort' : '80',
                     'namespace': 'xmc2',
                     'nodePort' : '30232',
                     'containerPort': '3000',
@@ -241,6 +252,7 @@ class GlobalConfig implements Serializable {
                     'k8sKind': 'deployment' // 部署的服务的类型
             ],
             'engine-audio-process': [
+                    'servicePort' : '80',
                     'namespace': 'xmc2',
                     'nodePort' : '30228',
                     'containerPort': '80',
@@ -262,6 +274,7 @@ class GlobalConfig implements Serializable {
                     'k8sKind': 'deployment' // 部署的服务的类型
             ],
             'engine-image-process': [
+                    'servicePort' : '80',
                     'namespace': 'xmc2',
                     'nodePort' : '30235',
                     'containerPort': '80',
@@ -283,6 +296,7 @@ class GlobalConfig implements Serializable {
                     'k8sKind': 'deployment' // 部署的服务的类型
             ],
             'engine-pipeline-manager': [
+                    'servicePort' : '80',
                     'namespace': 'xmc2',
                     'nodePort' : '30234',
                     'containerPort': '80',
@@ -304,6 +318,7 @@ class GlobalConfig implements Serializable {
                     'k8sKind': 'deployment' // 部署的服务的类型
             ],
             'engine-metric-service': [
+                    'servicePort' : '80',
                     'namespace': 'xmc2',
                     'nodePort' : '30229',
                     'containerPort': '80',
@@ -325,6 +340,7 @@ class GlobalConfig implements Serializable {
                     'k8sKind': 'deployment' // 部署的服务的类型
             ],
             'xmc2-frontend': [
+                    'servicePort' : '80',
                     'namespace': 'xmc2',
                     'nodePort': '30233',
                     'containerPort': '80',
