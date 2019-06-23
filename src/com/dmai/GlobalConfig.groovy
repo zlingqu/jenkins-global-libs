@@ -20,6 +20,8 @@ class GlobalConfig implements Serializable {
                     'cpuLimits' : '2000m',
                     'memoryLimits' : '4000Mi',
                     'dev': 'test', // dev分支部署到测试环境
+                    'master': 'prd',
+                    'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2/sync-service.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': false, // 是否使用自定义 dockerfile
@@ -41,6 +43,8 @@ class GlobalConfig implements Serializable {
                     'cpuLimits' : '800m',
                     'memoryLimits' : '1000Mi',
                     'dev': 'test', // dev分支部署到测试环境
+                    'master': 'prd',
+                    'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2/ui-backend-service.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': false, // 是否使用自定义 dockerfile
@@ -62,6 +66,8 @@ class GlobalConfig implements Serializable {
                     'cpuLimits' : '6000m',
                     'memoryLimits' : '2000Mi',
                     'dev': 'test', // dev分支部署到测试环境
+                    'master': 'prd',
+                    'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2-xc/xmc2-video-extract-service.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': true, // 是否使用自定义 dockerfile
@@ -83,6 +89,8 @@ class GlobalConfig implements Serializable {
                     'cpuLimits' : '800m',
                     'memoryLimits' : '1000Mi',
                     'dev': 'test', // dev分支部署到测试环境
+                    'master': 'prd',
+                    'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2/media-gateway.git',
                     'compile': true, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': false, // 是否使用自定义 dockerfile
@@ -106,6 +114,8 @@ class GlobalConfig implements Serializable {
                     'cpuLimits' : '800m',
                     'memoryLimits' : '1000Mi',
                     'dev': 'test', // dev分支部署到测试环境
+                    'master': 'prd',
+                    'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2/media-access.git',
                     'compile': true, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': false, // 是否使用自定义 dockerfile
@@ -130,6 +140,8 @@ class GlobalConfig implements Serializable {
                     'cpuLimits' : '800m',
                     'memoryLimits' : '1000Mi',
                     'dev': 'test', // dev分支部署到测试环境
+                    'master': 'prd',
+                    'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2/dispatcher-service.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': false, // 是否使用自定义 dockerfile
@@ -151,6 +163,8 @@ class GlobalConfig implements Serializable {
                     'cpuLimits' : '2000m',
                     'memoryLimits' : '4000Mi',
                     'dev': 'test', // dev分支部署到测试环境
+                    'master': 'prd',
+                    'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2/storage-service.git',
                     'stage': true, //是否部署到stage环境
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
@@ -175,6 +189,8 @@ class GlobalConfig implements Serializable {
                     'memoryLimits' : '5000Mi',
                     'replicas' : 1,
                     'dev': 'test', // dev分支部署到测试环境
+                    'master': 'prd',
+                    'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2/stat-service.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': false, // 是否使用自定义 dockerfile
@@ -197,6 +213,8 @@ class GlobalConfig implements Serializable {
                     'memoryLimits' : '1000Mi',
                     'replicas' : 1,
                     'dev': 'test', // dev分支部署到测试环境
+                    'master': 'prd',
+                    'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2/vod-service.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': false, // 是否使用自定义 dockerfile
@@ -219,6 +237,8 @@ class GlobalConfig implements Serializable {
                     'memoryLimits' : '1000Mi',
                     'replicas' : 1,
                     'dev': 'test', // dev分支部署到测试环境
+                    'master': 'prd',
+                    'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2/meta-service.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': false, // 是否使用自定义 dockerfile
@@ -241,6 +261,8 @@ class GlobalConfig implements Serializable {
                     'memoryLimits' : '1000Mi',
                     'replicas' : 1,
                     'dev': 'test', // dev分支部署到测试环境
+                    'master': 'prd',
+                    'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2/meta-adapter.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': false, // 是否使用自定义 dockerfile
@@ -263,6 +285,8 @@ class GlobalConfig implements Serializable {
                     'memoryLimits' : '2000Mi',
                     'replicas' : 1,
                     'dev': 'test', // dev分支部署到测试环境
+                    'master': 'prd',
+                    'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2-xc/xmc2-voice-cls-service.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': true, // 是否使用自定义 dockerfile
@@ -285,6 +309,8 @@ class GlobalConfig implements Serializable {
                     'memoryLimits' : '1000Mi',
                     'replicas' : 1,
                     'dev': 'test', // dev分支部署到测试环境
+                    'master': 'prd',
+                    'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2-xc/xmc2-cv-service.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': true, // 是否使用自定义 dockerfile
@@ -307,6 +333,8 @@ class GlobalConfig implements Serializable {
                     'memoryLimits' : '1000Mi',
                     'replicas' : 1,
                     'dev': 'test', // dev分支部署到测试环境
+                    'master': 'prd',
+                    'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2-xc/xmc2-pipline-mgr-service.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': true, // 是否使用自定义 dockerfile
@@ -329,6 +357,8 @@ class GlobalConfig implements Serializable {
                     'memoryLimits' : '2000Mi',
                     'replicas' : 1,
                     'dev': 'test', // dev分支部署到测试环境
+                    'master': 'prd',
+                    'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2-xc/xmc2-metric-service.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': true, // 是否使用自定义 dockerfile
@@ -351,6 +381,8 @@ class GlobalConfig implements Serializable {
                     'memoryLimits' : '800Mi',
                     'dev-domain' : '',
                     'dev': 'test', // dev分支部署到开发环境
+                    'master': 'prd',
+                    'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2-frontend.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': true, // 是否使用自定义 dockerfile
@@ -371,6 +403,8 @@ class GlobalConfig implements Serializable {
                     'cpuLimits' : '400m',
                     'memoryLimits' : '1000Mi',
                     'dev': 'test', // dev分支部署到开发环境
+                    'master': 'prd',
+                    'gitAddress': 'https://gitlab.dm-ai.cn/mis/admin/mis-admin-frontend.git',
                     'compile': true, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': false, // 是否使用自定义 dockerfile
@@ -391,6 +425,8 @@ class GlobalConfig implements Serializable {
                     'cpuLimits' : '400m',
                     'memoryLimits' : '1000Mi',
                     'dev': 'test', // dev分支部署到开发环境
+                    'master': 'prd',
+                    'gitAddress': 'https://gitlab.dm-ai.cn/mis/org/org-frontend.git',
                     'compile': true, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': false, // 是否使用自定义 dockerfile
@@ -411,29 +447,13 @@ class GlobalConfig implements Serializable {
                     'cpuLimits' : '400m',
                     'memoryLimits' : '1000Mi',
                     'dev': 'test', // dev分支部署到开发环境
+                    'master': 'prd',
+                    'gitAddress': 'https://gitlab.dm-ai.cn/mis/org/org-backend.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': false, // 是否使用自定义 dockerfile
                     'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
                     'useConfigMap': true, //是否使用configmap
-                    'configMapFile' : '''
-NODE_ENV=prod
-PORT=3000
-APP_NAME=org
-
-# 企业微信access token获取地址
-WX_ACCESS_TOKEN_URL=http://mis-admin-backend:5000/api/open/access_token?type=contact
-
-# LDAP服务器配置
-LDAP_URL="ldap://192.168.3.41:389"
-LDAP_BASE="dc=dmai,dc=com"
-LDAP_USER="cn=mis_bind,ou=apps,dc=dmai,dc=com"
-LDAP_PASSWD="Dm@imis19"
-LDAP_TIMEOUT=120
-
-# MongoDB配置
-MONGODB_CONNECTION="mongodb://dm-mis:c243419c3afc7ece77c@192.168.11.51:27500,192.168.12.51:27500,192.168.13.51:27500/dm-mis?authSource=dm-mis"
-''', // master主干的configmap内容
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
@@ -449,42 +469,13 @@ MONGODB_CONNECTION="mongodb://dm-mis:c243419c3afc7ece77c@192.168.11.51:27500,192
                     'cpuLimits' : '400m',
                     'memoryLimits' : '1000Mi',
                     'dev': 'test', // dev分支部署到开发环境
+                    'master': 'prd',
+                    'gitAddress': 'https://gitlab.dm-ai.cn/mis/admin/mis-admin-backend.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': false, // 是否使用自定义 dockerfile
                     'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
                     'useConfigMap': true, //是否使用configmap
-                    'configMapFile': '''
-NODE_ENV=prod
-PORT=5000
-APP_NAME=admin
-
-# MongoDB配置
-MONGODB_CONNECTION="mongodb://dm-mis:c243419c3afc7ece77c@192.168.11.51:27500,192.168.12.51:27500,192.168.13.51:27500/dm-mis?authSource=dm-mis"
-
-# 默认每页显示条数
-PAGE_SIZE=10
-
-# LDAP服务器配置
-LDAP_URL="ldap://192.168.3.41:389"
-LDAP_BASE="dc=dmai,dc=com"
-LDAP_USER="cn=mis_bind,ou=apps,dc=dmai,dc=com"
-LDAP_PASSWD="Dm@imis19"
-LDAP_TIMEOUT=120
-
-# 微信请求相关配置
-WX_BASE_URL="https://qyapi.weixin.qq.com/cgi-bin"
-WX_REQUEST_TIMEOUT=3000
-WX_CORP_ID=ww399a98a04dfbcda4
-WX_CONTACT_SECRET=gZazZkwuoPcrmli8tu4-h6op6CTnL5o7LvoU8wEPuqA
-WX_APPROVAL_SECRET="hFw3-lNcqlD4ilT8YwnAJwk650sElWXyVi8n3EEsgDs"
-WX_CHECKIN_SECRET="_kvJUlKh4MKlOoo34L-Fl7DDQEODti4SUSfp319cDQw"
-WX_DIAL_SECRET="hqx0u6HFFjLGZMF1a4mx1rUDWIQIUILJ7e3wVeA87fg"
-WX_CONFERENCE_SECRET="wFLd7aViBKVoSZTRa291PZWiEptzzauIrC-rH1LnYqQ"
-WX_CONFERENCE_AGENTID="1000006"
-WX_APPROVAL_AGENTID="3010040"
-WX_CHECKIN_AGENTID="3010011"
-''',
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
@@ -507,6 +498,8 @@ WX_CHECKIN_AGENTID="3010011"
                     'cpuLimits' : '1000m',
                     'memoryLimits' : '1500Mi',
                     'dev': 'dev', // dev分支部署到开发环境
+                    'master': 'prd',
+                    'gitAddress': 'https://gitlab.dm-ai.cn/application-engineering/devops/service-prometheus.git',
                     'kubectlImage': 'devops/base-image-kubectl:0.01',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
