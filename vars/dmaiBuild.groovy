@@ -79,6 +79,20 @@ def call(Map map, env) {
                 }
             }
 
+            stage('Download Config file') {
+                when { expression { return conf.getAttr('deploy') } }
+
+                steps {
+                    container('kubectl') {
+                        script {
+                            withCredentials([usernamePassword(credentialsId: 'devops-use', passwordVariable: 'password', usernameVariable: 'username')]) {
+                                sh 'git clone https://$username:$password@gitlab.dm-ai.cn/application-engineering/devops/deployment.git'
+                            }
+                        }
+                    }
+                }
+            }
+
             stage('Deploy') {
 
                 // 当项目的全局选项设置为deploy == true的时候，才进行部署的操作
