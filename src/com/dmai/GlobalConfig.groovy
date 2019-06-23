@@ -394,6 +394,7 @@ class GlobalConfig implements Serializable {
                     'configMapName': 'config.env', //是否使用configmap
             ],
             'mis-admin-frontend': [
+                    'servicePort' : '80',
                     'namespace': 'mis',
                     'nodePort': '30092',
                     'containerPort': '80',
@@ -416,6 +417,7 @@ class GlobalConfig implements Serializable {
                     'configMapName': 'config.env', //是否使用configmap
             ],
             'mis-org-frontend': [
+                    'servicePort' : '80',
                     'nodePort': '30093',
                     'namespace': 'mis',
                     'containerPort': '80',
@@ -438,6 +440,7 @@ class GlobalConfig implements Serializable {
                     'configMapName': 'config.env', //是否使用configmap
             ],
             'mis-org-backend': [
+                    'servicePort' : '80',
                     'namespace': 'mis',
                     'nodePort' : '31501',
                     'containerPort': '3000',
@@ -460,6 +463,7 @@ class GlobalConfig implements Serializable {
                     'configMapName': 'config.env', //是否使用configmap
             ],
             'mis-admin-backend': [
+                    'servicePort' : '80',
                     'nodePort': '31500',
                     'namespace': 'mis',
                     'containerPort': '5000',
@@ -489,6 +493,7 @@ class GlobalConfig implements Serializable {
                     'kubectlImage': 'devops/base-image-kubectl:0.01',
             ],
             'prometheus-alertmanager': [
+                    'servicePort' : '80',
                     'namespace': 'devops',
                     'nodePort' : '30993',
                     'containerPort': '9093',
