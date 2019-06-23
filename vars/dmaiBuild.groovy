@@ -85,8 +85,12 @@ def call(Map map, env) {
                 steps {
                     container('kubectl') {
                         script {
-                            withCredentials([usernamePassword(credentialsId: 'devops-use', passwordVariable: 'password', usernameVariable: 'username')]) {
-                                sh 'git clone https://$username:$password@gitlab.dm-ai.cn/application-engineering/devops/deployment.git'
+                            try {
+                                withCredentials([usernamePassword(credentialsId: 'devops-use', passwordVariable: 'password', usernameVariable: 'username')]) {
+                                    sh 'git clone https://$username:$password@gitlab.dm-ai.cn/application-engineering/devops/deployment.git'
+                                }
+                            } catch(e) {
+                                sh "echo ${e}"
                             }
                         }
                     }
