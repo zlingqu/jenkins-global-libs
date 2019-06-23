@@ -87,7 +87,7 @@ def call(Map map, env) {
                         script {
                             try {
                                 withCredentials([usernamePassword(credentialsId: 'devops-use', passwordVariable: 'password', usernameVariable: 'username')]) {
-                                    sh 'git clone https://$username:$password@gitlab.dm-ai.cn/application-engineering/devops/deployment.git'
+                                    sh 'git config http.sslVerify "false" && git clone https://$username:$password@gitlab.dm-ai.cn/application-engineering/devops/deployment.git'
                                 }
                             } catch(e) {
                                 sh "echo ${e}"
