@@ -12,10 +12,13 @@ class DmaiEmail {
     }
 
     public sendEmail(String buildResult) {
+
+        // 构建结果的中文提示：
+        def buildResultZh = buildResult == 'success' ? '成功' : '失败'
         try {
             this.script.emailext(
-                    body: this.emailBody(buildResult),
-                    subject: 'Jenkins build success info',
+                    body: this.emailBody(buildResultZh),
+                    subject: '构建 : ' + buildResultZh,
                     to: conf.getAttr('emailAddress')
             )
         }

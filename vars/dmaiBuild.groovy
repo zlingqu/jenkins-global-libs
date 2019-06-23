@@ -131,13 +131,13 @@ def call(Map map, env) {
 
             failure {
                 script {
-                    dmaiEmail.sendEmail('构建失败！')
+                    dmaiEmail.sendEmail('failure')
                 }
             }
 
             success {
                 script {
-                    dmaiEmail.sendEmail('构建成功！')
+                    dmaiEmail.sendEmail('success')
                 }
             }
         }
