@@ -493,7 +493,7 @@ class GlobalConfig implements Serializable {
                     'kubectlImage': 'devops/base-image-kubectl:0.01',
             ],
             'prometheus-alertmanager': [
-                    'servicePort' : '80',
+                    'servicePort' : '9093',
                     'namespace': 'devops',
                     'nodePort' : '30993',
                     'containerPort': '9093',
