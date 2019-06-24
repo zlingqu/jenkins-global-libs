@@ -33,6 +33,7 @@ class DmaiEmail {
 构建结果：$buildResult
 Jenkins构建地址： $jenkinsAddress/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline
 构建分支：$branchName
+Git地址：$gitAddress 
 构建完成，用户访问地址：$appurl
 '''
         def bind = [
@@ -41,7 +42,8 @@ Jenkins构建地址： $jenkinsAddress/blue/organizations/jenkins/$jobName/detai
                 'branchName'     : this.conf.getAttr('branchName'),
                 'buildNumber'    : this.conf.getAttr('buildNumber'),
                 'appurl'         : this.getAppUrl(),
-                'buildResult'    : buildResult
+                'buildResult'    : buildResult,
+                'gitAddress'     : this.conf.getAttr('gitAddress')
         ]
         return Tools.simpleTemplate(text, bind)
     }
