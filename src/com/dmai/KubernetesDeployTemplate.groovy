@@ -26,13 +26,16 @@ class KubernetesDeployTemplate {
         if ( this.conf.getAttr('k8sKind') != 'deployment' ) return ''
         def text = '''
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: $appName
   namespace: $namespace
 spec:
   replicas: $replicas
+  selector:
+    matchLabels:
+        app: $appName
   template:
     metadata:
       labels:
