@@ -175,11 +175,11 @@ spec:
     private String getVolumeMounts() {
         switch (this.conf.getAttr('codeLanguage')) {
             case 'node':
-                return this.getVolumeMountsNode()
+                return this.getVolumeMountsString()
             case 'python':
-                return this.getVolumeMountsNode()
+                return this.getVolumeMountsString()
             case 'c++':
-                return this.getVolumeMountsNode()
+                return this.getVolumeMountsString()
             default:
                 return ''
         }
@@ -188,18 +188,18 @@ spec:
     private String getVolumes() {
         switch (conf.getAttr('codeLanguage')) {
             case 'node':
-                return this.getVolumesNode()
+                return this.getVolumesString()
             case 'python':
-                return this.getVolumesNode()
+                return this.getVolumesString()
             case 'c++':
-                return this.getVolumesNode()
+                return this.getVolumesString()
             default:
                 return ''
         }
     }
 
 
-    private String getVolumesNode() {
+    private String getVolumesString() {
         if (this.conf.appName in ['media-gateway', 'media-access']) {
             return String.format('''
       volumes:
@@ -217,37 +217,58 @@ spec:
             path: log.conf           
 ''', this.conf.appName, this.conf.appName)
         }
-        return String.format('''
+
+//        非特殊情况下
+        def returnString = '''
       volumes:
+'''
+        if (this.conf.getAttr('useConfigMap')) {
+            returnString += String.format('''
       - name: %s
         configMap:
           name: %s
-      - name: data
-%s
-''', this.conf.appName, this.conf.appName, this.getDataMode())
-    }
-
-    private String getDataMode() {
-        switch (this.conf.getAttr('branchName')) {
-            case 'master':
-                return '''
-        persistentVolumeClaim:
-          claimName: mypvc
-'''
-            case 'dev':
-                return '''
-        persistentVolumeClaim:
-          claimName: mypvc
-'''
-            default:
-                return String.format('''
-        hostPath:
-           path: /data/%s%s
-''', this.conf.getAttr('namespace'), this.conf.appName in ['vod-service', 'ui-backend-service', 'storage-service', 'stat-service', 'dispatcher-service', 'dispatcher-service'] ? '' : '/' + this.conf.appName)
+''', this.conf.appName, this.conf.appName)
         }
+
+        if (this.conf.getAttr('usePvc')) {
+            returnString += String.format('''
+      - name: data
+        persistentVolumeClaim:
+          claimName: mypvc
+''')
+        }
+        return  returnString
+//        return String.format('''
+//      volumes:
+//      - name: %s
+//        configMap:
+//          name: %s
+//      - name: data
+//%s
+//''', this.conf.appName, this.conf.appName, this.getDataMode())
     }
 
-    private String getVolumeMountsNode() {
+//    private String getDataMode() {
+//        switch (this.conf.getAttr('branchName')) {
+//            case 'master':
+//                return '''
+//        persistentVolumeClaim:
+//          claimName: mypvc
+//'''
+//            case 'dev':
+//                return '''
+//        persistentVolumeClaim:
+//          claimName: mypvc
+//'''
+//            default:
+//                return String.format('''
+//        hostPath:
+//           path: /data/%s%s
+//''', this.conf.getAttr('namespace'), this.conf.appName in ['vod-service', 'ui-backend-service', 'storage-service', 'stat-service', 'dispatcher-service', 'dispatcher-service'] ? '' : '/' + this.conf.appName)
+//        }
+//    }
+
+    private String getVolumeMountsString() {
         if (this.conf.appName in ['media-gateway', 'media-access']) {
             return '''
         volumeMounts:
@@ -256,16 +277,36 @@ spec:
           subPath: config.json
         - name: log
           mountPath: /src/debug/log.conf
-          subPath: log.conf         
+          subPath: log.conf
 '''
         }
-        return String.format('''
+
+//        非特殊情况下：
+        def returnString = '''
         volumeMounts:
+'''
+        if (this.conf.getAttr('useConfigMap')) {
+            returnString += String.format('''
         - name: %s
           mountPath: /app/%s
           subPath: %s
+''', this.conf.appName, this.conf.getAttr('configMapName'), this.conf.getAttr('configMapName'))
+        }
+
+        if (this.conf.getAttr('usePvc')) {
+            returnString += String.format('''
         - name: data
           mountPath: /app/data
-''', this.conf.appName, this.conf.getAttr('configMapName'), this.conf.getAttr('configMapName'))
+''')
+        }
+        return returnString
+//        return String.format('''
+//        volumeMounts:
+//        - name: %s
+//          mountPath: /app/%s
+//          subPath: %s
+//        - name: data
+//          mountPath: /app/data
+//''', this.conf.appName, this.conf.getAttr('configMapName'), this.conf.getAttr('configMapName'))
     }
 }
