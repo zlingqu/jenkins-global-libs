@@ -9,6 +9,30 @@ class GlobalConfig implements Serializable {
                     'nodePort': '30800',
                     'namespace': 'mis'
             ],
+            'policy-information-point': [
+                    'servicePort' : '80',
+                    'namespace': 'cum',
+                    'nodePort' : '30801',
+                    'containerPort': '3000',
+                    'domain': '3000',
+                    'cpuRequests' : '200m',
+                    'memoryRequests' : '400Mi',
+                    'cpuLimits' : '400m',
+                    'memoryLimits' : '800Mi',
+                    'dev': 'test', // dev分支部署到测试环境
+                    'master': 'prd',
+                    'gitAddress': 'https://gitlab.dm-ai.cn/cum/cum-admin/policy-information-point.git',
+                    'compile': false, // 是否编译
+                    'deploy': true, // 是否自动化部署
+                    'customDockerfile': false, // 是否使用自定义 dockerfile
+                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
+                    'useConfigMap': true, //是否使用configmap
+                    'configMapName': 'config.js', //是否使用configmap
+                    'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
+                    'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'usePvc': false // 是否使用pvc的方式挂载额外的数据资源。
+            ],
             'sync-service': [
                     'servicePort' : '80',
                     'namespace': 'xmc2',
@@ -30,7 +54,8 @@ class GlobalConfig implements Serializable {
                     'configMapName': 'config.js', //是否使用configmap
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
-                    'k8sKind': 'deployment' // 部署的服务的类型
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'usePvc': true // 是否使用pvc的方式挂载额外的数据资源。
             ],
             'ui-backend-service': [
                     'servicePort' : '80',
@@ -53,7 +78,8 @@ class GlobalConfig implements Serializable {
                     'configMapName': 'config.js', //是否使用configmap
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
-                    'k8sKind': 'deployment' // 部署的服务的类型
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'usePvc': true // 是否使用pvc的方式挂载额外的数据资源。
             ],
             'engine-video-extract': [
                     'servicePort' : '80',
@@ -76,7 +102,8 @@ class GlobalConfig implements Serializable {
                     'configMapName': 'config.js', //挂载的configmap的名称
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'golang', // 临时的，默认是【js,node,golang,java,php,python】
-                    'k8sKind': 'deployment' // 部署的服务的类型
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'usePvc': false // 是否使用pvc的方式挂载额外的数据资源。
             ],
             'media-gateway': [
                     'servicePort' : '80',
@@ -101,7 +128,8 @@ class GlobalConfig implements Serializable {
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'c++', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
-                    'command': 'command: ["/bin/sh", "-c", "cp -rp /src/debug/* /tmp && cd /tmp && ./MediaGateway"]' //自定义命令行
+                    'command': 'command: ["/bin/sh", "-c", "cp -rp /src/debug/* /tmp && cd /tmp && ./MediaGateway"]', //自定义命令行
+                    'usePvc': false // 是否使用pvc的方式挂载额外的数据资源。
             ],
             'media-access': [
                     'servicePort' : '80',
@@ -127,7 +155,8 @@ class GlobalConfig implements Serializable {
                     'codeLanguage' : 'c++', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'command': 'command: ["/bin/sh", "-c", "cp -rp /src/debug/* /tmp && cd /tmp && ./MediaAccess"]', //自定义命令行
-                    'udpPort': [31600, 31699]
+                    'udpPort': [31600, 31699],
+                    'usePvc': false // 是否使用pvc的方式挂载额外的数据资源。
             ],
             'dispatcher-service': [
                     'servicePort' : '80',
@@ -150,7 +179,8 @@ class GlobalConfig implements Serializable {
                     'configMapName': 'config.js', //是否使用configmap
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
-                    'k8sKind': 'deployment' // 部署的服务的类型
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'usePvc': true // 是否使用pvc的方式挂载额外的数据资源。
             ],
             'storage-service': [
                     'servicePort' : '80',
@@ -175,7 +205,9 @@ class GlobalConfig implements Serializable {
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
-                    'storage': true  //是否需要挂载存储
+                    'storage': true,  //是否需要挂载存储
+                    'usePvc': true // 是否使用pvc的方式挂载额外的数据资源。
+
             ],
             'stat-service': [
                     'servicePort' : '80',
@@ -199,7 +231,8 @@ class GlobalConfig implements Serializable {
                     'configMapName': 'config.js', //是否使用configmap
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
-                    'k8sKind': 'deployment' // 部署的服务的类型
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'usePvc': true // 是否使用pvc的方式挂载额外的数据资源。
             ],
             'vod-service': [
                     'servicePort' : '80',
@@ -223,7 +256,8 @@ class GlobalConfig implements Serializable {
                     'configMapName': 'config.js', //是否使用configmap
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
-                    'k8sKind': 'deployment' // 部署的服务的类型
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'usePvc': true // 是否使用pvc的方式挂载额外的数据资源。
             ],
             'meta-service': [
                     'servicePort' : '80',
@@ -247,7 +281,8 @@ class GlobalConfig implements Serializable {
                     'configMapName': 'config.js', //是否使用configmap
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
-                    'k8sKind': 'deployment' // 部署的服务的类型
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'usePvc': true // 是否使用pvc的方式挂载额外的数据资源。
             ],
             'meta-adapter': [
                     'servicePort' : '80',
@@ -271,7 +306,8 @@ class GlobalConfig implements Serializable {
                     'configMapName': 'config.js', //是否使用configmap
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
-                    'k8sKind': 'deployment' // 部署的服务的类型
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'usePvc': true // 是否使用pvc的方式挂载额外的数据资源。
             ],
             'engine-audio-process': [
                     'servicePort' : '80',
@@ -295,7 +331,8 @@ class GlobalConfig implements Serializable {
                     'configMapName': 'config.yaml', //是否使用configmap
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
-                    'k8sKind': 'deployment' // 部署的服务的类型
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'usePvc': true // 是否使用pvc的方式挂载额外的数据资源。
             ],
             'engine-image-process': [
                     'servicePort' : '80',
@@ -319,7 +356,8 @@ class GlobalConfig implements Serializable {
                     'configMapName': 'config.yaml', //是否使用configmap
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
-                    'k8sKind': 'deployment' // 部署的服务的类型
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'usePvc': true // 是否使用pvc的方式挂载额外的数据资源。
             ],
             'engine-pipeline-manager': [
                     'servicePort' : '80',
@@ -343,7 +381,8 @@ class GlobalConfig implements Serializable {
                     'configMapName': 'config.yaml', //是否使用configmap
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
-                    'k8sKind': 'deployment' // 部署的服务的类型
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'usePvc': true // 是否使用pvc的方式挂载额外的数据资源。
             ],
             'engine-metric-service': [
                     'servicePort' : '80',
@@ -367,7 +406,8 @@ class GlobalConfig implements Serializable {
                     'configMapName': 'config.yaml', //是否使用configmap
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
-                    'k8sKind': 'deployment' // 部署的服务的类型
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'usePvc': true // 是否使用pvc的方式挂载额外的数据资源。
             ],
             'xmc2-frontend': [
                     'servicePort' : '80',
@@ -392,6 +432,7 @@ class GlobalConfig implements Serializable {
                     'codeLanguage' : 'js', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'configMapName': 'config.env', //是否使用configmap
+                    'usePvc': false // 是否使用pvc的方式挂载额外的数据资源。
             ],
             'mis-admin-frontend': [
                     'servicePort' : '80',
@@ -415,6 +456,7 @@ class GlobalConfig implements Serializable {
                     'codeLanguage' : 'js', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'configMapName': 'config.env', //是否使用configmap
+                    'usePvc': false // 是否使用pvc的方式挂载额外的数据资源。
             ],
             'mis-org-frontend': [
                     'servicePort' : '80',
@@ -438,6 +480,7 @@ class GlobalConfig implements Serializable {
                     'codeLanguage' : 'js', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'configMapName': 'config.env', //是否使用configmap
+                    'usePvc': false // 是否使用pvc的方式挂载额外的数据资源。
             ],
             'mis-org-backend': [
                     'servicePort' : '80',
@@ -461,6 +504,7 @@ class GlobalConfig implements Serializable {
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'configMapName': 'config.env', //是否使用configmap
+                    'usePvc': true // 是否使用pvc的方式挂载额外的数据资源。
             ],
             'mis-admin-backend': [
                     'servicePort' : '80',
@@ -484,6 +528,7 @@ class GlobalConfig implements Serializable {
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'configMapName': 'config.env', //是否使用configmap
+                    'usePvc': true // 是否使用pvc的方式挂载额外的数据资源。
             ],
             'service-prometheus' : [
                     'nodePort': '30090',
@@ -513,7 +558,8 @@ class GlobalConfig implements Serializable {
                     'useConfigMap': false, //是否使用configmap
                     'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'prometheus-alertmanager', // 临时的，默认是【js,node,golang,java,php,python】
-                    'k8sKind': 'deployment' // 部署的服务的类型
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'usePvc': true // 是否使用pvc的方式挂载额外的数据资源。
             ],
             'blackbox-exporter': [
                     'namespace': 'devops',
