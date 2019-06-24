@@ -30,9 +30,9 @@ def call(Map map, env) {
             stage('Exec Ansible') {
                 steps {
                     container('ansible') {
-                        withCredentials([usernamePassword(credentialsId: 'devops-use', passwordVariable: 'password', usernameVariable: 'username')]) {
-                            sh 'git clone https://$username:$password@gitlab.dm-ai.cn/application-engineering/devops/ansible.git'
-                            sh 'git clone https://$username:$password@gitlab.dm-ai.cn/application-engineering/devops/kubeasz.git /opt/kubeasz && cp -rp /opt/kubeasz/* /etc/ansible'
+                        withCredentials([usernamePassword(credentialsId: 'passwd-zs', passwordVariable: 'password', usernameVariable: 'username')]) {
+                            sh 'source /etc/profile; git config --global http.sslVerify false ; git clone https://$username:$password@gitlab.dm-ai.cn/application-engineering/devops/ansible.git'
+                            sh 'source /etc/profile; git config --global http.sslVerify false ; git clone https://$username:$password@gitlab.dm-ai.cn/application-engineering/devops/kubeasz.git /opt/kubeasz && cp -rp /opt/kubeasz/* /etc/ansible'
                         }
                         sh '$execComand'
                     }
