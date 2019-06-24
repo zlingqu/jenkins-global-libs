@@ -79,6 +79,24 @@ def call(Map map, env) {
                 }
             }
 
+            stage('Download Config file') {
+                when { expression { return conf.getAttr('deploy') } }
+
+                steps {
+                    container('kubectl') {
+                        script {
+                            try {
+                                withCredentials([usernamePassword(credentialsId: 'passwd-zs', passwordVariable: 'password', usernameVariable: 'username')]) {
+                                    sh 'source /etc/profile; git config --global http.sslVerify false ; git clone https://$username:$password@gitlab.dm-ai.cn/application-engineering/devops/deployment.git'
+                                }
+                            } catch(e) {
+                                sh "echo ${e}"
+                            }
+                        }
+                    }
+                }
+            }
+
             stage('Deploy') {
 
                 // 当项目的全局选项设置为deploy == true的时候，才进行部署的操作
@@ -86,6 +104,18 @@ def call(Map map, env) {
 
                 steps {
                     container('kubectl') {
+                        script {
+                            deploykubernetes.deployKubernetes()
+                        }
+                    }
+                }
+            }
+
+            stage('Deploy stage') {
+                when { expression { return conf.getAttr('stage') } }
+
+                steps {
+                    container('kubectl-stage') {
                         script {
                             deploykubernetes.deployKubernetes()
                         }
@@ -101,13 +131,13 @@ def call(Map map, env) {
 
             failure {
                 script {
-                    dmaiEmail.sendEmail('构建失败！')
+                    dmaiEmail.sendEmail('failure')
                 }
             }
 
             success {
                 script {
-                    dmaiEmail.sendEmail('构建成功！')
+                    dmaiEmail.sendEmail('success')
                 }
             }
         }

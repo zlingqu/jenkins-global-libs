@@ -24,7 +24,7 @@ class Deploykubernetes {
         }
 
         // 先创建configMap
-        if (!(this.conf.appName in ['storage-service', 'stat-service', 'sync-service'])) {
+        if (this.conf.getAttr('useConfigMap')) {
             this.createConfigMap()
         }
 
@@ -32,19 +32,30 @@ class Deploykubernetes {
     }
 
     private void createConfigMap() {
-        if (! this.conf.getAttr('useConfigMap')) return
+
+        try {
+            this.script.sh String.format("kubectl apply -f deployment/%s/%s/%s/configmap.yml",
+                    this.conf.getAttr('namespace'),
+                    this.conf.getAttr(this.conf.getAttr('branchName')),
+                    this.conf.appName
+            )
+        } catch (e) {
+            this.script.sh "echo ${e}"
+        }
+
+        return
 
         // 如果使用了configmap，默认configmap的环境变量在代码目录下的env/dev，env/分支名下，master为管理员控制
-        switch (this.conf.getAttr('branchName')) {
-            case 'master':
-                this.script.sh String.format("kubectl delete configmap %s -n %s || echo 0", this.conf.appName, this.conf.getAttr('namespace'))
-                this.script.sh "kubectl create configmap '${this.conf.appName}' --from-literal=config.env='${this.conf.getAttr('configMapFile')}' -n '${this.conf.getAttr('namespace')}'"
-                return
-
-            default:
-                this.script.sh String.format("kubectl delete configmap %s -n %s || echo 0", this.conf.appName, this.conf.getAttr('namespace'))
-                this.script.sh String.format("kubectl create configmap %s --from-file=config.env=env/%s.env -n %s",
-                this.conf.appName, this.conf.getAttr('branchName'), this.conf.getAttr('namespace'))
-        }
+//        switch (this.conf.getAttr('branchName')) {
+//            case 'master':
+//                this.script.sh String.format("kubectl delete configmap %s -n %s || echo 0", this.conf.appName, this.conf.getAttr('namespace'))
+//                this.script.sh "kubectl create configmap '${this.conf.appName}' --from-literal=config.env='${this.conf.getAttr('configMapFile')}' -n '${this.conf.getAttr('namespace')}'"
+//                return
+//
+//            default:
+//                this.script.sh String.format("kubectl delete configmap %s -n %s || echo 0", this.conf.appName, this.conf.getAttr('namespace'))
+//                this.script.sh String.format("kubectl create configmap %s --from-file=config.env=env/%s.env -n %s",
+//                this.conf.appName, this.conf.getAttr('branchName'), this.conf.getAttr('namespace'))
+//        }
     }
 }

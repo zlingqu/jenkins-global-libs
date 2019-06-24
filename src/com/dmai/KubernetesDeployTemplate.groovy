@@ -44,12 +44,14 @@ spec:
       - name: $appName
         image: $dockerRegistryHost/$namespace/$appName:$branchName-$buildNumber
         imagePullPolicy: Always #
+        $command
         env: #指定容器中的环境变量
         - name: TZ
           value: Asia/Shanghai        
 $volumeMounts
         ports:
         - containerPort: $containerPort
+        $getContainerPort
         resources:
           limits:
             cpu: $cpuLimits
@@ -72,9 +74,24 @@ $volumes
                 'memoryLimits'        : conf.getAttr('memoryLimits'),
                 'volumeMounts'        : this.getVolumeMounts(),
                 'volumes'             : this.getVolumes(),
-                'replicas'            : this.conf.getAttr('replicas') ? this.conf.getAttr('replicas') : 1
+                'replicas'            : this.conf.getAttr('replicas') ? this.conf.getAttr('replicas') : 1,
+                'command'             : this.conf.getAttr('command') ? this.conf.getAttr('command'): '',
+                'getContainerPort'    : this.getContainerPort()
         ]
         return Tools.simpleTemplate(text, bind)
+    }
+
+    private String getContainerPort() {
+        def returnString = ''
+        if (this.conf.getAttr('udpPort')) {
+            for (int i in this.conf.getAttr('udpPort')[0]..this.conf.getAttr('udpPort')[1]) {
+                returnString += String.format('''
+        - containerPort: %s
+''', i)
+            }
+        }
+
+        return returnString
     }
 
     private String svcTemplateNodePort() {
@@ -89,10 +106,12 @@ metadata:
   namespace: $namespace
 spec:
   ports:
-  - port: $containerPort
+  - port: $servicePort
     protocol: TCP
     targetPort: $containerPort
     nodePort: $nodePort
+    name: $appName-$containerPort
+$getUdpSvc    
   selector:
     app: $appName
   type: NodePort
@@ -101,10 +120,28 @@ spec:
                 'appName' : this.conf.appName,
                 'namespace' : this.conf.getAttr('namespace'),
                 'containerPort' : this.conf.getAttr('containerPort'),
-                'nodePort' : this.conf.getAttr('nodePort')
+                'nodePort' : this.conf.getAttr('nodePort'),
+                'getUdpSvc': this.getUdpSvc(),
+                'servicePort': this.conf.getAttr('servicePort')
         ]
 
         return Tools.simpleTemplate(text, bind)
+    }
+
+    private String getUdpSvc() {
+        def returnString = ''
+        if (this.conf.getAttr('udpPort')) {
+            for (int i in this.conf.getAttr('udpPort')[0]..this.conf.getAttr('udpPort')[1]) {
+                returnString += String.format('''
+  - port: %s
+    protocol: UDP
+    targetPort: %s
+    nodePort: %s
+    name: %s-%s
+''', i, i, i, this.conf.appName, i)
+            }
+        }
+        return returnString
     }
 
     private String svcTemplateClusterIP() {
@@ -139,6 +176,10 @@ spec:
         switch (this.conf.getAttr('codeLanguage')) {
             case 'node':
                 return this.getVolumeMountsNode()
+            case 'python':
+                return this.getVolumeMountsNode()
+            case 'c++':
+                return this.getVolumeMountsNode()
             default:
                 return ''
         }
@@ -148,6 +189,10 @@ spec:
         switch (conf.getAttr('codeLanguage')) {
             case 'node':
                 return this.getVolumesNode()
+            case 'python':
+                return this.getVolumesNode()
+            case 'c++':
+                return this.getVolumesNode()
             default:
                 return ''
         }
@@ -155,6 +200,23 @@ spec:
 
 
     private String getVolumesNode() {
+        if (this.conf.appName in ['media-gateway', 'media-access']) {
+            return String.format('''
+      volumes:
+      - name: config
+        configMap:
+          name: %s
+          items:
+          - key: config.json
+            path: config.json
+      - name: log
+        configMap:
+          name: %s
+          items:
+          - key: log.conf
+            path: log.conf           
+''', this.conf.appName, this.conf.appName)
+        }
         return String.format('''
       volumes:
       - name: %s
@@ -172,15 +234,31 @@ spec:
         persistentVolumeClaim:
           claimName: mypvc
 '''
+            case 'dev':
+                return '''
+        persistentVolumeClaim:
+          claimName: mypvc
+'''
             default:
                 return String.format('''
         hostPath:
            path: /data/%s%s
-''', this.conf.getAttr('namespace'), this.conf.appName in ['storage-service', 'stat-service'] ? '' : '/' + this.conf.appName)
+''', this.conf.getAttr('namespace'), this.conf.appName in ['vod-service', 'ui-backend-service', 'storage-service', 'stat-service', 'dispatcher-service', 'dispatcher-service'] ? '' : '/' + this.conf.appName)
         }
     }
 
     private String getVolumeMountsNode() {
+        if (this.conf.appName in ['media-gateway', 'media-access']) {
+            return '''
+        volumeMounts:
+        - name: config
+          mountPath: /src/debug/config.json
+          subPath: config.json
+        - name: log
+          mountPath: /src/debug/log.conf
+          subPath: log.conf         
+'''
+        }
         return String.format('''
         volumeMounts:
         - name: %s

@@ -12,10 +12,13 @@ class DmaiEmail {
     }
 
     public sendEmail(String buildResult) {
+
+        // 构建结果的中文提示：
+        def buildResultZh = buildResult == 'success' ? '成功' : '失败'
         try {
             this.script.emailext(
-                    body: this.emailBody(buildResult),
-                    subject: 'Jenkins build success info',
+                    body: this.emailBody(buildResultZh),
+                    subject: '构建 : ' + buildResultZh,
                     to: conf.getAttr('emailAddress')
             )
         }
@@ -30,6 +33,7 @@ class DmaiEmail {
 构建结果：$buildResult
 Jenkins构建地址： $jenkinsAddress/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline
 构建分支：$branchName
+Git地址：$gitAddress 
 构建完成，用户访问地址：$appurl
 '''
         def bind = [
@@ -38,7 +42,8 @@ Jenkins构建地址： $jenkinsAddress/blue/organizations/jenkins/$jobName/detai
                 'branchName'     : this.conf.getAttr('branchName'),
                 'buildNumber'    : this.conf.getAttr('buildNumber'),
                 'appurl'         : this.getAppUrl(),
-                'buildResult'    : buildResult
+                'buildResult'    : buildResult,
+                'gitAddress'     : this.conf.getAttr('gitAddress')
         ]
         return Tools.simpleTemplate(text, bind)
     }
@@ -57,7 +62,19 @@ Jenkins构建地址： $jenkinsAddress/blue/organizations/jenkins/$jobName/detai
             case 'master':
                 return 'http://192.168.11.20'
             case 'dev':
-                return this.conf.getAttr('dev') == 'test' ? 'http://192.168.3.140' : 'http://192.168.3.18'
+                return this.getDevUrl()
+        }
+    }
+
+//    根据dev标签来判断用户的dev分支部署在那个环境
+    private String getDevUrl() {
+        switch (this.conf.getAttr('dev')) {
+            case 'test':
+                return 'http://192.168.3.140'
+            case 'dev':
+                return 'http://192.168.3.18'
+            case 'master':
+                return 'http://192.168.11.20'
         }
     }
 }

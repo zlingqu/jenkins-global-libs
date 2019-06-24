@@ -10,7 +10,7 @@ class JenkinsRunTemplate {
     }
 
     public String getJenkinsRunTemplate() {
-        return this.templateTop() + this.templateDockerCompile() + this.templateDockerKubectl() + this.templateDockerCompose()
+        return this.templateTop() + this.templateDockerCompile() + this.templateDockerKubectl() + this.templateDockerKubectlStage() + this.templateDockerCompose()
     }
 
     private def templateTop() {
@@ -61,7 +61,7 @@ spec:
         if (this.conf.getAttr('deploy')) {
             return  String.format('''
   - name: kubectl 
-    image: docker.dm-ai.cn/devops/base-image-kubectl:%s-0.01
+    image: docker.dm-ai.cn/devops/base-image-kubectl:%s-0.02
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
@@ -78,10 +78,47 @@ spec:
       requests:
         cpu: 100m
         memory: 200Mi
-''', this.conf.getAttr('branchName') == 'master' ? this.conf.getAttr('branchName'): this.conf.getAttr('dev'))
+''', this.getKubectlBranch())
         } else {
             return ''
         }
+    }
+
+//    设置不同的分支部署到不同的环境
+    private String getKubectlBranch(){
+        if (this.conf.getAttr('branchName') == 'master') return 'master'
+
+        switch (this.conf.getAttr('dev')){
+            case 'dev'  : return 'dev'
+            case 'test' : return 'test'
+            case 'master': return 'master'
+        }
+    }
+
+    private templateDockerKubectlStage() {
+        if (this.conf.getAttr('stage')) {
+            return '''
+  - name: kubectl-stage 
+    image: docker.dm-ai.cn/devops/base-image-kubectl:stage-0.01
+    imagePullPolicy: IfNotPresent
+    env: #指定容器中的环境变量
+    - name: DMAI_PRIVATE_DOCKER_REGISTRY
+      value: docker.dm-ai.cn
+    command:
+    - "sleep"
+    args:
+    - "1200"
+    tty: true
+    resources:
+      limits:
+        memory: 300Mi
+        cpu: 200m
+      requests:
+        cpu: 100m
+        memory: 200Mi
+'''
+        }
+        return ''
     }
 
     private String templateDockerCompile() {
@@ -100,12 +137,9 @@ spec:
     - "1200"
     tty: true
     resources:
-      limits:
-        memory: 3000Mi
-        cpu: 1500m
       requests:
-        cpu: 1000m
-        memory: 2000Mi
+        cpu: 2000m
+        memory: 4000Mi
 '''
             case 'c++':
                 return '''
