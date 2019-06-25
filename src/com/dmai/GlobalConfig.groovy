@@ -20,6 +20,7 @@ class GlobalConfig implements Serializable {
                     'cpuLimits' : '400m',
                     'memoryLimits' : '800Mi',
                     'dev': 'dev', // dev分支部署到测试环境
+                    'test': false, // 是否从dev分支部署到测试环境
                     'master': 'prd',
                     'gitAddress': 'https://gitlab.dm-ai.cn/cum/cum-admin/policy-information-point.git',
                     'compile': false, // 是否编译
