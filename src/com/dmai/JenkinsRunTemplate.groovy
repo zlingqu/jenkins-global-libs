@@ -10,7 +10,7 @@ class JenkinsRunTemplate {
     }
 
     public String getJenkinsRunTemplate() {
-        return this.templateTop() + this.templateDockerCompile() + this.templateDockerKubectl() + this.templateDockerKubectlStage() + this.templateDockerKubectlCloud() + this.templateDockerCompose()
+        return this.templateTop() + this.templateDockerCompile() + this.templateDockerKubectl() + this.templateDockerKubectlStage() + this.templateDockerCompose()
     }
 
     private def templateTop() {
