@@ -70,7 +70,7 @@ def call(Map map, env) {
                 input {
                     message "dev分支默认部署到开发人员使用的环境，是否要同时部署到测试人员使用的环境？？"
                     ok "是的，我确定！"
-                    submitter "alice,bob"
+//                    submitter "alice,bob"
 //                    parameters {
 //                        string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
 //                    }
