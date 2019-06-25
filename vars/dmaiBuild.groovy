@@ -67,14 +67,7 @@ def call(Map map, env) {
             }
 
             stage('Make Image') {
-                input {
-                    message "dev分支默认部署到开发人员使用的环境，是否要同时部署到测试人员使用的环境？？"
-                    ok "是的，我确定！"
-                    submitter "alice,bob"
-                    parameters {
-                        string(name: 'PERSON', description: 'Who should I say hello to?')
-                    }
-                }
+                input id: 'Shif', message: 'test', ok: 'yes'
                 steps {
                     container('docker-compose') {
                         script {
