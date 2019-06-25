@@ -67,7 +67,15 @@ def call(Map map, env) {
             }
 
             stage('Make Image') {
-                input id: 'Shif', message: 'test', ok: 'yes'
+                input {
+                    message "Should we continue?"
+                    ok "Yes, we should."
+                    submitter "admin,anthony"
+                    parameters {
+                        string(name: 'PERSON', defaultValue: 'Mr Anthony', description: 'Who should I say hello to?')
+                    }
+                }
+                
                 steps {
                     container('docker-compose') {
                         script {
