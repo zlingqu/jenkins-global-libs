@@ -135,8 +135,9 @@ def call(Map map, env) {
                 when { expression { return conf.getAttr('test') } }
 
                 steps {
-
-                    dmaiEmail.userSureEmail()
+                    script {
+                        dmaiEmail.userSureEmail()
+                    }
                 }
 
                 input {
