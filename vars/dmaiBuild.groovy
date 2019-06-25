@@ -67,9 +67,7 @@ def call(Map map, env) {
             }
 
             stage('MakeImage') {
-
                 steps {
-                    echo "Hello, ${PERSON}, nice to meet you."
                     container('docker-compose') {
                         script {
                             echo "${params.project_choice}"
