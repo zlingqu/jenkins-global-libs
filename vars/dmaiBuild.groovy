@@ -132,7 +132,7 @@ def call(Map map, env) {
                 }
             }
 
-            stages('Send email') {
+            stage('Send email') {
                 when { expression { return conf.getAttr('test') } }
 
                 steps {
