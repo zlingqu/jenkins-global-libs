@@ -134,7 +134,10 @@ def call(Map map, env) {
 
             stages('Send email') {
                 when { expression { return conf.getAttr('test') } }
-                dmaiEmail.sendEmail()
+
+                steps {
+                    dmaiEmail.sendEmail()
+                }
             }
 
             stage('Deploy test') {
