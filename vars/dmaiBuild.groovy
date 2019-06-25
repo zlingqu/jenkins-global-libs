@@ -67,10 +67,6 @@ def call(Map map, env) {
             }
 
             stage('MakeImage') {
-                input {
-                    message "dev分支已经部署到开发环境，是否继续部署到测试环境？"
-                    ok "是的，我确认！"
-                }
 
                 steps {
                     echo "Hello, ${PERSON}, nice to meet you."
@@ -137,11 +133,16 @@ def call(Map map, env) {
                 }
             }
 
-            stage('Deploy cloud') {
-                when { expression { return conf.getAttr('cloud') } }
+            stage('Deploy test') {
+                when { expression { return conf.getAttr('test') } }
+
+                input {
+                    message "dev分支已经部署到开发环境，是否继续部署到测试环境？"
+                    ok "是的，我确认！"
+                }
 
                 steps {
-                    container('kubectl-cloud') {
+                    container('kubectl-test') {
                         script {
                             deploykubernetes.deployKubernetes()
                         }

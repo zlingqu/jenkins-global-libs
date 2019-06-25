@@ -46,11 +46,11 @@ class Deploykubernetes {
         return
     }
 
-    private void createConfigMapCloud() {
+    private void createConfigMapTest() {
+        if (!this.conf.getAttr('test')) return
         try {
-            this.script.sh String.format("kubectl apply -f deployment/%s/%s/%s/configmap.yml",
+            this.script.sh String.format("kubectl apply -f deployment/%s/test/%s/configmap.yml",
                     this.conf.getAttr('namespace'),
-                    this.conf.getAttr(this.conf.getAttr('branchName')),
                     this.conf.appName
             )
         } catch (e) {

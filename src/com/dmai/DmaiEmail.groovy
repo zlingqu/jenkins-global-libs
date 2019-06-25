@@ -35,6 +35,7 @@ Jenkins构建地址： $jenkinsAddress/blue/organizations/jenkins/$jobName/detai
 构建分支：$branchName
 Git地址：$gitAddress 
 构建完成，用户访问地址：$appurl
+测试环境, 用户访问地址：$testAddress
 '''
         def bind = [
                 'jenkinsAddress' : this.conf.jenkinsAddress,
@@ -43,9 +44,18 @@ Git地址：$gitAddress
                 'buildNumber'    : this.conf.getAttr('buildNumber'),
                 'appurl'         : this.getAppUrl(),
                 'buildResult'    : buildResult,
-                'gitAddress'     : this.conf.getAttr('gitAddress')
+                'gitAddress'     : this.conf.getAttr('gitAddress'),
+                'testAddress'    : this.getTestAddress()
         ]
         return Tools.simpleTemplate(text, bind)
+    }
+
+    private String getTestAddress() {
+        if (this.conf.getAttr('test')) {
+            return 'http://192.168.3.21:' + this.conf.getAttr('nodePort')
+        }
+
+        return '用户未部署测试分支'
     }
 
     private String getAppUrl() {
@@ -70,9 +80,9 @@ Git地址：$gitAddress
     private String getDevUrl() {
         switch (this.conf.getAttr('dev')) {
             case 'test':
-                return 'http://192.168.3.140'
+                return 'http://192.168.3.21'
             case 'dev':
-                return 'http://192.168.3.18'
+                return 'http://192.168.3.140'
             case 'master':
                 return 'http://192.168.11.20'
         }
