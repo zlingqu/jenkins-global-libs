@@ -38,13 +38,13 @@ def call(Map map, env) {
                 yaml new JenkinsRunTemplate(conf).getJenkinsRunTemplate()
             }
         }
-        parameters{
-            choice(
-                    name: 'project_choice',
-                    choices: 'yes\nno',
-                    description: '是否要同时发布到测试人员使用环境？'
-            )
-        }
+//        parameters{
+//            choice(
+//                    name: 'project_choice',
+//                    choices: 'yes\nno',
+//                    description: '是否要同时发布到测试人员使用环境？'
+//            )
+//        }
 
         // 设置任务的超时时间为1个小时。
         options {
