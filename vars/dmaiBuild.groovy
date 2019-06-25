@@ -38,6 +38,13 @@ def call(Map map, env) {
                 yaml new JenkinsRunTemplate(conf).getJenkinsRunTemplate()
             }
         }
+        parameters{
+            choice(
+                    name: 'project_choice',
+                    choices: 'yes\nno',
+                    description: '是否要同时发布到测试人员使用环境？'
+            )
+        }
 
         // 设置任务的超时时间为1个小时。
         options {
@@ -63,6 +70,7 @@ def call(Map map, env) {
                 steps {
                     container('docker-compose') {
                         script {
+                            echo "${params.project_choice}"
                             makeDockerImage.makeImage()
                         }
                     }
@@ -122,6 +130,19 @@ def call(Map map, env) {
                     }
                 }
             }
+
+            stage('Deploy cloud') {
+                when { expression { return conf.getAttr('cloud') } }
+
+                steps {
+                    container('kubectl-cloud') {
+                        script {
+                            deploykubernetes.deployKubernetes()
+                        }
+                    }
+                }
+            }
+
         }
 
         post {
