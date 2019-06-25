@@ -106,7 +106,7 @@ class GlobalConfig implements Serializable {
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'golang', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
-                    'usePvc': false // 是否使用pvc的方式挂载额外的数据资源。
+                    'usePvc': true // 是否使用pvc的方式挂载额外的数据资源。
             ],
             'media-gateway': [
                     'servicePort' : '80',
