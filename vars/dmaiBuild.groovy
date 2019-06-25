@@ -68,12 +68,8 @@ def call(Map map, env) {
 
             stage('MakeImage') {
                 input {
-                    message "Should we continue?"
-                    ok "Yes, we should."
-                    submitter "admin,anthony"
-                    parameters {
-                        string(name: 'PERSON', defaultValue: 'Mr Anthony', description: 'Who should I say hello to?')
-                    }
+                    message "dev分支已经部署到开发环境，是否继续部署到测试环境？"
+                    ok "是的，我确认！"
                 }
 
                 steps {
