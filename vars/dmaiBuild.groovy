@@ -136,7 +136,7 @@ def call(Map map, env) {
                 when { expression { return conf.getAttr('test') } }
 
                 steps {
-                    dmaiEmail.sendEmail()
+                    dmaiEmail.userSureEmail()
                 }
             }
 
