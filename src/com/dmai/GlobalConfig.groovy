@@ -19,7 +19,8 @@ class GlobalConfig implements Serializable {
                     'memoryRequests' : '400Mi',
                     'cpuLimits' : '400m',
                     'memoryLimits' : '800Mi',
-                    'dev': 'test', // dev分支部署到测试环境
+                    'dev': 'dev', // dev分支部署到测试环境
+                    'test': false, // 是否从dev分支部署到测试环境
                     'master': 'prd',
                     'gitAddress': 'https://gitlab.dm-ai.cn/cum/cum-admin/policy-information-point.git',
                     'compile': false, // 是否编译
@@ -43,7 +44,8 @@ class GlobalConfig implements Serializable {
                     'memoryRequests' : '2000Mi',
                     'cpuLimits' : '2000m',
                     'memoryLimits' : '4000Mi',
-                    'dev': 'test', // dev分支部署到测试环境
+                    'dev': 'dev', // dev分支部署到测试环境
+                    'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd',
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2/sync-service.git',
                     'compile': false, // 是否编译
@@ -67,7 +69,8 @@ class GlobalConfig implements Serializable {
                     'memoryRequests' : '500Mi',
                     'cpuLimits' : '800m',
                     'memoryLimits' : '1000Mi',
-                    'dev': 'test', // dev分支部署到测试环境
+                    'dev': 'dev', // dev分支部署到测试环境
+                    'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd',
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2/ui-backend-service.git',
                     'compile': false, // 是否编译
@@ -91,7 +94,8 @@ class GlobalConfig implements Serializable {
                     'memoryRequests' : '2000Mi',
                     'cpuLimits' : '6000m',
                     'memoryLimits' : '2000Mi',
-                    'dev': 'test', // dev分支部署到测试环境
+                    'dev': 'dev', // dev分支部署到测试环境
+                    'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd',
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2-xc/xmc2-video-extract-service.git',
                     'compile': false, // 是否编译
@@ -103,7 +107,7 @@ class GlobalConfig implements Serializable {
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'golang', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
-                    'usePvc': false // 是否使用pvc的方式挂载额外的数据资源。
+                    'usePvc': true // 是否使用pvc的方式挂载额外的数据资源。
             ],
             'media-gateway': [
                     'servicePort' : '80',
@@ -115,7 +119,8 @@ class GlobalConfig implements Serializable {
                     'memoryRequests' : '500Mi',
                     'cpuLimits' : '800m',
                     'memoryLimits' : '1000Mi',
-                    'dev': 'test', // dev分支部署到测试环境
+                    'dev': 'dev', // dev分支部署到测试环境
+                    'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd',
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2/media-gateway.git',
                     'compile': true, // 是否编译
@@ -141,7 +146,8 @@ class GlobalConfig implements Serializable {
                     'memoryRequests' : '500Mi',
                     'cpuLimits' : '800m',
                     'memoryLimits' : '1000Mi',
-                    'dev': 'test', // dev分支部署到测试环境
+                    'dev': 'dev', // dev分支部署到测试环境
+                    'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd',
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2/media-access.git',
                     'compile': true, // 是否编译
@@ -168,7 +174,8 @@ class GlobalConfig implements Serializable {
                     'memoryRequests' : '500Mi',
                     'cpuLimits' : '800m',
                     'memoryLimits' : '1000Mi',
-                    'dev': 'test', // dev分支部署到测试环境
+                    'dev': 'dev', // dev分支部署到测试环境
+                    'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd',
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2/dispatcher-service.git',
                     'compile': false, // 是否编译
@@ -192,7 +199,8 @@ class GlobalConfig implements Serializable {
                     'memoryRequests' : '2000Mi',
                     'cpuLimits' : '2000m',
                     'memoryLimits' : '4000Mi',
-                    'dev': 'test', // dev分支部署到测试环境
+                    'dev': 'dev', // dev分支部署到测试环境
+                    'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd',
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2/storage-service.git',
                     'stage': true, //是否部署到stage环境
@@ -220,7 +228,8 @@ class GlobalConfig implements Serializable {
                     'cpuLimits' : '3000m',
                     'memoryLimits' : '5000Mi',
                     'replicas' : 1,
-                    'dev': 'test', // dev分支部署到测试环境
+                    'dev': 'dev', // dev分支部署到测试环境
+                    'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd',
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2/stat-service.git',
                     'compile': false, // 是否编译
@@ -245,7 +254,8 @@ class GlobalConfig implements Serializable {
                     'cpuLimits' : '800m',
                     'memoryLimits' : '1000Mi',
                     'replicas' : 1,
-                    'dev': 'test', // dev分支部署到测试环境
+                    'dev': 'dev', // dev分支部署到测试环境
+                    'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd',
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2/vod-service.git',
                     'compile': false, // 是否编译
@@ -270,7 +280,8 @@ class GlobalConfig implements Serializable {
                     'cpuLimits' : '800m',
                     'memoryLimits' : '1000Mi',
                     'replicas' : 1,
-                    'dev': 'test', // dev分支部署到测试环境
+                    'dev': 'dev', // dev分支部署到测试环境
+                    'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd',
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2/meta-service.git',
                     'compile': false, // 是否编译
@@ -295,7 +306,8 @@ class GlobalConfig implements Serializable {
                     'cpuLimits' : '800m',
                     'memoryLimits' : '1000Mi',
                     'replicas' : 1,
-                    'dev': 'test', // dev分支部署到测试环境
+                    'dev': 'dev', // dev分支部署到测试环境
+                    'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd',
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2/meta-adapter.git',
                     'compile': false, // 是否编译
@@ -320,7 +332,8 @@ class GlobalConfig implements Serializable {
                     'cpuLimits' : '6000m',
                     'memoryLimits' : '2000Mi',
                     'replicas' : 1,
-                    'dev': 'test', // dev分支部署到测试环境
+                    'dev': 'dev', // dev分支部署到测试环境
+                    'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd',
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2-xc/xmc2-voice-cls-service.git',
                     'compile': false, // 是否编译
@@ -345,7 +358,8 @@ class GlobalConfig implements Serializable {
                     'cpuLimits' : '800m',
                     'memoryLimits' : '1000Mi',
                     'replicas' : 1,
-                    'dev': 'test', // dev分支部署到测试环境
+                    'dev': 'dev', // dev分支部署到测试环境
+                    'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd',
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2-xc/xmc2-cv-service.git',
                     'compile': false, // 是否编译
@@ -370,7 +384,8 @@ class GlobalConfig implements Serializable {
                     'cpuLimits' : '800m',
                     'memoryLimits' : '1000Mi',
                     'replicas' : 1,
-                    'dev': 'test', // dev分支部署到测试环境
+                    'dev': 'dev', // dev分支部署到测试环境
+                    'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd',
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2-xc/xmc2-pipline-mgr-service.git',
                     'compile': false, // 是否编译
@@ -395,7 +410,8 @@ class GlobalConfig implements Serializable {
                     'cpuLimits' : '6000m',
                     'memoryLimits' : '2000Mi',
                     'replicas' : 1,
-                    'dev': 'test', // dev分支部署到测试环境
+                    'dev': 'dev', // dev分支部署到测试环境
+                    'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd',
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2-xc/xmc2-metric-service.git',
                     'compile': false, // 是否编译
@@ -420,7 +436,8 @@ class GlobalConfig implements Serializable {
                     'cpuLimits' : '400m',
                     'memoryLimits' : '800Mi',
                     'dev-domain' : '',
-                    'dev': 'test', // dev分支部署到开发环境
+                    'dev': 'dev', // dev分支部署到开发环境
+                    'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd',
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2-frontend.git',
                     'compile': false, // 是否编译
@@ -444,7 +461,8 @@ class GlobalConfig implements Serializable {
                     'memoryRequests' : '400Mi',
                     'cpuLimits' : '400m',
                     'memoryLimits' : '1000Mi',
-                    'dev': 'test', // dev分支部署到开发环境
+                    'dev': 'dev', // dev分支部署到开发环境
+                    'test': false, // 是否从dev分支部署到测试环境
                     'master': 'prd',
                     'gitAddress': 'https://gitlab.dm-ai.cn/mis/admin/mis-admin-frontend.git',
                     'compile': true, // 是否编译
@@ -468,7 +486,8 @@ class GlobalConfig implements Serializable {
                     'memoryRequests' : '400Mi',
                     'cpuLimits' : '400m',
                     'memoryLimits' : '1000Mi',
-                    'dev': 'test', // dev分支部署到开发环境
+                    'dev': 'dev', // dev分支部署到开发环境
+                    'test': false, // 是否从dev分支部署到测试环境
                     'master': 'prd',
                     'gitAddress': 'https://gitlab.dm-ai.cn/mis/org/org-frontend.git',
                     'compile': true, // 是否编译
@@ -492,7 +511,8 @@ class GlobalConfig implements Serializable {
                     'memoryRequests' : '400Mi',
                     'cpuLimits' : '400m',
                     'memoryLimits' : '1000Mi',
-                    'dev': 'test', // dev分支部署到开发环境
+                    'dev': 'dev', // dev分支部署到开发环境
+                    'test': false, // 是否从dev分支部署到测试环境
                     'master': 'prd',
                     'gitAddress': 'https://gitlab.dm-ai.cn/mis/org/org-backend.git',
                     'compile': false, // 是否编译
@@ -516,7 +536,8 @@ class GlobalConfig implements Serializable {
                     'memoryRequests' : '400Mi',
                     'cpuLimits' : '400m',
                     'memoryLimits' : '1000Mi',
-                    'dev': 'test', // dev分支部署到开发环境
+                    'dev': 'dev', // dev分支部署到开发环境
+                    'test': false, // 是否从dev分支部署到测试环境
                     'master': 'prd',
                     'gitAddress': 'https://gitlab.dm-ai.cn/mis/admin/mis-admin-backend.git',
                     'compile': false, // 是否编译
@@ -548,6 +569,7 @@ class GlobalConfig implements Serializable {
                     'cpuLimits' : '1000m',
                     'memoryLimits' : '1500Mi',
                     'dev': 'dev', // dev分支部署到开发环境
+                    'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd',
                     'gitAddress': 'https://gitlab.dm-ai.cn/application-engineering/devops/service-prometheus.git',
                     'kubectlImage': 'devops/base-image-kubectl:0.01',

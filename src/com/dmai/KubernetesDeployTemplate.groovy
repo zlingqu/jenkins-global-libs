@@ -241,35 +241,7 @@ spec:
 ''')
         }
         return  returnString
-//        return String.format('''
-//      volumes:
-//      - name: %s
-//        configMap:
-//          name: %s
-//      - name: data
-//%s
-//''', this.conf.appName, this.conf.appName, this.getDataMode())
     }
-
-//    private String getDataMode() {
-//        switch (this.conf.getAttr('branchName')) {
-//            case 'master':
-//                return '''
-//        persistentVolumeClaim:
-//          claimName: mypvc
-//'''
-//            case 'dev':
-//                return '''
-//        persistentVolumeClaim:
-//          claimName: mypvc
-//'''
-//            default:
-//                return String.format('''
-//        hostPath:
-//           path: /data/%s%s
-//''', this.conf.getAttr('namespace'), this.conf.appName in ['vod-service', 'ui-backend-service', 'storage-service', 'stat-service', 'dispatcher-service', 'dispatcher-service'] ? '' : '/' + this.conf.appName)
-//        }
-//    }
 
     private String getVolumeMountsString() {
         if (this.conf.appName in ['media-gateway', 'media-access']) {
@@ -303,13 +275,5 @@ spec:
 ''')
         }
         return returnString
-//        return String.format('''
-//        volumeMounts:
-//        - name: %s
-//          mountPath: /app/%s
-//          subPath: %s
-//        - name: data
-//          mountPath: /app/data
-//''', this.conf.appName, this.conf.getAttr('configMapName'), this.conf.getAttr('configMapName'))
     }
 }
