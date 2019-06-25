@@ -66,12 +66,10 @@ def call(Map map, env) {
                 }
             }
 
-            stage('Make Image') {
+            stage('MakeImage') {
                 input {
                     message "Should we continue?"
                     ok "Yes, we should."
-                    submitter "admin,anthony"
-                    id: '111'
                     parameters {
                         string(name: 'PERSON', defaultValue: 'Mr Anthony', description: 'Who should I say hello to?')
                     }
