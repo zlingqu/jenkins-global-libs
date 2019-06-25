@@ -11,6 +11,23 @@ class DmaiEmail {
         this.conf = conf
     }
 
+    public userSureEmail() {
+        try {
+            this.script.emailext(
+                    body: String.format('http://jenkins.ops.dm-ai.cn/job/%s/job/%s/%s/input/',
+                            this.conf.getAttr('jobName'),
+                            this.conf.getAttr('branchName'),
+                            this.conf.getAttr('buildNumber')
+                    ),
+                    subject: '紧急->用户确认邮件',
+                    to: conf.getAttr('emailAddress')
+            )
+        }
+        catch (e) {
+            this.script.sh "${e}"
+        }
+    }
+
     public sendEmail(String buildResult) {
 
         // 构建结果的中文提示：

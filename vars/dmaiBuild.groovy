@@ -134,6 +134,8 @@ def call(Map map, env) {
             stage('Deploy test') {
                 when { expression { return conf.getAttr('test') } }
 
+                dmaiEmail.userSureEmail()
+
                 input {
                     message "dev分支已经部署到开发环境，是否继续部署到测试环境？"
                     ok "是的，我确认！"
