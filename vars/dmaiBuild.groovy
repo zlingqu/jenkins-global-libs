@@ -70,12 +70,14 @@ def call(Map map, env) {
                 input {
                     message "Should we continue?"
                     ok "Yes, we should."
+                    submitter "admin,anthony"
                     parameters {
                         string(name: 'PERSON', defaultValue: 'Mr Anthony', description: 'Who should I say hello to?')
                     }
                 }
 
                 steps {
+                    echo "Hello, ${PERSON}, nice to meet you."
                     container('docker-compose') {
                         script {
                             echo "${params.project_choice}"
