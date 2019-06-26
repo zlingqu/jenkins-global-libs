@@ -25,7 +25,7 @@ def call(Map map, env) {
         stages {
             stage('Exec Command') {
                 steps {
-                    container('ansible') {
+                    container('mvn') {
                         sh '$execComand'
                     }
                 }
@@ -76,7 +76,7 @@ spec:
   imagePullSecrets:
   - name: regsecret
   containers:
-  - name: ansible
+  - name: mvn
     image: $ansibleImage
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
