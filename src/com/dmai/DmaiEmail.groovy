@@ -69,7 +69,7 @@ Git地址：$gitAddress
 
     private String getTestAddress() {
         if (this.conf.getAttr('test')) {
-            return 'http://192.168.3.21:' + this.conf.getAttr('nodePort')
+            return 'http://192.168.3.140:' + this.conf.getAttr('nodePort')
         }
 
         return '用户未部署测试分支'
