@@ -92,8 +92,8 @@ class GlobalConfig implements Serializable {
                     'domain': '80',
                     'cpuRequests' : '1000m',
                     'memoryRequests' : '2000Mi',
-                    'cpuLimits' : '6000m',
-                    'memoryLimits' : '2000Mi',
+                    'cpuLimits' : '2000m',
+                    'memoryLimits' : '4000Mi',
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd',
@@ -329,8 +329,8 @@ class GlobalConfig implements Serializable {
                     'domain': '80',
                     'cpuRequests' : '1000m',
                     'memoryRequests' : '1000Mi',
-                    'cpuLimits' : '6000m',
-                    'memoryLimits' : '2000Mi',
+                    'cpuLimits' : '2000m',
+                    'memoryLimits' : '4000Mi',
                     'replicas' : 1,
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
@@ -407,8 +407,8 @@ class GlobalConfig implements Serializable {
                     'domain': '80',
                     'cpuRequests' : '1000m',
                     'memoryRequests' : '2000Mi',
-                    'cpuLimits' : '6000m',
-                    'memoryLimits' : '2000Mi',
+                    'cpuLimits' : '2000m',
+                    'memoryLimits' : '4000Mi',
                     'replicas' : 1,
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境

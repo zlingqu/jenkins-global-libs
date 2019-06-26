@@ -97,9 +97,9 @@ Git地址：$gitAddress
     private String getDevUrl() {
         switch (this.conf.getAttr('dev')) {
             case 'test':
-                return 'http://192.168.3.21'
-            case 'dev':
                 return 'http://192.168.3.140'
+            case 'dev':
+                return 'http://192.168.3.21'
             case 'master':
                 return 'http://192.168.11.20'
         }
