@@ -125,33 +125,33 @@ def call(Map map, env) {
 //                }
 //            }
 
-            stage('Send email') {
-                when {  expression { return conf.getAttr('test') } }
-
-                steps {
-                    script {
-                        dmaiEmail.userSureEmail()
-                    }
-                }
-            }
-
-            stage('Deploy test') {
-                when { expression { return conf.getAttr('test') } }
-
-                input {
-                    message "dev分支已经部署到开发环境，是否继续部署到测试环境？"
-                    ok "是的，我确认！"
-                }
-
-                steps {
-                    container('kubectl-test') {
-                        script {
-                            deploykubernetes.createConfigMapTest()
-                            deploykubernetes.deployKubernetes()
-                        }
-                    }
-                }
-            }
+//            stage('Send email') {
+//                when {  expression { return conf.getAttr('test') } }
+//
+//                steps {
+//                    script {
+//                        dmaiEmail.userSureEmail()
+//                    }
+//                }
+//            }
+//
+//            stage('Deploy test') {
+//                when { expression { return conf.getAttr('test') } }
+//
+//                input {
+//                    message "dev分支已经部署到开发环境，是否继续部署到测试环境？"
+//                    ok "是的，我确认！"
+//                }
+//
+//                steps {
+//                    container('kubectl-test') {
+//                        script {
+//                            deploykubernetes.createConfigMapTest()
+//                            deploykubernetes.deployKubernetes()
+//                        }
+//                    }
+//                }
+//            }
 
         }
 
