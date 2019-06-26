@@ -2,7 +2,7 @@
 import java.io.*
 
 def call(Map map, env) {
-
+    if (! (env.BRANCH_NAME in ['dev'])) return
     println('【开始进行构建】')
 
     pipeline {
