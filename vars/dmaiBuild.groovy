@@ -113,17 +113,17 @@ def call(Map map, env) {
                 }
             }
 
-            stage('Deploy stage') {
-                when { expression { return conf.getAttr('stage') } }
-
-                steps {
-                    container('kubectl-stage') {
-                        script {
-                            deploykubernetes.deployKubernetes()
-                        }
-                    }
-                }
-            }
+//            stage('Deploy stage') {
+//                when { expression { return conf.getAttr('stage') } }
+//
+//                steps {
+//                    container('kubectl-stage') {
+//                        script {
+//                            deploykubernetes.deployKubernetes()
+//                        }
+//                    }
+//                }
+//            }
 
             stage('Send email') {
                 when {  expression { return conf.getAttr('test') } }
