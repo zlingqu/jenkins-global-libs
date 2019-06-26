@@ -10,7 +10,7 @@ class JenkinsRunTemplate {
     }
 
     public String getJenkinsRunTemplate() {
-        return this.templateTop() + this.templateDockerCompile() + this.templateDockerKubectl() + this.templateDockerKubectlStage() + this.templateDockerKubectlTest() + this.templateDockerCompose()
+        return this.templateTop() + this.templateDockerCompile() + this.templateDockerKubectl() + this.templateDockerKubectlTest() + this.templateDockerCompose()
     }
 
     private def templateTop() {
@@ -144,6 +144,7 @@ spec:
         memory: 200Mi
 '''
         }
+        return ''
     }
 
     private templateDockerKubectlCloud() {
@@ -169,6 +170,7 @@ spec:
         memory: 200Mi
 '''
         }
+        return ''
     }
 
     private String templateDockerCompile() {
