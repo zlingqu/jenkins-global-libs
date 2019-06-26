@@ -19,14 +19,15 @@ def call(Map map, env) {
 
         environment {
             tags = "${map.REPO_URL}"
-            execComand = "${map.execComand}"
+//            execComand = "${map.execComand}"
         }
 
         stages {
             stage('Exec Command') {
                 steps {
                     container('mvn') {
-                        sh '$execComand'
+//                        sh '$execComand'
+                        sh 'mvn deploy'
                     }
                 }
             }
