@@ -105,6 +105,7 @@ def call(Map map, env) {
                 steps {
                     container('kubectl') {
                         script {
+                            deploykubernetes.createConfigMap()
                             deploykubernetes.deployKubernetes()
                         }
                     }
@@ -145,6 +146,7 @@ def call(Map map, env) {
                 steps {
                     container('kubectl-test') {
                         script {
+                            deploykubernetes.createConfigMapTest()
                             deploykubernetes.deployKubernetes()
                         }
                     }
