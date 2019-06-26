@@ -82,7 +82,10 @@ spec:
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
-      value: docker.dm-ai.cn  
+      value: docker.dm-ai.cn
+    volumeMounts:
+    - name: data1
+      mountPath: /root/.m2
     command:
     - "sleep"
     args:
@@ -95,11 +98,14 @@ spec:
       requests:
         cpu: 1000m
         memory: 2000Mi
-  nodeSelector:
-    makeenv: jenkins 
+  volumes:
+  - name: data1
+    hostPath:
+      path: /data1/jenkins/$appName
 '''
     def binding = [
             'ansibleImage' :  map.containsKey('ansibleImage') ? map.get('ansibleImage'): 'docker.dm-ai.cn/devops/base-image-mvn:0.01',
+            'appName'      :  map.get('appName')
     ]
 
     return simpleTemplate(text, binding)
