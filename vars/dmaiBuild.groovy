@@ -125,7 +125,7 @@ def call(Map map, env) {
             }
 
             stage('Send email') {
-                when { not expression { return conf.getAttr('test') } }
+                when {  expression { return ! conf.getAttr('test') } }
 
                 steps {
                     script {
@@ -135,7 +135,7 @@ def call(Map map, env) {
             }
 
             stage('Deploy test') {
-                when { not expression { return conf.getAttr('test') } }
+                when { expression { return ! conf.getAttr('test') } }
 
                 input {
                     message "dev分支已经部署到开发环境，是否继续部署到测试环境？"
