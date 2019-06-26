@@ -61,7 +61,7 @@ spec:
         if (this.conf.getAttr('deploy')) {
             return  String.format('''
   - name: kubectl 
-    image: docker.dm-ai.cn/devops/base-image-kubectl:%s-0.03
+    image: docker.dm-ai.cn/devops/base-image-kubectl:%s-0.04
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
@@ -125,7 +125,7 @@ spec:
         if (this.conf.getAttr('test')) {
             return '''
   - name: kubectl-test 
-    image: docker.dm-ai.cn/devops/base-image-kubectl:test-0.03
+    image: docker.dm-ai.cn/devops/base-image-kubectl:test-0.04
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
