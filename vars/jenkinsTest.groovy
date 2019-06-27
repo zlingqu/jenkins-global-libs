@@ -34,6 +34,7 @@ def call(Map map, env) {
             stage('Exec Command') {
                 steps {
                     echo "Hello ${params.BROWSER_TYPE}"
+                    sh 'sleep 1000'
                     container('mvn') {
 //                        sh '$execComand'
                         sh 'mvn deploy'
