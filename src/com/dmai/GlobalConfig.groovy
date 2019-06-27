@@ -461,7 +461,7 @@ class GlobalConfig implements Serializable {
                     'memoryRequests' : '400Mi',
                     'cpuLimits' : '400m',
                     'memoryLimits' : '1000Mi',
-                    'dev': 'dev', // dev分支部署到开发环境
+                    'dev': 'test', // dev分支部署到开发环境
                     'test': false, // 是否从dev分支部署到测试环境
                     'master': 'prd',
                     'gitAddress': 'https://gitlab.dm-ai.cn/mis/admin/mis-admin-frontend.git',
@@ -486,7 +486,7 @@ class GlobalConfig implements Serializable {
                     'memoryRequests' : '400Mi',
                     'cpuLimits' : '400m',
                     'memoryLimits' : '1000Mi',
-                    'dev': 'dev', // dev分支部署到开发环境
+                    'dev': 'test', // dev分支部署到开发环境
                     'test': false, // 是否从dev分支部署到测试环境
                     'master': 'prd',
                     'gitAddress': 'https://gitlab.dm-ai.cn/mis/org/org-frontend.git',
@@ -511,7 +511,7 @@ class GlobalConfig implements Serializable {
                     'memoryRequests' : '400Mi',
                     'cpuLimits' : '400m',
                     'memoryLimits' : '1000Mi',
-                    'dev': 'dev', // dev分支部署到开发环境
+                    'dev': 'test', // dev分支部署到开发环境
                     'test': false, // 是否从dev分支部署到测试环境
                     'master': 'prd',
                     'gitAddress': 'https://gitlab.dm-ai.cn/mis/org/org-backend.git',
@@ -536,7 +536,7 @@ class GlobalConfig implements Serializable {
                     'memoryRequests' : '400Mi',
                     'cpuLimits' : '400m',
                     'memoryLimits' : '1000Mi',
-                    'dev': 'dev', // dev分支部署到开发环境
+                    'dev': 'test', // dev分支部署到开发环境
                     'test': false, // 是否从dev分支部署到测试环境
                     'master': 'prd',
                     'gitAddress': 'https://gitlab.dm-ai.cn/mis/admin/mis-admin-backend.git',
