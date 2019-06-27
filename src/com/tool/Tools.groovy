@@ -16,10 +16,11 @@ class Tools {
 //        String[] fieldNames=new String[fields.length];
         List list = new ArrayList();
         Map infoMap=null;
+        System.out.println(11111)
         for(int i=0;i<fields.length;i++){
             infoMap = new HashMap();
             infoMap.put("type", fields[i].getType().toString());
-            println(fields[i].getType().toString())
+            System.out.println(fields[i].getType().toString())
             infoMap.put("name", fields[i].getName());
 //            infoMap.put("value", getFieldValueByName(fields[i].getName(), o));
             list.add(infoMap);
