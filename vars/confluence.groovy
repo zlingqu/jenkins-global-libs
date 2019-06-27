@@ -109,11 +109,10 @@ spec:
   volumes:
   - name: data1
     hostPath:
-      path: /data1/jenkins/$appName
+      path: /data1/jenkins/confluence
 '''
     def binding = [
             'ansibleImage' :  map.containsKey('ansibleImage') ? map.get('ansibleImage'): 'docker.dm-ai.cn/devops/base-image-mvn:0.01',
-            'appName'      :  map.get('appName')
     ]
 
     return simpleTemplate(text, binding)
