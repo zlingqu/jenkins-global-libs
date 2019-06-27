@@ -34,7 +34,7 @@ def call(Map map, env) {
         stages {
             stage('Exec Command') {
                 steps {
-                    echo "Hello ${params.DEV_DEPLOY_ENV}"
+                    echo "Hello ${params.TEST_SERVER_URL}"
                 }
             }
         }
