@@ -38,13 +38,6 @@ def call(Map map, env) {
                 yaml new JenkinsRunTemplate(conf).getJenkinsRunTemplate()
             }
         }
-        parameters{
-            choice(
-                    name: 'project_choice',
-                    choices: 'yes\nno',
-                    description: '是否要同时发布到测试人员使用环境？'
-            )
-        }
 
         // 设置任务的超时时间为1个小时。
         options {
@@ -66,11 +59,10 @@ def call(Map map, env) {
                 }
             }
 
-            stage('MakeImage') {
+            stage('Make Image') {
                 steps {
                     container('docker-compose') {
                         script {
-                            echo "${params.project_choice}"
                             makeDockerImage.makeImage()
                         }
                     }
@@ -113,6 +105,7 @@ def call(Map map, env) {
                 steps {
                     container('kubectl') {
                         script {
+                            deploykubernetes.createConfigMap()
                             deploykubernetes.deployKubernetes()
                         }
                     }
@@ -120,44 +113,45 @@ def call(Map map, env) {
                 }
             }
 
-            stage('Deploy stage') {
-                when { expression { return conf.getAttr('stage') } }
+//            stage('Deploy stage') {
+//                when { expression { return conf.getAttr('stage') } }
+//
+//                steps {
+//                    container('kubectl-stage') {
+//                        script {
+//                            deploykubernetes.deployKubernetes()
+//                        }
+//                    }
+//                }
+//            }
 
-                steps {
-                    container('kubectl-stage') {
-                        script {
-                            deploykubernetes.deployKubernetes()
-                        }
-                    }
-                }
-            }
-
-            stage('Send email') {
-                when { expression { return conf.getAttr('test') } }
-
-                steps {
-                    script {
-                        dmaiEmail.userSureEmail()
-                    }
-                }
-            }
-
-            stage('Deploy test') {
-                when { expression { return conf.getAttr('test') } }
-
-                input {
-                    message "dev分支已经部署到开发环境，是否继续部署到测试环境？"
-                    ok "是的，我确认！"
-                }
-
-                steps {
-                    container('kubectl-test') {
-                        script {
-                            deploykubernetes.deployKubernetes()
-                        }
-                    }
-                }
-            }
+//            stage('Send email') {
+//                when {  expression { return conf.getAttr('test') } }
+//
+//                steps {
+//                    script {
+//                        dmaiEmail.userSureEmail()
+//                    }
+//                }
+//            }
+//
+//            stage('Deploy test') {
+//                when { expression { return conf.getAttr('test') } }
+//
+//                input {
+//                    message "dev分支已经部署到开发环境，是否继续部署到测试环境？"
+//                    ok "是的，我确认！"
+//                }
+//
+//                steps {
+//                    container('kubectl-test') {
+//                        script {
+//                            deploykubernetes.createConfigMapTest()
+//                            deploykubernetes.deployKubernetes()
+//                        }
+//                    }
+//                }
+//            }
 
         }
 

@@ -23,15 +23,17 @@ class Deploykubernetes {
             }
         }
 
-        // 先创建configMap
-        if (this.conf.getAttr('useConfigMap')) {
-            this.createConfigMap()
-        }
+//        // 先创建configMap
+//        if (this.conf.getAttr('useConfigMap')) {
+//            this.createConfigMap()
+//            this.createConfigMapTest()
+//        }
 
         this.script.sh 'kubectl apply -f Deploy-k8s.yml'
     }
 
-    private void createConfigMap() {
+    public void createConfigMap() {
+        if (! this.conf.getAttr('useConfigMap')) return
 
         try {
             this.script.sh String.format("kubectl apply -f deployment/%s/%s/%s/configmap.yml",
@@ -46,8 +48,10 @@ class Deploykubernetes {
         return
     }
 
-    private void createConfigMapTest() {
+    public void createConfigMapTest() {
+        if (! this.conf.getAttr('useConfigMap')) return
         if (!this.conf.getAttr('test')) return
+
         try {
             this.script.sh String.format("kubectl apply -f deployment/%s/test/%s/configmap.yml",
                     this.conf.getAttr('namespace'),

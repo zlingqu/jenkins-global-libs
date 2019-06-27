@@ -10,7 +10,7 @@ class JenkinsRunTemplate {
     }
 
     public String getJenkinsRunTemplate() {
-        return this.templateTop() + this.templateDockerCompile() + this.templateDockerKubectl() + this.templateDockerKubectlStage() + this.templateDockerKubectlTest() + this.templateDockerCompose()
+        return this.templateTop() + this.templateDockerCompile() + this.templateDockerKubectl() + this.templateDockerKubectlTest() + this.templateDockerCompose()
     }
 
     private def templateTop() {
@@ -61,7 +61,7 @@ spec:
         if (this.conf.getAttr('deploy')) {
             return  String.format('''
   - name: kubectl 
-    image: docker.dm-ai.cn/devops/base-image-kubectl:%s-0.03
+    image: docker.dm-ai.cn/devops/base-image-kubectl:%s-0.04
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
@@ -125,7 +125,7 @@ spec:
         if (this.conf.getAttr('test')) {
             return '''
   - name: kubectl-test 
-    image: docker.dm-ai.cn/devops/base-image-kubectl:test-0.03
+    image: docker.dm-ai.cn/devops/base-image-kubectl:test-0.04
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
@@ -144,6 +144,7 @@ spec:
         memory: 200Mi
 '''
         }
+        return ''
     }
 
     private templateDockerKubectlCloud() {
@@ -169,6 +170,7 @@ spec:
         memory: 200Mi
 '''
         }
+        return ''
     }
 
     private String templateDockerCompile() {
