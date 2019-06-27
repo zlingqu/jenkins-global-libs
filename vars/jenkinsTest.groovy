@@ -5,9 +5,7 @@ def call(Map map, env) {
     println('【开始进行构建】')
     println(env.TEST1)
 
-    Tools.getFiledsInfo(env)
 
-    return
 
     pipeline {
         agent {
@@ -21,6 +19,12 @@ def call(Map map, env) {
             }
         }
 
+        parameters {
+            string(name: 'BROWSER_TYPE', defaultValue: 'chrome', description: 'Type a browser type, should be chrome/firefox')
+            string(name: 'TEST_SERVER_URL', defaultValue: '', description: 'Type the test server url')
+            string(name: 'NODE', defaultValue: 'win-anthony-demo', description: 'Please choose a windows node to execute this job.')
+        }
+
         environment {
             tags = "${map.REPO_URL}"
 //            execComand = "${map.execComand}"
@@ -29,6 +33,9 @@ def call(Map map, env) {
         stages {
             stage('Exec Command') {
                 steps {
+                    script {
+                        println BROWSER_TYPE
+                    }
                     container('mvn') {
 //                        sh '$execComand'
                         sh 'mvn deploy'
