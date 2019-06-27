@@ -39,6 +39,14 @@ def call(Map map, env) {
             }
         }
 
+        parameters {
+            string(name: 'TEST_SERVER_URL', defaultValue: 'dev', description: 'Type the test server url')
+        }
+
+        environment {
+            deployBranch = "${map.TEST_SERVER_URL}"
+        }
+
         // 设置任务的超时时间为1个小时。
         options {
             timeout(time:1, unit: 'HOURS')
@@ -135,23 +143,23 @@ def call(Map map, env) {
 //                }
 //            }
 //
-//            stage('Deploy test') {
-//                when { expression { return conf.getAttr('test') } }
-//
-//                input {
-//                    message "dev分支已经部署到开发环境，是否继续部署到测试环境？"
-//                    ok "是的，我确认！"
-//                }
-//
-//                steps {
-//                    container('kubectl-test') {
-//                        script {
-//                            deploykubernetes.createConfigMapTest()
-//                            deploykubernetes.deployKubernetes()
-//                        }
-//                    }
-//                }
-//            }
+            stage('Deploy test') {
+                when { expression { return deployBranch == 'test' }
+
+                input {
+                    message "dev分支已经部署到开发环境，是否继续部署到测试环境？"
+                    ok "是的，我确认！"
+                }
+
+                steps {
+                    container('kubectl-test') {
+                        script {
+                            deploykubernetes.createConfigMapTest()
+                            deploykubernetes.deployKubernetes()
+                        }
+                    }
+                }
+            }
 
         }
 
