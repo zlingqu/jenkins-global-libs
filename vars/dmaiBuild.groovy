@@ -2,7 +2,7 @@ import com.dmai.*
 
 def call(Map map, env) {
     // 默认master 和 dev分支才进行构建
-    if (! (env.BRANCH_NAME in ['master', 'dev'])) return
+    if (!(env.BRANCH_NAME in ['master', 'dev'])) return
 
     // 定义定义的全局的配置项目
     String appName = map.get('appName')
@@ -49,7 +49,7 @@ def call(Map map, env) {
 
         // 设置任务的超时时间为1个小时。
         options {
-            timeout(time:1, unit: 'HOURS')
+            timeout(time: 1, unit: 'HOURS')
             retry(2)
         }
 
@@ -97,7 +97,7 @@ def call(Map map, env) {
                                 withCredentials([usernamePassword(credentialsId: 'passwd-zs', passwordVariable: 'password', usernameVariable: 'username')]) {
                                     sh 'source /etc/profile; git config --global http.sslVerify false ; git clone https://$username:$password@gitlab.dm-ai.cn/application-engineering/devops/deployment.git'
                                 }
-                            } catch(e) {
+                            } catch (e) {
                                 sh "echo ${e}"
                             }
                         }
@@ -144,42 +144,44 @@ def call(Map map, env) {
 //            }
 //
             stage('Deploy test') {
-                when { expression { return deployBranch == 'test' }
+                when {
+                    expression { return deployBranch == 'test' }
 
-                input {
-                    message "dev分支已经部署到开发环境，是否继续部署到测试环境？"
-                    ok "是的，我确认！"
+                    input {
+                        message "dev分支已经部署到开发环境，是否继续部署到测试环境？"
+                        ok "是的，我确认！"
+                    }
+
+                    steps {
+                        container('kubectl-test') {
+                            script {
+                                deploykubernetes.createConfigMapTest()
+                                deploykubernetes.deployKubernetes()
+                            }
+                        }
+                    }
                 }
 
-                steps {
-                    container('kubectl-test') {
-                        script {
-                            deploykubernetes.createConfigMapTest()
-                            deploykubernetes.deployKubernetes()
-                        }
+            }
+
+            post {
+                always {
+                    echo "构建完成！"
+                }
+
+                failure {
+                    script {
+                        dmaiEmail.sendEmail('failure')
+                    }
+                }
+
+                success {
+                    script {
+                        dmaiEmail.sendEmail('success')
                     }
                 }
             }
 
         }
-
-        post {
-            always {
-                echo "构建完成！"
-            }
-
-            failure {
-                script {
-                    dmaiEmail.sendEmail('failure')
-                }
-            }
-
-            success {
-                script {
-                    dmaiEmail.sendEmail('success')
-                }
-            }
-        }
-
     }
 }
