@@ -31,6 +31,14 @@ def call(Map map, env) {
                     }
                 }
             }
+
+            stage('Check Package') {
+                steps {
+                    container('mvn') {
+                        sh 'du -sh target/cwd-2.0-beta.jar'
+                    }
+                }
+            }
         }
 
         post {
