@@ -27,7 +27,8 @@ def call(Map map, env) {
                 steps {
                     container('mvn') {
 //                        sh '$execComand'
-                        sh 'mvn deploy'
+                        sh 'mvn deploy || echo 0'
+                        sh 'sleep 3600'
                     }
                 }
             }
