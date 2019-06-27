@@ -147,10 +147,10 @@ def call(Map map, env) {
                 when {
                     expression { return deployBranch == 'test' }
 
-                    input {
-                        message "dev分支已经部署到开发环境，是否继续部署到测试环境？"
-                        ok "是的，我确认！"
-                    }
+//                    input {
+//                        message "dev分支已经部署到开发环境，是否继续部署到测试环境？"
+//                        ok "是的，我确认！"
+//                    }
 
                     steps {
                         container('kubectl-test') {
