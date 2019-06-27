@@ -3,6 +3,9 @@ import java.io.*
 def call(Map map, env) {
     println('【开始进行构建】')
     println(env.TEST1)
+    for (i in env) {
+        println(i)
+    }
     return
 
     pipeline {
