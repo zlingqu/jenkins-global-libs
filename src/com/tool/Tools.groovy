@@ -13,7 +13,7 @@ class Tools {
 
     public static List getFiledsInfo(Object o){
         Field[] fields=o.getClass().getDeclaredFields();
-        String[] fieldNames=new String[fields.length];
+//        String[] fieldNames=new String[fields.length];
         List list = new ArrayList();
         Map infoMap=null;
         for(int i=0;i<fields.length;i++){
@@ -21,7 +21,7 @@ class Tools {
             infoMap.put("type", fields[i].getType().toString());
             println(fields[i].getType().toString())
             infoMap.put("name", fields[i].getName());
-            infoMap.put("value", getFieldValueByName(fields[i].getName(), o));
+//            infoMap.put("value", getFieldValueByName(fields[i].getName(), o));
             list.add(infoMap);
         }
         return list;
