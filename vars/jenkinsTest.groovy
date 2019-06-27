@@ -23,7 +23,7 @@ def call(Map map, env) {
             string(name: 'BROWSER_TYPE', defaultValue: 'chrome', description: 'Type a browser type, should be chrome/firefox')
             string(name: 'TEST_SERVER_URL', defaultValue: '', description: 'Type the test server url')
             string(name: 'NODE', defaultValue: 'win-anthony-demo', description: 'Please choose a windows node to execute this job.')
-            string(name: 'devDeployEnv', defaultValue: 'dev', description: 'Please choose a windows node to execute this job.')
+            string(name: 'DEV_DEPLOY_ENV', defaultValue: 'dev', description: 'Please choose a windows node to execute this job.')
         }
 
         environment {
@@ -34,7 +34,7 @@ def call(Map map, env) {
         stages {
             stage('Exec Command') {
                 steps {
-                    echo "Hello ${params.devDeployEnv}"
+                    echo "Hello ${params.DEV_DEPLOY_ENV}"
                 }
             }
         }
