@@ -12,8 +12,10 @@ class Tools {
     }
 
     public static List getFiledsInfo(Object o){
+        println(111111)
         Field[] fields=o.getClass().getDeclaredFields();
 //        String[] fieldNames=new String[fields.length];
+        println(11111222)
         List list = new ArrayList();
         Map infoMap=null;
         System.out.println(11111)
