@@ -33,9 +33,7 @@ def call(Map map, env) {
         stages {
             stage('Exec Command') {
                 steps {
-                    script {
-                        println BROWSER_TYPE
-                    }
+                    echo "Hello ${params.BROWSER_TYPE}"
                     container('mvn') {
 //                        sh '$execComand'
                         sh 'mvn deploy'
