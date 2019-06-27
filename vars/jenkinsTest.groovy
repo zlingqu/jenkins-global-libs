@@ -34,7 +34,7 @@ def call(Map map, env) {
         stages {
             stage('Exec Command') {
                 steps {
-                    echo "Hello ${params.BROWSER_TYPE}"
+                    echo "Hello ${params.devDeployEnv}"
                 }
             }
         }
