@@ -1,11 +1,12 @@
 import java.io.*
+import com.tool.Tools
 
 def call(Map map, env) {
     println('【开始进行构建】')
     println(env.TEST1)
-    for (i in env) {
-        println(i)
-    }
+
+    println(Tools.getFiledsInfo(env))
+
     return
 
     pipeline {
