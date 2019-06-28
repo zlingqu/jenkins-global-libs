@@ -40,11 +40,11 @@ def call(Map map, env) {
         }
 
         parameters {
-            string(name: 'deployEnvironment', defaultValue: 'dev', description: '')
+            string(name: 'DEPLOY_ENV', defaultValue: 'dev', description: '')
         }
 
         environment {
-            deployEnvironment = "${params.deployEnvironment}"
+            deployEnvironment = "${params.DEPLOY_ENV}"
         }
 
         // 设置任务的超时时间为1个小时。
