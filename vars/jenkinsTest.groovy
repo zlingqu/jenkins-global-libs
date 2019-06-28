@@ -28,9 +28,7 @@ def call(Map map, env) {
         environment {
             tags = "${map.REPO_URL}"
 //            execComand = "${map.execComand}"
-            environment {
-                deployBranch = "${map.TEST_SERVER_URL}"
-            }
+            deployBranch = "${map.TEST_SERVER_URL}"
         }
 
         stages {
