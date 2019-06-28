@@ -135,6 +135,7 @@ $volumes
 ''', this.conf.getAttr('memoryLimits'))
         }
 
+        returnString
     }
 
     private String getContainerPort() {
