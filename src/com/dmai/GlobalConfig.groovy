@@ -21,7 +21,7 @@ class GlobalConfig implements Serializable {
                     'memoryLimits' : '800Mi',
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': false, // 是否从dev分支部署到测试环境
-                    'master': 'prd',
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/cum/cum-admin/policy-information-point.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
@@ -32,7 +32,8 @@ class GlobalConfig implements Serializable {
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
-                    'usePvc': false // 是否使用pvc的方式挂载额外的数据资源。
+                    'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
+                    'useService': true, // 是否使用service
             ],
             'sync-service': [
                     'servicePort' : '80',
@@ -46,7 +47,7 @@ class GlobalConfig implements Serializable {
                     'memoryLimits' : '4000Mi',
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
-                    'master': 'prd',
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2/sync-service.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
@@ -57,7 +58,8 @@ class GlobalConfig implements Serializable {
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
-                    'usePvc': true // 是否使用pvc的方式挂载额外的数据资源。
+                    'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
+                    'useService': true, // 是否使用service
             ],
             'ui-backend-service': [
                     'servicePort' : '80',
@@ -71,7 +73,7 @@ class GlobalConfig implements Serializable {
                     'memoryLimits' : '1000Mi',
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
-                    'master': 'prd',
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2/ui-backend-service.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
@@ -82,7 +84,8 @@ class GlobalConfig implements Serializable {
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
-                    'usePvc': true // 是否使用pvc的方式挂载额外的数据资源。
+                    'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
+                    'useService': true, // 是否使用service
             ],
             'engine-video-extract': [
                     'servicePort' : '80',
@@ -96,7 +99,7 @@ class GlobalConfig implements Serializable {
                     'memoryLimits' : '4000Mi',
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
-                    'master': 'prd',
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2-xc/xmc2-video-extract-service.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
@@ -107,7 +110,8 @@ class GlobalConfig implements Serializable {
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'golang', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
-                    'usePvc': true // 是否使用pvc的方式挂载额外的数据资源。
+                    'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
+                    'useService': true, // 是否使用service
             ],
             'media-gateway': [
                     'servicePort' : '80',
@@ -121,7 +125,7 @@ class GlobalConfig implements Serializable {
                     'memoryLimits' : '1000Mi',
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
-                    'master': 'prd',
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2/media-gateway.git',
                     'compile': true, // 是否编译
                     'deploy': true, // 是否自动化部署
@@ -134,7 +138,8 @@ class GlobalConfig implements Serializable {
                     'codeLanguage' : 'c++', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'command': 'command: ["/bin/sh", "-c", "cp -rp /src/debug/* /tmp && cd /tmp && ./MediaGateway"]', //自定义命令行
-                    'usePvc': false // 是否使用pvc的方式挂载额外的数据资源。
+                    'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
+                    'useService': true, // 是否使用service
             ],
             'media-access': [
                     'servicePort' : '80',
@@ -148,7 +153,7 @@ class GlobalConfig implements Serializable {
                     'memoryLimits' : '1000Mi',
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
-                    'master': 'prd',
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2/media-access.git',
                     'compile': true, // 是否编译
                     'deploy': true, // 是否自动化部署
@@ -162,7 +167,8 @@ class GlobalConfig implements Serializable {
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'command': 'command: ["/bin/sh", "-c", "cp -rp /src/debug/* /tmp && cd /tmp && ./MediaAccess"]', //自定义命令行
                     'udpPort': [31600, 31699],
-                    'usePvc': false // 是否使用pvc的方式挂载额外的数据资源。
+                    'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
+                    'useService': true, // 是否使用service
             ],
             'dispatcher-service': [
                     'servicePort' : '80',
@@ -176,7 +182,7 @@ class GlobalConfig implements Serializable {
                     'memoryLimits' : '1000Mi',
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
-                    'master': 'prd',
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2/dispatcher-service.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
@@ -187,7 +193,8 @@ class GlobalConfig implements Serializable {
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
-                    'usePvc': true // 是否使用pvc的方式挂载额外的数据资源。
+                    'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
+                    'useService': true, // 是否使用service
             ],
             'storage-service': [
                     'servicePort' : '80',
@@ -201,7 +208,7 @@ class GlobalConfig implements Serializable {
                     'memoryLimits' : '4000Mi',
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
-                    'master': 'prd',
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2/storage-service.git',
                     'stage': true, //是否部署到stage环境
                     'compile': false, // 是否编译
@@ -214,7 +221,8 @@ class GlobalConfig implements Serializable {
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'storage': true,  //是否需要挂载存储
-                    'usePvc': true // 是否使用pvc的方式挂载额外的数据资源。
+                    'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
+                    'useService': true, // 是否使用service
 
             ],
             'stat-service': [
@@ -230,7 +238,7 @@ class GlobalConfig implements Serializable {
                     'replicas' : 1,
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
-                    'master': 'prd',
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2/stat-service.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
@@ -241,7 +249,8 @@ class GlobalConfig implements Serializable {
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
-                    'usePvc': true // 是否使用pvc的方式挂载额外的数据资源。
+                    'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
+                    'useService': true, // 是否使用service
             ],
             'vod-service': [
                     'servicePort' : '80',
@@ -256,7 +265,7 @@ class GlobalConfig implements Serializable {
                     'replicas' : 1,
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
-                    'master': 'prd',
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2/vod-service.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
@@ -267,7 +276,8 @@ class GlobalConfig implements Serializable {
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
-                    'usePvc': true // 是否使用pvc的方式挂载额外的数据资源。
+                    'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
+                    'useService': true, // 是否使用service
             ],
             'meta-service': [
                     'servicePort' : '80',
@@ -282,7 +292,7 @@ class GlobalConfig implements Serializable {
                     'replicas' : 1,
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
-                    'master': 'prd',
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2/meta-service.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
@@ -293,7 +303,8 @@ class GlobalConfig implements Serializable {
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
-                    'usePvc': true // 是否使用pvc的方式挂载额外的数据资源。
+                    'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
+                    'useService': true, // 是否使用service
             ],
             'meta-adapter': [
                     'servicePort' : '80',
@@ -308,7 +319,7 @@ class GlobalConfig implements Serializable {
                     'replicas' : 1,
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
-                    'master': 'prd',
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2/meta-adapter.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
@@ -319,7 +330,8 @@ class GlobalConfig implements Serializable {
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
-                    'usePvc': true // 是否使用pvc的方式挂载额外的数据资源。
+                    'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
+                    'useService': true, // 是否使用service
             ],
             'engine-audio-process': [
                     'servicePort' : '80',
@@ -334,7 +346,7 @@ class GlobalConfig implements Serializable {
                     'replicas' : 1,
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
-                    'master': 'prd',
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2-xc/xmc2-voice-cls-service.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
@@ -345,7 +357,8 @@ class GlobalConfig implements Serializable {
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
-                    'usePvc': true // 是否使用pvc的方式挂载额外的数据资源。
+                    'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
+                    'useService': true, // 是否使用service
             ],
             'engine-image-process': [
                     'servicePort' : '80',
@@ -360,7 +373,7 @@ class GlobalConfig implements Serializable {
                     'replicas' : 1,
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
-                    'master': 'prd',
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2-xc/xmc2-cv-service.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
@@ -371,7 +384,8 @@ class GlobalConfig implements Serializable {
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
-                    'usePvc': true // 是否使用pvc的方式挂载额外的数据资源。
+                    'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
+                    'useService': true, // 是否使用service
             ],
             'engine-pipeline-manager': [
                     'servicePort' : '80',
@@ -386,7 +400,7 @@ class GlobalConfig implements Serializable {
                     'replicas' : 1,
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
-                    'master': 'prd',
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2-xc/xmc2-pipline-mgr-service.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
@@ -397,7 +411,8 @@ class GlobalConfig implements Serializable {
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
-                    'usePvc': true // 是否使用pvc的方式挂载额外的数据资源。
+                    'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
+                    'useService': true, // 是否使用service
             ],
             'engine-metric-service': [
                     'servicePort' : '80',
@@ -412,7 +427,7 @@ class GlobalConfig implements Serializable {
                     'replicas' : 1,
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
-                    'master': 'prd',
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2-xc/xmc2-metric-service.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
@@ -423,7 +438,8 @@ class GlobalConfig implements Serializable {
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
-                    'usePvc': true // 是否使用pvc的方式挂载额外的数据资源。
+                    'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
+                    'useService': true, // 是否使用service
             ],
             'xmc2-frontend': [
                     'servicePort' : '80',
@@ -438,7 +454,7 @@ class GlobalConfig implements Serializable {
                     'dev-domain' : '',
                     'dev': 'dev', // dev分支部署到开发环境
                     'test': true, // 是否从dev分支部署到测试环境
-                    'master': 'prd',
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2-frontend.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
@@ -449,7 +465,8 @@ class GlobalConfig implements Serializable {
                     'codeLanguage' : 'js', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'configMapName': 'config.env', //是否使用configmap
-                    'usePvc': false // 是否使用pvc的方式挂载额外的数据资源。
+                    'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
+                    'useService': true, // 是否使用service
             ],
             'mis-admin-frontend': [
                     'servicePort' : '80',
@@ -463,7 +480,7 @@ class GlobalConfig implements Serializable {
                     'memoryLimits' : '1000Mi',
                     'dev': 'test', // dev分支部署到开发环境
                     'test': false, // 是否从dev分支部署到测试环境
-                    'master': 'prd',
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/mis/admin/mis-admin-frontend.git',
                     'compile': true, // 是否编译
                     'deploy': true, // 是否自动化部署
@@ -474,7 +491,8 @@ class GlobalConfig implements Serializable {
                     'codeLanguage' : 'js', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'configMapName': 'config.env', //是否使用configmap
-                    'usePvc': false // 是否使用pvc的方式挂载额外的数据资源。
+                    'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
+                    'useService': true, // 是否使用service
             ],
             'mis-org-frontend': [
                     'servicePort' : '80',
@@ -488,7 +506,7 @@ class GlobalConfig implements Serializable {
                     'memoryLimits' : '1000Mi',
                     'dev': 'test', // dev分支部署到开发环境
                     'test': false, // 是否从dev分支部署到测试环境
-                    'master': 'prd',
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/mis/org/org-frontend.git',
                     'compile': true, // 是否编译
                     'deploy': true, // 是否自动化部署
@@ -499,7 +517,8 @@ class GlobalConfig implements Serializable {
                     'codeLanguage' : 'js', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'configMapName': 'config.env', //是否使用configmap
-                    'usePvc': false // 是否使用pvc的方式挂载额外的数据资源。
+                    'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
+                    'useService': true, // 是否使用service
             ],
             'mis-org-backend': [
                     'servicePort' : '80',
@@ -513,7 +532,7 @@ class GlobalConfig implements Serializable {
                     'memoryLimits' : '1000Mi',
                     'dev': 'test', // dev分支部署到开发环境
                     'test': false, // 是否从dev分支部署到测试环境
-                    'master': 'prd',
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/mis/org/org-backend.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
@@ -524,7 +543,8 @@ class GlobalConfig implements Serializable {
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'configMapName': 'config.env', //是否使用configmap
-                    'usePvc': true // 是否使用pvc的方式挂载额外的数据资源。
+                    'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
+                    'useService': true, // 是否使用service
             ],
             'mis-admin-backend': [
                     'servicePort' : '80',
@@ -538,7 +558,7 @@ class GlobalConfig implements Serializable {
                     'memoryLimits' : '1000Mi',
                     'dev': 'test', // dev分支部署到开发环境
                     'test': false, // 是否从dev分支部署到测试环境
-                    'master': 'prd',
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/mis/admin/mis-admin-backend.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
@@ -549,7 +569,8 @@ class GlobalConfig implements Serializable {
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'configMapName': 'config.env', //是否使用configmap
-                    'usePvc': true // 是否使用pvc的方式挂载额外的数据资源。
+                    'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
+                    'useService': true, // 是否使用service
             ],
             'service-prometheus' : [
                     'nodePort': '30090',
@@ -570,7 +591,7 @@ class GlobalConfig implements Serializable {
                     'memoryLimits' : '1500Mi',
                     'dev': 'dev', // dev分支部署到开发环境
                     'test': true, // 是否从dev分支部署到测试环境
-                    'master': 'prd',
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/application-engineering/devops/service-prometheus.git',
                     'kubectlImage': 'devops/base-image-kubectl:0.01',
                     'compile': false, // 是否编译
@@ -581,7 +602,8 @@ class GlobalConfig implements Serializable {
                     'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'prometheus-alertmanager', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
-                    'usePvc': true // 是否使用pvc的方式挂载额外的数据资源。
+                    'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
+                    'useService': true, // 是否使用service
             ],
             'blackbox-exporter': [
                     'namespace': 'devops',

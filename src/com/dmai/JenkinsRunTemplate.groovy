@@ -86,7 +86,13 @@ spec:
 
 //    设置不同的分支部署到不同的环境
     private String getKubectlBranch(){
-        if (this.conf.getAttr('branchName') == 'master') return 'master'
+        if (this.conf.getAttr('branchName') == 'master' ) {
+            if (this.conf.getAttr('master') == 'prd') {
+                return 'master'
+            } else {
+                return ''
+            }
+        }
 
         switch (this.conf.getAttr('dev')){
             case 'dev'  : return 'dev'
