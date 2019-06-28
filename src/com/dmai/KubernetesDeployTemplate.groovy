@@ -56,13 +56,7 @@ $volumeMounts
         ports:
         - containerPort: $containerPort
         $getContainerPort
-        resources:
-          limits:
-            cpu: $cpuLimits
-            memory: $memoryLimits
-          requests:
-            cpu: $cpuRequests
-            memory: $memoryRequests
+$resources
 $volumes                
 '''
         def bind = [
@@ -80,7 +74,8 @@ $volumes
                 'volumes'             : this.getVolumes(),
                 'replicas'            : this.conf.getAttr('replicas') ? this.conf.getAttr('replicas') : 1,
                 'command'             : this.conf.getAttr('command') ? this.conf.getAttr('command'): '',
-                'getContainerPort'    : this.getContainerPort()
+                'getContainerPort'    : this.getContainerPort(),
+                'resources'           : this.resourcesTemplate()
         ]
         return Tools.simpleTemplate(text, bind)
     }
