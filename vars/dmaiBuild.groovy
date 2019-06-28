@@ -113,6 +113,7 @@ def call(Map map, env) {
                 steps {
                     container('kubectl') {
                         script {
+                            echo deployBranch
                             deploykubernetes.createConfigMap()
                             deploykubernetes.deployKubernetes()
                         }
