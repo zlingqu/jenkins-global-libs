@@ -41,10 +41,12 @@ def call(Map map, env) {
 
         parameters {
             string(name: 'DEPLOY_ENV', defaultValue: 'dev', description: '')
+            string(name: 'GIT_VERSION', defaultValue: 'last', description: '')
         }
 
         environment {
             deployEnvironment = "${params.DEPLOY_ENV}"
+            gitVersion = "${params.GIT_VERSION}"
         }
 
         // 设置任务的超时时间为1个小时。
@@ -54,6 +56,24 @@ def call(Map map, env) {
         }
 
         stages {
+
+            stage('Specified version') {
+                when { expression { return  gitVersion != 'last'} }
+                steps {
+                    container('kubectl') {
+                        script {
+                            try {
+                                withCredentials([usernamePassword(credentialsId: 'passwd-zs', passwordVariable: 'password', usernameVariable: 'username')]) {
+                                    sh 'source /etc/profile; git config --global http.sslVerify false ; git reset --hard "${gitVersion}"'
+                                }
+                            } catch (e) {
+                                sh "echo ${e}"
+                            }
+                        }
+                    }
+                }
+            }
+
             stage('Compile') {
 
                 // 当项目的全局选项设置为compile == true的时候，才进行部署的操作

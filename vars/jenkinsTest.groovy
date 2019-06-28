@@ -23,6 +23,7 @@ def call(Map map, env) {
 //            string(name: 'BROWSER_TYPE', defaultValue: 'chrome', description: 'Type a browser type, should be chrome/firefox')
             string(name: 'TEST_SERVER_URL', defaultValue: 'dev', description: 'Type the test server url')
             string(name: 'DEPLOY_ENV', defaultValue: 'dev', description: '')
+            string(name: 'GIT_VERSION', defaultValue: 'last', description: '')
 //            string(name: 'NODE', defaultValue: 'win-anthony-demo', description: 'Please choose a windows node to execute this job.')
         }
 
