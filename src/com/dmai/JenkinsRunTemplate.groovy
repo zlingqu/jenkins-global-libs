@@ -177,8 +177,8 @@ spec:
         cpu: 1000m
         memory: 2000Mi
 ''', this.conf.getAttr('customImage'))
-            return ''
         }
+        return ''
     }
 
 //    private templateDockerKubectlCloud() {
