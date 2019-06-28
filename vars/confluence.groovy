@@ -35,7 +35,15 @@ def call(Map map, env) {
             stage('Check Package') {
                 steps {
                     container('mvn') {
-                        sh 'du -sh target/cwd-2.0-beta.jar'
+                        script {
+                            if ( map.appName == 'work-diary-collector') {
+                                sh 'du -sh target/cwd-2.0-beta.jar'
+                            }
+
+                            if (map.appName == 'dmai-confluence-plugin') {
+                                sh 'du -sh dmai-confluence-plugin-*.jar'
+                            }
+                        }
                     }
                 }
             }
