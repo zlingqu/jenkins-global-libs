@@ -22,6 +22,7 @@ def call(Map map, env) {
         parameters {
 //            string(name: 'BROWSER_TYPE', defaultValue: 'chrome', description: 'Type a browser type, should be chrome/firefox')
             string(name: 'TEST_SERVER_URL', defaultValue: 'dev', description: 'Type the test server url')
+            string(name: 'deployEnvironment', defaultValue: 'dev', description: '')
 //            string(name: 'NODE', defaultValue: 'win-anthony-demo', description: 'Please choose a windows node to execute this job.')
         }
 
@@ -29,13 +30,13 @@ def call(Map map, env) {
             tags = "${map.REPO_URL}"
 //            execComand = "${map.execComand}"
             deployBranch = "${params.TEST_SERVER_URL}"
+            deployEnvironment = "${params.deployEnvironment}"
         }
 
         stages {
             stage('Exec Command') {
                 steps {
-                    echo deployBranch
-                    echo "Hello ${params.TEST_SERVER_URL}"
+                    echo deployEnvironment
                 }
             }
         }
