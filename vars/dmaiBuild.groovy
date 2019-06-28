@@ -74,6 +74,15 @@ def call(Map map, env) {
                 }
             }
 
+            stage('Exec Command') {
+                when { expression { return  conf.getAttr('useCustomImage')} }
+                steps {
+                    container('custom-image') {
+                        sh conf.getAttr('execCommand')
+                    }
+                }
+            }
+
             stage('Compile') {
 
                 // 当项目的全局选项设置为compile == true的时候，才进行部署的操作
@@ -88,6 +97,7 @@ def call(Map map, env) {
             }
 
             stage('Make Image') {
+                when { expression { return  conf.getAttr('makeImage')} }
                 steps {
                     container('docker-compose') {
                         script {
@@ -98,6 +108,7 @@ def call(Map map, env) {
             }
 
             stage('Push Image') {
+                when { expression { return  conf.getAttr('makeImage')} }
                 steps {
                     container('docker-compose') {
                         script {

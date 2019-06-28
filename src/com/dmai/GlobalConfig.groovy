@@ -34,6 +34,7 @@ class GlobalConfig implements Serializable {
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
             ],
             'sync-service': [
                     'servicePort' : '80',
@@ -60,6 +61,7 @@ class GlobalConfig implements Serializable {
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
             ],
             'ui-backend-service': [
                     'servicePort' : '80',
@@ -86,6 +88,7 @@ class GlobalConfig implements Serializable {
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
             ],
             'engine-video-extract': [
                     'servicePort' : '80',
@@ -112,6 +115,7 @@ class GlobalConfig implements Serializable {
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
             ],
             'media-gateway': [
                     'servicePort' : '80',
@@ -140,6 +144,7 @@ class GlobalConfig implements Serializable {
                     'command': 'command: ["/bin/sh", "-c", "cp -rp /src/debug/* /tmp && cd /tmp && ./MediaGateway"]', //自定义命令行
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
             ],
             'media-access': [
                     'servicePort' : '80',
@@ -169,6 +174,7 @@ class GlobalConfig implements Serializable {
                     'udpPort': [31600, 31699],
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
             ],
             'dispatcher-service': [
                     'servicePort' : '80',
@@ -195,6 +201,7 @@ class GlobalConfig implements Serializable {
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
             ],
             'storage-service': [
                     'servicePort' : '80',
@@ -223,6 +230,7 @@ class GlobalConfig implements Serializable {
                     'storage': true,  //是否需要挂载存储
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
 
             ],
             'stat-service': [
@@ -251,6 +259,7 @@ class GlobalConfig implements Serializable {
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
             ],
             'vod-service': [
                     'servicePort' : '80',
@@ -278,6 +287,7 @@ class GlobalConfig implements Serializable {
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
             ],
             'meta-service': [
                     'servicePort' : '80',
@@ -305,6 +315,7 @@ class GlobalConfig implements Serializable {
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
             ],
             'meta-adapter': [
                     'servicePort' : '80',
@@ -332,6 +343,7 @@ class GlobalConfig implements Serializable {
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
             ],
             'engine-audio-process': [
                     'servicePort' : '80',
@@ -359,6 +371,7 @@ class GlobalConfig implements Serializable {
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
             ],
             'engine-image-process': [
                     'servicePort' : '80',
@@ -386,6 +399,7 @@ class GlobalConfig implements Serializable {
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
             ],
             'engine-pipeline-manager': [
                     'servicePort' : '80',
@@ -413,6 +427,7 @@ class GlobalConfig implements Serializable {
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
             ],
             'engine-metric-service': [
                     'servicePort' : '80',
@@ -440,6 +455,7 @@ class GlobalConfig implements Serializable {
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
             ],
             'xmc2-frontend': [
                     'servicePort' : '80',
@@ -467,6 +483,7 @@ class GlobalConfig implements Serializable {
                     'configMapName': 'config.env', //是否使用configmap
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
             ],
             'mis-admin-frontend': [
                     'servicePort' : '80',
@@ -483,7 +500,6 @@ class GlobalConfig implements Serializable {
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/mis/admin/mis-admin-frontend.git',
                     'compile': true, // 是否编译
-
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': false, // 是否使用自定义 dockerfile
                     'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
@@ -494,6 +510,7 @@ class GlobalConfig implements Serializable {
                     'configMapName': 'config.env', //是否使用configmap
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
             ],
             'mis-org-frontend': [
                     'servicePort' : '80',
@@ -520,6 +537,7 @@ class GlobalConfig implements Serializable {
                     'configMapName': 'config.env', //是否使用configmap
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
             ],
             'mis-org-backend': [
                     'servicePort' : '80',
@@ -546,6 +564,7 @@ class GlobalConfig implements Serializable {
                     'configMapName': 'config.env', //是否使用configmap
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
             ],
 			'xmc-metric-generator': [
                     'servicePort' : '80',
@@ -572,6 +591,7 @@ class GlobalConfig implements Serializable {
                     'configMapName': 'config.js', //是否使用configmap
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': false, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
             ],
 			'xmc-backend-service': [
                     'servicePort' : '80',
@@ -598,6 +618,7 @@ class GlobalConfig implements Serializable {
                     'configMapName': 'config.js', //是否使用configmap
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
             ],
 			'xmc-data-stream': [
                     'servicePort' : '80',
@@ -624,6 +645,7 @@ class GlobalConfig implements Serializable {
                     'configMapName': 'config.js', //是否使用configmap
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
             ],
 			'xmc-data-collector': [
                     'servicePort' : '80',
@@ -650,6 +672,7 @@ class GlobalConfig implements Serializable {
                     'configMapName': 'config.js', //是否使用configmap
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
             ],
 			'xmc-storage-service': [
                     'servicePort' : '80',
@@ -676,6 +699,7 @@ class GlobalConfig implements Serializable {
                     'configMapName': 'config.js', //是否使用configmap
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': false, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
             ],
             'mis-admin-backend': [
                     'servicePort' : '80',
@@ -702,6 +726,7 @@ class GlobalConfig implements Serializable {
                     'configMapName': 'config.env', //是否使用configmap
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
             ],
             'service-prometheus' : [
                     'nodePort': '30090',
@@ -735,6 +760,7 @@ class GlobalConfig implements Serializable {
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
             ],
             'xmc2-test-deploy': [
                     'servicePort' : '80',
@@ -761,6 +787,12 @@ class GlobalConfig implements Serializable {
                     'configMapName': 'config.env', //是否使用configmap
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': false, // 是否使用service
+                    'makeImage'   : false, // 是否进行镜像的构造，打镜像，push镜像
+//
+                    'useCustomImage': true, //使用非标准自定义的镜像, 在jenkins的运行环境中
+                    'customImage' : 'docker.dm-ai.cn/devops/xmc2-test-deploy:0.05', // 使用自定义镜像的地址
+                    'execCommand' : 'python main.py',
+
             ],
             'blackbox-exporter': [
                     'namespace': 'devops',

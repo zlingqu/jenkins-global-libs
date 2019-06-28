@@ -10,7 +10,7 @@ class JenkinsRunTemplate {
     }
 
     public String getJenkinsRunTemplate() {
-        def returnString = this.templateTop() + this.templateDockerCompile() + this.templateDockerKubectl() + this.templateDockerKubectlTest() + this.templateDockerCompose()
+        def returnString = this.templateTop() + this.templateDockerCompile() + this.templateDockerKubectl() + this.templateDockerKubectlTest() + this.templateDockerCompose() + this.customImage()
         println(returnString)
         return returnString
     }
@@ -153,6 +153,32 @@ spec:
 '''
         }
         return ''
+    }
+
+    private String customImage() {
+        if (this.conf.getAttr('useCustomImage')) {
+            return String.format('''
+  - name: custom-image
+    image: %s
+    imagePullPolicy: IfNotPresent
+    env: #指定容器中的环境变量
+    - name: DMAI_PRIVATE_DOCKER_REGISTRY
+      value: docker.dm-ai.cn
+    command:
+    - "sleep"
+    args:
+    - "1200"
+    tty: true
+    resources:
+      limits:
+        memory: 3000Mi
+        cpu: 2000m
+      requests:
+        cpu: 1000m
+        memory: 2000Mi
+''', this.conf.getAttr('customImage'))
+            return ''
+        }
     }
 
 //    private templateDockerKubectlCloud() {
