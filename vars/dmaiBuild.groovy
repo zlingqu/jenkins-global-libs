@@ -77,7 +77,6 @@ def call(Map map, env) {
             stage('Exec Command') {
                 when { expression { return  conf.getAttr('useCustomImage')} }
                 steps {
-                    sh 'sleep 1000'
                     container('custom-image') {
                         sh conf.getAttr('execCommand')
                     }
