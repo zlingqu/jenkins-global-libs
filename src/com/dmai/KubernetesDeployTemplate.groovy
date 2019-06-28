@@ -56,13 +56,7 @@ $volumeMounts
         ports:
         - containerPort: $containerPort
         $getContainerPort
-        resources:
-          limits:
-            cpu: $cpuLimits
-            memory: $memoryLimits
-          requests:
-            cpu: $cpuRequests
-            memory: $memoryRequests
+$resources
 $volumes                
 '''
         def bind = [
@@ -80,9 +74,67 @@ $volumes
                 'volumes'             : this.getVolumes(),
                 'replicas'            : this.conf.getAttr('replicas') ? this.conf.getAttr('replicas') : 1,
                 'command'             : this.conf.getAttr('command') ? this.conf.getAttr('command'): '',
-                'getContainerPort'    : this.getContainerPort()
+                'getContainerPort'    : this.getContainerPort(),
+                'resources'           : this.resourcesTemplate()
         ]
         return Tools.simpleTemplate(text, bind)
+    }
+
+    // 根据用户的设置，来生成yaml中，是否对资源限制的模版文件。
+    private String resourcesTemplate() {
+        def returnString = ''
+        def topString = '''
+        resources:
+'''
+        for (attr in ['cpuRequests', 'memoryRequests', 'cpuLimits', 'memoryLimits']){
+            if (this.conf.getAttr(attr) && this.conf.getAttr(attr) != '') {
+                returnString += topString
+                break
+            }
+        }
+
+        for (requestAttr in ['cpuRequests', 'memoryRequests']) {
+            if (this.conf.getAttr(requestAttr) && this.conf.getAttr(requestAttr) != '') {
+                returnString += '''
+          requests:
+'''
+                break
+            }
+        }
+
+        if (this.conf.getAttr('cpuRequests') && this.conf.getAttr('cpuRequests') != '') {
+            returnString += String.format('''
+            cpu: %s
+''', this.conf.getAttr('cpuRequests'))
+        }
+
+        if (this.conf.getAttr('memoryRequests') && this.conf.getAttr('memoryRequests') != '') {
+            returnString += String.format('''
+            memory: %s
+''', this.conf.getAttr('memoryRequests'))
+        }
+
+        for (limitsAttr in ['cpuLimits', 'memoryLimits']) {
+            if (this.conf.getAttr(limitsAttr) && this.conf.getAttr(limitsAttr) != '') {
+                returnString += '''
+          limits:
+'''
+                break
+            }
+        }
+
+        if (this.conf.getAttr('cpuLimits') && this.conf.getAttr('cpuLimits') != '') {
+            returnString += String.format('''
+            cpu: %s
+''', this.conf.getAttr('cpuLimits'))
+        }
+
+        if (this.conf.getAttr('memoryLimits') && this.conf.getAttr('memoryLimits') != '') {
+            returnString += String.format('''
+            memory: %s
+''', this.conf.getAttr('memoryLimits'))
+        }
+
     }
 
     private String getContainerPort() {
