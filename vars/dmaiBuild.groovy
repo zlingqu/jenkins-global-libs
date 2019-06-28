@@ -44,7 +44,7 @@ def call(Map map, env) {
         }
 
         environment {
-            deployBranch = "${map.TEST_SERVER_URL}"
+            deployBranch = "${params.TEST_SERVER_URL}"
         }
 
         // 设置任务的超时时间为1个小时。
@@ -108,7 +108,11 @@ def call(Map map, env) {
             stage('Deploy') {
 
                 // 当项目的全局选项设置为deploy == true的时候，才进行部署的操作
-                when { expression { return conf.getAttr('deploy') } }
+//                when { expression { return conf.getAttr('deploy') } }
+                when {
+                    allOf
+                            { expression { return conf.getAttr('deploy') }; expression { return deployBranch != 'test'} }
+                }
 
                 steps {
                     container('kubectl') {
