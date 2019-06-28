@@ -28,11 +28,15 @@ def call(Map map, env) {
         environment {
             tags = "${map.REPO_URL}"
 //            execComand = "${map.execComand}"
+            environment {
+                deployBranch = "${map.TEST_SERVER_URL}"
+            }
         }
 
         stages {
             stage('Exec Command') {
                 steps {
+                    echo deployBranch
                     echo "Hello ${params.TEST_SERVER_URL}"
                 }
             }
