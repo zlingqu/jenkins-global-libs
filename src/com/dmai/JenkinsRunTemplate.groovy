@@ -30,6 +30,7 @@ spec:
     }
 
     private String templateDockerCompose() {
+        if (! this.conf.getAttr('makeImage')) return ''
         return '''
   - name: docker-compose
     image: docker.dm-ai.cn/devops/base-image-docker-compose:0.04
@@ -155,7 +156,7 @@ spec:
         return ''
     }
 
-    private String customImage() {
+    private customImage() {
         if (this.conf.getAttr('useCustomImage')) {
             return String.format('''
   - name: custom-image
