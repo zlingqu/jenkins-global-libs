@@ -483,6 +483,7 @@ class GlobalConfig implements Serializable {
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/mis/admin/mis-admin-frontend.git',
                     'compile': true, // 是否编译
+
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': false, // 是否使用自定义 dockerfile
                     'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
@@ -508,7 +509,7 @@ class GlobalConfig implements Serializable {
                     'test': false, // 是否从dev分支部署到测试环境
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/mis/org/org-frontend.git',
-                    'compile': true, // 是否编译
+                    'compile': true, //
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': false, // 是否使用自定义 dockerfile
                     'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
@@ -604,6 +605,32 @@ class GlobalConfig implements Serializable {
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
+            ],
+            'xmc2-test-deploy': [
+                    'servicePort' : '80',
+                    'nodePort': '31500',
+                    'namespace': 'mis',
+                    'containerPort': '5000',
+                    'domain': '5000',
+                    'cpuRequests' : '200m',
+                    'memoryRequests' : '400Mi',
+                    'cpuLimits' : '400m',
+                    'memoryLimits' : '1000Mi',
+                    'dev': 'test', // dev分支部署到开发环境
+                    'test': false, // 是否从dev分支部署到测试环境
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
+                    'gitAddress': 'https://gitlab.dm-ai.cn/mis/admin/mis-admin-backend.git',
+                    'compile': false, // 是否编译
+                    'deploy': false, // 是否自动化部署
+                    'customDockerfile': true, // 是否使用自定义 dockerfile
+                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
+                    'useConfigMap': false, //是否使用configmap
+                    'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
+                    'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'configMapName': 'config.env', //是否使用configmap
+                    'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
+                    'useService': false, // 是否使用service
             ],
             'blackbox-exporter': [
                     'namespace': 'devops',
