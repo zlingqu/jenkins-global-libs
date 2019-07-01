@@ -794,6 +794,33 @@ class GlobalConfig implements Serializable {
                     'execCommand' : 'python main.py',
 
             ],
+            'jenkins-model-ci-test': [
+                    'servicePort' : '80',
+                    'nodePort': '31500',
+                    'namespace': 'mis',
+                    'containerPort': '5000',
+                    'domain': '5000',
+                    'cpuRequests' : '200m',
+                    'memoryRequests' : '400Mi',
+                    'cpuLimits' : '400m',
+                    'memoryLimits' : '1000Mi',
+                    'dev': 'test', // dev分支部署到开发环境
+                    'test': false, // 是否从dev分支部署到测试环境
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
+                    'gitAddress': 'https://gitlab.dm-ai.cn/mis/admin/mis-admin-backend.git',
+                    'compile': false, // 是否编译
+                    'deploy': false, // 是否自动化部署
+                    'customDockerfile': true, // 是否使用自定义 dockerfile
+                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
+                    'useConfigMap': false, //是否使用configmap
+                    'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
+                    'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'configMapName': 'config.env', //是否使用configmap
+                    'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
+                    'useService': false, // 是否使用service
+                    'makeImage'   : false, // 是否进行镜像的构造，打镜像，push镜像
+            ],
             'blackbox-exporter': [
                     'namespace': 'devops',
                     'containerPort': '9115',
