@@ -75,7 +75,7 @@ spec:
             return String.format('''
   - name: node-modules
     hostPath:
-      path: /data2/jenkins/cache/%s/%s
+      path: /data/jenkins/cache/%s/%s
 ''',this.conf.getAttr('namespace'), this.conf.appName)
         }
         return ''
