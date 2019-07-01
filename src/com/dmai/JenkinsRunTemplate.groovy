@@ -46,6 +46,8 @@ spec:
     volumeMounts:
     - name: sock
       mountPath: /var/run/docker.sock
+    - name: docker
+      mountPath: /var/lib/docker
     command:
     - "sleep"
     args:
@@ -62,6 +64,9 @@ spec:
   - name: sock
     hostPath:
       path: /var/run/docker.sock
+  - name: docker
+    hostPath:
+      path: /var/lib/docker
 '''
     }
 
