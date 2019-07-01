@@ -15,6 +15,7 @@ class Compile {
             switch (this.conf.getAttr('codeLanguage')) {
                 case 'js':
                     this.script.sh "test -d node_modules && rm -fr node_modules;" +
+                            "sleep 6000;"
                             "npm config set cache '/data/cache/node_modules/node_cache';" +
                             "npm config set prefix '/data/cache/node_modules/node_cache/node_global';" +
                             "export NODE_PATH='/data/cache/node_modules/node_modules';" +
