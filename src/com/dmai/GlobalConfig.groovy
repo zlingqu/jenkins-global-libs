@@ -36,6 +36,33 @@ class GlobalConfig implements Serializable {
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
             ],
+            'policy-retrieval-point': [
+                    'servicePort' : '80',
+                    'namespace': 'cum',
+                    'nodePort' : '30802',
+                    'containerPort': '3000',
+                    'domain': '3000',
+                    'cpuRequests' : '200m',
+                    'memoryRequests' : '400Mi',
+                    'cpuLimits' : '400m',
+                    'memoryLimits' : '800Mi',
+                    'dev': 'dev', // dev分支部署到测试环境
+                    'test': false, // 是否从dev分支部署到测试环境
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
+                    'gitAddress': 'https://gitlab.dm-ai.cn/cum/cum-admin/policy-retrieval-point.git',
+                    'compile': false, // 是否编译
+                    'deploy': true, // 是否自动化部署
+                    'customDockerfile': false, // 是否使用自定义 dockerfile
+                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
+                    'useConfigMap': true, //是否使用configmap
+                    'configMapName': 'config.js', //是否使用configmap
+                    'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
+                    'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
+                    'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+            ],
             'sync-service': [
                     'servicePort' : '80',
                     'namespace': 'xmc2',
