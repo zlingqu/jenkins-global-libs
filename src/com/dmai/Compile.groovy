@@ -15,12 +15,8 @@ class Compile {
             switch (this.conf.getAttr('codeLanguage')) {
                 case 'js':
                     this.script.sh "test -d node_modules && rm -fr node_modules;" +
-                            "cp -rp ./* /data/cache;" +
-                            "cd /data/cache; npm config set registry=http://192.168.3.13:8081/repository/npm/ && npm install && npm run build"
-//                            "npm config set cache '/data/cache/node_modules/node_cache';" +
-//                            "npm config set prefix '/data/cache/node_modules/node_cache/node_global';" +
-//                            "export NODE_PATH='/data/cache/node_modules/node_modules';" +
-//                            "npm config set registry=http://192.168.3.13:8081/repository/npm/ && npm install && npm run build"
+                            "ln -s /data/cache/node_modules ./node_modules" +
+                            "npm config set registry=http://192.168.3.13:8081/repository/npm/ && npm install && npm run build"
                     return
                 case 'c++':
                     this.script.sh "make"
