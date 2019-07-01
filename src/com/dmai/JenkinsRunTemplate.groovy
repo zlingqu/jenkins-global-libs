@@ -10,8 +10,13 @@ class JenkinsRunTemplate {
     }
 
     public String getJenkinsRunTemplate() {
-        def returnString = this.templateTop() + this.templateDockerCompile() + this.templateDockerKubectl() + this.templateDockerKubectlTest() + this.templateDockerCompose() + this.customImage()
-        println(returnString)
+        def returnString = this.templateTop() +
+                this.templateDockerCompile() +
+                this.templateDockerKubectl() +
+                this.templateDockerKubectlTest() +
+                this.customImage() +
+                this.templateDockerCompose() +
+                this.templateJsCompileVolumes()
         return returnString
     }
 
@@ -58,6 +63,28 @@ spec:
     hostPath:
       path: /var/run/docker.sock
 '''
+    }
+
+    private String templateJsCompileVolumes() {
+        if (this.conf.getAttr('makeImage') && this.conf.getAttr('compile') && this.conf.getAttr('codeLanguage') in ['js']) {
+            return String.format('''
+  - name: node-modules
+    hostPath:
+      path: /data1/jenkins/cache/%s/%s
+''',this.conf.getAttr('namespace'), this.conf.appName)
+        }
+        return ''
+    }
+
+    private String templateJsCompilevolumeMounts() {
+        if (this.conf.getAttr('makeImage') && this.conf.getAttr('compile') && this.conf.getAttr('codeLanguage') in ['js']) {
+            return String.format('''
+    volumeMounts:
+    - name: node-modules
+      mountPath: /home/jenkins/workspace/%s_%s
+''', this.conf.appName, this.conf.getAttr('branchName'))
+        }
+        return ''
     }
 
     private String templateDockerKubectl() {
@@ -212,13 +239,14 @@ spec:
         if (! this.conf.getAttr('compile')) return ''
         switch (this.conf.getAttr('codeLanguage')) {
             case 'js':
-                return '''
+                return String.format('''
   - name: compile
     image: docker.dm-ai.cn/devops/base-image-compile-frontend:0.03
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
       value: docker.dm-ai.cn
+%s
     command:
     - "sleep"
     args:
@@ -228,7 +256,8 @@ spec:
       requests:
         cpu: 2000m
         memory: 4000Mi
-'''
+''', this.templateJsCompilevolumeMounts())
+
             case 'c++':
                 return '''
   - name: compile
