@@ -81,8 +81,8 @@ spec:
             return String.format('''
     volumeMounts:
     - name: node-modules
-      mountPath: /home/jenkins/workspace/%s_%s/node_modules
-''', this.conf.appName, this.conf.getAttr('branchName'))
+      mountPath: /data/cache/node_modules
+''')
         }
         return ''
     }
