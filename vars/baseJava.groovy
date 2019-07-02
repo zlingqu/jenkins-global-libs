@@ -1,6 +1,7 @@
 import java.io.*
 
 def call(Map map, env) {
+    if (! (env.BRANCH_NAME in ['dev', 'develop'])) return
 
     // 临时的，后面再进行抽取
     def globalConfig = [
