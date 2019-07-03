@@ -873,7 +873,7 @@ class GlobalConfig implements Serializable {
                     'configMapName': 'config.env', //是否使用configmap
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': false, // 是否使用service
-                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'makeImage'   : false, // 是否进行镜像的构造，打镜像，push镜像
 //
                     'useCustomImage': true, //使用非标准自定义的镜像, 在jenkins的运行环境中
                     'customImage' : 'docker.dm-ai.cn/algorithm-research/torch:0.4_cuda9_cudnn7_py27', // 使用自定义镜像的地址
