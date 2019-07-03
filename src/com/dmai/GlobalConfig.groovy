@@ -14,8 +14,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'cum',
                     'nodePort' : '30801',
                     'containerPort': '3000',
-                    'domain': '3000',
-                    'cpuRequests' : '200m',
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'memoryRequests' : '400Mi',
                     'cpuLimits' : '400m',
                     'memoryLimits' : '800Mi',
@@ -41,7 +40,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'cum',
                     'nodePort' : '30802',
                     'containerPort': '3000',
-                    'domain': '3000',
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '200m',
                     'memoryRequests' : '400Mi',
                     'cpuLimits' : '400m',
@@ -68,7 +67,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'xmc2',
                     'nodePort' : '30223',
                     'containerPort': '3000',
-                    'domain': '3000',
+                    'domain': '',// domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '1000m',
                     'memoryRequests' : '2000Mi',
                     'cpuLimits' : '2000m',
@@ -95,7 +94,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'xmc2',
                     'nodePort' : '30227',
                     'containerPort': '3000',
-                    'domain': '3000',
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '300m',
                     'memoryRequests' : '500Mi',
                     'cpuLimits' : '800m',
@@ -122,7 +121,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'xmc2',
                     'nodePort' : '30222',
                     'containerPort': '80',
-                    'domain': '80',
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '1000m',
                     'memoryRequests' : '2000Mi',
                     'cpuLimits' : '2000m',
@@ -149,7 +148,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'xmc2',
                     'nodePort' : '30224',
                     'containerPort': '80',
-                    'domain': '80',
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '300m',
                     'memoryRequests' : '500Mi',
                     'cpuLimits' : '800m',
@@ -178,7 +177,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'xmc2',
                     'nodePort' : '30225',
                     'containerPort': '8080',
-                    'domain': '8080',
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '300m',
                     'memoryRequests' : '500Mi',
                     'cpuLimits' : '800m',
@@ -208,7 +207,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'xmc2',
                     'nodePort' : '30226',
                     'containerPort': '3000',
-                    'domain': '3000',
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '300m',
                     'memoryRequests' : '500Mi',
                     'cpuLimits' : '800m',
@@ -235,7 +234,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'xmc2',
                     'nodePort' : '30220',
                     'containerPort': '3000',
-                    'domain': '3000',
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '1000m',
                     'memoryRequests' : '2000Mi',
                     'cpuLimits' : '2000m',
@@ -265,7 +264,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'xmc2',
                     'nodePort' : '30221',
                     'containerPort': '3000',
-                    'domain': '3000',
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '1000m',
                     'memoryRequests' : '2000Mi',
                     'cpuLimits' : '3000m',
@@ -293,7 +292,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'xmc2',
                     'nodePort' : '30230',
                     'containerPort': '3000',
-                    'domain': '3000',
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '300m',
                     'memoryRequests' : '500Mi',
                     'cpuLimits' : '800m',
@@ -321,7 +320,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'xmc2',
                     'nodePort' : '30231',
                     'containerPort': '3000',
-                    'domain': '3000',
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '300m',
                     'memoryRequests' : '500Mi',
                     'cpuLimits' : '800m',
@@ -349,7 +348,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'xmc2',
                     'nodePort' : '30232',
                     'containerPort': '3000',
-                    'domain': '3000',
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '300m',
                     'memoryRequests' : '500Mi',
                     'cpuLimits' : '800m',
@@ -377,7 +376,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'xmc2',
                     'nodePort' : '30228',
                     'containerPort': '80',
-                    'domain': '80',
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '1000m',
                     'memoryRequests' : '1000Mi',
                     'cpuLimits' : '2000m',
@@ -405,7 +404,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'xmc2',
                     'nodePort' : '30235',
                     'containerPort': '80',
-                    'domain': '80',
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '300m',
                     'memoryRequests' : '500Mi',
                     'cpuLimits' : '800m',
@@ -433,7 +432,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'xmc2',
                     'nodePort' : '30234',
                     'containerPort': '80',
-                    'domain': '80',
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '300m',
                     'memoryRequests' : '500Mi',
                     'cpuLimits' : '800m',
@@ -461,7 +460,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'xmc2',
                     'nodePort' : '30229',
                     'containerPort': '80',
-                    'domain': '80',
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '1000m',
                     'memoryRequests' : '2000Mi',
                     'cpuLimits' : '2000m',
@@ -489,7 +488,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'xmc2',
                     'nodePort': '30233',
                     'containerPort': '80',
-                    'domain': '80',
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '200m',
                     'memoryRequests' : '400Mi',
                     'cpuLimits' : '400m',
@@ -517,7 +516,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'mis',
                     'nodePort': '30092',
                     'containerPort': '80',
-                    'domain': '80',
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '200m',
                     'memoryRequests' : '400Mi',
                     'cpuLimits' : '400m',
@@ -544,7 +543,7 @@ class GlobalConfig implements Serializable {
                     'nodePort': '30093',
                     'namespace': 'mis',
                     'containerPort': '80',
-                    'domain': '80',
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '200m',
                     'memoryRequests' : '400Mi',
                     'cpuLimits' : '400m',
@@ -571,7 +570,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'mis',
                     'nodePort' : '31501',
                     'containerPort': '3000',
-                    'domain': '3000',
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '200m',
                     'memoryRequests' : '400Mi',
                     'cpuLimits' : '400m',
@@ -598,7 +597,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'xmc',
                     'nodePort': '30233',
                     'containerPort': '80',
-                    'domain': '80',
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '',
                     'memoryRequests' : '',
                     'cpuLimits' : '',
@@ -626,7 +625,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'xmc',
                     'nodePort' : '31501',
                     'containerPort': '3000',
-                    'domain': '3000',
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '',
                     'memoryRequests' : '',
                     'cpuLimits' : '',
@@ -653,7 +652,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'xmc',
                     'nodePort' : '31147',
                     'containerPort': '3000',
-                    'domain': '3000',
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '',
                     'memoryRequests' : '',
                     'cpuLimits' : '',
@@ -680,7 +679,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'xmc',
                     'nodePort' : '31165',
                     'containerPort': '3000',
-                    'domain': '3000',
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '',
                     'memoryRequests' : '',
                     'cpuLimits' : '',
@@ -707,7 +706,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'xmc',
                     'nodePort' : '31141',
                     'containerPort': '3000',
-                    'domain': '3000',
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '',
                     'memoryRequests' : '',
                     'cpuLimits' : '',
@@ -734,7 +733,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'xmc',
                     'nodePort' : '31165',
                     'containerPort': '3000',
-                    'domain': '3000',
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '',
                     'memoryRequests' : '',
                     'cpuLimits' : '',
@@ -761,7 +760,7 @@ class GlobalConfig implements Serializable {
                     'nodePort': '31500',
                     'namespace': 'mis',
                     'containerPort': '5000',
-                    'domain': '5000',
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '200m',
                     'memoryRequests' : '400Mi',
                     'cpuLimits' : '400m',
@@ -795,7 +794,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'devops',
                     'nodePort' : '30993',
                     'containerPort': '9093',
-                    'domain': '9093',
+                    'domain': 'alertmanager.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
 //                    'cpuRequests' : '500m',
 //                    'memoryRequests' : '1000Mi',
 //                    'cpuLimits' : '1000m',
@@ -822,7 +821,7 @@ class GlobalConfig implements Serializable {
                     'nodePort': '31500',
                     'namespace': 'mis',
                     'containerPort': '5000',
-                    'domain': '5000',
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '200m',
                     'memoryRequests' : '400Mi',
                     'cpuLimits' : '400m',
@@ -854,7 +853,7 @@ class GlobalConfig implements Serializable {
                     'nodePort': '31500',
                     'namespace': 'mis',
                     'containerPort': '5000',
-                    'domain': '5000',
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '200m',
                     'memoryRequests' : '400Mi',
                     'cpuLimits' : '400m',
