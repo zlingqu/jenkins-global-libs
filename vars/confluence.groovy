@@ -118,6 +118,8 @@ spec:
   - name: data1
     hostPath:
       path: /data1/jenkins/confluence
+  nodeSelector:
+    makeenv: cpu
 '''
     def binding = [
             'ansibleImage' :  map.containsKey('ansibleImage') ? map.get('ansibleImage'): 'docker.dm-ai.cn/devops/base-image-mvn:0.01',
