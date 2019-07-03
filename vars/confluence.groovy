@@ -41,7 +41,7 @@ def call(Map map, env) {
                             }
 
                             if (map.appName == 'dmai-confluence-plugin') {
-                                sh 'du -sh dmai-confluence-plugin-*.jar'
+                                    sh 'du -sh target/dmai-confluence-plugin-*.jar'
                             }
                         }
                     }
