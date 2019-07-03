@@ -877,7 +877,7 @@ class GlobalConfig implements Serializable {
 //
                     'useCustomImage': true, //使用非标准自定义的镜像, 在jenkins的运行环境中
                     'customImage' : 'docker.dm-ai.cn/algorithm-research/torch:0.4_cuda9_cudnn7_py27', // 使用自定义镜像的地址
-                    'execCommand' : 'sleep 6000',
+                    'execCommand' : 'cd test; bash -x run_test.sh',
                     'envType'     : 'gpu' //分为gpu 和非gpu的环境
             ],
             'blackbox-exporter': [
