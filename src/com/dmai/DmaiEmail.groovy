@@ -50,21 +50,44 @@ class DmaiEmail {
 构建结果：$buildResult
 Jenkins构建地址： $jenkinsAddress/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline
 构建分支：$branchName
-Git地址：$gitAddress 
-构建完成，用户访问地址：$appurl
-测试环境, 用户访问地址：$testAddress
+Git地址：$gitAddress
+$useSvcInfo
+$buildEnvInfo
+$buildTestInfo
 '''
         def bind = [
                 'jenkinsAddress' : this.conf.jenkinsAddress,
                 'jobName'        : this.conf.getAttr('jobName'),
                 'branchName'     : this.conf.getAttr('branchName'),
                 'buildNumber'    : this.conf.getAttr('buildNumber'),
-                'appurl'         : this.getAppUrl(),
                 'buildResult'    : buildResult,
                 'gitAddress'     : this.conf.getAttr('gitAddress'),
-                'testAddress'    : this.getTestAddress()
+                'buildEnvInfo'   : this.buildEnvInfo(),
+                'buildTestInfo'  : this.buildTestInfo(),
+                'useSvcInfo'     : this.useSvcInfo()
         ]
         return Tools.simpleTemplate(text, bind)
+    }
+
+    private String useSvcInfo() {
+        if (!this.conf.getAttr('useService')) {
+            return '此服务未使用service，无外部访问地址！'
+        }
+        return ''
+    }
+
+    private String buildEnvInfo() {
+        if (this.conf.getAttr('useService')) {
+            return '构建完成, 用户访问地址：' + this.getAppUrl()
+        }
+        return ''
+    }
+
+    private String buildTestInfo() {
+        if (this.conf.getAttr('test')) {
+            return '测试环境, 用户访问地址：' + this.getTestAddress()
+        }
+        return ''
     }
 
     private String getTestAddress() {
