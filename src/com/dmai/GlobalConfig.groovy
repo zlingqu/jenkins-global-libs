@@ -595,9 +595,9 @@ class GlobalConfig implements Serializable {
             'xmc-frontend': [
                     'servicePort' : '80',
                     'namespace': 'xmc',
-                    'nodePort': '30233',
+                    'nodePort': '',
                     'containerPort': '80',
-                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
+                    'domain': 'xmc.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '',
                     'memoryRequests' : '',
                     'cpuLimits' : '',
@@ -623,7 +623,7 @@ class GlobalConfig implements Serializable {
 			'xmc-metric-generator': [
                     'servicePort' : '80',
                     'namespace': 'xmc',
-                    'nodePort' : '31501',
+                    'nodePort' : '',
                     'containerPort': '3000',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '',
