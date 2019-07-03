@@ -99,7 +99,7 @@ spec:
         cpu: 2000m
         memory: 4000Mi
   nodeSelector:
-    makeenv: jenkins 
+    makeenv: cpu 
 '''
     def binding = [
             'ansibleImage' :  map.containsKey('ansibleImage') ? map.get('ansibleImage'): 'docker.dm-ai.cn/devops/base-image-exec-ansible:0.02',
