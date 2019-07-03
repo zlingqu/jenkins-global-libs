@@ -595,16 +595,16 @@ class GlobalConfig implements Serializable {
             'xmc-frontend': [
                     'servicePort' : '80',
                     'namespace': 'xmc',
-                    'nodePort': '30233',
+                    'nodePort': '',
                     'containerPort': '80',
-                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
+                    'domain': 'xmc.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '',
                     'memoryRequests' : '',
                     'cpuLimits' : '',
                     'memoryLimits' : '',
                     'dev-domain' : '',
                     'dev': 'dev', // dev分支部署到开发环境
-                    'test': false, // 是否从dev分支部署到测试环境
+                    'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc-frontend.git',
                     'compile': false, // 是否编译
@@ -623,7 +623,7 @@ class GlobalConfig implements Serializable {
 			'xmc-metric-generator': [
                     'servicePort' : '80',
                     'namespace': 'xmc',
-                    'nodePort' : '31501',
+                    'nodePort' : '',
                     'containerPort': '3000',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '',
@@ -631,7 +631,7 @@ class GlobalConfig implements Serializable {
                     'cpuLimits' : '',
                     'memoryLimits' : '',
                     'dev': 'dev', // dev分支部署到开发环境
-                    'test': false, // 是否从dev分支部署到测试环境
+                    'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prdd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc-metric-generator.git',
                     'compile': false, // 是否编译
@@ -658,7 +658,7 @@ class GlobalConfig implements Serializable {
                     'cpuLimits' : '',
                     'memoryLimits' : '',
                     'dev': 'dev', // dev分支部署到开发环境
-                    'test': false, // 是否从dev分支部署到测试环境
+                    'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prdd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc-backend-service.git',
                     'compile': false, // 是否编译
@@ -685,7 +685,7 @@ class GlobalConfig implements Serializable {
                     'cpuLimits' : '',
                     'memoryLimits' : '',
                     'dev': 'dev', // dev分支部署到开发环境
-                    'test': false, // 是否从dev分支部署到测试环境
+                    'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prdd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc-data-stream.git',
                     'compile': false, // 是否编译
@@ -712,7 +712,7 @@ class GlobalConfig implements Serializable {
                     'cpuLimits' : '',
                     'memoryLimits' : '',
                     'dev': 'dev', // dev分支部署到开发环境
-                    'test': false, // 是否从dev分支部署到测试环境
+                    'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prdd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc-data-collector.git',
                     'compile': false, // 是否编译
@@ -739,7 +739,7 @@ class GlobalConfig implements Serializable {
                     'cpuLimits' : '',
                     'memoryLimits' : '',
                     'dev': 'dev', // dev分支部署到开发环境
-                    'test': false, // 是否从dev分支部署到测试环境
+                    'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prdd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc-storage-service.git',
                     'compile': false, // 是否编译
