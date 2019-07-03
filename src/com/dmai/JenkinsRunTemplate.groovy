@@ -16,7 +16,8 @@ class JenkinsRunTemplate {
                 this.templateDockerKubectlTest() +
                 this.customImage() +
                 this.templateDockerCompose() +
-                this.templateJsCompileVolumes()
+                this.templateJsCompileVolumes() +
+                this.nodeSelect()
         return returnString
     }
 
@@ -31,6 +32,19 @@ spec:
   imagePullSecrets:
   - name: regsecret
   containers:
+'''
+    }
+
+    private String nodeSelect() {
+        if (this.conf.getAttr('envType') == 'gpu') {
+            return '''
+  nodeSelector:
+    makeenv: gpu
+'''
+        }
+        return '''
+  nodeSelector:
+    makeenv: cpu
 '''
     }
 
@@ -198,12 +212,9 @@ spec:
     - "1200"
     tty: true
     resources:
-      limits:
-        memory: 3000Mi
-        cpu: 2000m
       requests:
-        cpu: 1000m
-        memory: 2000Mi
+        cpu: 4000m
+        memory: 8000Mi
 ''', this.conf.getAttr('customImage'))
         }
         return ''
