@@ -97,12 +97,12 @@ $buildTestInfo
     }
 
     private String getDomainTopString() {
-        return this.conf.getAttr('branchName') == 'master' ? '' : this.conf.getAttr('branchName') + '.'
+        return 'http://' + this.conf.getAttr('branchName') == 'master' ? '' : this.conf.getAttr('branchName') + '.'
     }
 
     private String buildTestInfo() {
         if (!(this.conf.getAttr('domain') in [null, ''])) {
-            return '测试环境, 用户访问地址：'  + 'test.' + this.conf.getAttr('domain')
+            return '测试环境, 用户访问地址：'  + 'http://test.' + this.conf.getAttr('domain')
         }
 
         if (this.conf.getAttr('test')) {
