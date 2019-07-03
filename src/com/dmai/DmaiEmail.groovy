@@ -97,7 +97,11 @@ $buildTestInfo
     }
 
     private String getDomainTopString() {
-        return 'http://' + this.conf.getAttr('branchName') == 'master' ? '' : this.conf.getAttr('branchName') + '.'
+        if (this.conf.getAttr('branchName') == 'master') {
+            return 'http://'
+        }
+        return 'http://' + this.conf.getAttr('branchName') + '.'
+//        return 'http://' + this.conf.getAttr('branchName') == 'master' ? '' : this.conf.getAttr('branchName') + '.'
     }
 
     private String buildTestInfo() {
