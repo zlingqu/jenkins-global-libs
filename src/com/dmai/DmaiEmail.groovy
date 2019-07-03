@@ -64,10 +64,17 @@ $buildTestInfo
                 'gitAddress'     : this.conf.getAttr('gitAddress'),
                 'buildEnvInfo'   : this.buildEnvInfo(),
                 'buildTestInfo'  : this.buildTestInfo(),
-                'useSvcInfo'     : this.useSvcInfo()
+                'useSvcInfo'     : this.useSvcInfo(),
         ]
         return Tools.simpleTemplate(text, bind)
     }
+
+//    private String getDomainInfo() {
+//        if (!(this.conf.getAttr('domain') in [null, ''])) {
+//            return '应用域名地址：' + this.conf.getAttr('domain')
+//        }
+//        return ''
+//    }
 
     private String useSvcInfo() {
         if (!this.conf.getAttr('useService')) {
@@ -77,13 +84,27 @@ $buildTestInfo
     }
 
     private String buildEnvInfo() {
-        if (this.conf.getAttr('useService')) {
+        // 如果用户设置了域名地址
+        if (!(this.conf.getAttr('domain') in [null, ''])) {
+            return '构建完成, 用户访问地址：'  + this.getDomainTopString() + this.conf.getAttr('domain')
+        }
+
+        if (this.conf.getAttr('useService') && this.conf.getAttr('svcType') == 'NodePort') {
             return '构建完成, 用户访问地址：' + this.getAppUrl()
         }
+
         return ''
     }
 
+    private String getDomainTopString() {
+        return this.conf.getAttr('branchName') == 'master' ? '' : this.conf.getAttr('branchName') + '.'
+    }
+
     private String buildTestInfo() {
+        if (!(this.conf.getAttr('domain') in [null, ''])) {
+            return '测试环境, 用户访问地址：'  + 'test.' + this.conf.getAttr('domain')
+        }
+
         if (this.conf.getAttr('test')) {
             return '测试环境, 用户访问地址：' + this.getTestAddress()
         }
