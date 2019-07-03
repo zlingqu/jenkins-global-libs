@@ -213,8 +213,8 @@ spec:
     tty: true
     resources:
       requests:
-        cpu: 4000m
-        memory: 8000Mi
+        cpu: 2000m
+        memory: 4000Mi
 ''', this.conf.getAttr('customImage'))
         }
         return ''
