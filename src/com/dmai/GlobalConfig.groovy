@@ -95,10 +95,10 @@ class GlobalConfig implements Serializable {
                     'nodePort' : '30227',
                     'containerPort': '3000',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-                    'cpuRequests' : '300m',
-                    'memoryRequests' : '500Mi',
-                    'cpuLimits' : '800m',
-                    'memoryLimits' : '1000Mi',
+//                    'cpuRequests' : '300m',
+//                    'memoryRequests' : '500Mi',
+//                    'cpuLimits' : '800m',
+//                    'memoryLimits' : '1000Mi',
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
@@ -122,10 +122,10 @@ class GlobalConfig implements Serializable {
                     'nodePort' : '30222',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-                    'cpuRequests' : '1000m',
-                    'memoryRequests' : '2000Mi',
-                    'cpuLimits' : '2000m',
-                    'memoryLimits' : '4000Mi',
+//                    'cpuRequests' : '1000m',
+//                    'memoryRequests' : '2000Mi',
+//                    'cpuLimits' : '2000m',
+//                    'memoryLimits' : '4000Mi',
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
@@ -149,10 +149,10 @@ class GlobalConfig implements Serializable {
                     'nodePort' : '30224',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-                    'cpuRequests' : '300m',
-                    'memoryRequests' : '500Mi',
-                    'cpuLimits' : '800m',
-                    'memoryLimits' : '1000Mi',
+//                    'cpuRequests' : '300m',
+//                    'memoryRequests' : '500Mi',
+//                    'cpuLimits' : '800m',
+//                    'memoryLimits' : '1000Mi',
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
@@ -178,10 +178,10 @@ class GlobalConfig implements Serializable {
                     'nodePort' : '30225',
                     'containerPort': '8080',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-                    'cpuRequests' : '300m',
-                    'memoryRequests' : '500Mi',
-                    'cpuLimits' : '800m',
-                    'memoryLimits' : '1000Mi',
+//                    'cpuRequests' : '300m',
+//                    'memoryRequests' : '500Mi',
+//                    'cpuLimits' : '800m',
+//                    'memoryLimits' : '1000Mi',
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
@@ -208,10 +208,10 @@ class GlobalConfig implements Serializable {
                     'nodePort' : '30226',
                     'containerPort': '3000',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-                    'cpuRequests' : '300m',
-                    'memoryRequests' : '500Mi',
-                    'cpuLimits' : '800m',
-                    'memoryLimits' : '1000Mi',
+//                    'cpuRequests' : '300m',
+//                    'memoryRequests' : '500Mi',
+//                    'cpuLimits' : '800m',
+//                    'memoryLimits' : '1000Mi',
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
@@ -235,10 +235,10 @@ class GlobalConfig implements Serializable {
                     'nodePort' : '30220',
                     'containerPort': '3000',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-                    'cpuRequests' : '1000m',
-                    'memoryRequests' : '2000Mi',
-                    'cpuLimits' : '2000m',
-                    'memoryLimits' : '4000Mi',
+//                    'cpuRequests' : '1000m',
+//                    'memoryRequests' : '2000Mi',
+//                    'cpuLimits' : '2000m',
+//                    'memoryLimits' : '4000Mi',
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
@@ -265,10 +265,10 @@ class GlobalConfig implements Serializable {
                     'nodePort' : '30221',
                     'containerPort': '3000',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-                    'cpuRequests' : '1000m',
-                    'memoryRequests' : '2000Mi',
-                    'cpuLimits' : '3000m',
-                    'memoryLimits' : '5000Mi',
+//                    'cpuRequests' : '1000m',
+//                    'memoryRequests' : '2000Mi',
+//                    'cpuLimits' : '3000m',
+//                    'memoryLimits' : '5000Mi',
                     'replicas' : 1,
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
@@ -293,10 +293,10 @@ class GlobalConfig implements Serializable {
                     'nodePort' : '30230',
                     'containerPort': '3000',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-                    'cpuRequests' : '300m',
-                    'memoryRequests' : '500Mi',
-                    'cpuLimits' : '800m',
-                    'memoryLimits' : '1000Mi',
+//                    'cpuRequests' : '300m',
+//                    'memoryRequests' : '500Mi',
+//                    'cpuLimits' : '800m',
+//                    'memoryLimits' : '1000Mi',
                     'replicas' : 1,
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
@@ -321,10 +321,10 @@ class GlobalConfig implements Serializable {
                     'nodePort' : '30231',
                     'containerPort': '3000',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-                    'cpuRequests' : '300m',
-                    'memoryRequests' : '500Mi',
-                    'cpuLimits' : '800m',
-                    'memoryLimits' : '1000Mi',
+//                    'cpuRequests' : '300m',
+//                    'memoryRequests' : '500Mi',
+//                    'cpuLimits' : '800m',
+//                    'memoryLimits' : '1000Mi',
                     'replicas' : 1,
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
@@ -349,10 +349,10 @@ class GlobalConfig implements Serializable {
                     'nodePort' : '30232',
                     'containerPort': '3000',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-                    'cpuRequests' : '300m',
-                    'memoryRequests' : '500Mi',
-                    'cpuLimits' : '800m',
-                    'memoryLimits' : '1000Mi',
+//                    'cpuRequests' : '300m',
+//                    'memoryRequests' : '500Mi',
+//                    'cpuLimits' : '800m',
+//                    'memoryLimits' : '1000Mi',
                     'replicas' : 1,
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
@@ -377,10 +377,10 @@ class GlobalConfig implements Serializable {
                     'nodePort' : '30228',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-                    'cpuRequests' : '1000m',
-                    'memoryRequests' : '1000Mi',
-                    'cpuLimits' : '2000m',
-                    'memoryLimits' : '4000Mi',
+//                    'cpuRequests' : '1000m',
+//                    'memoryRequests' : '1000Mi',
+//                    'cpuLimits' : '2000m',
+//                    'memoryLimits' : '4000Mi',
                     'replicas' : 1,
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
@@ -405,10 +405,10 @@ class GlobalConfig implements Serializable {
                     'nodePort' : '30235',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-                    'cpuRequests' : '300m',
-                    'memoryRequests' : '500Mi',
-                    'cpuLimits' : '800m',
-                    'memoryLimits' : '1000Mi',
+//                    'cpuRequests' : '300m',
+//                    'memoryRequests' : '500Mi',
+//                    'cpuLimits' : '800m',
+//                    'memoryLimits' : '1000Mi',
                     'replicas' : 1,
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
@@ -433,10 +433,10 @@ class GlobalConfig implements Serializable {
                     'nodePort' : '30234',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-                    'cpuRequests' : '300m',
-                    'memoryRequests' : '500Mi',
-                    'cpuLimits' : '800m',
-                    'memoryLimits' : '1000Mi',
+//                    'cpuRequests' : '300m',
+//                    'memoryRequests' : '500Mi',
+//                    'cpuLimits' : '800m',
+//                    'memoryLimits' : '1000Mi',
                     'replicas' : 1,
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
@@ -461,10 +461,10 @@ class GlobalConfig implements Serializable {
                     'nodePort' : '30229',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-                    'cpuRequests' : '1000m',
-                    'memoryRequests' : '2000Mi',
-                    'cpuLimits' : '2000m',
-                    'memoryLimits' : '4000Mi',
+//                    'cpuRequests' : '1000m',
+//                    'memoryRequests' : '2000Mi',
+//                    'cpuLimits' : '2000m',
+//                    'memoryLimits' : '4000Mi',
                     'replicas' : 1,
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
@@ -489,10 +489,10 @@ class GlobalConfig implements Serializable {
                     'nodePort': '30233',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-                    'cpuRequests' : '200m',
-                    'memoryRequests' : '400Mi',
-                    'cpuLimits' : '400m',
-                    'memoryLimits' : '800Mi',
+//                    'cpuRequests' : '200m',
+//                    'memoryRequests' : '400Mi',
+//                    'cpuLimits' : '400m',
+//                    'memoryLimits' : '800Mi',
                     'dev-domain' : '',
                     'dev': 'dev', // dev分支部署到开发环境
                     'test': true, // 是否从dev分支部署到测试环境
@@ -517,10 +517,10 @@ class GlobalConfig implements Serializable {
                     'nodePort': '30092',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-                    'cpuRequests' : '200m',
-                    'memoryRequests' : '400Mi',
-                    'cpuLimits' : '400m',
-                    'memoryLimits' : '1000Mi',
+//                    'cpuRequests' : '200m',
+//                    'memoryRequests' : '400Mi',
+//                    'cpuLimits' : '400m',
+//                    'memoryLimits' : '1000Mi',
                     'dev': 'test', // dev分支部署到开发环境
                     'test': false, // 是否从dev分支部署到测试环境
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
@@ -544,10 +544,10 @@ class GlobalConfig implements Serializable {
                     'namespace': 'mis',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-                    'cpuRequests' : '200m',
-                    'memoryRequests' : '400Mi',
-                    'cpuLimits' : '400m',
-                    'memoryLimits' : '1000Mi',
+//                    'cpuRequests' : '200m',
+//                    'memoryRequests' : '400Mi',
+//                    'cpuLimits' : '400m',
+//                    'memoryLimits' : '1000Mi',
                     'dev': 'test', // dev分支部署到开发环境
                     'test': false, // 是否从dev分支部署到测试环境
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
@@ -571,10 +571,10 @@ class GlobalConfig implements Serializable {
                     'nodePort' : '31501',
                     'containerPort': '3000',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-                    'cpuRequests' : '200m',
-                    'memoryRequests' : '400Mi',
-                    'cpuLimits' : '400m',
-                    'memoryLimits' : '1000Mi',
+//                    'cpuRequests' : '200m',
+//                    'memoryRequests' : '400Mi',
+//                    'cpuLimits' : '400m',
+//                    'memoryLimits' : '1000Mi',
                     'dev': 'test', // dev分支部署到开发环境
                     'test': false, // 是否从dev分支部署到测试环境
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
