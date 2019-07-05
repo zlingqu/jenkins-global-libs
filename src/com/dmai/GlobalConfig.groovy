@@ -909,7 +909,7 @@ class GlobalConfig implements Serializable {
 //
                     'useCustomImage': true, //使用非标准自定义的镜像, 在jenkins的运行环境中
                     'customImage' : 'docker.dm-ai.cn/devops/base-image-helm-client:dev-0.01', // 使用自定义镜像的地址
-                    'execCommand' : 'helm install -f config.yaml --name polyaxon --namespace polyaxon ./polyaxon || helm upgrade polyaxon -f config.yaml',
+                    'execCommand' : 'helm install -f config.yaml --name polyaxon --namespace polyaxon ./polyaxon || helm upgrade polyaxon -f config.yaml || sleep 6000',
                     'envType'     : 'cpu' //分为gpu 和非gpu的环境
             ],
             'blackbox-exporter': [

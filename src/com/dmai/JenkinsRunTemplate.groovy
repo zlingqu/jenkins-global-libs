@@ -65,13 +65,6 @@ spec:
     args:
     - "1200"
     tty: true
-    resources:
-      limits:
-        memory: 8000Mi
-        cpu: 4000m
-      requests:
-        cpu: 3000m
-        memory: 6000Mi
   volumes:
   - name: sock
     hostPath:
@@ -115,13 +108,6 @@ spec:
     args:
     - "1200"
     tty: true
-    resources:
-      limits:
-        memory: 300Mi
-        cpu: 200m
-      requests:
-        cpu: 100m
-        memory: 200Mi
 ''', this.getKubectlBranch())
         } else {
             return ''
@@ -185,13 +171,6 @@ spec:
     args:
     - "1200"
     tty: true
-    resources:
-      limits:
-        memory: 300Mi
-        cpu: 200m
-      requests:
-        cpu: 100m
-        memory: 200Mi
 '''
         }
         return ''
@@ -211,10 +190,6 @@ spec:
     args:
     - "1200"
     tty: true
-    resources:
-      requests:
-        cpu: 2000m
-        memory: 4000Mi
 ''', this.conf.getAttr('customImage'))
         }
         return ''
@@ -263,10 +238,6 @@ spec:
     args:
     - "1200"
     tty: true
-    resources:
-      requests:
-        cpu: 2000m
-        memory: 4000Mi
 ''', this.templateJsCompilevolumeMounts())
 
             case 'c++':
@@ -282,13 +253,6 @@ spec:
     args:
     - "1200"
     tty: true
-    resources:
-      limits:
-        memory: 1500Mi
-        cpu: 1000m
-      requests:
-        cpu: 500m
-        memory: 1000Mi
 '''
             default:
                 return ''
