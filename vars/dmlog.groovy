@@ -30,7 +30,7 @@ def call(Map map, env) {
                 label 'jenkinsTemplate'
                 defaultContainer 'jnlp'
                 namespace 'devops'
-                inheritFrom baseTemplateName()
+                inheritFrom baseTemplateName(env)
                 yaml jenkinsTemplate()
             }
         }
@@ -88,8 +88,8 @@ def baseTemplateName() {
     return 'base-template'
 }
 
-def jenkinsTemplate() {
-    return """
+def jenkinsTemplate(env) {
+    return String.format('''
 apiVersion: v1
 kind: Pod
 metadata:
@@ -100,7 +100,7 @@ spec:
   - name: regsecret
   containers:
   - name: kubectl 
-    image: docker.dm-ai.cn/devops/base-image-kubectl:test-0.01
+    image: docker.dm-ai.cn/devops/base-image-kubectl:%s-0.04
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
@@ -141,8 +141,8 @@ spec:
   volumes:
   - name: sock
     hostPath:
-      path: /var/run/docker.sock    
-"""
+      path: /var/run/docker.sock
+''', env.BRANCH_NAME)
 }
 
 
