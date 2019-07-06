@@ -26,7 +26,7 @@ def call(Map map, env) {
     pipeline {
         agent {
             kubernetes {
-                cloud 'kubernetes-test'
+                cloud 'kubernetes-dev'
                 label 'jenkinsTemplate'
                 defaultContainer 'jnlp'
                 namespace 'devops'
