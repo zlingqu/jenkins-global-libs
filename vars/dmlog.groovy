@@ -47,7 +47,9 @@ def call(Map map, env) {
                         println('【创建configMap】')
                         sh 'kubectl apply -f fluentd-es-configmap.yaml'
                         println('【执行采集器部署】')
-                        sh 'kubectl apply -f fluentd-es-ds.yaml'
+                        sh 'kubectl delete -f fluentd-es-ds.yaml || echo 0'
+                        sh 'sleep 10'
+                        sh 'kubectl apply -f fluentd-es-ds.yaml || echo 0'
                     }
                 }
             }
