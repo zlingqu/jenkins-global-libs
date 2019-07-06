@@ -30,8 +30,8 @@ def call(Map map, env) {
                 label 'jenkinsTemplate'
                 defaultContainer 'jnlp'
                 namespace 'devops'
-                inheritFrom baseTemplateName(env)
-                yaml jenkinsTemplate()
+                inheritFrom baseTemplateName()
+                yaml jenkinsTemplate(env)
             }
         }
 
