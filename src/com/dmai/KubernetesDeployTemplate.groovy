@@ -57,7 +57,9 @@ $volumeMounts
         - containerPort: $containerPort
         $getContainerPort
 $resources
-$volumes                
+$volumes
+      nodeSelector:
+        makeenv: $envType
 '''
         def bind = [
                 'appName'             : this.conf.appName,
@@ -75,10 +77,12 @@ $volumes
                 'replicas'            : this.conf.getAttr('replicas') ? this.conf.getAttr('replicas') : 1,
                 'command'             : this.conf.getAttr('command') ? this.conf.getAttr('command'): '',
                 'getContainerPort'    : this.getContainerPort(),
-                'resources'           : this.resourcesTemplate()
+                'resources'           : this.resourcesTemplate(),
+                'envType'             : this.conf.getAttr('envType') == 'gpu' ? 'gpu' : 'cpu'
         ]
         return Tools.simpleTemplate(text, bind)
     }
+
 
     // 根据用户的设置，来生成yaml中，是否对资源限制的模版文件。
     private String resourcesTemplate() {
