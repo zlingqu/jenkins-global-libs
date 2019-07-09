@@ -27,7 +27,7 @@ class DockerFileTemplate {
 
     private String getCppDockerfile() {
         return '''
-FROM docker.dm-ai.cn/devops/media-access:r.05
+FROM docker.dm-ai.cn/devops/media-access:r.07
 ADD . /src
 CMD '/src/run.sh'
 '''
