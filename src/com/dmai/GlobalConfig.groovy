@@ -550,7 +550,7 @@ class GlobalConfig implements Serializable {
 //                    'cpuLimits' : '400m',
 //                    'memoryLimits' : '1000Mi',
                     'dev': 'test', // dev分支部署到开发环境
-                    'test': false, // 是否从dev分支部署到测试环境
+                    'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/mis/org/org-frontend.git',
                     'compile': true, //
@@ -577,7 +577,7 @@ class GlobalConfig implements Serializable {
 //                    'cpuLimits' : '400m',
 //                    'memoryLimits' : '1000Mi',
                     'dev': 'test', // dev分支部署到开发环境
-                    'test': false, // 是否从dev分支部署到测试环境
+                    'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/mis/org/org-backend.git',
                     'compile': false, // 是否编译
