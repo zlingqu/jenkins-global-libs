@@ -37,7 +37,7 @@ def call(Map map, env) {
                     container('mvn') {
                         script {
                             if ( map.appName == 'work-diary-collector') {
-                                sh 'du -sh target/cwd-2.0-beta.jar'
+                                sh 'du -sh target/cwd-*.jar'
                             }
 
                             if (map.appName == 'dmai-confluence-plugin') {
