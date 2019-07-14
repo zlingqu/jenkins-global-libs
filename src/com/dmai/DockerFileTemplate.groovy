@@ -48,7 +48,7 @@ ENTRYPOINT nginx -g "daemon off;"
 
     private String getNodeDockerfile() {
         return '''
-FROM docker.dm-ai.cn/devops/node:0.0.1
+FROM docker.dm-ai.cn/devops/node:0.0.2
 WORKDIR /app
 COPY . .
 RUN npm config set registry http://192.168.3.13:8081/repository/npm && npm install
