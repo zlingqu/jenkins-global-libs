@@ -96,6 +96,24 @@ def call(Map map, env) {
                 }
             }
 
+            stage('Download Config file') {
+                when { expression { return conf.getAttr('deploy') } }
+
+                steps {
+                    container('kubectl') {
+                        script {
+                            try {
+                                withCredentials([usernamePassword(credentialsId: 'passwd-zs', passwordVariable: 'password', usernameVariable: 'username')]) {
+                                    sh 'source /etc/profile; git config --global http.sslVerify false ; git clone https://$username:$password@gitlab.dm-ai.cn/application-engineering/devops/deployment.git'
+                                }
+                            } catch (e) {
+                                sh "echo ${e}"
+                            }
+                        }
+                    }
+                }
+            }
+
             stage('Make Image') {
                 when { expression { return  conf.getAttr('makeImage')} }
                 steps {
@@ -118,23 +136,23 @@ def call(Map map, env) {
                 }
             }
 
-            stage('Download Config file') {
-                when { expression { return conf.getAttr('deploy') } }
-
-                steps {
-                    container('kubectl') {
-                        script {
-                            try {
-                                withCredentials([usernamePassword(credentialsId: 'passwd-zs', passwordVariable: 'password', usernameVariable: 'username')]) {
-                                    sh 'source /etc/profile; git config --global http.sslVerify false ; git clone https://$username:$password@gitlab.dm-ai.cn/application-engineering/devops/deployment.git'
-                                }
-                            } catch (e) {
-                                sh "echo ${e}"
-                            }
-                        }
-                    }
-                }
-            }
+//            stage('Download Config file') {
+//                when { expression { return conf.getAttr('deploy') } }
+//
+//                steps {
+//                    container('kubectl') {
+//                        script {
+//                            try {
+//                                withCredentials([usernamePassword(credentialsId: 'passwd-zs', passwordVariable: 'password', usernameVariable: 'username')]) {
+//                                    sh 'source /etc/profile; git config --global http.sslVerify false ; git clone https://$username:$password@gitlab.dm-ai.cn/application-engineering/devops/deployment.git'
+//                                }
+//                            } catch (e) {
+//                                sh "echo ${e}"
+//                            }
+//                        }
+//                    }
+//                }
+//            }
 
             stage('Deploy') {
 
