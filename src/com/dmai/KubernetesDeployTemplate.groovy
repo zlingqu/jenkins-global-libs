@@ -91,7 +91,7 @@ $volumes
             return String.format('''
         envFrom:
         - configMapRef:
-          name: %s
+            name: %s
 ''', this.conf.appName)
         }
         return ''
