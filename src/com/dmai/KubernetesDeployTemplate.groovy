@@ -49,6 +49,7 @@ spec:
         image: $dockerRegistryHost/$namespace/$appName:$branchName-$buildNumber
         imagePullPolicy: Always #
         $command
+        $envFrom
         env: #指定容器中的环境变量
         - name: TZ
           value: Asia/Shanghai        
@@ -78,9 +79,21 @@ $volumes
                 'command'             : this.conf.getAttr('command') ? this.conf.getAttr('command'): '',
                 'getContainerPort'    : this.getContainerPort(),
                 'resources'           : this.resourcesTemplate(),
-                'envType'             : this.conf.getAttr('envType') == 'gpu' ? 'gpu' : 'cpu'
+                'envType'             : this.conf.getAttr('envType') == 'gpu' ? 'gpu' : 'cpu',
+                'envFrom'             : this.getEnvFrom()
         ]
         return Tools.simpleTemplate(text, bind)
+    }
+
+    // 根据用户的设置来选择是否，使用批量的环境变量的注入方式：
+    private String getEnvFrom() {
+        if (this.conf.getAttr('useEnvFile')) {
+            return String.format('''
+        envFrom:
+        - configMapRef:
+          name: %s
+''', this.conf.appName)
+        }
     }
 
 
