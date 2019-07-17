@@ -64,7 +64,6 @@ services:
   service-docker-build:
     build: ./
     image: $dockerRegistryHost/$namespace/$appName:$branchName-$buildNumber
-$envFile
 '''
 
         def binding = [
@@ -73,22 +72,8 @@ $envFile
                 'appName' : conf.appName,
                 'branchName' : conf.getAttr('branchName'),
                 'buildNumber' : conf.getAttr('buildNumber'),
-                'envFile'       : this.getEnvFile()
         ]
 
         return Tools.simpleTemplate(text, binding)
     }
-
-    private String getEnvFile() {
-        if (this.conf.getAttr('useEnvFile')) {
-            return String.format('''
-    env_file:
-      - deployment/%s/%s/%s/.env
-''', this.conf.getAttr('namespace'),
-                    this.conf.getAttr(this.conf.getAttr('branchName')),
-                    this.conf.appName)
-        }
-        return ''
-    }
-
 }
