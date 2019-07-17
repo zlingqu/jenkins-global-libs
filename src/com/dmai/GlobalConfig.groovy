@@ -967,6 +967,35 @@ class GlobalConfig implements Serializable {
                     'execCommand' : 'helm install -f config.yaml --name polyaxon --namespace polyaxon ./polyaxon || helm upgrade polyaxon ./polyaxon -f config.yaml || sleep 6000',
                     'envType'     : 'cpu' //分为gpu 和非gpu的环境
             ],
+            'ta-server' : [
+                    'servicePort' : '80',
+                    'namespace': 'x2',
+                    'nodePort' : '31221',
+                    'containerPort': '8888',
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
+//                    'cpuRequests' : '1000m',
+//                    'memoryRequests' : '2000Mi',
+                    'cpuLimits' : '1000m',
+                    'memoryLimits' : '2000Mi',
+                    'replicas' : 1,
+                    'dev': 'dev', // dev分支部署到测试环境
+                    'test': true, // 是否从dev分支部署到测试环境
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
+                    'gitAddress': 'https://gitlab.dm-ai.cn/x2/cloud/ta-server.git',
+                    'compile': false, // 是否编译
+                    'deploy': true, // 是否自动化部署
+                    'customDockerfile': false, // 是否使用自定义 dockerfile
+                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
+                    'useConfigMap': false, //是否使用configmap
+                    'configMapName': 'config.js', //是否使用configmap
+                    'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
+                    'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
+                    'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'useEnvFile'  : true, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
+            ],
             'blackbox-exporter': [
                     'namespace': 'devops',
                     'containerPort': '9115',
