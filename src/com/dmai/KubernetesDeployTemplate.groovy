@@ -94,6 +94,7 @@ $volumes
           name: %s
 ''', this.conf.appName)
         }
+        return ''
     }
 
 
