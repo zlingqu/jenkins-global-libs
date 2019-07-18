@@ -577,9 +577,9 @@ class GlobalConfig implements Serializable {
                     'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/mis/admin/mis-admin-frontend.git',
-                    'compile': true, // 是否编译
+                    'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
-                    'customDockerfile': false, // 是否使用自定义 dockerfile
+                    'customDockerfile': true, // 是否使用自定义 dockerfile
                     'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
                     'useConfigMap': false, //是否使用configmap
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
