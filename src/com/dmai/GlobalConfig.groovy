@@ -1079,7 +1079,7 @@ class GlobalConfig implements Serializable {
             'x3-tts-serving' : [
                     'servicePort' : '80',
                     'namespace': 'x3',
-                    'nodePort' : '30228',
+                    'nodePort' : '30330',
                     'containerPort': '3000',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
 //                    'cpuRequests' : '1000m',
