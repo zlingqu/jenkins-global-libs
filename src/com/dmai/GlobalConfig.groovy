@@ -590,6 +590,33 @@ class GlobalConfig implements Serializable {
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
             ],
+            'project-tracking-frontend': [
+                    'servicePort' : '80',
+                    'namespace': 'mis',
+                    'nodePort': '30096',
+                    'containerPort': '80',
+//                    'domain': 'hr.mis.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
+//                    'cpuRequests' : '200m',
+//                    'memoryRequests' : '400Mi',
+//                    'cpuLimits' : '400m',
+//                    'memoryLimits' : '1000Mi',
+                    'dev': 'dev', // dev分支部署到开发环境
+                    'test': true, // 是否从dev分支部署到测试环境
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
+                    'gitAddress': 'https://gitlab.dm-ai.cn/mis/admin/mis-admin-frontend.git',
+                    'compile': true, // 是否编译
+                    'deploy': true, // 是否自动化部署
+                    'customDockerfile': false, // 是否使用自定义 dockerfile
+                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
+                    'useConfigMap': false, //是否使用configmap
+                    'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
+                    'codeLanguage' : 'js', // 临时的，默认是【js,node,golang,java,php,python】
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'configMapName': 'config.env', //是否使用configmap
+                    'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
+                    'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+            ],
             'app-deploy-platform-axure': [
                     'servicePort' : '80',
                     'namespace': 'devops',
