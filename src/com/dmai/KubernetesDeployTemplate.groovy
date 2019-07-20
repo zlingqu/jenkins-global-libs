@@ -88,6 +88,8 @@ $volumes
     private String getTolerations() {
         if (this.conf.getAttr('envType') == 'gpu') {
             return '''
+      nodeSelector:
+        gpu: enable
       tolerations:
       - key: "hardware"
         operator: "Equal"
