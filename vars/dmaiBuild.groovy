@@ -77,15 +77,15 @@ def call(Map map, env) {
                 }
             }
 
-            stage('sonar-check') {
-                steps {
-                    container('sonar-check') {
-                        script {
-                            codeCheck.sonarCheck()
-                        }
-                    }
-                }
-            }
+//            stage('sonar-check') {
+//                steps {
+//                    container('sonar-check') {
+//                        script {
+//                            codeCheck.sonarCheck()
+//                        }
+//                    }
+//                }
+//            }
 
             stage('Exec Command') {
                 when { expression { return  conf.getAttr('useCustomImage')} }
