@@ -23,6 +23,9 @@ def call(Map map, env) {
     // 自动生成的k8s，部署文件
     Deploykubernetes deploykubernetes = new Deploykubernetes(this, conf)
 
+    // 初始化code check 的步骤
+    CodeCheck codeCheck = new CodeCheck(this, conf)
+
     // 初始化邮件发送模块
     DmaiEmail dmaiEmail = new DmaiEmail(this, conf)
 
@@ -69,6 +72,16 @@ def call(Map map, env) {
                             } catch (e) {
                                 sh "echo ${e}"
                             }
+                        }
+                    }
+                }
+            }
+
+            stage('sonar-check') {
+                steps {
+                    container('sonar-check') {
+                        script {
+                            codeCheck.sonarCheck()
                         }
                     }
                 }

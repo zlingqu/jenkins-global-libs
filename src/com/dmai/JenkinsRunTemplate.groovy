@@ -114,6 +114,22 @@ spec:
         }
     }
 
+    private String templateSonarCheck() {
+        return String.format('''
+  - name: sonar-check
+    image: docker.dm-ai.cn/devops/sonar-scanner:4.0
+    imagePullPolicy: IfNotPresent
+    env: #指定容器中的环境变量
+    - name: DMAI_PRIVATE_DOCKER_REGISTRY
+      value: docker.dm-ai.cn
+    command:
+    - "sleep"
+    args:
+    - "1200"
+    tty: true
+''')
+    }
+
 //    设置不同的分支部署到不同的环境
     private String getKubectlBranch(){
         if (this.conf.getAttr('branchName') == 'master' ) {
