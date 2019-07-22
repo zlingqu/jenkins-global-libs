@@ -14,6 +14,7 @@ class JenkinsRunTemplate {
                 this.templateDockerCompile() +
                 this.templateDockerKubectl() +
                 this.templateDockerKubectlTest() +
+                this.templateSonarCheck() +
                 this.customImage() +
                 this.templateDockerCompose() +
                 this.templateJsCompileVolumes() +
