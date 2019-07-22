@@ -34,6 +34,9 @@ spec:
   - ip: 192.168.3.140
     hostnames: 
     - sonar.ops.dm-ai.cn
+  - ip: 192.168.3.221
+    hostnames: 
+    - gitlab.dm-ai.cn
   imagePullSecrets:
   - name: regsecret
   containers:
