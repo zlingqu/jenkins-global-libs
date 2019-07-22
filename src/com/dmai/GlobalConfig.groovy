@@ -1106,6 +1106,35 @@ class GlobalConfig implements Serializable {
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'useEnvFile'  : false, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
             ],
+            'x3-ocr-model-serving-mathpix' : [
+                    'servicePort' : '80',
+                    'namespace': 'x3',
+                    'nodePort' : '30331',
+                    'containerPort': '3000',
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
+//                    'cpuRequests' : '1000m',
+//                    'memoryRequests' : '2000Mi',
+                    'cpuLimits' : '1000m',
+                    'memoryLimits' : '2000Mi',
+                    'replicas' : 1,
+                    'dev': 'dev', // dev分支部署到测试环境
+                    'test': false, // 是否从dev分支部署到测试环境
+                    'master': 'prdd', // 如果参数master 不等于prd，整个构建就失败，---
+                    'gitAddress': 'https://gitlab.dm-ai.cn/x3/ocr-model-serving-mathpix.git',
+                    'compile': false, // 是否编译
+                    'deploy': true, // 是否自动化部署
+                    'customDockerfile': true, // 是否使用自定义 dockerfile
+                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
+                    'useConfigMap': false, //是否使用configmap
+                    'configMapName': 'config.js', //是否使用configmap
+                    'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
+                    'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
+                    'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'useEnvFile'  : false, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
+            ],
             'ta-prepare-client': [
                     'servicePort' : '80',
                     'namespace': 'x2',
@@ -1128,6 +1157,7 @@ class GlobalConfig implements Serializable {
                     'useConfigMap': false, //是否使用configmap
                     'configMapName': 'config.js', //是否使用configmap
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
+                    'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
                     'codeLanguage' : 'js', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
