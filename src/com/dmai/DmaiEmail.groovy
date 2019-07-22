@@ -66,7 +66,7 @@ sonar检查结果：$sonarAddress
                 'buildEnvInfo'   : this.buildEnvInfo(),
                 'buildTestInfo'  : this.buildTestInfo(),
                 'useSvcInfo'     : this.useSvcInfo(),
-                'sonarAddress'   : 'http://sonar.ops.dm-ai.cn/dashboard?id=' + this.conf.getAttr('namespace') + '-' + this.conf.appName
+                'sonarAddress'   : 'http://sonar.ops.dm-ai.cn/dashboard?id=' + this.conf.appName
         ]
         return Tools.simpleTemplate(text, bind)
     }
