@@ -54,6 +54,7 @@ Git地址：$gitAddress
 $useSvcInfo
 $buildEnvInfo
 $buildTestInfo
+sonar检查结果：$sonarAddress
 '''
         def bind = [
                 'jenkinsAddress' : this.conf.jenkinsAddress,
@@ -65,6 +66,7 @@ $buildTestInfo
                 'buildEnvInfo'   : this.buildEnvInfo(),
                 'buildTestInfo'  : this.buildTestInfo(),
                 'useSvcInfo'     : this.useSvcInfo(),
+                'sonarAddress'   : 'http://sonar.ops.dm-ai.cn/dashboard?id=' + this.conf.appName
         ]
         return Tools.simpleTemplate(text, bind)
     }
