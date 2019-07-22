@@ -44,6 +44,7 @@ spec:
     spec:
       imagePullSecrets:
       - name: regsecret
+$tolerations
       containers:
       - name: $appName
         image: $dockerRegistryHost/$namespace/$appName:$branchName-$buildNumber
@@ -59,8 +60,6 @@ $volumeMounts
         $getContainerPort
 $resources
 $volumes
-      nodeSelector:
-        makeenv: $envType
 '''
         def bind = [
                 'appName'             : this.conf.appName,
@@ -79,10 +78,26 @@ $volumes
                 'command'             : this.conf.getAttr('command') ? this.conf.getAttr('command'): '',
                 'getContainerPort'    : this.getContainerPort(),
                 'resources'           : this.resourcesTemplate(),
-                'envType'             : this.conf.getAttr('envType') == 'gpu' ? 'gpu' : 'cpu',
-                'envFrom'             : this.getEnvFrom()
+//                'envType'             : this.conf.getAttr('envType') == 'gpu' ? 'gpu' : 'cpu',
+                'envFrom'             : this.getEnvFrom(),
+                'tolerations'         : this.getTolerations()
         ]
         return Tools.simpleTemplate(text, bind)
+    }
+
+    private String getTolerations() {
+        if (this.conf.getAttr('envType') == 'gpu') {
+            return '''
+      nodeSelector:
+        gpu: enable
+      tolerations:
+      - key: "hardware"
+        operator: "Equal"
+        value: "gpu"
+        effect: "NoSchedule"
+'''
+        }
+        return ''
     }
 
     // 根据用户的设置来选择是否，使用批量的环境变量的注入方式：
@@ -104,7 +119,7 @@ $volumes
         def topString = '''
         resources:
 '''
-        for (attr in ['cpuRequests', 'memoryRequests', 'cpuLimits', 'memoryLimits']){
+        for (attr in ['cpuRequests', 'memoryRequests', 'cpuLimits', 'memoryLimits', 'gpuLimits']){
             if (this.conf.getAttr(attr) && this.conf.getAttr(attr) != '') {
                 returnString += topString
                 break
@@ -132,7 +147,7 @@ $volumes
 ''', this.conf.getAttr('memoryRequests'))
         }
 
-        for (limitsAttr in ['cpuLimits', 'memoryLimits']) {
+        for (limitsAttr in ['cpuLimits', 'memoryLimits', 'gpuLimits']) {
             if (this.conf.getAttr(limitsAttr) && this.conf.getAttr(limitsAttr) != '') {
                 returnString += '''
           limits:
@@ -151,6 +166,12 @@ $volumes
             returnString += String.format('''
             memory: %s
 ''', this.conf.getAttr('memoryLimits'))
+        }
+
+        if (this.conf.getAttr('gpuLimits') && this.conf.getAttr('gpuLimits') != '') {
+            returnString += String.format('''
+            nvidia.com/gpu: %s
+''', this.conf.getAttr('gpuLimits'))
         }
 
         returnString
