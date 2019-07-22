@@ -30,6 +30,9 @@ metadata:
   name: jenkinsTemplate
   namespace: devops
 spec:
+  hostAliases:
+  - ip: 192.168.3.140
+    hostnames: sonar.ops.dm-ai.cn
   imagePullSecrets:
   - name: regsecret
   containers:
