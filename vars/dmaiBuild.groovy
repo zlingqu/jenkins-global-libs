@@ -78,6 +78,7 @@ def call(Map map, env) {
             }
 
             stage('sonar-check') {
+                when { expression { return  conf.getAttr('branchName') == 'dev'} }
                 steps {
                     container('sonar-check') {
                         script {
