@@ -1205,7 +1205,7 @@ class GlobalConfig implements Serializable {
                     'memoryLimits' : '1000Mi',
                     'replicas' : 1,
                     'dev': 'dev', // dev分支部署到测试环境
-                    'test': false, // 是否从dev分支部署到测试环境
+                    'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/X3/X3-dispatcher-service.git',
                     'compile': false, // 是否编译
