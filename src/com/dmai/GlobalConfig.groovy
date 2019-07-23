@@ -1140,7 +1140,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'x3',
                     'nodePort' : '30330',
                     'containerPort': '3000',
-                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
+                    'domain': 'tts-serving.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
 //                    'cpuRequests' : '1000m',
 //                    'memoryRequests' : '2000Mi',
                     'cpuLimits' : '1000m',
@@ -1156,7 +1156,7 @@ class GlobalConfig implements Serializable {
                     'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
                     'useConfigMap': false, //是否使用configmap
                     'configMapName': 'config.js', //是否使用configmap
-                    'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
+                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
