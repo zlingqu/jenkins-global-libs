@@ -60,15 +60,6 @@ def call(Map map, env) {
 
         stages {
 
-            stage('sleep 1000') {
-                steps {
-
-                    script {
-                        sh 'sleep 1000'
-                    }
-                }
-            }
-
             stage('Specified version') {
                 when { expression { return  gitVersion != 'last'} }
                 steps {
@@ -86,16 +77,16 @@ def call(Map map, env) {
                 }
             }
 
-//            stage('sonar-check') {
-//                when { expression { return  conf.getAttr('branchName') == 'dev'} }
-//                steps {
-//                    container('sonar-check') {
-//                        script {
-//                            codeCheck.sonarCheck()
-//                        }
-//                    }
-//                }
-//            }
+            stage('sonar-check') {
+                when { expression { return  conf.getAttr('branchName') == 'dev'} }
+                steps {
+                    container('sonar-check') {
+                        script {
+                            codeCheck.sonarCheck()
+                        }
+                    }
+                }
+            }
 
             stage('Exec Command') {
                 when { expression { return  conf.getAttr('useCustomImage')} }
