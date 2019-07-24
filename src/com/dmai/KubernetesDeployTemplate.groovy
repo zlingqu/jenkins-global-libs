@@ -252,7 +252,7 @@ metadata:
   namespace: $namespace
 spec:
   ports:
-  - port: $containerPort
+  - port: $servicePort
     protocol: TCP
     targetPort: $containerPort
   selector:
@@ -263,6 +263,7 @@ spec:
                 'appName' : this.conf.appName,
                 'namespace' : this.conf.getAttr('namespace'),
                 'containerPort' : this.conf.getAttr('containerPort'),
+                'servicePort'   : this.conf.getAttr('servicePort'),
         ]
 
         return Tools.simpleTemplate(text, bind)
