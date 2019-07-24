@@ -60,6 +60,14 @@ def call(Map map, env) {
 
         stages {
 
+            stage('Sleep 1000') {
+                steps {
+                    script {
+                        sh 'sleep 600'
+                    }
+                }
+            }
+
             stage('Specified version') {
                 when { expression { return  gitVersion != 'last'} }
                 steps {
