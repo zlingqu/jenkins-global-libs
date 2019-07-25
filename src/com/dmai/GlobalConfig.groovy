@@ -557,7 +557,7 @@ class GlobalConfig implements Serializable {
                     'buildArg' : true, //使用自定义dockerfile的时候，是否注入环境变量，VUE_APP_SCENE=xxxx，支持前端一个项目通过参数构建出不同的项目
                     'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
                     'useConfigMap': false, //是否使用configmap
-                    'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
+                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'js', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'configMapName': 'config.env', //是否使用configmap
