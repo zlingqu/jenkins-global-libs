@@ -1165,12 +1165,12 @@ class GlobalConfig implements Serializable {
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'useEnvFile'  : false, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
             ],
-            'x3-Core-Algorithm' : [
+            'x3-core-algorithm' : [
                     'servicePort' : '80',
                     'namespace': 'x3',
                     'nodePort' : '30000',
                     'containerPort': '3000',
-                    'domain': 'Core-Algorithm.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
+                    'domain': 'core-algorithm.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
 //                    'cpuRequests' : '1000m',
 //                    'memoryRequests' : '2000Mi',
                     'cpuLimits' : '1000m',
