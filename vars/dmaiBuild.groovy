@@ -31,6 +31,21 @@ def call(Map map, env) {
 
     println('【开始进行构建】')
     pipeline {
+
+        // 在整个构建之前，先进行参数化的设置
+        parameters {
+            string(name: 'DEPLOY_ENV', defaultValue: 'dev', description: '部署的环境，目前支持：dev/test。')
+            string(name: 'GIT_VERSION', defaultValue: 'last', description: 'git的commit 版本号，git log 查看。')
+            string(name: 'VUE_APP_SCENE', defaultValue: 'main', description: '支持前端通过一个变量来控制，发布不同的版本')
+        }
+
+        // 转化为可用的环境变量
+        environment {
+            deployEnvironment = "${params.DEPLOY_ENV}"
+            gitVersion = "${params.GIT_VERSION}"
+            vueAppScene = "${params.VUE_APP_SCENE}"
+        }
+
         agent {
             kubernetes {
                 cloud 'kubernetes-dev'
@@ -38,21 +53,21 @@ def call(Map map, env) {
                 defaultContainer 'jnlp'
                 namespace 'devops'
                 inheritFrom 'base-template'
-                yaml new JenkinsRunTemplate(conf).getJenkinsRunTemplate()
+                yaml new JenkinsRunTemplate(conf).getJenkinsRunTemplate(vueAppScene)
             }
         }
 
-        parameters {
-            string(name: 'DEPLOY_ENV', defaultValue: 'dev', description: '部署的环境，目前支持：dev/test。')
-            string(name: 'GIT_VERSION', defaultValue: 'last', description: 'git的commit 版本号，git log 查看。')
-            string(name: 'VUE_APP_SCENE', defaultValue: 'main', description: '支持前端通过一个变量来控制，发布不同的版本')
-        }
-
-        environment {
-            deployEnvironment = "${params.DEPLOY_ENV}"
-            gitVersion = "${params.GIT_VERSION}"
-            vueAppScene = "${params.VUE_APP_SCENE}"
-        }
+//        parameters {
+//            string(name: 'DEPLOY_ENV', defaultValue: 'dev', description: '部署的环境，目前支持：dev/test。')
+//            string(name: 'GIT_VERSION', defaultValue: 'last', description: 'git的commit 版本号，git log 查看。')
+//            string(name: 'VUE_APP_SCENE', defaultValue: 'main', description: '支持前端通过一个变量来控制，发布不同的版本')
+//        }
+//
+//        environment {
+//            deployEnvironment = "${params.DEPLOY_ENV}"
+//            gitVersion = "${params.GIT_VERSION}"
+//            vueAppScene = "${params.VUE_APP_SCENE}"
+//        }
 
         // 设置任务的超时时间为1个小时。
         options {
@@ -60,17 +75,12 @@ def call(Map map, env) {
             retry(2)
         }
 
-//        script {
-//            conf.setVueAppScene(vueAppScene)
-//            echo conf.vueAppScene
-//        }
-
         stages {
 
             stage('Build-Init') {
                 steps {
                     script {
-                        conf.setVueAppScene(vueAppScene)
+//                        conf.setVueAppScene(vueAppScene)
                         echo conf.vueAppScene
                     }
                 }

@@ -9,7 +9,9 @@ class JenkinsRunTemplate {
         this.conf = conf
     }
 
-    public String getJenkinsRunTemplate() {
+    public String getJenkinsRunTemplate(String vueAppScene) {
+
+        this.conf.setVueAppScene(vueAppScene)
         def returnString = this.templateTop() +
                 this.templateDockerCompile() +
                 this.templateDockerKubectl() +
@@ -58,11 +60,13 @@ spec:
 
     private String templateDockerCompose() {
         if (! this.conf.getAttr('makeImage')) return ''
-        return '''
+        return String.format('''
   - name: docker-compose
     image: docker.dm-ai.cn/devops/base-image-docker-compose:0.04
     imagePullPolicy: IfNotPresent
-    env: #指定容器中的环境变量
+    env:
+    - name: VUE_APP_SCENE
+      value: %s
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
       value: docker.dm-ai.cn  
     volumeMounts:
@@ -77,7 +81,7 @@ spec:
   - name: sock
     hostPath:
       path: /var/run/docker.sock
-'''
+''', this.conf.vueAppScene)
     }
 
     private String templateJsCompileVolumes() {
