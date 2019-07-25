@@ -80,14 +80,14 @@ def call(Map map, env) {
 
         stages {
 
-//            stage('Build-Init') {
-//                steps {
-//                    script {
-//                        conf.setVueAppScene(vueAppScene)
-//                        echo conf.vueAppScene
-//                    }
-//                }
-//            }
+            stage('Build-Init') {
+                steps {
+                    script {
+                        conf.setVueAppScene(vueAppScene)
+                        echo conf.vueAppScene
+                    }
+                }
+            }
 
             stage('Specified version') {
                 when { expression { return  gitVersion != 'last'} }
