@@ -1168,7 +1168,7 @@ class GlobalConfig implements Serializable {
             'x3-Core-Algorithm' : [
                     'servicePort' : '80',
                     'namespace': 'x3',
-                    'nodePort' : '',
+                    'nodePort' : '30000',
                     'containerPort': '3000',
                     'domain': 'Core-Algorithm.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
 //                    'cpuRequests' : '1000m',
