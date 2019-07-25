@@ -83,7 +83,7 @@ def call(Map map, env) {
             stage('Build-Init') {
                 steps {
                     script {
-                        conf.setVueAppScene(vueAppScene)
+//                        conf.setVueAppScene(vueAppScene)
                         echo conf.vueAppScene
                     }
                 }
