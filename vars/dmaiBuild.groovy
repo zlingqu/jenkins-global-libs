@@ -83,6 +83,7 @@ def call(Map map, env) {
             stage('Build-Init') {
                 steps {
                     script {
+                        conf.setAppName(conf.appName + '-' + vueAppScene)
                         echo conf.vueAppScene
                     }
                 }
