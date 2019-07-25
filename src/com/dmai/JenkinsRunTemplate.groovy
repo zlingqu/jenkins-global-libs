@@ -159,31 +159,6 @@ spec:
         }
     }
 
-//    private templateDockerKubectlStage() {
-//        if (this.conf.getAttr('stage')) {
-//            return '''
-//  - name: kubectl-stage
-//    image: docker.dm-ai.cn/devops/base-image-kubectl:stage-0.01
-//    imagePullPolicy: IfNotPresent
-//    env: #指定容器中的环境变量
-//    - name: DMAI_PRIVATE_DOCKER_REGISTRY
-//      value: docker.dm-ai.cn
-//    command:
-//    - "sleep"
-//    args:
-//    - "1200"
-//    tty: true
-//    resources:
-//      limits:
-//        memory: 300Mi
-//        cpu: 200m
-//      requests:
-//        cpu: 100m
-//        memory: 200Mi
-//'''
-//        }
-//        return ''
-//    }
 
     private templateDockerKubectlTest() {
         if (this.conf.getAttr('test')) {
@@ -223,31 +198,6 @@ spec:
         return ''
     }
 
-//    private templateDockerKubectlCloud() {
-//        if (this.conf.getAttr('cloud')) {
-//            return '''
-//  - name: kubectl-cloud
-//    image: docker.dm-ai.cn/devops/base-image-kubectl:cloud-0.01
-//    imagePullPolicy: IfNotPresent
-//    env: #指定容器中的环境变量
-//    - name: DMAI_PRIVATE_DOCKER_REGISTRY
-//      value: docker.dm-ai.cn
-//    command:
-//    - "sleep"
-//    args:
-//    - "1200"
-//    tty: true
-//    resources:
-//      limits:
-//        memory: 300Mi
-//        cpu: 200m
-//      requests:
-//        cpu: 100m
-//        memory: 200Mi
-//'''
-//        }
-//        return ''
-//    }
 
     private String templateDockerCompile() {
         if (! this.conf.getAttr('compile')) return ''
