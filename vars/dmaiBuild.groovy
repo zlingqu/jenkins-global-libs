@@ -29,6 +29,9 @@ def call(Map map, env) {
     // 初始化邮件发送模块
     DmaiEmail dmaiEmail = new DmaiEmail(this, conf)
 
+    //
+    if (conf.getAttr('branchName') == 'master' && conf.getAttr('master') !='prd') return
+
     println('【开始进行构建】')
     pipeline {
 
