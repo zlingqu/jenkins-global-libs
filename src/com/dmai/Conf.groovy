@@ -32,6 +32,10 @@ class Conf implements Serializable{
         this.vueAppScene = vueAppScene
     }
 
+    public def setAppName(String appName) {
+        this.appName = appName
+    }
+
     // get attr
     public def getAttr(String attrName) {
         try {

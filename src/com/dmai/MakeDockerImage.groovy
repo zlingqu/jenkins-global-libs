@@ -19,6 +19,10 @@ class MakeDockerImage {
 
         this.script.sh "echo '${ this.dockerFileTemplate.getDockerComposeFile() }' > docker-compose.yml"
 
+        if (this.conf.vueAppScene != 'main') {
+            this.script.sh String.format('docker-compose build --build-arg VUE_APP_SCENE=%s service-docker-build', this.conf.vueAppScene)
+            return
+        }
         this.script.sh 'docker-compose build'
     }
 

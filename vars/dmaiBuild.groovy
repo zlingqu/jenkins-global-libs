@@ -56,7 +56,7 @@ def call(Map map, env) {
                 defaultContainer 'jnlp'
                 namespace 'devops'
                 inheritFrom 'base-template'
-                yaml new JenkinsRunTemplate(conf).getJenkinsRunTemplate()
+                yaml new JenkinsRunTemplate(conf).getJenkinsRunTemplate(params.VUE_APP_SCENE)
             }
         }
 
@@ -80,14 +80,14 @@ def call(Map map, env) {
 
         stages {
 
-//            stage('Build-Init') {
-//                steps {
-//                    script {
-////                        conf.setVueAppScene(vueAppScene)
-////                        echo conf.vueAppScene
-//                    }
-//                }
-//            }
+            stage('Build-Init') {
+                steps {
+                    script {
+                        conf.setAppName(conf.appName + '-' + vueAppScene)
+                        echo conf.vueAppScene
+                    }
+                }
+            }
 
             stage('Specified version') {
                 when { expression { return  gitVersion != 'last'} }
