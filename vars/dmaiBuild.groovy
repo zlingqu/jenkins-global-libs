@@ -60,10 +60,10 @@ def call(Map map, env) {
             retry(2)
         }
 
-        script {
-            conf.setVueAppScene(vueAppScene)
-            echo conf.vueAppScene
-        }
+//        script {
+//            conf.setVueAppScene(vueAppScene)
+//            echo conf.vueAppScene
+//        }
 
         stages {
 
