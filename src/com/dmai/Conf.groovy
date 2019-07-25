@@ -5,6 +5,7 @@ class Conf implements Serializable{
     public String appName
     public String dockerRegistryHost
     public String jenkinsAddress
+    public String vueAppScene
     protected final def script
     private Map<String, String> userSetMap
     private Map<String, String> appConf
@@ -16,6 +17,7 @@ class Conf implements Serializable{
         this.dockerRegistryHost = 'docker.dm-ai.cn'
         this.jenkinsAddress = 'http://jenkins.ops.dm-ai.cn'
         this.userSetMap = userSetMap
+        this.vueAppScene = ''
 
         // 全局设置中没添加这个项目，需要报错。
         try {
@@ -24,6 +26,10 @@ class Conf implements Serializable{
         catch (e) {
             this.script.sh "echo ${e}"
         }
+    }
+
+    public def setVueAppScene(String vueAppScene) {
+        this.vueAppScene = vueAppScene
     }
 
     // get attr

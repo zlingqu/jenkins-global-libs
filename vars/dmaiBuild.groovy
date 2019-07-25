@@ -43,19 +43,26 @@ def call(Map map, env) {
         }
 
         parameters {
-            string(name: 'DEPLOY_ENV', defaultValue: 'dev', description: '')
-            string(name: 'GIT_VERSION', defaultValue: 'last', description: '')
+            string(name: 'DEPLOY_ENV', defaultValue: 'dev', description: '部署的环境，目前支持：dev/test。')
+            string(name: 'GIT_VERSION', defaultValue: 'last', description: 'git的commit 版本号，git log 查看。')
+            string(name: 'VUE_APP_SCENE', defaultValue: 'main', description: '支持前端通过一个变量来控制，发布不同的版本')
         }
 
         environment {
             deployEnvironment = "${params.DEPLOY_ENV}"
             gitVersion = "${params.GIT_VERSION}"
+            vueAppScene = "${params.VUE_APP_SCENE}"
         }
 
         // 设置任务的超时时间为1个小时。
         options {
             timeout(time: 1, unit: 'HOURS')
             retry(2)
+        }
+
+        script {
+            conf.setVueAppScene(vueAppScene)
+            echo conf.vueAppScene
         }
 
         stages {
