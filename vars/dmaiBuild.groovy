@@ -39,7 +39,8 @@ def call(Map map, env) {
         parameters {
             string(name: 'DEPLOY_ENV', defaultValue: 'dev', description: '部署的环境，目前支持：dev/test。')
             string(name: 'GIT_VERSION', defaultValue: 'last', description: 'git的commit 版本号，git log 查看。')
-            string(name: 'VUE_APP_SCENE', defaultValue: 'main', description: '支持前端通过一个变量来控制，发布不同的版本')
+//            string(name: 'VUE_APP_SCENE', defaultValue: 'main', description: '支持前端通过一个变量来控制，发布不同的版本')
+            choice(name: 'VUE_APP_SCENE', choices: ['main', 'training'], description: '支持前端通过一个变量来控制，发布不同的版本')
         }
 
         // 转化为可用的环境变量
