@@ -200,7 +200,7 @@ spec:
 
 
     private String templateDockerCompile() {
-        if (! this.conf.getAttr('compile')) return ''
+//        if (! this.conf.getAttr('compile')) return ''
         switch (this.conf.getAttr('codeLanguage')) {
             case 'js':
                 return String.format('''
