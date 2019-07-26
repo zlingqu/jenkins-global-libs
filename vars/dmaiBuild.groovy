@@ -106,16 +106,16 @@ def call(Map map, env) {
                 }
             }
 
-            stage('sonar-check') {
-                when { expression { return  conf.getAttr('branchName') == 'dev'} }
-                steps {
-                    container('sonar-check') {
-                        script {
-                            codeCheck.sonarCheck()
-                        }
-                    }
-                }
-            }
+//            stage('sonar-check') {
+//                when { expression { return  conf.getAttr('branchName') == 'dev'} }
+//                steps {
+//                    container('sonar-check') {
+//                        script {
+//                            codeCheck.sonarCheck()
+//                        }
+//                    }
+//                }
+//            }
 
             stage('Exec Command') {
                 when { expression { return  conf.getAttr('useCustomImage')} }
@@ -174,6 +174,30 @@ def call(Map map, env) {
                     container('docker-compose') {
                         script {
                             makeDockerImage.pushImage()
+                        }
+                    }
+                }
+            }
+
+            stage('Install istanbul') {
+                when { expression { return  conf.getAttr('codeLanguage') in  ['js', 'node']}  }
+                steps {
+                    container('compile') {
+                        script {
+                            sh 'npm config set registry http://192.168.3.13:8081/repository/npm && npm install || echo 0'
+                            sh 'npm install istanbul || echo 0'
+                            sh 'istanbul cover test/*.js --my test args || echo 0'
+                        }
+                    }
+                }
+            }
+
+            stage('sonar-check') {
+                when { expression { return  conf.getAttr('branchName') == 'dev' && conf.getAttr('codeLanguage') in  ['js', 'node']} }
+                steps {
+                    container('sonar-check') {
+                        script {
+                            codeCheck.sonarCheck()
                         }
                     }
                 }
