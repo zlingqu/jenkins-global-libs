@@ -220,7 +220,7 @@ class GlobalConfig implements Serializable {
                     'codeLanguage' : 'c++', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'command': 'command: ["/bin/sh", "-c", "cp -rp /src/debug/* /tmp && cd /tmp && ./MediaAccess"]', //自定义命令行
-                    'udpPort': [31600, 31699],
+                    'udpPort': [31600, 31800],
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
@@ -1291,7 +1291,7 @@ class GlobalConfig implements Serializable {
             ],
             'jenkins-test': [
                     'servicePort' : '80',
-                    'namespace': 'x2',
+                    'namespace': 'devops',
                     'nodePort' : '30127',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。

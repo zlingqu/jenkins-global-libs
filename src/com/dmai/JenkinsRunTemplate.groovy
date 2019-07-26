@@ -200,7 +200,7 @@ spec:
 
 
     private String templateDockerCompile() {
-        if (! this.conf.getAttr('compile')) return ''
+//        if (! this.conf.getAttr('compile')) return ''
         switch (this.conf.getAttr('codeLanguage')) {
             case 'js':
                 return String.format('''
@@ -217,6 +217,21 @@ spec:
     - "1200"
     tty: true
 ''', this.templateJsCompilevolumeMounts())
+
+            case 'nodes':
+                return '''
+  - name: compile
+    image: docker.dm-ai.cn/devops/node:0.0.2
+    imagePullPolicy: IfNotPresent
+    env: #指定容器中的环境变量
+    - name: DMAI_PRIVATE_DOCKER_REGISTRY
+      value: docker.dm-ai.cn
+    command:
+    - "sleep"
+    args:
+    - "1200"
+    tty: true
+'''
 
             case 'c++':
                 return '''
