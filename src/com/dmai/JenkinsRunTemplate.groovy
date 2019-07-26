@@ -218,7 +218,7 @@ spec:
     tty: true
 ''', this.templateJsCompilevolumeMounts())
 
-            case 'nodes':
+            case 'node':
                 return '''
   - name: compile
     image: docker.dm-ai.cn/devops/node:0.0.2
