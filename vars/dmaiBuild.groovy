@@ -185,9 +185,8 @@ def call(Map map, env) {
                     container('compile') {
                         script {
                             sh 'npm config set registry http://192.168.3.13:8081/repository/npm && npm install || echo 0'
-                            sh 'npm install istanbul || echo 0'
+                            sh 'npm install -g istanbul || echo 0'
                             sh 'istanbul cover test/*.js --my test args || echo 0'
-                            sh 'sleep 1000'
                         }
                     }
                 }
