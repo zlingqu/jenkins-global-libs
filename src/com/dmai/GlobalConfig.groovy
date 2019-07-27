@@ -1254,7 +1254,7 @@ class GlobalConfig implements Serializable {
             ],
             'ta-prepare-client': [
                     'servicePort' : '80',
-                    'namespace': 'x2',
+                    'namespace': 'x2-ta',
                     'nodePort' : '30127',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
