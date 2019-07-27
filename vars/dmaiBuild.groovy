@@ -44,6 +44,10 @@ def call(Map map, env) {
             choice(name: 'VUE_APP_SCENE', choices: ['main', 'training'], description: '支持前端通过一个变量来控制，发布不同的版本')
         }
 
+        triggers {
+            cron('H/30 * * * *')
+        }
+
         // 转化为可用的环境变量
         environment {
             deployEnvironment = "${params.DEPLOY_ENV}"
