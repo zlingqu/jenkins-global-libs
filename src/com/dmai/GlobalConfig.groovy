@@ -1050,7 +1050,7 @@ class GlobalConfig implements Serializable {
             ],
             'ta-server' : [
                     'servicePort' : '80',
-                    'namespace': 'x2',
+                    'namespace': 'x2-ta',
                     'nodePort' : '31221',
                     'containerPort': '8888',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
@@ -1079,7 +1079,7 @@ class GlobalConfig implements Serializable {
             ],
             'ta-admin-server': [
                     'servicePort' : '80',
-                    'namespace': 'x2',
+                    'namespace': 'x2-ta',
                     'nodePort' : '31222',
                     'containerPort': '8888',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
@@ -1108,7 +1108,7 @@ class GlobalConfig implements Serializable {
             ],
             'ta-classroom-server': [
                     'servicePort' : '80',
-                    'namespace': 'x2',
+                    'namespace': 'x2-ta',
                     'nodePort' : '31223',
                     'containerPort': '8888',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
