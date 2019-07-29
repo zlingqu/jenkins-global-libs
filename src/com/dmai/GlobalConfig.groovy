@@ -165,6 +165,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'envType'     : 'gpu' //分为gpu 和非gpu的环境
             ],
             'media-gateway': [
                     'servicePort' : '80',
@@ -449,6 +450,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'envType'     : 'gpu' //分为gpu 和非gpu的环境
             ],
             'engine-image-process': [
                     'servicePort' : '80',
@@ -507,6 +509,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'envType'     : 'gpu' //分为gpu 和非gpu的环境
             ],
             'engine-metric-service': [
                     'servicePort' : '80',
@@ -535,6 +538,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'envType'     : 'gpu' //分为gpu 和非gpu的环境
             ],
             'xmc2-frontend': [
                     'servicePort' : '80',
