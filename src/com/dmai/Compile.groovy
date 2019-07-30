@@ -20,7 +20,7 @@ class Compile {
                     this.script.sh "make"
                     return
                 case 'java':
-                    this.script.sh "mvn package -Dmaven.test.skip=true"
+                    this.script.sh "mvn package -Dmaven.test.skip=true; cp -rp target /root/.m2/"
             }
         }
     }
