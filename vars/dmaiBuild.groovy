@@ -186,7 +186,7 @@ def call(Map map, env) {
             }
 
             stage('Install istanbul') {
-                when { expression { return  conf.getAttr('codeLanguage') in  ['js', 'node'] && conf.getAttr('sonarCheck')}  }
+                when { expression { return  conf.getAttr('codeLanguage') in  ['js', 'node'] && conf.getAttr('sonarCheck') && deployEnvironment != 'test'}  }
                 steps {
                     container('compile') {
                         script {
@@ -199,7 +199,7 @@ def call(Map map, env) {
             }
 
             stage('sonar-check') {
-                when { expression { return  conf.getAttr('branchName') == 'dev' && conf.getAttr('codeLanguage') in  ['js', 'node'] && conf.getAttr('sonarCheck') }}
+                when { expression { return  conf.getAttr('branchName') == 'dev' && conf.getAttr('codeLanguage') in  ['js', 'node'] && conf.getAttr('sonarCheck') && deployEnvironment != 'test' }}
                 steps {
                     container('sonar-check') {
                         script {
