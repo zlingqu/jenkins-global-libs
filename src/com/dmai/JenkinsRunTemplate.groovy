@@ -20,6 +20,7 @@ class JenkinsRunTemplate {
                 this.customImage() +
                 this.templateDockerCompose() +
                 this.templateJsCompileVolumes() +
+                this.templateJavaCompileVolumes() +
                 this.nodeSelect()
         return returnString
     }
@@ -91,6 +92,17 @@ spec:
     hostPath:
       path: /data/jenkins/cache/%s/%s
 ''',this.conf.getAttr('namespace'), this.conf.appName)
+        }
+        return ''
+    }
+
+    private String templateJavaCompileVolumes() {
+        if ( this.conf.getAttr('compile') && this.conf.getAttr('codeLanguage') == 'java') {
+            return String.format('''
+  - name: data1
+    hostPath:
+      path: /data1/jenkins/%s/%s
+''', this.conf.getAttr('namespace'), this.conf.appName)
         }
         return ''
     }
@@ -245,6 +257,23 @@ spec:
     - "sleep"
     args:
     - "2400"
+    tty: true
+'''
+            case 'java':
+                return '''
+  - name: mvn
+    image: docker.dm-ai.cn/devops/base-image-mvn:0.01
+    imagePullPolicy: IfNotPresent
+    env: #指定容器中的环境变量
+    - name: DMAI_PRIVATE_DOCKER_REGISTRY
+      value: docker.dm-ai.cn
+    volumeMounts:
+    - name: data1
+      mountPath: /root/.m2
+    command:
+    - "sleep"
+    args:
+    - "1200"
     tty: true
 '''
             default:
