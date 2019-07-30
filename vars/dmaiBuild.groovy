@@ -186,7 +186,7 @@ def call(Map map, env) {
             }
 
             stage('Install istanbul') {
-                when { expression { return  conf.getAttr('codeLanguage') in  ['js', 'node']}  }
+                when { expression { return  conf.getAttr('codeLanguage') in  ['js', 'node'] && conf.getAttr('sonarCheck')}  }
                 steps {
                     container('compile') {
                         script {
