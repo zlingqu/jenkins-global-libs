@@ -262,7 +262,7 @@ spec:
 '''
             case 'java':
                 return '''
-  - name: mvn
+  - name: compile
     image: docker.dm-ai.cn/devops/base-image-mvn:0.01
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
