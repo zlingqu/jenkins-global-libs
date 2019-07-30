@@ -209,6 +209,19 @@ def call(Map map, env) {
                 }
             }
 
+            stage('Deploy-java') {
+                when { expression { return conf.appName == 'work-attendance' } }
+                agent { label 'mis-work-attendance' }
+                steps {
+                    bat '''
+                        cd /D f:\\target
+                        copy /Y work-attendance.jar d:\\attendance\\jar
+                        cd /D d:\\attendance\\jar
+                        call run.bat
+                        '''
+                }
+            }
+
 //            stage('Download Config file') {
 //                when { expression { return conf.getAttr('deploy') } }
 //
