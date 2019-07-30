@@ -75,7 +75,7 @@ spec:
     command:
     - "sleep"
     args:
-    - "1200"
+    - "2400"
     tty: true
   volumes:
   - name: sock
@@ -118,7 +118,7 @@ spec:
     command:
     - "sleep"
     args:
-    - "1200"
+    - "2400"
     tty: true
 ''', this.getKubectlBranch())
         } else {
@@ -137,7 +137,7 @@ spec:
     command:
     - "sleep"
     args:
-    - "1200"
+    - "2400"
     tty: true
 ''')
     }
@@ -172,7 +172,7 @@ spec:
     command:
     - "sleep"
     args:
-    - "1200"
+    - "2400"
     tty: true
 '''
         }
@@ -191,7 +191,7 @@ spec:
     command:
     - "sleep"
     args:
-    - "1200"
+    - "2400"
     tty: true
 ''', this.conf.getAttr('customImage'))
         }
@@ -214,7 +214,7 @@ spec:
     command:
     - "sleep"
     args:
-    - "1200"
+    - "2400"
     tty: true
 ''', this.templateJsCompilevolumeMounts())
 
@@ -229,7 +229,7 @@ spec:
     command:
     - "sleep"
     args:
-    - "1200"
+    - "2400"
     tty: true
 '''
 
@@ -244,7 +244,7 @@ spec:
     command:
     - "sleep"
     args:
-    - "1200"
+    - "2400"
     tty: true
 '''
             default:
