@@ -1484,6 +1484,34 @@ class GlobalConfig implements Serializable {
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'sonarCheck'  : false
             ],
+            'app-deploy-platform-space-manger': [
+                    'servicePort' : '80',
+                    'namespace': 'devops',
+                    'nodePort': '30101',
+                    'containerPort': '5000',
+//                    'domain': 'app-deploy-platform.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
+//                    'cpuRequests' : '200m',
+//                    'memoryRequests' : '400Mi',
+                    'cpuLimits' : '300m',
+                    'memoryLimits' : '600Mi',
+                    'dev': 'dev', // dev分支部署到开发环境
+                    'test': true, // 是否从dev分支部署到测试环境
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
+                    'gitAddress': 'https://gitlab.dm-ai.cn/application-engineering/devops/app-deploy-platform/app-deploy-platform-space-manger.git',
+                    'compile': false, // 是否编译
+                    'deploy': true, // 是否自动化部署
+                    'customDockerfile': true, // 是否使用自定义 dockerfile
+                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
+                    'useConfigMap': false, //是否使用configmap
+                    'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
+                    'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'configMapName': 'config.env', //是否使用configmap
+                    'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
+                    'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'sonarCheck'  : false
+            ],
             'jenkins-test': [
                     'servicePort' : '80',
                     'namespace': 'devops',
