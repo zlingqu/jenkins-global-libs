@@ -31,6 +31,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'sonarCheck'  : true
             ],
             'policy-information-point': [
                     'servicePort' : '80',
@@ -57,6 +58,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'sonarCheck'  : true
             ],
             'policy-retrieval-point': [
                     'servicePort' : '80',
@@ -84,6 +86,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'sonarCheck'  : true
             ],
             'sync-service': [
                     'servicePort' : '80',
@@ -111,6 +114,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'sonarCheck'  : true
             ],
             'ui-backend-service': [
                     'servicePort' : '80',
@@ -138,6 +142,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'sonarCheck'  : true
             ],
             'engine-video-extract': [
                     'servicePort' : '80',
@@ -165,7 +170,8 @@ class GlobalConfig implements Serializable {
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
-                    'envType'     : 'gpu' //分为gpu 和非gpu的环境
+                    'envType'     : 'gpu', //分为gpu 和非gpu的环境
+                    'sonarCheck'  : true
             ],
             'media-gateway': [
                     'servicePort' : '80',
@@ -195,6 +201,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'sonarCheck'  : true
             ],
             'media-access': [
                     'servicePort' : '80',
@@ -225,6 +232,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'sonarCheck'  : true
             ],
             'dispatcher-service': [
                     'servicePort' : '80',
@@ -253,6 +261,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'sonarCheck'  : true
             ],
             'showcase': [
                     'servicePort' : '80',
@@ -280,6 +289,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'sonarCheck'  : true
             ],
             'storage-service': [
                     'servicePort' : '80',
@@ -310,6 +320,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'sonarCheck'  : true
 
             ],
             'stat-service': [
@@ -339,6 +350,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'sonarCheck'  : true
             ],
             'vod-service': [
                     'servicePort' : '80',
@@ -367,6 +379,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'sonarCheck'  : true
             ],
             'meta-service': [
                     'servicePort' : '80',
@@ -395,6 +408,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'sonarCheck'  : true
             ],
             'meta-adapter': [
                     'servicePort' : '80',
@@ -423,6 +437,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'sonarCheck'  : true
             ],
             'engine-audio-process': [
                     'servicePort' : '80',
@@ -451,7 +466,8 @@ class GlobalConfig implements Serializable {
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
-                    'envType'     : 'gpu' //分为gpu 和非gpu的环境
+                    'envType'     : 'gpu', //分为gpu 和非gpu的环境
+                    'sonarCheck'  : true
             ],
             'engine-image-process': [
                     'servicePort' : '80',
@@ -481,7 +497,8 @@ class GlobalConfig implements Serializable {
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
-                    'envType'     : 'gpu' //分为gpu 和非gpu的环境
+                    'envType'     : 'gpu', //分为gpu 和非gpu的环境
+                    'sonarCheck'  : true
             ],
             'engine-pipeline-manager': [
                     'servicePort' : '80',
@@ -510,7 +527,8 @@ class GlobalConfig implements Serializable {
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
-                    'envType'     : 'gpu' //分为gpu 和非gpu的环境
+                    'envType'     : 'gpu', //分为gpu 和非gpu的环境
+                    'sonarCheck'  : true
             ],
             'engine-metric-service': [
                     'servicePort' : '80',
@@ -539,7 +557,8 @@ class GlobalConfig implements Serializable {
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
-                    'envType'     : 'gpu' //分为gpu 和非gpu的环境
+                    'envType'     : 'gpu', //分为gpu 和非gpu的环境
+                    'sonarCheck'  : true
             ],
             'xmc2-frontend': [
                     'servicePort' : '80',
@@ -569,6 +588,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'sonarCheck'  : true
             ],
             'mis-admin-frontend': [
                     'servicePort' : '80',
@@ -596,6 +616,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'sonarCheck'  : true
             ],
             'project-tracking-frontend': [
                     'servicePort' : '80',
@@ -623,6 +644,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'sonarCheck'  : true
             ],
             'app-deploy-platform-axure': [
                     'servicePort' : '80',
@@ -650,6 +672,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'sonarCheck'  : true
             ],
             'mis-org-frontend': [
                     'servicePort' : '80',
@@ -677,6 +700,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'sonarCheck'  : true
             ],
             'mis-org-backend': [
                     'servicePort' : '80',
@@ -704,6 +728,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'sonarCheck'  : true
             ],
 			'xmc-mock-service': [
                     'servicePort' : '80',
@@ -732,6 +757,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': false, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'sonarCheck'  : true
             ],
             'xmc-frontend': [
                     'servicePort' : '80',
@@ -760,6 +786,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'sonarCheck'  : true
             ],
 			'xmc-metric-generator': [
                     'servicePort' : '80',
@@ -787,6 +814,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': false, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'sonarCheck'  : true
             ],
 			'xmc-backend-service': [
                     'servicePort' : '80',
@@ -814,6 +842,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'sonarCheck'  : true
             ],
 			'xmc-data-stream': [
                     'servicePort' : '80',
@@ -841,6 +870,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'sonarCheck'  : true
             ],
 			'xmc-data-collector': [
                     'servicePort' : '80',
@@ -868,6 +898,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'sonarCheck'  : true
             ],
 			'xmc-storage-service': [
                     'servicePort' : '80',
@@ -895,6 +926,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': false, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'sonarCheck'  : true
             ],
             'mis-admin-backend': [
                     'servicePort' : '80',
@@ -922,6 +954,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'sonarCheck'  : true
             ],
             'service-prometheus' : [
                     'nodePort': '30090',
@@ -956,6 +989,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'sonarCheck'  : true
             ],
             'xmc2-test-deploy': [
                     'servicePort' : '80',
@@ -987,6 +1021,7 @@ class GlobalConfig implements Serializable {
                     'useCustomImage': true, //使用非标准自定义的镜像, 在jenkins的运行环境中
                     'customImage' : 'docker.dm-ai.cn/devops/xmc2-test-deploy:0.05', // 使用自定义镜像的地址
                     'execCommand' : 'python main.py',
+                    'sonarCheck'  : true
 
             ],
             'jenkins-model-ci-test': [
@@ -1019,7 +1054,8 @@ class GlobalConfig implements Serializable {
                     'useCustomImage': true, //使用非标准自定义的镜像, 在jenkins的运行环境中
                     'customImage' : 'docker.dm-ai.cn/algorithm-research/torch:0.4_cuda9_cudnn7_py27', // 使用自定义镜像的地址
                     'execCommand' : 'cd test; bash -x run_test.sh',
-                    'envType'     : 'gpu' //分为gpu 和非gpu的环境
+                    'envType'     : 'gpu', //分为gpu 和非gpu的环境
+                    'sonarCheck'  : true
             ],
             'polyaxon-chart': [
                     'servicePort' : '80',
@@ -1051,7 +1087,8 @@ class GlobalConfig implements Serializable {
                     'useCustomImage': true, //使用非标准自定义的镜像, 在jenkins的运行环境中
                     'customImage' : 'docker.dm-ai.cn/devops/base-image-helm-client:dev-0.01', // 使用自定义镜像的地址
                     'execCommand' : 'helm install -f config.yaml --name polyaxon --namespace polyaxon ./polyaxon || helm upgrade polyaxon ./polyaxon -f config.yaml || sleep 6000',
-                    'envType'     : 'cpu' //分为gpu 和非gpu的环境
+                    'envType'     : 'cpu', //分为gpu 和非gpu的环境
+                    'sonarCheck'  : true
             ],
             'ta-server' : [
                     'servicePort' : '80',
@@ -1081,6 +1118,7 @@ class GlobalConfig implements Serializable {
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'useEnvFile'  : true, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
+                    'sonarCheck'  : true
             ],
             'resource-service': [
                     'servicePort' : '80',
@@ -1110,6 +1148,7 @@ class GlobalConfig implements Serializable {
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'useEnvFile'  : true, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
+                    'sonarCheck'  : true
             ],
             'content-producer': [
                     'servicePort' : '80',
@@ -1139,6 +1178,7 @@ class GlobalConfig implements Serializable {
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'useEnvFile'  : true, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
+                    'sonarCheck'  : false,
             ],
             'ta-admin-server': [
                     'servicePort' : '80',
@@ -1168,6 +1208,7 @@ class GlobalConfig implements Serializable {
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'useEnvFile'  : true, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
+                    'sonarCheck'  : true
             ],
             'ta-classroom-server': [
                     'servicePort' : '80',
@@ -1197,6 +1238,7 @@ class GlobalConfig implements Serializable {
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'useEnvFile'  : true, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
+                    'sonarCheck'  : true
             ],
             'project-tracking-backend': [
                     'servicePort' : '80',
@@ -1226,6 +1268,7 @@ class GlobalConfig implements Serializable {
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'useEnvFile'  : true, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
+                    'sonarCheck'  : true
             ],
             'x3-tts-serving' : [
                     'servicePort' : '80',
@@ -1255,6 +1298,7 @@ class GlobalConfig implements Serializable {
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'useEnvFile'  : false, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
+                    'sonarCheck'  : true
             ],
             'x3-core-algorithm' : [
                     'servicePort' : '80',
@@ -1284,6 +1328,7 @@ class GlobalConfig implements Serializable {
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'useEnvFile'  : false, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
+                    'sonarCheck'  : true
             ],
             'x3-ocr-model-serving-mathpix' : [
                     'servicePort' : '80',
@@ -1313,6 +1358,7 @@ class GlobalConfig implements Serializable {
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'useEnvFile'  : false, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
+                    'sonarCheck'  : true
             ],
             'x3-dispatcher-service': [
                     'servicePort' : '80',
@@ -1342,6 +1388,7 @@ class GlobalConfig implements Serializable {
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'useEnvFile'  : false, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
+                    'sonarCheck'  : true
             ],
             'ta-prepare-client': [
                     'servicePort' : '80',
@@ -1372,6 +1419,7 @@ class GlobalConfig implements Serializable {
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'useEnvFile'  : false, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
+                    'sonarCheck'  : true
             ],
             'blackbox-exporter': [
                     'namespace': 'devops',
@@ -1406,6 +1454,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'sonarCheck'  : true
             ],
             'jenkins-test': [
                     'servicePort' : '80',
@@ -1436,6 +1485,7 @@ class GlobalConfig implements Serializable {
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'useEnvFile'  : false, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
+                    'sonarCheck'  : true
             ]
     ]
 }
