@@ -99,10 +99,11 @@ spec:
     private String templateJavaCompileVolumes() {
         if ( this.conf.getAttr('compile') && this.conf.getAttr('codeLanguage') == 'java') {
             return String.format('''
+%s
   - name: data1
     hostPath:
       path: /data1/jenkins/%s/%s
-''', this.conf.getAttr('namespace'), this.conf.appName)
+''', this.conf.getAttr('makeImage') ? '' : '  volumes:', this.conf.getAttr('namespace'), this.conf.appName)
         }
         return ''
     }

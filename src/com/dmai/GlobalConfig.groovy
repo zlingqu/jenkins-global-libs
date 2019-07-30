@@ -1544,7 +1544,7 @@ class GlobalConfig implements Serializable {
             ],
             'work-attendance': [
                     'servicePort' : '80',
-                    'namespace': 'devops',
+                    'namespace': 'mis',
                     'nodePort': '30101',
                     'containerPort': '5000',
 //                    'domain': 'app-deploy-platform.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
