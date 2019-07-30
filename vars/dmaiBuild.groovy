@@ -199,7 +199,7 @@ def call(Map map, env) {
             }
 
             stage('sonar-check') {
-                when { expression { return  conf.getAttr('branchName') == 'dev' && conf.getAttr('codeLanguage') in  ['js', 'node']}  && conf.getAttr('sonarCheck')}
+                when { expression { return  conf.getAttr('branchName') == 'dev' && conf.getAttr('codeLanguage') in  ['js', 'node'] && conf.getAttr('sonarCheck') }}
                 steps {
                     container('sonar-check') {
                         script {
