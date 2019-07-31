@@ -10,7 +10,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'mis',
                     'nodePort': '30800',
                     'containerPort': '80',
-                    'domain': 'wattdev.mis.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
+                    'domain': 'watt.mis.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
 //                    'cpuRequests' : '200m',
 //                    'memoryRequests' : '400Mi',
                     'cpuLimits' : '500m',
