@@ -198,7 +198,7 @@ def call(Map map, env) {
                         cd /D f:\\target
                         copy /Y work-attendance.jar d:\\attendance\\jar
                         cd /D d:\\attendance\\jar
-                        run.bat
+                        start run.bat
                         '''
                 }
             }
