@@ -39,7 +39,7 @@ def call(Map map, env) {
         parameters {
             choice(name: 'DEPLOY_ENV', choices: ['dev', 'test'], description: 'dev分支部署的环境，目前支持：dev/test。')
             string(name: 'GIT_VERSION', defaultValue: 'last', description: 'git的commit 版本号，git log 查看。')
-            string(name: 'VUE_APP_SCHOOL', defaultValue: 's00001', description: '学校的Code，xmc2-frontend项目使用，其他不关注,s小写')
+            string(name: 'VUE_APP_SCHOOL', defaultValue: 's00001', description: '学校的Code，xmc2-frontend项目使用，其他不关注,s小写    ')
             choice(name: 'VUE_APP_SCENE', choices: ['main', 'training'], description: 'xmc2-frontend项目使用，其他不关注')
         }
 
@@ -78,7 +78,7 @@ def call(Map map, env) {
                 steps {
                     script {
                         if (conf.appName == 'xmc2-frontend') {
-                            conf.setAppName(conf.appName + (vueAppScene == 'main' ? '' : '-' + vueAppScene) + (vueAppSchool == 'S00001' ? '' : '-' + vueAppSchool)  )
+                            conf.setAppName(conf.appName + (vueAppScene == 'main' ? '' : '-' + vueAppScene) + (vueAppSchool == 's00001' ? '' : '-' + vueAppSchool)  )
                             conf.setVueAppSchool(vueAppSchool)
                             echo conf.vueAppScene
                             echo conf.vueAppSchool
