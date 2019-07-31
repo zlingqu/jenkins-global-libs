@@ -37,11 +37,10 @@ def call(Map map, env) {
 
         // 在整个构建之前，先进行参数化的设置
         parameters {
-//            string(name: 'DEPLOY_ENV', defaultValue: 'dev', description: '部署的环境，目前支持：dev/test。')
             choice(name: 'DEPLOY_ENV', choices: ['dev', 'test'], description: 'dev分支部署的环境，目前支持：dev/test。')
             string(name: 'GIT_VERSION', defaultValue: 'last', description: 'git的commit 版本号，git log 查看。')
-//            string(name: 'VUE_APP_SCENE', defaultValue: 'main', description: '支持前端通过一个变量来控制，发布不同的版本')
-            choice(name: 'VUE_APP_SCENE', choices: ['main', 'training'], description: '支持前端通过一个变量来控制，发布不同的版本')
+            string(name: 'VUE_APP_SCHOOL', defaultValue: 'S00001', description: '学校的Code，xmc2-frontend项目使用，其他不关注')
+            choice(name: 'VUE_APP_SCENE', choices: ['main', 'training'], description: 'xmc2-frontend项目使用，其他不关注')
         }
 
 //        triggers {
@@ -53,6 +52,7 @@ def call(Map map, env) {
             deployEnvironment = "${params.DEPLOY_ENV}"
             gitVersion = "${params.GIT_VERSION}"
             vueAppScene = "${params.VUE_APP_SCENE}"
+            vueAppSchool = "${params.VUE_APP_SCHOOL}"
         }
 
         agent {
@@ -62,21 +62,9 @@ def call(Map map, env) {
                 defaultContainer 'jnlp'
                 namespace 'devops'
                 inheritFrom 'base-template'
-                yaml new JenkinsRunTemplate(conf).getJenkinsRunTemplate(params.VUE_APP_SCENE)
+                yaml new JenkinsRunTemplate(conf).getJenkinsRunTemplate()
             }
         }
-
-//        parameters {
-//            string(name: 'DEPLOY_ENV', defaultValue: 'dev', description: '部署的环境，目前支持：dev/test。')
-//            string(name: 'GIT_VERSION', defaultValue: 'last', description: 'git的commit 版本号，git log 查看。')
-//            string(name: 'VUE_APP_SCENE', defaultValue: 'main', description: '支持前端通过一个变量来控制，发布不同的版本')
-//        }
-//
-//        environment {
-//            deployEnvironment = "${params.DEPLOY_ENV}"
-//            gitVersion = "${params.GIT_VERSION}"
-//            vueAppScene = "${params.VUE_APP_SCENE}"
-//        }
 
         // 设置任务的超时时间为1个小时。
         options {
@@ -89,8 +77,12 @@ def call(Map map, env) {
             stage('Build-Init') {
                 steps {
                     script {
-                        conf.setAppName(conf.appName + '-' + vueAppScene)
-                        echo conf.vueAppScene
+                        if (conf.appName == 'xmc2-frontend') {
+                            conf.setAppName(conf.appName + (vueAppScene == 'main' ? '' : '-' + vueAppScene) + (vueAppSchool == 'S00001' ? '' : vueAppSchool)  )
+                            conf.setVueAppSchool(vueAppSchool)
+                            echo conf.vueAppScene
+                            echo conf.vueAppSchool
+                        }
                     }
                 }
             }
@@ -111,17 +103,6 @@ def call(Map map, env) {
                     }
                 }
             }
-
-//            stage('sonar-check') {
-//                when { expression { return  conf.getAttr('branchName') == 'dev'} }
-//                steps {
-//                    container('sonar-check') {
-//                        script {
-//                            codeCheck.sonarCheck()
-//                        }
-//                    }
-//                }
-//            }
 
             stage('Exec Command') {
                 when { expression { return  conf.getAttr('useCustomImage')} }
@@ -261,28 +242,6 @@ def call(Map map, env) {
                 }
             }
 
-//            stage('Deploy stage') {
-//                when { expression { return conf.getAttr('stage') } }
-//
-//                steps {
-//                    container('kubectl-stage') {
-//                        script {
-//                            deploykubernetes.deployKubernetes()
-//                        }
-//                    }
-//                }
-//            }
-
-//            stage('Send email') {
-//                when {  expression { return conf.getAttr('test') } }
-//
-//                steps {
-//                    script {
-//                        dmaiEmail.userSureEmail()
-//                    }
-//                }
-//            }
-//
             stage('Deploy test') {
                 when { expression { return deployEnvironment == 'test' } }
 
