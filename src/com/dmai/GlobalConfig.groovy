@@ -8,7 +8,7 @@ class GlobalConfig implements Serializable {
             'work-attendance-frontend': [
                     'servicePort' : '80',
                     'namespace': 'mis',
-                    'nodePort': '30800',
+//                    'nodePort': '30800',
                     'containerPort': '80',
                     'domain': 'watt.mis.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
 //                    'cpuRequests' : '200m',
@@ -24,7 +24,7 @@ class GlobalConfig implements Serializable {
                     'customDockerfile': false, // 是否使用自定义 dockerfile
                     'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
                     'useConfigMap': false, //是否使用configmap
-                    'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
+                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'js', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'configMapName': 'config.env', //是否使用configmap
