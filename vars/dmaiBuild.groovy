@@ -32,6 +32,9 @@ def call(Map map, env) {
     //
     if (conf.getAttr('branchName') == 'master' && conf.getAttr('master') !='prd') return
 
+    //
+    if (conf.appName == 'work-attendance' && conf.getAttr('branchName') != 'master') return
+
     println('【开始进行构建】')
     pipeline {
 
