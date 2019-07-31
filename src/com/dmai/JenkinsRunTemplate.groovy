@@ -9,9 +9,8 @@ class JenkinsRunTemplate {
         this.conf = conf
     }
 
-    public String getJenkinsRunTemplate(String vueAppScene) {
+    public String getJenkinsRunTemplate() {
 
-        this.conf.setVueAppScene(vueAppScene)
         def returnString = this.templateTop() +
                 this.templateDockerCompile() +
                 this.templateDockerKubectl() +
