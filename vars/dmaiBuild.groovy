@@ -78,7 +78,7 @@ def call(Map map, env) {
                 steps {
                     script {
                         if (conf.appName == 'xmc2-frontend') {
-                            conf.setAppName(conf.appName + (vueAppScene == 'main' ? '' : '-' + vueAppScene) + (vueAppSchool == 'S00001' ? '' : vueAppSchool)  )
+                            conf.setAppName(conf.appName + (vueAppScene == 'main' ? '' : '-' + vueAppScene) + (vueAppSchool == 'S00001' ? '' : '-' + vueAppSchool)  )
                             conf.setVueAppSchool(vueAppSchool)
                             echo conf.vueAppScene
                             echo conf.vueAppSchool
@@ -198,7 +198,7 @@ def call(Map map, env) {
                         cd /D f:\\target
                         copy /Y work-attendance.jar d:\\attendance\\jar
                         cd /D d:\\attendance\\jar
-                        call run.bat
+                        run.bat
                         '''
                 }
             }
