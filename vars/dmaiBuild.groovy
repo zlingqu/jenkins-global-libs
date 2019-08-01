@@ -194,8 +194,8 @@ def call(Map map, env) {
             }
 
             stage('Deploy-java') {
-                agent { label 'mis-work-attendance' }
                 when { expression { return conf.appName == 'work-attendance' } }
+                agent { label 'mis-work-attendance' }sss
                 steps {
                     bat '''
                         cd /D f:\\target
