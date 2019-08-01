@@ -237,6 +237,7 @@ def call(Map map, env) {
                     container('kubectl') {
                         script {
                             echo deployEnvironment
+                            deploykubernetes.createIngress()
                             deploykubernetes.createConfigMap()
                             deploykubernetes.deployKubernetes()
                         }
