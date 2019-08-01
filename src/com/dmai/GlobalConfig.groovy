@@ -502,7 +502,7 @@ class GlobalConfig implements Serializable {
             ],
             'script-auto-gen': [
                     'servicePort' : '80',
-                    'namespace': 'devops',
+                    'namespace': 'x2-ta',
                     'nodePort' : '30236',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
@@ -531,7 +531,7 @@ class GlobalConfig implements Serializable {
             ],
             'script-auto-gen-frontend': [
                     'servicePort' : '80',
-                    'namespace': 'devops',
+                    'namespace': 'x2-ta',
 //                    'nodePort' : '30236',
                     'containerPort': '80',
                     'domain': 'script-auto-gen.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
