@@ -63,6 +63,22 @@ class Deploykubernetes {
         return
     }
 
+    public void createIngress() {
+        if ( this.conf.getAttr('domain') == '' || this.conf.getAttr('domain') ) return
+
+        try {
+            this.script.sh String.format("kubectl apply -f deployment/%s/%s/%s/ingress.yml || echo 0",
+                    this.conf.getAttr('namespace'),
+                    this.conf.getAttr(this.conf.getAttr('branchName')),
+                    this.conf.appName
+            )
+        } catch (e) {
+            this.script.sh "echo ${e}"
+        }
+
+        return
+    }
+
     public void createConfigMapTest() {
         if (! this.conf.getAttr('useConfigMap')) return
         if (!this.conf.getAttr('test')) return
