@@ -64,7 +64,7 @@ class Deploykubernetes {
     }
 
     public void createIngress() {
-        if ( this.conf.getAttr('domain') == '' || this.conf.getAttr('domain') ) return
+        if ( this.conf.getAttr('domain') == '' || ! this.conf.getAttr('domain') ) return
 
         try {
             this.script.sh String.format("kubectl apply -f deployment/%s/%s/%s/ingress.yml || echo 0",
