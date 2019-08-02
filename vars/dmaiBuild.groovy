@@ -82,6 +82,11 @@ def call(Map map, env) {
             stage('Build-Init') {
                 steps {
                     script {
+
+                        if (conf.getAttr('branchName') == 'master' && deployMasterPassword != 'dmai2019') {
+                            throw "master分支请运维人员触发！"
+                        }
+
                         if (conf.appName == 'xmc2-frontend') {
                             conf.setAppName(conf.appName + (vueAppScene == 'main' ? '' : '-' + vueAppScene) + (vueAppSchool == 's00001' ? '' : '-' + vueAppSchool)  )
                             conf.setVueAppSchool(vueAppSchool)
