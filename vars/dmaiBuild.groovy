@@ -89,6 +89,7 @@ def call(Map map, env) {
 
                         if (conf.appName == 'xmc2-frontend') {
                             conf.setAppName(conf.appName + (vueAppScene == 'main' ? '' : '-' + vueAppScene) + (vueAppSchool == 's00001' ? '' : '-' + vueAppSchool)  )
+                            conf.setVueAppScene(vueAppScene)
                             conf.setVueAppSchool(vueAppSchool)
                             echo conf.vueAppScene
                             echo conf.vueAppSchool
