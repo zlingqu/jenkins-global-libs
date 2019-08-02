@@ -1422,8 +1422,8 @@ class GlobalConfig implements Serializable {
                     'memoryLimits' : '2000Mi',
                     'replicas' : 1,
                     'dev': 'dev', // dev分支部署到测试环境
-                    'test': false, // 是否从dev分支部署到测试环境
-                    'master': 'prdd', // 如果参数master 不等于prd，整个构建就失败，---
+                    'test': true, // 是否从dev分支部署到测试环境
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/x3/x3-dm-server.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
@@ -1452,8 +1452,8 @@ class GlobalConfig implements Serializable {
                     'memoryLimits' : '2000Mi',
                     'replicas' : 1,
                     'dev': 'dev', // dev分支部署到测试环境
-                    'test': false, // 是否从dev分支部署到测试环境
-                    'master': 'prdd', // 如果参数master 不等于prd，整个构建就失败，---
+                    'test': true, // 是否从dev分支部署到测试环境
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/x3/tts-serving.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
@@ -1482,8 +1482,8 @@ class GlobalConfig implements Serializable {
                     'memoryLimits' : '2000Mi',
                     'replicas' : 1,
                     'dev': 'dev', // dev分支部署到测试环境
-                    'test': false, // 是否从dev分支部署到测试环境
-                    'master': 'prdd', // 如果参数master 不等于prd，整个构建就失败，---
+                    'test': true, // 是否从dev分支部署到测试环境
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/x3/Core-Algorithm.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
@@ -1512,8 +1512,8 @@ class GlobalConfig implements Serializable {
                     'memoryLimits' : '2000Mi',
                     'replicas' : 1,
                     'dev': 'dev', // dev分支部署到测试环境
-                    'test': false, // 是否从dev分支部署到测试环境
-                    'master': 'prdd', // 如果参数master 不等于prd，整个构建就失败，---
+                    'test': true, // 是否从dev分支部署到测试环境
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/x3/ocr-model-serving-mathpix.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
