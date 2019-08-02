@@ -44,6 +44,7 @@ def call(Map map, env) {
             string(name: 'GIT_VERSION', defaultValue: 'last', description: 'git的commit 版本号，git log 查看。')
             string(name: 'VUE_APP_SCHOOL', defaultValue: 's00001', description: '学校的Code，xmc2-frontend项目使用，其他不关注,s小写    ')
             choice(name: 'VUE_APP_SCENE', choices: ['main', 'training'], description: 'xmc2-frontend项目使用，其他不关注')
+            string(name: 'DEPLOY_MASTER_PASSWORD', defaultValue: '部署master分支到线上环境，请找运维人员输入密码自动部署', description: '部署master分支请找运维人员输入密码自动部署')
         }
 
 //        triggers {
@@ -56,6 +57,7 @@ def call(Map map, env) {
             gitVersion = "${params.GIT_VERSION}"
             vueAppScene = "${params.VUE_APP_SCENE}"
             vueAppSchool = "${params.VUE_APP_SCHOOL}"
+            deployMasterPassword = "${params.DEPLOY_MASTER_PASSWORD}"
         }
 
         agent {
@@ -91,7 +93,12 @@ def call(Map map, env) {
             }
 
             stage('Specified version') {
-                when { expression { return  gitVersion != 'last'} }
+                when {
+                    allOf {
+                        expression { return  gitVersion != 'last'};
+                    }
+                }
+//                when { expression { return  gitVersion != 'last'} }
                 steps {
                     container('kubectl') {
                         script {
@@ -108,7 +115,12 @@ def call(Map map, env) {
             }
 
             stage('Exec Command') {
-                when { expression { return  conf.getAttr('useCustomImage')} }
+                when {
+                    allOf {
+                        expression { return  conf.getAttr('useCustomImage')};
+                    }
+                }
+//                when { expression { return  conf.getAttr('useCustomImage')} }
                 steps {
                     container('custom-image') {
                         sh conf.getAttr('execCommand')
@@ -119,7 +131,12 @@ def call(Map map, env) {
             stage('Compile') {
 
                 // 当项目的全局选项设置为compile == true的时候，才进行部署的操作
-                when { expression { return conf.getAttr('compile') } }
+                when {
+                    allOf {
+                        expression { return conf.getAttr('compile') }
+                    }
+                }
+//                when { expression { return conf.getAttr('compile') } }
                 steps {
                     container('compile') {
                         script {
@@ -130,8 +147,12 @@ def call(Map map, env) {
             }
 
             stage('Download Config file') {
-                when { expression { return conf.getAttr('deploy') } }
-
+                when {
+                    allOf {
+                        expression { return conf.getAttr('deploy') };
+                    }
+                }
+//                when { expression { return conf.getAttr('deploy') } }
                 steps {
                     container('kubectl') {
                         script {
@@ -148,7 +169,12 @@ def call(Map map, env) {
             }
 
             stage('Make Image') {
-                when { expression { return  conf.getAttr('makeImage')} }
+                when {
+                    allOf {
+                        expression { return  conf.getAttr('makeImage')};
+                    }
+                }
+//                when { expression { return  conf.getAttr('makeImage')} }
                 steps {
                     container('docker-compose') {
                         script {
@@ -159,7 +185,12 @@ def call(Map map, env) {
             }
 
             stage('Push Image') {
-                when { expression { return  conf.getAttr('makeImage')} }
+                when {
+                    allOf {
+                        expression { return  conf.getAttr('makeImage')}
+                    }
+                }
+//                when { expression { return  conf.getAttr('makeImage')} }
                 steps {
                     container('docker-compose') {
                         script {
@@ -170,7 +201,14 @@ def call(Map map, env) {
             }
 
             stage('Install istanbul') {
-                when { expression { return  conf.getAttr('codeLanguage') in  ['js', 'node'] && conf.getAttr('sonarCheck') && deployEnvironment != 'test'}  }
+                when {
+                    allOf {
+                        expression { return  conf.getAttr('codeLanguage') in  ['js', 'node']};
+                        expression { return  conf.getAttr('sonarCheck') };
+                        expression { return  deployEnvironment != 'test' };
+                    }
+                }
+//                when { expression { return  conf.getAttr('codeLanguage') in  ['js', 'node'] && conf.getAttr('sonarCheck') && deployEnvironment != 'test'}  }
                 steps {
                     container('compile') {
                         script {
@@ -183,7 +221,15 @@ def call(Map map, env) {
             }
 
             stage('sonar-check') {
-                when { expression { return  conf.getAttr('branchName') == 'dev' && conf.getAttr('codeLanguage') in  ['js', 'node'] && conf.getAttr('sonarCheck') && deployEnvironment != 'test' }}
+                when {
+                    allOf {
+                        expression { return conf.getAttr('branchName') == 'dev' };
+                        expression { return conf.getAttr('codeLanguage') in  ['js', 'node'] };
+                        expression { return conf.getAttr('sonarCheck') };
+                        expression { return deployEnvironment != 'test' };
+                    }
+                }
+//                when { expression { return  conf.getAttr('branchName') == 'dev' && conf.getAttr('codeLanguage') in  ['js', 'node'] && conf.getAttr('sonarCheck') && deployEnvironment != 'test' }}
                 steps {
                     container('sonar-check') {
                         script {
@@ -227,10 +273,16 @@ def call(Map map, env) {
             stage('Deploy') {
 
                 // 当项目的全局选项设置为deploy == true的时候，才进行部署的操作
-//                when { expression { return conf.getAttr('deploy') } }
+//                when {
+//                    allOf
+//                            { expression { return conf.getAttr('deploy') }; expression { return deployEnvironment != 'test'} }
+//                }
+
                 when {
-                    allOf
-                            { expression { return conf.getAttr('deploy') }; expression { return deployEnvironment != 'test'} }
+                    allOf {
+                        expression { return conf.getAttr('deploy') };
+                        expression { return deployEnvironment != 'test'};
+                    }
                 }
 
                 steps {
@@ -247,7 +299,12 @@ def call(Map map, env) {
             }
 
             stage('Deploy test') {
-                when { expression { return deployEnvironment == 'test' } }
+//                when { expression { return deployEnvironment == 'test' } }
+                when {
+                    allOf {
+                        expression { return deployEnvironment == 'test' };
+                    }
+                }
 
 //                    input {
 //                        message "dev分支已经部署到开发环境，是否继续部署到测试环境？"
