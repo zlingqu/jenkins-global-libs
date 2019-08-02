@@ -15,7 +15,13 @@ class KubernetesDeployTemplate {
 
     private String getSvcTemplate() {
         if (!this.conf.getAttr('useService')) return ''
-        switch (conf.getAttr('svcType')) {
+
+        def svcType = conf.getAttr('svcType')
+        if (this.conf.getAttr('branchName') == 'master') {
+            svcType = 'ClusterIP'
+        }
+
+        switch (svcType) {
             case 'ClusterIP':
                 return this.svcTemplateClusterIP()
             case 'NodePort':
