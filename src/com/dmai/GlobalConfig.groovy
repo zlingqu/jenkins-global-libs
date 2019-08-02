@@ -910,7 +910,7 @@ class GlobalConfig implements Serializable {
                     'memoryLimits' : '',
                     'dev': 'dev', // dev分支部署到开发环境
                     'test': true, // 是否从dev分支部署到测试环境
-                    'master': 'prdd', // 如果参数master 不等于prd，整个构建就失败，---
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc-metric-generator.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
@@ -938,7 +938,7 @@ class GlobalConfig implements Serializable {
                     'memoryLimits' : '2000Mi',
                     'dev': 'dev', // dev分支部署到开发环境
                     'test': true, // 是否从dev分支部署到测试环境
-                    'master': 'prdd', // 如果参数master 不等于prd，整个构建就失败，---
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc-backend-service.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
@@ -966,7 +966,7 @@ class GlobalConfig implements Serializable {
                     'memoryLimits' : '2000Mi',
                     'dev': 'dev', // dev分支部署到开发环境
                     'test': true, // 是否从dev分支部署到测试环境
-                    'master': 'prdd', // 如果参数master 不等于prd，整个构建就失败，---
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc-data-stream.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
@@ -994,7 +994,7 @@ class GlobalConfig implements Serializable {
                     'memoryLimits' : '',
                     'dev': 'dev', // dev分支部署到开发环境
                     'test': true, // 是否从dev分支部署到测试环境
-                    'master': 'prdd', // 如果参数master 不等于prd，整个构建就失败，---
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc-data-collector.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
@@ -1022,7 +1022,7 @@ class GlobalConfig implements Serializable {
                     'memoryLimits' : '4000Mi',
                     'dev': 'dev', // dev分支部署到开发环境
                     'test': true, // 是否从dev分支部署到测试环境
-                    'master': 'prdd', // 如果参数master 不等于prd，整个构建就失败，---
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc-storage-service.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
