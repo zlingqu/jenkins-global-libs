@@ -209,6 +209,7 @@ def call(Map map, env) {
             stage('Install istanbul') {
                 when {
                     allOf {
+                        expression { return conf.getAttr('branchName') == 'dev' };
                         expression { return  conf.getAttr('codeLanguage') in  ['js', 'node']};
                         expression { return  conf.getAttr('sonarCheck') };
                         expression { return  deployEnvironment != 'test' };
