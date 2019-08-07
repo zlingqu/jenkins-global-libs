@@ -172,6 +172,7 @@ spec:
             case 'test' : return 'test'
 //            case 'master': return 'master'
         }
+        return ''
     }
 
 
