@@ -167,7 +167,7 @@ spec:
         switch (this.conf.getAttr('dev')){
             case 'dev'  : return 'dev'
             case 'test' : return 'test'
-            case 'master': return 'master'
+//            case 'master': return 'master'
         }
     }
 
