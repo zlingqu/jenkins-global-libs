@@ -67,7 +67,7 @@ def call(Map map, env) {
                 defaultContainer 'jnlp'
                 namespace 'devops'
                 inheritFrom 'base-template'
-                yaml new JenkinsRunTemplate(conf).getJenkinsRunTemplate()
+                yaml new JenkinsRunTemplate(conf).getJenkinsRunTemplate(deployMasterPassword)
             }
         }
 
@@ -91,6 +91,7 @@ def call(Map map, env) {
                             conf.setAppName(conf.appName + (vueAppScene == 'main' ? '' : '-' + vueAppScene) + (vueAppSchool == 's00001' ? '' : '-' + vueAppSchool)  )
                             conf.setVueAppScene(vueAppScene)
                             conf.setVueAppSchool(vueAppSchool)
+
                             echo conf.vueAppScene
                             echo conf.vueAppSchool
                         }
@@ -295,6 +296,11 @@ def call(Map map, env) {
                 steps {
                     container('kubectl') {
                         script {
+
+                            if (conf.getAttr('branchName') == 'master' && deployMasterPassword != 'dmai2019') {
+                                throw "master分支请运维人员触发！"
+                            }
+
                             echo deployEnvironment
                             deploykubernetes.createIngress()
                             deploykubernetes.createConfigMap()

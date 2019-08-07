@@ -4,12 +4,15 @@ import com.tool.Tools
 
 class JenkinsRunTemplate {
     private Conf conf
+    private String deployMasterPassword
 
     JenkinsRunTemplate(Conf conf) {
         this.conf = conf
+        this.deployMasterPassword = ''
     }
 
-    public String getJenkinsRunTemplate() {
+    public String getJenkinsRunTemplate(String deployMasterPassword) {
+        this.deployMasterPassword = deployMasterPassword
 
         def returnString = this.templateTop() +
                 this.templateDockerCompile() +
@@ -157,7 +160,7 @@ spec:
 //    设置不同的分支部署到不同的环境
     private String getKubectlBranch(){
         if (this.conf.getAttr('branchName') == 'master' ) {
-            if (this.conf.getAttr('master') == 'prd') {
+            if (this.conf.getAttr('master') == 'prd' && this.deployMasterPassword == 'dmai2019') {
                 return 'master'
             } else {
                 return ''
