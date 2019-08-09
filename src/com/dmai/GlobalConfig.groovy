@@ -1799,18 +1799,18 @@ class GlobalConfig implements Serializable {
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'sonarCheck'  : false
             ],
-			'xmart-court-backend': [
+            'xmart-court-backend': [
                     'servicePort' : '80',
                     'namespace': 'xmart-court',
-                    'nodePort': '30340',
+                    'nodePort' : '31223',
                     'containerPort': '3000',
                     'domain': 'xmart-court-backend.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-//                    'domain': 'app-deploy-platform.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-//                    'cpuRequests' : '200m',
-//                    'memoryRequests' : '400Mi',
-//                    'cpuLimits' : '300m',
-//                    'memoryLimits' : '600Mi',
-                    'dev': 'dev', // dev分支部署到开发环境
+//                    'cpuRequests' : '1000m',
+//                    'memoryRequests' : '2000Mi',
+//                    'cpuLimits' : '500m',
+//                  'memoryLimits' : '1000Mi',
+                    'replicas' : 1,
+                    'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/PX/court-group/xmart-court-backend-temp.git',
@@ -1819,14 +1819,15 @@ class GlobalConfig implements Serializable {
                     'customDockerfile': false, // 是否使用自定义 dockerfile
                     'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
                     'useConfigMap': true, //是否使用configmap
-                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
-                    'codeLanguage' : 'js', // 临时的，默认是【js,node,golang,java,php,python】
-                    'k8sKind': 'deployment', // 部署的服务的类型
                     'configMapName': '.env', //是否使用configmap
-                    'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
+                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
+                    'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
-                    'sonarCheck'  : false
+                    'useEnvFile'  : false, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
+                    'sonarCheck'  : true
             ],
             'jenkins-test': [
                     'servicePort' : '80',
