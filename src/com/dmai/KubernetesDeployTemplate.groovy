@@ -185,8 +185,8 @@ $volumes
 
     private String getContainerPort() {
         def returnString = ''
-        if (this.conf.getAttr('udpPort')) {
-            for (int i in this.conf.getAttr('udpPort')[0]..this.conf.getAttr('udpPort')[1]) {
+        if (this.conf.getAttr('tcpPort')) {
+            for (int i in this.conf.getAttr('tcpPort')[0]..this.conf.getAttr('tcpPort')[1]) {
                 returnString += String.format('''
         - containerPort: %s
 ''', i)
@@ -213,7 +213,7 @@ spec:
     targetPort: $containerPort
     nodePort: $nodePort
     name: $appName-$containerPort
-$getUdpSvc    
+$getTcpSvc    
   selector:
     app: $appName
   type: NodePort
@@ -223,20 +223,20 @@ $getUdpSvc
                 'namespace' : this.conf.getAttr('namespace'),
                 'containerPort' : this.conf.getAttr('containerPort'),
                 'nodePort' : this.conf.getAttr('nodePort'),
-                'getUdpSvc': this.getUdpSvc(),
+                'getTcpSvc': this.getTcpSvc(),
                 'servicePort': this.conf.getAttr('servicePort')
         ]
 
         return Tools.simpleTemplate(text, bind)
     }
 
-    private String getUdpSvc() {
+    private String getTcpSvc() {
         def returnString = ''
-        if (this.conf.getAttr('udpPort')) {
-            for (int i in this.conf.getAttr('udpPort')[0]..this.conf.getAttr('udpPort')[1]) {
+        if (this.conf.getAttr('tcpPort')) {
+            for (int i in this.conf.getAttr('tcpPort')[0]..this.conf.getAttr('tcpPort')[1]) {
                 returnString += String.format('''
   - port: %s
-    protocol: UDP
+    protocol: TCP
     targetPort: %s
     nodePort: %s
     name: %s-%s
