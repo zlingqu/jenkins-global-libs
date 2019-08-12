@@ -357,7 +357,7 @@ spec:
           mountPath: /src/debug/log.conf
           subPath: log.conf
         - name: data
-          mountPath: /app/datas
+          mountPath: /app/data
 '''
         }
 
