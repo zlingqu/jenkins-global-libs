@@ -317,7 +317,10 @@ spec:
           name: %s
           items:
           - key: log.conf
-            path: log.conf           
+            path: log.conf
+      - name: data
+        persistentVolumeClaim:
+          claimName: mypvc
 ''', this.conf.appName, this.conf.appName)
         }
 
@@ -353,6 +356,8 @@ spec:
         - name: log
           mountPath: /src/debug/log.conf
           subPath: log.conf
+        - name: data
+          mountPath: /app/datas
 '''
         }
 
