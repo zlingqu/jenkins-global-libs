@@ -122,6 +122,8 @@ spec:
     }
 
     private String templateDockerKubectl() {
+        if (this.conf.getAttr('branchName') == 'master' && this.deployMasterPassword != 'dmai2019') return ''
+
         if (this.conf.getAttr('deploy')) {
             return  String.format('''
   - name: kubectl 
