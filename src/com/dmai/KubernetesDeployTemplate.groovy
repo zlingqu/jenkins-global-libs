@@ -361,6 +361,8 @@ spec:
 '''
         }
 
+        if (this.conf.getAttr('configMapName') in [null, '']) return ''
+
 //        非特殊情况下：
         def returnString = '''
         volumeMounts:
