@@ -1380,7 +1380,7 @@ class GlobalConfig implements Serializable {
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
-                    'useEnvFile'  : false, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
+                    'useEnvFile'  : true, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
                     'sonarCheck'  : true
             ],
             'ta-classroom-server': [
