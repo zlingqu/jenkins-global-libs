@@ -477,6 +477,7 @@ class GlobalConfig implements Serializable {
 //                    'memoryRequests' : '2000Mi',
                     'cpuLimits' : '12000m',
                     'memoryLimits' : '16000Mi',
+                    'gpuLimits' : 1, //一个副本使用几张gpu的卡。
                     'replicas' : 1,
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
