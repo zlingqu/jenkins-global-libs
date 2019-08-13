@@ -475,8 +475,8 @@ class GlobalConfig implements Serializable {
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
 //                    'cpuRequests' : '2000m',
 //                    'memoryRequests' : '2000Mi',
-                    'cpuLimits' : '12000m',
-                    'memoryLimits' : '16000Mi',
+//                    'cpuLimits' : '12000m',
+//                    'memoryLimits' : '16000Mi',
                     'gpuLimits' : 1, //一个副本使用几张gpu的卡。
                     'replicas' : 1,
                     'dev': 'dev', // dev分支部署到测试环境
