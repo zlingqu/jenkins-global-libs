@@ -361,7 +361,7 @@ spec:
 '''
         }
 
-        if (this.conf.getAttr('configMapName') in [null, '']) return ''
+        if (this.conf.getAttr('configMapName') in [null, '', false] && this.conf.getAttr('usePvc') in [null, '', false]) return ''
 
 //        非特殊情况下：
         def returnString = '''
