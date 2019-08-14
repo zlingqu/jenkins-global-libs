@@ -29,7 +29,7 @@ class Deploykubernetes {
 //            this.createConfigMapTest()
 //        }
 
-        this.script.sh 'kubectl apply -f Deploy-k8s.yml'
+        this.script.sh 'kubectl apply -f Deploy-k8s.yml; rm -fr Deploy-k8s.yml'
     }
 
     public void createConfigMap() {
