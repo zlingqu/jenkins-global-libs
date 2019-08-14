@@ -204,7 +204,8 @@ class GlobalConfig implements Serializable {
                     'usePvc': true, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
-                    'sonarCheck'  : true
+                    'sonarCheck'  : true,
+                    'cleanFile' : false
             ],
             'monitor-service': [
                     'servicePort' : '80',
