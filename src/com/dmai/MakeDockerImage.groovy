@@ -13,6 +13,9 @@ class MakeDockerImage {
     }
 
     public void makeImage() {
+        //创建docker构建的时候的排除文件。
+        this.createDockerignore()
+
         if (! conf.getAttr('customDockerfile')) {
             this.script.sh "echo '${this.dockerFileTemplate.getDockerFile()}' > Dockerfile"
         }
@@ -26,6 +29,11 @@ class MakeDockerImage {
 //            return
 //        }
 //        this.script.sh 'docker-compose build'
+    }
+
+    private void createDockerignore() {
+        this.script.sh "touch .dockerignore"
+        this.script.sh "echo .git > .dockerignore; echo Jenkinsfile >> .dockerignore; echo deployment >> .dockerignore; echo docker-compose.yml >> .dockerignore"
     }
 
     public void pushImage() {
