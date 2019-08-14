@@ -32,6 +32,7 @@ class MakeDockerImage {
     }
 
     private void createDockerignore() {
+        if (!this.conf.getAttr('cleanFile')) return
         this.script.sh "touch .dockerignore"
         this.script.sh "echo .git > .dockerignore; echo Dockerfile >> .dockerignore;echo Jenkinsfile >> .dockerignore; echo deployment >> .dockerignore; echo docker-compose.yml >> .dockerignore"
     }
