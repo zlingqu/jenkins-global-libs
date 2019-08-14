@@ -207,45 +207,45 @@ def call(Map map, env) {
                 }
             }
 
-            stage('Install istanbul') {
-                when {
-                    allOf {
-                        expression { return conf.getAttr('branchName') == 'dev' };
-                        expression { return  conf.getAttr('codeLanguage') in  ['js', 'node']};
-                        expression { return  conf.getAttr('sonarCheck') };
-                        expression { return  deployEnvironment != 'test' };
-                    }
-                }
-//                when { expression { return  conf.getAttr('codeLanguage') in  ['js', 'node'] && conf.getAttr('sonarCheck') && deployEnvironment != 'test'}  }
-                steps {
-                    container('compile') {
-                        script {
-                            sh 'npm config set registry http://192.168.3.13:8081/repository/npm && npm install || echo 0'
-                            sh 'npm install -g istanbul || echo 0'
-                            sh 'istanbul cover test/*.js --my test args || echo 0'
-                        }
-                    }
-                }
-            }
-
-            stage('sonar-check') {
-                when {
-                    allOf {
-                        expression { return conf.getAttr('branchName') == 'dev' };
-                        expression { return conf.getAttr('codeLanguage') in  ['js', 'node'] };
-                        expression { return conf.getAttr('sonarCheck') };
-                        expression { return deployEnvironment != 'test' };
-                    }
-                }
-//                when { expression { return  conf.getAttr('branchName') == 'dev' && conf.getAttr('codeLanguage') in  ['js', 'node'] && conf.getAttr('sonarCheck') && deployEnvironment != 'test' }}
-                steps {
-                    container('sonar-check') {
-                        script {
-                            codeCheck.sonarCheck()
-                        }
-                    }
-                }
-            }
+//            stage('Install istanbul') {
+//                when {
+//                    allOf {
+//                        expression { return conf.getAttr('branchName') == 'dev' };
+//                        expression { return  conf.getAttr('codeLanguage') in  ['js', 'node']};
+//                        expression { return  conf.getAttr('sonarCheck') };
+//                        expression { return  deployEnvironment != 'test' };
+//                    }
+//                }
+////                when { expression { return  conf.getAttr('codeLanguage') in  ['js', 'node'] && conf.getAttr('sonarCheck') && deployEnvironment != 'test'}  }
+//                steps {
+//                    container('compile') {
+//                        script {
+//                            sh 'npm config set registry http://192.168.3.13:8081/repository/npm && npm install || echo 0'
+//                            sh 'npm install -g istanbul || echo 0'
+//                            sh 'istanbul cover test/*.js --my test args || echo 0'
+//                        }
+//                    }
+//                }
+//            }
+//
+//            stage('sonar-check') {
+//                when {
+//                    allOf {
+//                        expression { return conf.getAttr('branchName') == 'dev' };
+//                        expression { return conf.getAttr('codeLanguage') in  ['js', 'node'] };
+//                        expression { return conf.getAttr('sonarCheck') };
+//                        expression { return deployEnvironment != 'test' };
+//                    }
+//                }
+////                when { expression { return  conf.getAttr('branchName') == 'dev' && conf.getAttr('codeLanguage') in  ['js', 'node'] && conf.getAttr('sonarCheck') && deployEnvironment != 'test' }}
+//                steps {
+//                    container('sonar-check') {
+//                        script {
+//                            codeCheck.sonarCheck()
+//                        }
+//                    }
+//                }
+//            }
 
 //            stage('Deploy-java') {
 //                when { expression { return conf.appName == 'work-attendance' } }
@@ -333,6 +333,47 @@ def call(Map map, env) {
                         }
                     }
                 }
+
+            stage('Install nyc') {
+                when {
+                    allOf {
+                        expression { return conf.getAttr('branchName') == 'dev' };
+                        expression { return  conf.getAttr('codeLanguage') in  ['js', 'node']};
+                        expression { return  conf.getAttr('sonarCheck') };
+                        expression { return  deployEnvironment != 'test' };
+                    }
+                }
+//                when { expression { return  conf.getAttr('codeLanguage') in  ['js', 'node'] && conf.getAttr('sonarCheck') && deployEnvironment != 'test'}  }
+                steps {
+                    container('compile') {
+                        script {
+                            sh 'npm config set registry https://npm.dm-ai.cn/repository/npm && npm install || echo 0'
+                            sh 'npm i -g nyc || echo 0'
+                            sh 'rm -fr deployment || echo 0'
+                            sh 'nyc --reporter=lcov --reporter=text --report-dir=coverage mocha test/**/*.js --exit || echo 0'
+                        }
+                    }
+                }
+            }
+
+            stage('sonar-check') {
+                when {
+                    allOf {
+                        expression { return conf.getAttr('branchName') == 'dev' };
+                        expression { return conf.getAttr('codeLanguage') in  ['js', 'node'] };
+                        expression { return conf.getAttr('sonarCheck') };
+                        expression { return deployEnvironment != 'test' };
+                    }
+                }
+//                when { expression { return  conf.getAttr('branchName') == 'dev' && conf.getAttr('codeLanguage') in  ['js', 'node'] && conf.getAttr('sonarCheck') && deployEnvironment != 'test' }}
+                steps {
+                    container('sonar-check') {
+                        script {
+                            codeCheck.sonarCheck()
+                        }
+                    }
+                }
+            }
 
             }
 
