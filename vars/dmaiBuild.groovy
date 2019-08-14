@@ -349,6 +349,7 @@ def call(Map map, env) {
                         script {
                             sh 'npm config set registry https://npm.dm-ai.cn/repository/npm && npm install || echo 0'
                             sh 'npm i -g nyc || echo 0'
+                            sh 'npm i -g mocha || echo 0'
                             sh 'rm -fr deployment || echo 0'
                             sh 'nyc --reporter=lcov --reporter=text --report-dir=coverage mocha test/**/*.js --exit || echo 0'
                         }
