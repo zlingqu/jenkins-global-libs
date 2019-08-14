@@ -477,7 +477,7 @@ class GlobalConfig implements Serializable {
 //                    'memoryRequests' : '2000Mi',
 //                    'cpuLimits' : '12000m',
 //                    'memoryLimits' : '16000Mi',
-                    'gpuLimits' : 1, //一个副本使用几张gpu的卡。
+//                    'gpuLimits' : 1, //一个副本使用几张gpu的卡。
                     'replicas' : 2,
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
@@ -508,8 +508,8 @@ class GlobalConfig implements Serializable {
 //                    'memoryRequests' : '500Mi',
 //                    'cpuLimits' : '800m',
 //                    'memoryLimits' : '1000Mi',
-                    'gpuLimits' : 1, //一个副本使用几张gpu的卡。
-                    'replicas' : 1,
+//                    'gpuLimits' : 1, //一个副本使用几张gpu的卡。
+                    'replicas' : 2,
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
@@ -638,6 +638,9 @@ class GlobalConfig implements Serializable {
                     'usePvc': false, // 是否使用pvc的方式挂载额外的数据资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+            ],
+            'rdac-backend': [
+
             ],
             'engine-pipeline-manager': [
                     'servicePort' : '80',
