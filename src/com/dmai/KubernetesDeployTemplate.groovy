@@ -103,6 +103,12 @@ $volumes
         effect: "NoSchedule"
 '''
         }
+        if (this.conf.getAttr('dev') == 'lexue' && this.conf.appName in ['vod-service', 'storage-service'])  {
+            return '''
+      nodeSelector:
+        env: storage
+'''
+        }
         return ''
     }
 
