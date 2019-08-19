@@ -23,14 +23,14 @@ class MakeDockerImage {
         this.script.sh "echo '${ this.dockerFileTemplate.getDockerComposeFile() }' > docker-compose.yml"
 
         // 对 xmc2-frontend做特殊处理。
-        if (this.conf.appName == 'xmc2-frontend') {
+//        if (this.conf.appName == 'xmc2-frontend') {
             this.script.sh String.format('docker-compose build --build-arg VUE_APP_SCENE=%s --build-arg VUE_APP_SCHOOL=%s service-docker-build',
                     this.conf.vueAppScene, this.conf.vueAppSchool
             )
-            return
-        }
+//            return
+//        }
 
-        this.script.sh 'docker-compose build'
+//        this.script.sh 'docker-compose build'
     }
 
     private void createDockerignore() {
