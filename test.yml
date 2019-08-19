@@ -1,31 +1,18 @@
 ---
 
 apiVersion: v1
-
 kind: Service
-
 metadata:
-
   labels:
-
     app: mis-admin-backend
-
   name: mis-admin-backend
-
   namespace: devops
-
 spec:
-
   ports:
-
   - port: 5000
-
     protocol: TCP
-
     targetPort: 5000
-
     nodePort: 32500
-
   selector:
 
     app: mis-admin-backend
