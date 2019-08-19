@@ -304,6 +304,26 @@ spec:
 
     private String getVolumesString() {
         if (this.conf.appName in ['media-gateway', 'media-access']) {
+            if (this.conf.getAttr('dev') == 'lexue') {
+                return String.format('''
+      volumes:
+      - name: config
+        configMap:
+          name: %s
+          items:
+          - key: config.json
+            path: config.json
+      - name: log
+        configMap:
+          name: %s
+          items:
+          - key: log.conf
+            path: log.conf
+      - name: data
+        hostPath:
+          path: /data/%s
+''', this.conf.appName, this.conf.appName, this.conf.appName)
+            }
             return String.format('''
       volumes:
       - name: config
@@ -337,6 +357,16 @@ spec:
         }
 
         if (this.conf.getAttr('usePvc')) {
+//
+            if (this.conf.getAttr('dev') == 'lexue') {
+                returnString += String.format('''
+      - name: data
+        hostPath:
+          path: /data/%s
+''', this.conf.getAttr('namespace'))
+                return  returnString
+            }
+//
             returnString += String.format('''
       - name: data
         persistentVolumeClaim:
