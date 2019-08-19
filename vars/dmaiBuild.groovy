@@ -45,7 +45,7 @@ def call(Map map, env) {
             string(name: 'VUE_APP_SCHOOL', defaultValue: 'S00001', description: '学校的Code，xmc2-frontend项目使用，其他不关注,s小写    ')
             choice(name: 'VUE_APP_SCENE', choices: ['main', 'training'], description: 'xmc2-frontend项目使用，其他不关注')
             string(name: 'DEPLOY_MASTER_PASSWORD', defaultValue: '部署master分支到线上环境，请找运维人员输入密码自动部署', description: '部署master分支请找运维人员输入密码自动部署')
-//            string(name: 'REPLICAS', defaultValue: conf.getAttr('replicas'), description: '部署在k8s集群中需要的副本数')
+            string(name: 'REPLICAS', defaultValue: conf.getAttr('replicas'), description: '部署在k8s集群中需要的副本数')
         }
 
 //        triggers {
