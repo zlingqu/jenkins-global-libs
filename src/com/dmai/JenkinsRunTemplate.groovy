@@ -172,9 +172,12 @@ spec:
         switch (this.conf.getAttr('dev')){
             case 'dev'  : return 'dev'
             case 'test' : return 'test'
+            case 'lexue' : return 'lexue'
 //            case 'master': return 'master'
         }
-        return ''
+
+        throw "dev分支，目前只能部署dev/test/lexue环境，其他的均为异常情况"
+//        return ''
     }
 
 
