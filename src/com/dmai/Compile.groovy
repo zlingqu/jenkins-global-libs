@@ -14,7 +14,7 @@ class Compile {
         if (this.conf.getAttr('compile')) {
             switch (this.conf.getAttr('codeLanguage')) {
                 case 'js':
-                    this.script.sh "npm config set registry=http://192.168.3.13:8081/repository/npm/ && npm install && npm run build"
+                    this.script.sh "yarn config set registry=http://192.168.3.13:8081/repository/npm/ && yarn install && yarn run build"
                     return
                 case 'c++':
                     this.script.sh "make"

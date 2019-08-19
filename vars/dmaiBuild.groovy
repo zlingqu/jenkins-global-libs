@@ -40,11 +40,12 @@ def call(Map map, env) {
 
         // 在整个构建之前，先进行参数化的设置
         parameters {
-            choice(name: 'DEPLOY_ENV', choices: ['dev', 'test'], description: 'dev分支部署的环境，目前支持：dev/test。')
+            choice(name: 'DEPLOY_ENV', choices: ['dev', 'test', 'lexue'], description: 'dev分支部署的环境，目前支持：dev/test/lexue, lexue 针对的是xmc2项目。')
             string(name: 'GIT_VERSION', defaultValue: 'last', description: 'git的commit 版本号，git log 查看。')
             string(name: 'VUE_APP_SCHOOL', defaultValue: 'S00001', description: '学校的Code，xmc2-frontend项目使用，其他不关注,s小写    ')
             choice(name: 'VUE_APP_SCENE', choices: ['main', 'training'], description: 'xmc2-frontend项目使用，其他不关注')
             string(name: 'DEPLOY_MASTER_PASSWORD', defaultValue: '部署master分支到线上环境，请找运维人员输入密码自动部署', description: '部署master分支请找运维人员输入密码自动部署')
+            string(name: 'REPLICAS', defaultValue: conf.getAttr('replicas'), description: '部署在k8s集群中需要的副本数')
         }
 
 //        triggers {
@@ -207,59 +208,6 @@ def call(Map map, env) {
                 }
             }
 
-//            stage('Install istanbul') {
-//                when {
-//                    allOf {
-//                        expression { return conf.getAttr('branchName') == 'dev' };
-//                        expression { return  conf.getAttr('codeLanguage') in  ['js', 'node']};
-//                        expression { return  conf.getAttr('sonarCheck') };
-//                        expression { return  deployEnvironment != 'test' };
-//                    }
-//                }
-////                when { expression { return  conf.getAttr('codeLanguage') in  ['js', 'node'] && conf.getAttr('sonarCheck') && deployEnvironment != 'test'}  }
-//                steps {
-//                    container('compile') {
-//                        script {
-//                            sh 'npm config set registry http://192.168.3.13:8081/repository/npm && npm install || echo 0'
-//                            sh 'npm install -g istanbul || echo 0'
-//                            sh 'istanbul cover test/*.js --my test args || echo 0'
-//                        }
-//                    }
-//                }
-//            }
-//
-//            stage('sonar-check') {
-//                when {
-//                    allOf {
-//                        expression { return conf.getAttr('branchName') == 'dev' };
-//                        expression { return conf.getAttr('codeLanguage') in  ['js', 'node'] };
-//                        expression { return conf.getAttr('sonarCheck') };
-//                        expression { return deployEnvironment != 'test' };
-//                    }
-//                }
-////                when { expression { return  conf.getAttr('branchName') == 'dev' && conf.getAttr('codeLanguage') in  ['js', 'node'] && conf.getAttr('sonarCheck') && deployEnvironment != 'test' }}
-//                steps {
-//                    container('sonar-check') {
-//                        script {
-//                            codeCheck.sonarCheck()
-//                        }
-//                    }
-//                }
-//            }
-
-//            stage('Deploy-java') {
-//                when { expression { return conf.appName == 'work-attendance' } }
-//                agent { label 'mis-work-attendance' }
-//                steps {
-//                    bat '''
-//                        cd /D f:\\target
-//                        copy /Y work-attendance.jar d:\\attendance\\jar
-//                        cd /D d:\\attendance\\jar
-//                        '''
-////                    call run.bat
-//                }
-//            }
-
 //            stage('Download Config file') {
 //                when { expression { return conf.getAttr('deploy') } }
 //
@@ -281,10 +229,6 @@ def call(Map map, env) {
             stage('Deploy') {
 
                 // 当项目的全局选项设置为deploy == true的时候，才进行部署的操作
-//                when {
-//                    allOf
-//                            { expression { return conf.getAttr('deploy') }; expression { return deployEnvironment != 'test'} }
-//                }
 
                 when {
                     allOf {
