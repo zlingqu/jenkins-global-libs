@@ -101,8 +101,11 @@ def call(Map map, env) {
                             echo conf.vueAppSchool
                         }
 
-                        conf.setReplicas(replicas)
+                        conf.setAttr('replicas', replicas)
                             echo replicas
+
+                        conf.setAttr('dev', deployEnvironment)
+                            echo deployEnvironment
                     }
                 }
             }
