@@ -62,7 +62,7 @@ def call(Map map, env) {
             vueAppScene = "${params.VUE_APP_SCENE}"
             vueAppSchool = "${params.VUE_APP_SCHOOL}"
             deployMasterPassword = "${params.DEPLOY_MASTER_PASSWORD}"
-            replicas = "${params.REPLICAS}"
+            userReplicas = "${params.REPLICAS}"
         }
 
         agent {
@@ -101,8 +101,8 @@ def call(Map map, env) {
                             echo conf.vueAppSchool
                         }
 
-                        conf.setAttr('replicas', replicas)
-                            echo replicas
+                        conf.setAttr('replicas', userReplicas)
+                            echo conf.getAttr('replicas')
 
                         conf.setAttr('dev', deployEnvironment)
                             echo deployEnvironment
