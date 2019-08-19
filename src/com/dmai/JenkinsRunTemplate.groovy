@@ -117,8 +117,8 @@ spec:
     volumeMounts:
     - name: node-modules
       mountPath: /data/cache/node_modules
-      subPath: jenkins_home/node_cache/%s
-''', this.conf.appName)
+      subPath: jenkins_home/node_cache/%/%s
+''', this.conf.appName, this.conf.getAttr('branchName'))
         }
         return ''
     }
