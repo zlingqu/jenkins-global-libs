@@ -89,11 +89,11 @@ spec:
     }
 
     private String templateJsCompileVolumes() {
-        if (this.conf.getAttr('makeImage') && this.conf.getAttr('compile') && this.conf.getAttr('codeLanguage') in ['js']) {
+        if (this.conf.getAttr('makeImage') && this.conf.getAttr('codeLanguage') in ['js', 'node']) {
             return String.format('''
   - name: node-modules
-    hostPath:
-      path: /data/jenkins/cache/%s/%s
+    persistentVolumeClaim:
+      claimName: jenkins-pvc
 ''',this.conf.getAttr('namespace'), this.conf.appName)
         }
         return ''
@@ -112,12 +112,13 @@ spec:
     }
 
     private String templateJsCompilevolumeMounts() {
-        if (this.conf.getAttr('makeImage') && this.conf.getAttr('compile') && this.conf.getAttr('codeLanguage') in ['js']) {
+        if (this.conf.getAttr('makeImage') && this.conf.getAttr('codeLanguage') in ['js', 'node']) {
             return String.format('''
     volumeMounts:
     - name: node-modules
       mountPath: /data/cache/node_modules
-''')
+      subPath: jenkins_home/node_cache/%s
+''', this.conf.appName)
         }
         return ''
     }
@@ -241,19 +242,20 @@ spec:
 ''', this.templateJsCompilevolumeMounts())
 
             case 'node':
-                return '''
+                return String.format('''
   - name: compile
     image: docker.dm-ai.cn/devops/node:0.0.2
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
       value: docker.dm-ai.cn
+%s
     command:
     - "sleep"
     args:
     - "2400"
     tty: true
-'''
+''', this.templateJsCompilevolumeMounts())
 
             case 'c++':
                 return '''
