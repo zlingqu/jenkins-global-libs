@@ -62,6 +62,7 @@ def call(Map map, env) {
             vueAppScene = "${params.VUE_APP_SCENE}"
             vueAppSchool = "${params.VUE_APP_SCHOOL}"
             deployMasterPassword = "${params.DEPLOY_MASTER_PASSWORD}"
+            replicas = "${params.REPLICAS}"
         }
 
         agent {
@@ -99,6 +100,9 @@ def call(Map map, env) {
                             echo conf.vueAppScene
                             echo conf.vueAppSchool
                         }
+
+                        conf.setReplicas(replicas)
+                            echo replicas
                     }
                 }
             }
