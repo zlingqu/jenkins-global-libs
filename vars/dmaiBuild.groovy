@@ -106,6 +106,10 @@ def call(Map map, env) {
 
                         conf.setAttr('dev', deployEnvironment)
                             echo deployEnvironment
+
+                        if (conf.getAttr('dev') == 'lexue') {
+                            conf.setockerRegistryHost('rdac-docker.dm-ai.cn')
+                        }
                     }
                 }
             }

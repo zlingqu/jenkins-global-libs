@@ -30,6 +30,10 @@ class Conf implements Serializable{
         }
     }
 
+    public def setockerRegistryHost(String dockerRegistryHost) {
+        this.dockerRegistryHost = dockerRegistryHost
+    }
+
     public def setReplicas(String replicas) {
         this.appConf.put('replicas', replicas)
     }
