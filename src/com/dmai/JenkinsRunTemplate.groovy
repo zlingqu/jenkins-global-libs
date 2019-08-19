@@ -66,7 +66,7 @@ spec:
         if (! this.conf.getAttr('makeImage')) return ''
         return String.format('''
   - name: docker-compose
-    image: docker.dm-ai.cn/devops/base-image-docker-compose:0.04
+    image: docker.dm-ai.cn/devops/base-image-docker-compose:0.05
     imagePullPolicy: IfNotPresent
     env:
     - name: VUE_APP_SCENE
@@ -186,7 +186,7 @@ spec:
         if (this.conf.getAttr('test')) {
             return '''
   - name: kubectl-test 
-    image: docker.dm-ai.cn/devops/base-image-kubectl:test-0.05
+    image: docker.dm-ai.cn/devops/base-image-kubectl:test-0.04
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
