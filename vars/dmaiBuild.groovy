@@ -72,7 +72,7 @@ def call(Map map, env) {
                 defaultContainer 'jnlp'
                 namespace 'devops'
                 inheritFrom 'base-template'
-                yaml new JenkinsRunTemplate(conf).getJenkinsRunTemplate(params.DEPLOY_MASTER_PASSWORD)
+                yaml new JenkinsRunTemplate(conf).getJenkinsRunTemplate(params.DEPLOY_MASTER_PASSWORD, params.DEPLOY_ENV)
             }
         }
 
@@ -101,8 +101,11 @@ def call(Map map, env) {
                             echo conf.vueAppSchool
                         }
 
-                        conf.setReplicas(replicas)
+                        conf.setAttr('replicas', replicas)
                             echo replicas
+
+                        conf.setAttr('dev', deployEnvironment)
+                            echo deployEnvironment
                     }
                 }
             }
