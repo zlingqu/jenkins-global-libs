@@ -1978,7 +1978,7 @@ class GlobalConfig implements Serializable {
             'jenkins-test': [
                     'servicePort' : '80',
                     'namespace': 'devops',
-                    'nodePort' : '30127',
+                    'nodePort' : '30444',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
 //                    'cpuRequests' : '1000m',

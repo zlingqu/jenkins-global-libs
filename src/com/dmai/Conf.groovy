@@ -30,6 +30,10 @@ class Conf implements Serializable{
         }
     }
 
+    public def setReplicas(String replicas) {
+        this.appConf.put('replicas', replicas)
+    }
+
     public def setVueAppScene(String vueAppScene) {
         this.vueAppScene = vueAppScene
     }
