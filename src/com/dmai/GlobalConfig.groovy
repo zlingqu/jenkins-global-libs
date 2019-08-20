@@ -1668,7 +1668,7 @@ class GlobalConfig implements Serializable {
             'x3-content-manager-service' : [
                     'servicePort' : '80',
                     'namespace': 'x3',
-                    'nodePort' : '30332',
+                    'nodePort' : '30335',
                     'containerPort': '3000',
                     'domain': 'tts-serving.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
 //                    'cpuRequests' : '1000m',
