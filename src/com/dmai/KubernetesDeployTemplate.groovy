@@ -362,7 +362,7 @@ spec:
 ''', this.conf.appName, this.conf.appName)
         }
 
-        if (this.conf.getAttr('usePvc')) {
+        if (this.conf.getAttr('useStore')) {
 //
             if (this.conf.getAttr('dev') == 'lexue') {
                 returnString += String.format('''
@@ -397,7 +397,7 @@ spec:
 '''
         }
 
-        if (this.conf.getAttr('configMapName') in [null, '', false] && this.conf.getAttr('usePvc') in [null, '', false]) return ''
+        if (this.conf.getAttr('configMapName') in [null, '', false] && this.conf.getAttr('useStore') in [null, '', false]) return ''
 
 //        非特殊情况下：
         def returnString = '''
@@ -411,11 +411,11 @@ spec:
 ''', this.conf.appName, this.conf.getAttr('configMapName'), this.conf.getAttr('configMapName'))
         }
 
-        if (this.conf.getAttr('usePvc')) {
+        if (this.conf.getAttr('useStore')) {
             returnString += String.format('''
         - name: data
-          mountPath: /app/data
-''')
+          mountPath: %s
+''', this.conf.getAttr('storePath') ? this.conf.getAttr('storePath') : '/data')
         }
         return returnString
     }
