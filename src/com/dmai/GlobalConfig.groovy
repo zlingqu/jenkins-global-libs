@@ -1665,7 +1665,7 @@ class GlobalConfig implements Serializable {
                     'useEnvFile'  : false, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
                     'sonarCheck'  : true
             ],
-            'x3-Content-Manager-Service' : [
+            'x3-content-manager-service' : [
                     'servicePort' : '80',
                     'namespace': 'x3',
                     'nodePort' : '30332',
