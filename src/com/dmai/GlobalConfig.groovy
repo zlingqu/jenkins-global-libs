@@ -1190,7 +1190,7 @@ class GlobalConfig implements Serializable {
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'sonarCheck'  : true
             ],
-            'xmc_online_api': [
+            'xmc-online-api': [
                     'servicePort' : '80',
                     'namespace': 'xmc',
                     'nodePort' : '31166',
