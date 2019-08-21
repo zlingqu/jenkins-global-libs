@@ -1863,7 +1863,7 @@ class GlobalConfig implements Serializable {
                     'gitAddress': 'https://gitlab.dm-ai.cn/X3/X3-teacher-backend.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
-                    'customDockerfile': true, // 是否使用自定义 dockerfile
+                    'customDockerfile': false, // 是否使用自定义 dockerfile
                     'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
                     'useConfigMap': true, //是否使用configmap
                     'configMapName': 'config.js', //是否使用configmap
