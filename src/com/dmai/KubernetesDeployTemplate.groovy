@@ -96,7 +96,7 @@ $volumes
         if (this.conf.appName == 'xmc-online-api') {
             return '''
       nodeSelector:
-        gpu: zhengwenyong
+        tools: zhengwenyong
       tolerations:
       - key: "hardware"
         operator: "Equal"
@@ -341,7 +341,7 @@ spec:
       - name: data
         hostPath:
           path: /data/%s
-''', this.conf.appName, this.conf.appName, this.conf.appName)
+''', this.conf.appName, this.conf.appName, this.conf.getAttr('namespace'))
             }
             return String.format('''
       volumes:
