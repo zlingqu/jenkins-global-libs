@@ -61,7 +61,7 @@ class Conf implements Serializable{
         try {
             return this.appConf.get(attrName)
         } catch (e) {
-            return null
+            return false
         }
     }
 
