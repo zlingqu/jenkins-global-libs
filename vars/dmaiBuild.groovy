@@ -30,7 +30,7 @@ def call(Map map, env) {
     DmaiEmail dmaiEmail = new DmaiEmail(this, conf)
 
     // default replicas
-    def replicas = String.valueOf( conf.getAttr('replicas') ? 1 : conf.getAttr('replicas'))
+    def replicas = String.valueOf( conf.getAttr('replicas') ? conf.getAttr('replicas') : 1)
 
     //
     if (conf.getAttr('branchName') == 'master' && conf.getAttr('master') !='prd') return
