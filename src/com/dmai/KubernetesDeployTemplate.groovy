@@ -92,6 +92,19 @@ $volumes
     }
 
     private String getTolerations() {
+        // tmp
+        if (this.conf.appName == 'xmc-online-api') {
+            return '''
+      nodeSelector:
+        gpu: zhengwenyong
+      tolerations:
+      - key: "hardware"
+        operator: "Equal"
+        value: "gpu"
+        effect: "NoSchedule"
+'''
+        }
+        //
         if (this.conf.getAttr('envType') == 'gpu') {
             return '''
       nodeSelector:

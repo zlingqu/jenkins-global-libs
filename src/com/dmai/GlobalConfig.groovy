@@ -1200,6 +1200,7 @@ class GlobalConfig implements Serializable {
                     'memoryRequests' : '',
                     'cpuLimits' : '400m',
                     'memoryLimits' : '1000Mi',
+                    'gpuLimits' : 1, //一个副本使用几张gpu的卡。
                     'replicas' : 1,
                     'dev': 'test', // dev分支部署到开发环境
                     'test': true, // 是否从dev分支部署到测试环境
@@ -1215,7 +1216,8 @@ class GlobalConfig implements Serializable {
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'configMapName': 'config.js', //是否使用configmap
                     'useStore': false, // 是否使用存储资源。
-                    'storePath' : '/app/data',
+//                    'storePath' : '/app/data',
+                    'envType'     : 'gpu', //分为gpu 和非gpu的环境
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'sonarCheck'  : false
