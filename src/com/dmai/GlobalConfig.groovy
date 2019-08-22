@@ -174,7 +174,6 @@ class GlobalConfig implements Serializable {
                     'useStore': false, // 是否使用存储资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
-                    'envType'     : 'gpu', //分为gpu 和非gpu的环境
                     'sonarCheck'  : true
             ],
             'media-gateway': [
