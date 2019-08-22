@@ -21,7 +21,7 @@ class Compile {
                             "cp -rp node_modules/* /data/cache/node_modules/"
                     return
                 case 'js':
-                    this.script.sh "yarn config set registry https://npm.dm-ai.cn/repository/npm/ && yarn && yarn run build"
+                    this.script.sh "npm config set registry http://192.168.3.13:8081/repository/npm/ && yarn install && yarn run build"
                     return
                 case 'c++':
                     this.script.sh "make"
