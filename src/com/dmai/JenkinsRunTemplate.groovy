@@ -38,11 +38,14 @@ metadata:
 spec:
   hostAliases:
   - ip: 192.168.3.140
-    hostnames: 
+    hostnames:
     - sonar.ops.dm-ai.cn
   - ip: 192.168.3.221
-    hostnames: 
+    hostnames:
     - gitlab.dm-ai.cn
+  - ip: 192.168.3.38
+    hostnames:
+    - npm.dm-ai.cn
   imagePullSecrets:
   - name: regsecret
   containers:
