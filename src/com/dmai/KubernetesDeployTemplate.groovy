@@ -102,6 +102,10 @@ $volumes
         operator: "Equal"
         value: "gpu"
         effect: "NoSchedule"
+      - key: "tools"
+        operator: "Equal"
+        value: "zhengwenyong"
+        effect: "NoSchedule"
 '''
         }
         //
