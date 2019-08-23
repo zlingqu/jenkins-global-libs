@@ -305,7 +305,7 @@ def call(Map map, env) {
                 steps {
                     container('compile') {
                         script {
-                            sh 'npm config set registry https://npm.dm-ai.cn/repository/npm && npm install || echo 0'
+                            sh 'npm config set registry http://192.168.3.13:8081/repository/npm/ && yarn install || echo 0'
                             sh 'npm i -g nyc || echo 0'
                             sh 'npm i -g mocha || echo 0'
                             sh 'rm -fr deployment || echo 0'
