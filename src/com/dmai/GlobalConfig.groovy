@@ -758,7 +758,7 @@ class GlobalConfig implements Serializable {
             'rdac-license-manager': [
                     'servicePort' : '80',
                     'namespace': 'devops',
-                    'nodePort' : '30241',
+                    'nodePort' : '30242',
                     'containerPort': '3000',
 //                    'domain': 'rdac.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuLimits' : '200m',
