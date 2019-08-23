@@ -626,7 +626,7 @@ class GlobalConfig implements Serializable {
             ],
             'rdac-frontend': [
                     'servicePort' : '80',
-                    'namespace': 'devops',
+                    'namespace': 'rdac',
                     'containerPort': '80',
                     'domain': 'rdac.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuLimits' : '200m',
@@ -651,7 +651,7 @@ class GlobalConfig implements Serializable {
             ],
             'rdac-api-gateway': [
                     'servicePort' : '80',
-                    'namespace': 'devops',
+                    'namespace': 'rdac',
 //                    'nodePort' : '30240',
                     'containerPort': '80',
                     'domain': 'api-rdac.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
@@ -678,7 +678,7 @@ class GlobalConfig implements Serializable {
             ],
             'rdac-backend': [
                     'servicePort' : '80',
-                    'namespace': 'devops',
+                    'namespace': 'rdac',
                     'nodePort' : '30239',
                     'containerPort': '3000',
 //                    'domain': 'rdac.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
@@ -704,7 +704,7 @@ class GlobalConfig implements Serializable {
             ],
             'rdac-device-collector': [
                     'servicePort' : '80',
-                    'namespace': 'devops',
+                    'namespace': 'rdac',
                     'nodePort' : '30241',
                     'containerPort': '3000',
 //                    'domain': 'rdac.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
@@ -730,7 +730,7 @@ class GlobalConfig implements Serializable {
             ],
             'rdac-ota-service': [
                     'servicePort' : '80',
-                    'namespace': 'devops',
+                    'namespace': 'rdac',
                     'nodePort' : '30240',
                     'containerPort': '3000',
 //                    'domain': 'rdac.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
@@ -757,7 +757,7 @@ class GlobalConfig implements Serializable {
             ],
             'rdac-license-manager': [
                     'servicePort' : '80',
-                    'namespace': 'devops',
+                    'namespace': 'rdac',
                     'nodePort' : '30242',
                     'containerPort': '3000',
 //                    'domain': 'rdac.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
