@@ -166,6 +166,7 @@ spec:
 
 //    设置不同的分支部署到不同的环境
     private String getKubectlBranch(){
+        if (this.conf.appName == 'xmc-online-api') return 'test'
         if (this.conf.getAttr('branchName') == 'master' ) {
             if (this.conf.getAttr('master') == 'prd' && this.deployMasterPassword == 'dmai2019') {
                 return 'master'
