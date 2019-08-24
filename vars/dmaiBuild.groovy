@@ -51,6 +51,8 @@ def call(Map map, env) {
             if (conf.getAttr('domain')) {
                 conf.setAttr('domain', 'release-' + conf.getAttr('domain'))
             }
+
+            conf.setAttr('branchName', 'dev')
         }
     }
 
