@@ -2,7 +2,7 @@ import com.dmai.*
 
 def call(Map map, env) {
     // 默认master 和 dev分支才进行构建
-    if (!(env.BRANCH_NAME in ['master', 'dev'])) return
+    if (!(env.BRANCH_NAME in ['master', 'dev', 'release'])) return
 
     // 定义定义的全局的配置项目
     String appName = map.get('appName')
@@ -37,6 +37,24 @@ def call(Map map, env) {
 
     //
     if (conf.appName == 'work-attendance' && conf.getAttr('branchName') != 'master') return
+
+    // tmp 专门给高鹏
+    if (conf.getAttr('branchName') == 'release') {
+        if ( conf.getAttr('namespace') != 'x2-ta' ) {
+            return
+        } else {
+            conf.setAttr('namespace', 'x2-ta-release')
+            if (conf.getAttr('nodePort')) {
+                conf.setAttr('nodePort', Integer.valueOf(conf.getAttr('nodePort')) + 110)
+            }
+
+            if (conf.getAttr('domain')) {
+                conf.setAttr('domain', 'release-' + conf.getAttr('domain'))
+            }
+        }
+    }
+
+
 
     println('【开始进行构建】')
     pipeline {
