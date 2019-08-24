@@ -44,6 +44,13 @@ def call(Map map, env) {
             return
         } else {
             conf.setAttr('namespace', 'x2-ta-release')
+            if (conf.getAttr('nodePort')) {
+                conf.setAttr('nodePort', Integer.valueOf(conf.getAttr('nodePort')) + 110)
+            }
+
+            if (conf.getAttr('domain')) {
+                conf.setAttr('domain', 'release-' + conf.getAttr('domain'))
+            }
         }
     }
 
