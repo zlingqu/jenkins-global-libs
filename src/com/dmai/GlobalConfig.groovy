@@ -2053,7 +2053,6 @@ class GlobalConfig implements Serializable {
                     'useConfigMap': false, //是否使用configmap
                     'configMapName': 'config.js', //是否使用configmap
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
-                    'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
                     'codeLanguage' : 'js', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'useStore': false, // 是否使用存储资源。
