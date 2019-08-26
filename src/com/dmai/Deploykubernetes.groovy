@@ -74,7 +74,10 @@ class Deploykubernetes {
             )
         } catch (e) {
             this.script.sh "echo ${e}"
+            this.script.sh "echo '${this.createIngressFile()}' > ingress.yml"
+            this.script.sh "kubectl apply -f ingress.yml"
         }
+
 
         return
     }
@@ -93,5 +96,30 @@ class Deploykubernetes {
         }
 
         return
+    }
+
+    private String createIngressFile() {
+        return String.format('''
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: %s
+  namespace: %s
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+  - host: %s%s
+    http:
+      paths:
+      - backend:
+          serviceName: %s
+          servicePort: 80
+''',
+                this.conf.appName,
+                this.conf.getAttr('namespace'),
+                this.conf.getAttr('branchName') == 'master' ? '' : this.conf.getAttr('dev') + '.',
+                this.conf.getAttr('domain'),
+                this.conf.appName)
     }
 }
