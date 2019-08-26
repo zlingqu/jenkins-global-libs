@@ -174,7 +174,7 @@ class GlobalConfig implements Serializable {
                     'useStore': false, // 是否使用存储资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
-                    'envType'     : 'gpu', //分为gpu 和非gpu的环境
+                    'envType'     : 'all', //分为gpu 和非gpu的环境, 不做限制
                     'sonarCheck'  : true
             ],
             'media-gateway': [
@@ -1546,7 +1546,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'x2-ta',
                     'nodePort' : '31221',
                     'containerPort': '8888',
-                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
+                    'domain': 'prepare-server-x2.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
 //                    'cpuRequests' : '1000m',
 //                    'memoryRequests' : '2000Mi',
                     'cpuLimits' : '1000m',
@@ -1609,7 +1609,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'x2-ta',
                     'nodePort' : '31224',
                     'containerPort': '9999',
-                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
+                    'domain': 'resources-x2.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
 //                    'cpuRequests' : '1000m',
 //                    'memoryRequests' : '2000Mi',
                     'cpuLimits' : '500m',
@@ -1732,7 +1732,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'x2-ta',
                     'nodePort' : '31223',
                     'containerPort': '8888',
-                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
+                    'domain': 'classroom-server-x2.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
 //                    'cpuRequests' : '1000m',
 //                    'memoryRequests' : '2000Mi',
                     'cpuLimits' : '500m',

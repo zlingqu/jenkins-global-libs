@@ -84,7 +84,6 @@ $volumes
                 'command'             : this.conf.getAttr('command') ? this.conf.getAttr('command'): '',
                 'getContainerPort'    : this.getContainerPort(),
                 'resources'           : this.resourcesTemplate(),
-//                'envType'             : this.conf.getAttr('envType') == 'gpu' ? 'gpu' : 'cpu',
                 'envFrom'             : this.getEnvFrom(),
                 'tolerations'         : this.getTolerations()
         ]
@@ -105,6 +104,16 @@ $volumes
       - key: "tools"
         operator: "Equal"
         value: "zhengwenyong"
+        effect: "NoSchedule"
+'''
+        }
+        //
+        if (this.conf.getAttr('envType') == 'all') {
+            return '''
+      tolerations:
+      - key: "hardware"
+        operator: "Equal"
+        value: "gpu"
         effect: "NoSchedule"
 '''
         }
