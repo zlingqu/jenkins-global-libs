@@ -32,6 +32,9 @@ def call(Map map, env) {
     // default replicas
     def replicas = String.valueOf( conf.getAttr('replicas') ? conf.getAttr('replicas') : 1)
 
+    // default cpu
+    def envtype = conf.getAttr('envType') ? conf.getAttr('envType') : 'cpu'
+
     //
     if (conf.getAttr('branchName') == 'master' && conf.getAttr('master') !='prd') return
 
@@ -64,6 +67,7 @@ def call(Map map, env) {
         // 在整个构建之前，先进行参数化的设置
         parameters {
             choice(name: 'DEPLOY_ENV', choices: ['dev', 'test', 'lexue'], description: 'dev分支部署的环境，目前支持：dev/test/lexue, lexue 针对的是xmc2项目。')
+            choice(name: 'ENV_TYPE', choices: [envtype, 'cpu','gpu', 'all'], description: 'cpu代表部署cpu服务器，gpu代表gpu服务器，all代表不做限制任意漂流')
             string(name: 'GIT_VERSION', defaultValue: 'last', description: 'git的commit 版本号，git log 查看。')
             string(name: 'VUE_APP_SCHOOL', defaultValue: 'S00001', description: '学校的Code，xmc2-frontend项目使用，其他不关注,s小写    ')
             choice(name: 'VUE_APP_SCENE', choices: ['main', 'training'], description: 'xmc2-frontend项目使用，其他不关注')
@@ -78,6 +82,7 @@ def call(Map map, env) {
         // 转化为可用的环境变量
         environment {
             deployEnvironment = "${params.DEPLOY_ENV}"
+            envType = "${params.ENV_TYPE}"
             gitVersion = "${params.GIT_VERSION}"
             vueAppScene = "${params.VUE_APP_SCENE}"
             vueAppSchool = "${params.VUE_APP_SCHOOL}"
@@ -126,6 +131,9 @@ def call(Map map, env) {
 
                         conf.setAttr('dev', deployEnvironment)
                             echo deployEnvironment
+
+                        conf.setAttr('envType', envType)
+                            echo envType
 
                         if (conf.getAttr('dev') == 'lexue') {
                             conf.setockerRegistryHost('rdac-docker.dm-ai.cn')
