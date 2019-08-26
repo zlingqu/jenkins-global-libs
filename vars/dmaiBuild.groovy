@@ -313,6 +313,7 @@ def call(Map map, env) {
                     steps {
                         container('kubectl-test') {
                             script {
+                                deploykubernetes.createIngress()
                                 deploykubernetes.createConfigMapTest()
                                 deploykubernetes.deployKubernetes()
                             }
