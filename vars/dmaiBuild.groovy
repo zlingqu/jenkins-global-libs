@@ -35,6 +35,18 @@ def call(Map map, env) {
     // default cpu
     def defaultEnvType = conf.getAttr('envType') ? conf.getAttr('envType') : 'cpu'
 
+    // cpuRequests
+    def defaultCpuRequests = conf.getAttr('cpuRequests') ? conf.getAttr('cpuRequests') : ''
+
+    // memoryRequests
+    def defaultMemoryRequests = conf.getAttr('memoryRequests') ? conf.getAttr('memoryRequests') : ''
+
+    // cpuLimits
+    def defaultCpuLimits = conf.getAttr('cpuLimits') ? conf.getAttr('cpuLimits') : ''
+
+    // memoryLimits
+    def defaultMemoryLimits = conf.getAttr('memoryLimits') ? conf.getAttr('memoryLimits') : ''
+
     //
     if (conf.getAttr('branchName') == 'master' && conf.getAttr('master') !='prd') return
 
@@ -73,6 +85,15 @@ def call(Map map, env) {
             choice(name: 'VUE_APP_SCENE', choices: ['main', 'training'], description: 'xmc2-frontend项目使用，其他不关注')
             string(name: 'DEPLOY_MASTER_PASSWORD', defaultValue: '部署master分支到线上环境，请找运维人员输入密码自动部署', description: '部署master分支请找运维人员输入密码自动部署')
             string(name: 'REPLICAS', defaultValue: replicas, description: '部署在k8s集群中需要的副本数')
+
+            // 资源限制
+            string(name: 'CPU_REQUEST', defaultValue: defaultCpuRequests, description: '示例：300m, 300分片，0.3核')
+            string(name: 'CPU_LIMIT', defaultValue: defaultCpuLimits, description: '示例：500m, 500分片，0.5核')
+
+            string(name: 'MEMORY_REQUEST', defaultValue: defaultMemoryRequests, description: '示例：500Mi, 使用内存500m')
+            string(name: 'MEMORY_LIMIT', defaultValue: defaultMemoryLimits, description: '示例：1000Mi, 使用内存1000m')
+
+
         }
 
 //        triggers {
@@ -88,6 +109,10 @@ def call(Map map, env) {
             vueAppSchool = "${params.VUE_APP_SCHOOL}"
             deployMasterPassword = "${params.DEPLOY_MASTER_PASSWORD}"
             userReplicas = "${params.REPLICAS}"
+            cpuRequests = "${params.CPU_REQUEST}"
+            cpuLimits = "${params.CPU_LIMIT}"
+            memoryRequests = "${params.MEMORY_REQUEST}"
+            memoryLimits = "${params.MEMORY_LIMIT}"
         }
 
         agent {
@@ -138,6 +163,11 @@ def call(Map map, env) {
                         if (conf.getAttr('dev') == 'lexue') {
                             conf.setockerRegistryHost('rdac-docker.dm-ai.cn')
                         }
+
+                        conf.setAttr('cpuRequests', cpuRequests)
+                        conf.setAttr('memoryRequests', memoryRequests)
+                        conf.setAttr('cpuLimits', cpuLimits)
+                        conf.setAttr('memoryLimits', memoryLimits)
                     }
                 }
             }
