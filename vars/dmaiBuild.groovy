@@ -87,11 +87,11 @@ def call(Map map, env) {
             string(name: 'REPLICAS', defaultValue: replicas, description: '部署在k8s集群中需要的副本数')
 
             // 资源限制
-            string(name: 'CPU_REQUEST', defaultValue: defaultCpuRequests, description: '示例：300m, 300分片，0.3核')
-            string(name: 'CPU_LIMIT', defaultValue: defaultCpuLimits, description: '示例：500m, 500分片，0.5核')
+            string(name: 'CPU_REQUEST', defaultValue: defaultCpuRequests, description: '应用的cpu初始设置，示例：300m, 300分片，0.3核')
+            string(name: 'CPU_LIMIT', defaultValue: defaultCpuLimits, description: '应用的cpu限制设置，示例：500m, 500分片，0.5核')
 
-            string(name: 'MEMORY_REQUEST', defaultValue: defaultMemoryRequests, description: '示例：500Mi, 使用内存500m')
-            string(name: 'MEMORY_LIMIT', defaultValue: defaultMemoryLimits, description: '示例：1000Mi, 使用内存1000m')
+            string(name: 'MEMORY_REQUEST', defaultValue: defaultMemoryRequests, description: '应用的内存初始设置，示例：500Mi, 使用内存500m')
+            string(name: 'MEMORY_LIMIT', defaultValue: defaultMemoryLimits, description: '应用的内存限制设置，示例：1000Mi, 使用内存1000m')
 
 
         }
