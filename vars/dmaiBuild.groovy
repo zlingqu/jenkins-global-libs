@@ -109,10 +109,10 @@ def call(Map map, env) {
             vueAppSchool = "${params.VUE_APP_SCHOOL}"
             deployMasterPassword = "${params.DEPLOY_MASTER_PASSWORD}"
             userReplicas = "${params.REPLICAS}"
-            cpuRequests = "${params.CPU_REQUEST}" ? "${params.CPU_REQUEST}": ''
-            cpuLimits = "${params.CPU_LIMIT}" ? "${params.CPU_LIMIT}" : ''
-            memoryRequests = "${params.MEMORY_REQUEST}" ? "${params.MEMORY_REQUEST}" : ''
-            memoryLimits = "${params.MEMORY_LIMIT}" ? "${params.MEMORY_LIMIT}" : ''
+            cpuRequests = "${params.CPU_REQUEST}"
+            cpuLimits = "${params.CPU_LIMIT}"
+            memoryRequests = "${params.MEMORY_REQUEST}"
+            memoryLimits = "${params.MEMORY_LIMIT}"
         }
 
         agent {
@@ -164,7 +164,7 @@ def call(Map map, env) {
                             conf.setockerRegistryHost('rdac-docker.dm-ai.cn')
                         }
 
-                        conf.setAttr('cpuRequests', cpuRequests)
+                        conf.setAttr('cpuRequests', cpuRequests ? cpuRequests: '')
                         conf.setAttr('memoryRequests', memoryRequests)
                         conf.setAttr('cpuLimits', cpuLimits)
                         conf.setAttr('memoryLimits', memoryLimits)
