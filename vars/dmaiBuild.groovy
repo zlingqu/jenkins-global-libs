@@ -165,9 +165,9 @@ def call(Map map, env) {
                         }
 
                         conf.setAttr('cpuRequests', params.CPU_REQUEST)
-//                        conf.setAttr('memoryRequests', memoryRequests)
-//                        conf.setAttr('cpuLimits', cpuLimits)
-//                        conf.setAttr('memoryLimits', memoryLimits)
+                        conf.setAttr('memoryRequests', params.MEMORY_REQUEST)
+                        conf.setAttr('cpuLimits', params.CPU_LIMIT)
+                        conf.setAttr('memoryLimits', params.MEMORY_LIMIT)
                     }
                 }
             }
