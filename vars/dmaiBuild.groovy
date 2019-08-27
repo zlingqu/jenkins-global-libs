@@ -164,10 +164,10 @@ def call(Map map, env) {
                             conf.setockerRegistryHost('rdac-docker.dm-ai.cn')
                         }
 
-                        conf.setAttr('cpuRequests', cpuRequests ? cpuRequests: '')
-                        conf.setAttr('memoryRequests', memoryRequests)
-                        conf.setAttr('cpuLimits', cpuLimits)
-                        conf.setAttr('memoryLimits', memoryLimits)
+//                        conf.setAttr('cpuRequests', cpuRequests ? cpuRequests: '')
+//                        conf.setAttr('memoryRequests', memoryRequests)
+//                        conf.setAttr('cpuLimits', cpuLimits)
+//                        conf.setAttr('memoryLimits', memoryLimits)
                     }
                 }
             }
