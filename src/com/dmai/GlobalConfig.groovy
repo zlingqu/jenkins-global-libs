@@ -1443,7 +1443,7 @@ class GlobalConfig implements Serializable {
                     'sonarCheck'  : true
             ],
             'prometheus-pushgateway': [
-                    'servicePort' : '9091',
+                    'servicePort' : '80',
                     'namespace': 'devops',
                     'nodePort' : '30991',
                     'containerPort': '9091',
