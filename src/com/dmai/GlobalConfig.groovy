@@ -1447,6 +1447,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'devops',
                     'nodePort' : '30991',
                     'containerPort': '9091',
+                    'domain': 'prom.dm-ai.cn',
                     'dev': 'dev', // dev分支部署到开发环境
                     'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
