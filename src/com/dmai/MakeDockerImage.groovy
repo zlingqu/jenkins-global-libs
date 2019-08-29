@@ -24,8 +24,8 @@ class MakeDockerImage {
 
         // 对 xmc2-frontend做特殊处理。
 //        if (this.conf.appName == 'xmc2-frontend') {
-            this.script.sh String.format('docker-compose build --build-arg VUE_APP_SCENE=%s --build-arg VUE_APP_SCHOOL=%s service-docker-build',
-                    this.conf.vueAppScene, this.conf.vueAppSchool
+            this.script.sh String.format('docker-compose build --build-arg VUE_APP_SCENE=%s --build-arg VUE_APP_SCHOOL=%s --build-arg MODEL_VERSION=%s service-docker-build',
+                    this.conf.vueAppScene, this.conf.vueAppSchool, this.conf.modelVersion
             )
 //            return
 //        }

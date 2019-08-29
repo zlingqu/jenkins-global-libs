@@ -7,6 +7,7 @@ class Conf implements Serializable{
     public String jenkinsAddress
     public String vueAppScene
     public String vueAppSchool
+    public String modelVersion
     protected final def script
     private Map<String, String> userSetMap
     private Map<String, String> appConf
@@ -20,6 +21,7 @@ class Conf implements Serializable{
         this.userSetMap = userSetMap
         this.vueAppScene = ''
         this.vueAppSchool = ''
+        this.modelVersion = ''
 
         // 全局设置中没添加这个项目，需要报错。
         try {
@@ -54,6 +56,10 @@ class Conf implements Serializable{
 
     public def setVueAppSchool(String vueAppSchool) {
         this.vueAppSchool = vueAppSchool
+    }
+
+    public def setModelVersion(String modelVersion) {
+        this.modelVersion = modelVersion
     }
 
     // get attr
