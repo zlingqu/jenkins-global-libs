@@ -85,6 +85,7 @@ def call(Map map, env) {
             choice(name: 'VUE_APP_SCENE', choices: ['main', 'training'], description: 'xmc2-frontend项目使用，其他不关注')
             string(name: 'DEPLOY_MASTER_PASSWORD', defaultValue: '部署master分支到线上环境，请找运维人员输入密码自动部署', description: '部署master分支请找运维人员输入密码自动部署')
 
+            string(name: 'REPLICAS', defaultValue: replicas, description: '部署在k8s集群中需要的副本数')
 
             //算法专用，其他不用理会，
             string(name: 'MODEL_VERSION', defaultValue: '', description: '算法模型专用，其他项目不用')
