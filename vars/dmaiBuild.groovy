@@ -84,7 +84,11 @@ def call(Map map, env) {
             string(name: 'VUE_APP_SCHOOL', defaultValue: 'S00001', description: '学校的Code，xmc2-frontend项目使用，其他不关注,s小写    ')
             choice(name: 'VUE_APP_SCENE', choices: ['main', 'training'], description: 'xmc2-frontend项目使用，其他不关注')
             string(name: 'DEPLOY_MASTER_PASSWORD', defaultValue: '部署master分支到线上环境，请找运维人员输入密码自动部署', description: '部署master分支请找运维人员输入密码自动部署')
-            string(name: 'REPLICAS', defaultValue: replicas, description: '部署在k8s集群中需要的副本数')
+
+
+            //算法专用，其他不用理会，
+            string(name: 'MODEL_VERSION', defaultValue: '', description: '算法模型专用，其他项目不用')
+
 
             // 资源限制
             string(name: 'CPU_REQUEST', defaultValue: defaultCpuRequests, description: '应用的cpu初始设置，示例：300m, 300分片，0.3核, 空代表不限制')
@@ -168,6 +172,9 @@ def call(Map map, env) {
                         conf.setAttr('memoryRequests', params.MEMORY_REQUEST)
                         conf.setAttr('cpuLimits', params.CPU_LIMIT)
                         conf.setAttr('memoryLimits', params.MEMORY_LIMIT)
+
+                        // 算饭专用
+                        conf.setModelVersion(params.MODEL_VERSION)
                     }
                 }
             }
