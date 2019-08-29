@@ -88,7 +88,7 @@ def call(Map map, env) {
             string(name: 'REPLICAS', defaultValue: replicas, description: '部署在k8s集群中需要的副本数')
 
             //算法专用，其他不用理会，
-            string(name: 'MODEL_VERSION', defaultValue: '', description: '算法模型专用，其他项目不用')
+            string(name: 'MODEL_VERSION', defaultValue: 'latest', description: '算法模型专用，其他项目不用')
 
 
             // 资源限制
