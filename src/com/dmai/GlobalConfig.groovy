@@ -245,7 +245,7 @@ class GlobalConfig implements Serializable {
 //                    'cpuRequests' : '300m',
 //                    'memoryRequests' : '500Mi',
                     'cpuLimits' : '2000m',
-                    'memoryLimits' : '4000Mi',
+                    'memoryLimits' : '8000Mi',
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
