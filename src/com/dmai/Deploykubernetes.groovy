@@ -122,4 +122,10 @@ spec:
                 this.conf.getAttr('domain'),
                 this.conf.appName)
     }
+
+    private String getBranchName() {
+        if (this.conf.getAttr('master')) return ''
+        if (this.conf.getAttr('branchName') == 'dev') return this.conf.getAttr('dev')
+        if (this.conf.getAttr('branchName') == 'stage') return 'stage'
+    }
 }
