@@ -69,7 +69,7 @@ class Deploykubernetes {
         try {
             this.script.sh String.format("kubectl apply -f deployment/%s/%s/%s/ingress.yml",
                     this.conf.getAttr('namespace'),
-                    this.conf.getAttr(this.conf.getAttr('branchName')),
+                    this.conf.getAttr('branchName') in ['master', 'dev'] ? this.conf.getAttr(this.conf.getAttr('branchName')) : this.conf.getAttr('branchName'),
                     this.conf.appName
             )
         } catch (e) {
