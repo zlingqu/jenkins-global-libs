@@ -118,7 +118,7 @@ spec:
 ''',
                 this.conf.appName,
                 this.conf.getAttr('namespace'),
-                this.conf.getAttr('branchName') == 'master' ? '' : this.conf.getAttr('dev') + '.',
+                this.conf.getAttr('branchName') == 'master' ? '' : this.getBranchName() + '.',
                 this.conf.getAttr('domain'),
                 this.conf.appName)
     }
