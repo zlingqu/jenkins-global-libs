@@ -84,7 +84,7 @@ class Deploykubernetes {
         return
     }
 
-    private String createIngressFile() {
+    private String  createIngressFile() {
         return String.format('''
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -110,7 +110,6 @@ spec:
     }
 
     private String getBranchName() {
-        if (this.conf.getAttr('master')) return ''
         if (this.conf.getAttr('branchName') == 'dev') return this.conf.getAttr('dev')
         if (this.conf.getAttr('branchName') == 'stage') return 'stage'
     }
