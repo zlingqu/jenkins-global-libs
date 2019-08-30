@@ -35,25 +35,11 @@ class Deploykubernetes {
     public void createConfigMap() {
         if (! this.conf.getAttr('useConfigMap')) return
 
-        //新的使用.env的形式做兼容的方式。
-//        if ( this.conf.getAttr('useEnvFile') ) {
-//            try {
-//                this.script.sh String.format("kubectl create cm %s --from-env-file deployment/%s/%s/%s/.env -n %s ",
-//                this.conf.appName,
-//                this.conf.getAttr('namespace'),
-//                this.conf.getAttr(this.conf.getAttr('branchName')),
-//                this.conf.appName)
-//            } catch (e) {
-//                this.script.sh "echo ${e}"
-//            }
-//            return
-//        }
-
         // 老版的使用configmap的形式挂载文件
         try {
             this.script.sh String.format("kubectl apply -f deployment/%s/%s/%s/configmap.yml",
                     this.conf.getAttr('namespace'),
-                    this.conf.getAttr(this.conf.getAttr('branchName')),
+                    this.conf.getAttr('branchName') in ['master', 'dev'] ? this.conf.getAttr(this.conf.getAttr('branchName')) : this.conf.getAttr('branchName'),
                     this.conf.appName
             )
         } catch (e) {
