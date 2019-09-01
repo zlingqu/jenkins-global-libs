@@ -12,7 +12,7 @@ def call(Map map, env) {
     conf.setUserAttr(map)
 
     // 注入jenkins的环境变量到全局的Conf
-    conf.setJenkinsAttrToConf(env)
+    conf.setJenkinsAttrToConf(env, currentBuild)
 
     // 初始化编译模块
     Compile compile = new Compile(this, conf)

@@ -76,10 +76,11 @@ class Conf implements Serializable{
         this.appConf.putAll(userSetMap)
     }
 
-    public def setJenkinsAttrToConf(env) {
+    public def setJenkinsAttrToConf(env, currentBuild) {
         jenkinsEnv = [:]
         jenkinsEnv.put('jobName', env.JOB_NAME.split("/")[0])
-        jenkinsEnv.put('branchName', env.BRANCH_NAME)
+//        jenkinsEnv.put('branchName', env.BRANCH_NAME)
+        jenkinsEnv.put('branchName', currentBuild.projectName)
         jenkinsEnv.put('buildNumber', env.BUILD_NUMBER)
         this.appConf.putAll(jenkinsEnv)
     }
