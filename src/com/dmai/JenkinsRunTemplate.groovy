@@ -11,7 +11,7 @@ class JenkinsRunTemplate {
         this.deployMasterPassword = ''
     }
 
-    public String getJenkinsRunTemplate(String deployMasterPassword, String deployEnvironment, currentBuild) {
+    public String getJenkinsRunTemplate(String deployMasterPassword, String deployEnvironment) {
         this.deployMasterPassword = deployMasterPassword
         this.conf.setAttr('dev', deployEnvironment)
 
