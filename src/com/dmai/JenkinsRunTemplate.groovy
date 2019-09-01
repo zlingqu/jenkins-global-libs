@@ -18,7 +18,7 @@ class JenkinsRunTemplate {
 //        set branchName , jobName, buildNumber
         this.conf.setAttr('branchName', currentBuild.projectName)
         this.conf.setAttr('jobName', currentBuild.fullProjectName.split("/")[0])
-        this.conf.setAttr('buildNumber', currentBuild.currentBuild.minus("#"))
+        this.conf.setAttr('buildNumber', currentBuild.displayName.replaceAll("#", ""))
 
         def returnString = this.templateTop() +
                 this.templateDockerCompile() +
