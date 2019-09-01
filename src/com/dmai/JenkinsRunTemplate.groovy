@@ -18,7 +18,7 @@ class JenkinsRunTemplate {
 //        set branchName , jobName, buildNumber
         this.conf.setAttr('branchName', currentBuild.projectName)
         this.conf.setAttr('jobName', currentBuild.fullProjectName.split("/")[0])
-        this.conf.setAttr('buildNumber', currentBuild.currentBuild.replaceAll("#", ""))
+        this.conf.setAttr('buildNumber', currentBuild.currentBuild.minus("#"))
 
         def returnString = this.templateTop() +
                 this.templateDockerCompile() +
@@ -36,7 +36,7 @@ class JenkinsRunTemplate {
     private def templateTop() {
         return '''
 apiVersion: v1
-kind: Pod
+kind: Pod   
 metadata:
   name: jenkinsTemplate
   namespace: devops
