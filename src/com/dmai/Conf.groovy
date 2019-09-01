@@ -80,7 +80,8 @@ class Conf implements Serializable{
         jenkinsEnv = [:]
         jenkinsEnv.put('jobName', env.JOB_NAME.split("/")[0])
 //        jenkinsEnv.put('branchName', env.BRANCH_NAME)
-        jenkinsEnv.put('branchName', currentBuild.projectName)
+//        jenkinsEnv.put('branchName', currentBuild.projectName)
+        jenkinsEnv.put('branchName', 'master')
         jenkinsEnv.put('buildNumber', env.BUILD_NUMBER)
         this.appConf.putAll(jenkinsEnv)
     }
