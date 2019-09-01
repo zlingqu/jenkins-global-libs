@@ -82,7 +82,6 @@ class Conf implements Serializable{
 //        jenkinsEnv.put('branchName', env.BRANCH_NAME)
         jenkinsEnv.put('branchName', currentBuild.projectName)
         this.script.sh "1111111111"
-        this.script.sh currentBuild.projectName
         jenkinsEnv.put('buildNumber', env.BUILD_NUMBER)
         this.appConf.putAll(jenkinsEnv)
     }
