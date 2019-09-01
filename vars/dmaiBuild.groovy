@@ -12,7 +12,7 @@ def call(Map map, env) {
     conf.setUserAttr(map)
 
     // 注入jenkins的环境变量到全局的Conf
-    conf.setJenkinsAttrToConf(env)
+    conf.setJenkinsAttrToConf(env, currentBuild)
 
     // 初始化编译模块
     Compile compile = new Compile(this, conf)
@@ -123,7 +123,7 @@ def call(Map map, env) {
         agent {
             kubernetes {
                 cloud 'kubernetes-dev'
-                label appName
+                label appName + '-' + conf.getAttr('branchName') + '-' + conf.getAttr('buildNumber')
                 defaultContainer 'jnlp'
                 namespace 'devops'
                 inheritFrom 'base-template'
@@ -133,6 +133,7 @@ def call(Map map, env) {
 
         // 设置任务的超时时间为1个小时。
         options {
+            disableConcurrentBuilds()
             timeout(time: 1, unit: 'HOURS')
             retry(2)
         }
@@ -142,6 +143,11 @@ def call(Map map, env) {
             stage('Build-Init') {
                 steps {
                     script {
+
+                        echo currentBuild.displayName
+                        echo currentBuild.fullDisplayName
+                        echo currentBuild.projectName
+                        echo currentBuild.fullProjectName
 
                         if (conf.getAttr('branchName') == 'master' && deployMasterPassword != 'dmai2019') {
                             throw "master分支请运维人员触发！"

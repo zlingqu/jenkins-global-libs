@@ -15,6 +15,11 @@ class JenkinsRunTemplate {
         this.deployMasterPassword = deployMasterPassword
         this.conf.setAttr('dev', deployEnvironment)
 
+//        set branchName , jobName, buildNumber
+//        this.conf.setAttr('branchName', currentBuild.projectName)
+//        this.conf.setAttr('jobName', currentBuild.fullProjectName.split("/")[0])
+//        this.conf.setAttr('buildNumber', currentBuild.displayName.replaceAll("#", ""))
+
         def returnString = this.templateTop() +
                 this.templateDockerCompile() +
                 this.templateDockerKubectl() +
@@ -31,7 +36,7 @@ class JenkinsRunTemplate {
     private def templateTop() {
         return '''
 apiVersion: v1
-kind: Pod
+kind: Pod   
 metadata:
   name: jenkinsTemplate
   namespace: devops
