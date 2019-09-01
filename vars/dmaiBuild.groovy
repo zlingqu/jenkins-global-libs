@@ -123,7 +123,7 @@ def call(Map map, env) {
         agent {
             kubernetes {
                 cloud 'kubernetes-dev'
-                label appName
+                label appName + '-' + conf.getAttr('branchName')
                 defaultContainer 'jnlp'
                 namespace 'devops'
                 inheritFrom 'base-template'
