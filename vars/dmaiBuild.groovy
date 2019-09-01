@@ -133,6 +133,7 @@ def call(Map map, env) {
 
         // 设置任务的超时时间为1个小时。
         options {
+            disableConcurrentBuilds()
             timeout(time: 1, unit: 'HOURS')
             retry(2)
         }
