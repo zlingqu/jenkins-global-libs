@@ -11,9 +11,14 @@ class JenkinsRunTemplate {
         this.deployMasterPassword = ''
     }
 
-    public String getJenkinsRunTemplate(String deployMasterPassword, String deployEnvironment) {
+    public String getJenkinsRunTemplate(String deployMasterPassword, String deployEnvironment, currentBuild) {
         this.deployMasterPassword = deployMasterPassword
         this.conf.setAttr('dev', deployEnvironment)
+
+//        set branchName , jobName, buildNumber
+        this.conf.setAttr('branchName', currentBuild.projectName)
+        this.conf.setAttr('jobName', currentBuild.fullProjectName.split("/")[0])
+        this.conf.setAttr('buildNumber', currentBuild.currentBuild.replaceAll("#", ""))
 
         def returnString = this.templateTop() +
                 this.templateDockerCompile() +
