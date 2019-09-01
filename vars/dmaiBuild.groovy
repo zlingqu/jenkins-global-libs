@@ -272,7 +272,7 @@ def call(Map map, env) {
                 steps {
                     container('docker-compose') {
                         script {
-                            sh 'sleep 1500'
+                            sh 'sleep 3000'
                             makeDockerImage.makeImage()
                         }
                     }
