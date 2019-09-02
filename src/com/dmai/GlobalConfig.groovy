@@ -1491,6 +1491,8 @@ class GlobalConfig implements Serializable {
                     'servicePort' : '80',
                     'namespace': 'devops',
 //                    'nodePort' : '30991',
+                    'cpuLimits' : '400m',
+                    'memoryLimits' : '1000Mi',
                     'containerPort': '80',
 //                    'domain': 'prom.dm-ai.cn',
                     'dev': 'dev', // dev分支部署到开发环境
