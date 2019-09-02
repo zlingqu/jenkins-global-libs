@@ -146,7 +146,7 @@ def call(Map map, env) {
                         echo currentBuild.displayName
                         echo currentBuild.fullDisplayName
                         echo currentBuild.projectName
-                        echo currentBuild.fullProjectName
+//                        echo currentBuild.fullProjectName
 
                         if (conf.getAttr('branchName') == 'master' && deployMasterPassword != 'dmai2019') {
                             throw "master分支请运维人员触发！"
