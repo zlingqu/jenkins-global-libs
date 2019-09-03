@@ -1670,7 +1670,7 @@ class GlobalConfig implements Serializable {
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'useEnvFile'  : true, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
-                    'envType'     : 'gpu', //分为gpu 和非gpu的环境
+//                    'envType'     : 'gpu', //分为gpu 和非gpu的环境
                     'sonarCheck'  : false
             ],
             'resource-service': [
