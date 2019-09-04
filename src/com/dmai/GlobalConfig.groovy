@@ -333,7 +333,7 @@ class GlobalConfig implements Serializable {
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '1000m',
                     'memoryRequests' : '2000Mi',
-                    'replicas' : 2,
+                    'replicas' : 3,
                     'cpuLimits' : '1000m',
                     'memoryLimits' : '4000Mi',
                     'dev': 'dev', // dev分支部署到测试环境
