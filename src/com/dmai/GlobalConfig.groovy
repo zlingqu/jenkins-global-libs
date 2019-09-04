@@ -1476,7 +1476,7 @@ class GlobalConfig implements Serializable {
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/application-engineering/devops/service-push-exporter-data.git',
                     'compile': true, // 是否编译
-                    'deploy': true, // 是否自动化部署
+                    'deploy': false, // 是否自动化部署
                     'customDockerfile': true, // 是否使用自定义 dockerfile
                     'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
                     'useConfigMap': false, //是否使用configmap
