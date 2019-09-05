@@ -1264,7 +1264,7 @@ class GlobalConfig implements Serializable {
                     'dev': 'test', // dev分支部署到开发环境
                     'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
-                    'gitAddress': 'https://gitlab.dm-ai.cn/putao/Facial-Expression-Cls.git',
+                    'gitAddress': 'http://192.168.3.29:8082/research-team-models/CV/image-classification-face-expression/face-expression-F0002M01S0002.git',
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': true, // 是否使用自定义 dockerfile
