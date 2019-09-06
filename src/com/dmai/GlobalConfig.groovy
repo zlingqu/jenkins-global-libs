@@ -1668,7 +1668,7 @@ class GlobalConfig implements Serializable {
                     'useStore': false, // 是否使用存储资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
-                    'useEnvFile'  : true, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
+                    'useEnvFile'  : false, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
                     'sonarCheck'  : true
             ],
             'ta-face-recognition-service': [
