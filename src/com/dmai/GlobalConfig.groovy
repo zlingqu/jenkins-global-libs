@@ -1651,6 +1651,7 @@ class GlobalConfig implements Serializable {
 //                    'memoryRequests' : '2000Mi',
 //                    'cpuLimits' : '1000m',
 //                    'memoryLimits' : '2000Mi',
+                    'gpuLimits' : 1, //一个副本使用几张gpu的卡。
                     'replicas' : 1,
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
@@ -1670,7 +1671,7 @@ class GlobalConfig implements Serializable {
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'useEnvFile'  : true, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
-//                    'envType'     : 'gpu', //分为gpu 和非gpu的环境
+                    'envType'     : 'gpu', //分为gpu 和非gpu的环境
                     'sonarCheck'  : false
             ],
             'resource-service': [
