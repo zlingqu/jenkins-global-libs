@@ -140,7 +140,7 @@ $volumes
 
     // 根据用户的设置来选择是否，使用批量的环境变量的注入方式：
     private String getEnvFrom() {
-        if (this.conf.getAttr('useEnvFile')) {
+        if (this.conf.getAttr('useEnvFile') && this.conf.getAttr('useConfigMap')) {
             return String.format('''
         envFrom:
         - configMapRef:
