@@ -1675,7 +1675,7 @@ class GlobalConfig implements Serializable {
                     'servicePort' : '80',
                     'namespace': 'x2-ta',
                     'nodePort' : '31228',
-                    'containerPort': '80',
+                    'containerPort': '8000',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
 //                    'cpuRequests' : '1000m',
 //                    'memoryRequests' : '2000Mi',
