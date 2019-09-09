@@ -270,7 +270,7 @@ spec:
             case 'c++':
                 return '''
   - name: compile
-    image: docker.dm-ai.cn/devops/media-access:r.11
+    image: docker.dm-ai.cn/devops/media-access:r.13
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
