@@ -35,7 +35,7 @@ class DmaiEmail {
         try {
             this.script.emailext(
                     body: this.emailBody(buildResultZh),
-                    subject: '构建 : ' + buildResultZh,
+                    subject: '构建 : ' + buildResultZh + "，应用名：" + this.conf.appName+ "，分支：" + this.conf.getAttr('branchName'),
                     to: conf.getAttr('emailAddress')
             )
         }
