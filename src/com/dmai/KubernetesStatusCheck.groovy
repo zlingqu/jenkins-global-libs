@@ -4,8 +4,10 @@ import java.util.concurrent.TimeUnit
 class KubernetesStatusCheck {
 
     private Conf conf
+    protected final def script
 
-    KubernetesStatusCheck(Conf conf) {
+    KubernetesStatusCheck(script, Conf conf) {
+        this.script = script
         this.conf = conf
     }
 
