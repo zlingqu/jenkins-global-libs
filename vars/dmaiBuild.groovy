@@ -368,11 +368,17 @@ def call(Map map, env) {
                 }
 
             stage('Check service pods status') {
-                if (kubernetesStatusCheck.waitKubernetesServerStarted() == true ) {
-                    sh "echo '部署在k8s集群中的服务已正常运行'"
-                } else {
-                    sh "echo '在120秒内，检查k8s集群中服务的pods的状态失败，请手动检查服务状态怒，构建失败'"
-                    throw "please check service status with admin."
+                steps {
+                    container('kubectl') {
+                        script {
+                            if (kubernetesStatusCheck.waitKubernetesServerStarted() == true ) {
+                                sh "echo '部署在k8s集群中的服务已正常运行'"
+                            } else {
+                                sh "echo '在120秒内，检查k8s集群中服务的pods的状态失败，请手动检查服务状态怒，构建失败'"
+                                throw "please check service status with admin."
+                            }
+                        }
+                    }
                 }
             }
 
