@@ -1,9 +1,8 @@
 package com.dmai
-
 import java.util.concurrent.TimeUnit
 
-// check k8s service app status
 class KubernetesStatusCheck {
+
     private Conf conf
 
     KubernetesStatusCheck(Conf conf) {
