@@ -39,11 +39,11 @@ class KubernetesStatusCheck {
     public boolean waitKubernetesServerStarted() {
         int count = 0
         while (count <= this.conf.checkKubernetesServiceStatusSleepTimes) {
-            TimeUnit.SECONDS.sleep(10)
             if (this.getServiceAppStatus() == "true") {
                 return true
             } else {
-                count += 10
+                count += 5
+                TimeUnit.SECONDS.sleep(5)
             }
         }
         return false
