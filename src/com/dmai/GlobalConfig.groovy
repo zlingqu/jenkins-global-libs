@@ -1513,6 +1513,28 @@ class GlobalConfig implements Serializable {
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
             ],
+            'service-k8s-app-status-check': [
+                    'servicePort' : '80',
+                    'namespace': 'devops',
+//                    'nodePort' : '30991',
+                    'containerPort': '80',
+                    'domain': 'service-k8s-app-status-check.dm-ai.cn',
+                    'dev': 'dev', // dev分支部署到开发环境
+                    'test': true, // 是否从dev分支部署到测试环境
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
+                    'gitAddress': 'https://gitlab.dm-ai.cn/application-engineering/devops/service-k8s-app-status-check.git',
+                    'compile': false, // 是否编译
+                    'deploy': true, // 是否自动化部署
+                    'customDockerfile': true, // 是否使用自定义 dockerfile
+                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
+                    'useConfigMap': false, //是否使用configmap
+                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
+                    'codeLanguage' : 'golang', // 临时的，默认是【js,node,golang,java,php,python】
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'useStore': false, // 是否使用存储资源。
+                    'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+            ],
             'service-k8s-status-check': [
                     'servicePort' : '80',
                     'namespace': 'devops',
