@@ -368,6 +368,7 @@ def call(Map map, env) {
                 }
 
             stage('Check service') {
+                when { expression { return conf.getAttr('deploy') } }
                 steps {
                     container('kubectl') {
                         script {
