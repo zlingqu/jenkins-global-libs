@@ -367,7 +367,7 @@ def call(Map map, env) {
                     }
                 }
 
-            stage('Check service pods status') {
+            stage('Check service') {
                 steps {
                     container('kubectl') {
                         script {
