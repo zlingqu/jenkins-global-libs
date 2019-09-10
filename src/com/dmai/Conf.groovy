@@ -8,6 +8,8 @@ class Conf implements Serializable{
     public String vueAppScene
     public String vueAppSchool
     public String modelVersion
+    public String kubernetesStatusCheckHttpAddress
+    public int checkKubernetesServiceStatusSleepTimes
     protected final def script
     private Map<String, String> userSetMap
     private Map<String, String> appConf
@@ -18,6 +20,8 @@ class Conf implements Serializable{
         this.appName = appName
         this.dockerRegistryHost = 'docker.dm-ai.cn'
         this.jenkinsAddress = 'http://jenkins.ops.dm-ai.cn'
+        this.kubernetesStatusCheckHttpAddress = 'http://service-k8s-app-status-check.dm-ai.cn/api/v1/app_status_check'
+        this.checkKubernetesServiceStatusSleepTimes = 120 // 120 SECONDS
         this.userSetMap = userSetMap
         this.vueAppScene = ''
         this.vueAppSchool = ''
@@ -84,5 +88,19 @@ class Conf implements Serializable{
 //        jenkinsEnv.put('branchName', 'master')
         jenkinsEnv.put('buildNumber', env.BUILD_NUMBER)
         this.appConf.putAll(jenkinsEnv)
+    }
+
+    public def getDeployEnv() {
+        def branchName = this.getAttr('branchName')
+        switch (branchName) {
+            case 'master':
+                return 'master'
+            case 'dev':
+                return this.getAttr(this.getAttr('dev'))
+            case 'stage':
+                return "stage"
+            case 'release':
+                return "dev"
+        }
     }
 }

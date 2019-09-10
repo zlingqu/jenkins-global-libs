@@ -29,6 +29,9 @@ def call(Map map, env) {
     // 初始化邮件发送模块
     DmaiEmail dmaiEmail = new DmaiEmail(this, conf)
 
+    // init service app check
+    KubernetesStatusCheck kubernetesStatusCheck = new KubernetesStatusCheck(this, conf)
+
     // default replicas
     def replicas = String.valueOf( conf.getAttr('replicas') ? conf.getAttr('replicas') : 1)
 
@@ -363,6 +366,22 @@ def call(Map map, env) {
                         }
                     }
                 }
+
+            stage('Check service') {
+                steps {
+                    container('kubectl') {
+                        script {
+                            sh "echo '检查部署在k8s集群中的服务的pod是否正常运行，等待限时120秒。"
+                            if (kubernetesStatusCheck.waitKubernetesServerStarted() == true ) {
+                                sh "echo '部署在k8s集群中的服务已正常运行'"
+                            } else {
+                                sh "echo '在120秒内，检查k8s集群中服务的pods的状态失败，请手动检查服务部署后的pod状态，构建失败！！'"
+                                throw "please check service status with admin."
+                            }
+                        }
+                    }
+                }
+            }
 
             stage('Install nyc') {
                 when {
