@@ -12,6 +12,10 @@ class Compile {
 
     public void compile(){
         if (this.conf.getAttr('compile')) {
+            if (this.conf.getAttr('customCompileCommand')) {
+                this.script.sh "${this.conf.getAttr('customCompileCommand')}"
+                return
+            }
             switch (this.conf.getAttr('codeLanguage')) {
                 case 'node':
                     this.script.sh "test -e node_modules && rm -fr node_modules; " +
