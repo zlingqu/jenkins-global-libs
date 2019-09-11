@@ -202,7 +202,8 @@ class GlobalConfig implements Serializable {
                     'codeLanguage' : 'c++', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'command': 'command: ["/bin/sh", "-c", "cp -rp /src/debug/* /tmp && cd /tmp && ./MediaGateway"]', //自定义命令行
-                    'useStore': false, // 是否使用存储资源。
+                    'useStore': true, // 是否使用存储资源。
+                    'storePath' : '/data',
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'sonarCheck'  : true,
@@ -263,7 +264,7 @@ class GlobalConfig implements Serializable {
                     'command': 'command: ["/bin/sh", "-c", "cp -rp /src/debug/* /tmp && cd /tmp && ./MediaAccess"]', //自定义命令行
                     'tcpPort': [31600, 31800],
                     'useStore': true, // 是否使用存储资源。
-                    'storePath' : '/app/data',
+                    'storePath' : '/data',
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'sonarCheck'  : true
