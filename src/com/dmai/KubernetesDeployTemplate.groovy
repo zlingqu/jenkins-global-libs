@@ -419,7 +419,7 @@ spec:
           mountPath: /src/debug/log.conf
           subPath: log.conf
         - name: data
-          mountPath: /app/data
+          mountPath: /data
 '''
         }
 
