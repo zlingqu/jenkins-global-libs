@@ -96,7 +96,7 @@ class Conf implements Serializable{
             case 'master':
                 return 'prd'
             case 'dev':
-                return this.getAttr(this.getAttr('dev'))
+                return this.getAttr('dev')
             case 'stage':
                 return "stage"
             case 'release':
