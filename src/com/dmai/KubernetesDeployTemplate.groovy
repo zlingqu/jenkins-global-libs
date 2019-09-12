@@ -59,7 +59,11 @@ $tolerations
         $envFrom
         env: #指定容器中的环境变量
         - name: TZ
-          value: Asia/Shanghai        
+          value: Asia/Shanghai
+        - name: APOLLO_ENV
+          value: $apollo_env
+        - name: APOLLO_CONFIG_ADDRESS
+          value: http://$apollo_env-conf.apollo.cc.dm-ai.cn
 $volumeMounts
         ports:
         - containerPort: $containerPort
@@ -68,24 +72,25 @@ $resources
 $volumes
 '''
         def bind = [
-                'appName'             : this.conf.appName,
-                'namespace'           : this.conf.getAttr('namespace'),
-                'dockerRegistryHost'  : conf.dockerRegistryHost,
-                'branchName'          : conf.getAttr('branchName'),
-                'buildNumber'         : conf.getAttr('buildNumber'),
-                'containerPort'       : this.conf.getAttr('containerPort'),
-                'cpuRequests'         : conf.getAttr('cpuRequests'),
-                'memoryRequests'      : conf.getAttr('memoryRequests'),
-                'cpuLimits'           : conf.getAttr('cpuLimits'),
-                'memoryLimits'        : conf.getAttr('memoryLimits'),
-                'volumeMounts'        : this.getVolumeMounts(),
-                'volumes'             : this.getVolumes(),
-                'replicas'            : this.conf.getAttr('replicas') ? this.conf.getAttr('replicas') : 1,
-                'command'             : this.conf.getAttr('command') ? this.conf.getAttr('command'): '',
-                'getContainerPort'    : this.getContainerPort(),
-                'resources'           : this.resourcesTemplate(),
-                'envFrom'             : this.getEnvFrom(),
-                'tolerations'         : this.getTolerations()
+                'appName'               : this.conf.appName,
+                'namespace'             : this.conf.getAttr('namespace'),
+                'dockerRegistryHost'    : conf.dockerRegistryHost,
+                'branchName'            : conf.getAttr('branchName'),
+                'buildNumber'           : conf.getAttr('buildNumber'),
+                'containerPort'         : this.conf.getAttr('containerPort'),
+                'cpuRequests'           : conf.getAttr('cpuRequests'),
+                'memoryRequests'        : conf.getAttr('memoryRequests'),
+                'cpuLimits'             : conf.getAttr('cpuLimits'),
+                'memoryLimits'          : conf.getAttr('memoryLimits'),
+                'volumeMounts'          : this.getVolumeMounts(),
+                'volumes'               : this.getVolumes(),
+                'replicas'              : this.conf.getAttr('replicas') ? this.conf.getAttr('replicas') : 1,
+                'command'               : this.conf.getAttr('command') ? this.conf.getAttr('command'): '',
+                'getContainerPort'      : this.getContainerPort(),
+                'resources'             : this.resourcesTemplate(),
+                'envFrom'               : this.getEnvFrom(),
+                'tolerations'           : this.getTolerations(),
+                'apollo_env'            : this.conf.getDeployEnv().toUpperCase(),
         ]
         return Tools.simpleTemplate(text, bind)
     }

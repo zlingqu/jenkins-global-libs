@@ -94,13 +94,15 @@ class Conf implements Serializable{
         def branchName = this.getAttr('branchName')
         switch (branchName) {
             case 'master':
-                return 'master'
+                return 'prd'
             case 'dev':
                 return this.getAttr(this.getAttr('dev'))
             case 'stage':
                 return "stage"
             case 'release':
                 return "dev"
+            default:
+                return "default"
         }
     }
 }
