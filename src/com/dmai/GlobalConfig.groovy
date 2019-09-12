@@ -2068,12 +2068,12 @@ class GlobalConfig implements Serializable {
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': true, // 是否使用自定义 dockerfile
                     'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
-                    'useConfigMap': false, //是否使用configmap
-                    'configMapName': 'config.js', //是否使用configmap
+                    'useConfigMap': true, //是否使用configmap
+                    'configMapName': 'config.ini', //是否使用configmap
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
-                    'useStore': false, // 是否使用存储资源。
+                    'useStore': true, // 是否使用存储资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'useEnvFile'  : false, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
