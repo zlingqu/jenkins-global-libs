@@ -16,6 +16,14 @@ class Compile {
                 this.script.sh "${this.conf.getAttr('customCompileCommand')}"
                 return
             }
+
+            if (this.conf.appName == "work-attendance") {
+                this.script.sh "mvn package -Dmaven.test.skip=true; \
+                                    test -e /root/.m2/target && rm -fr /root/.m2/target; \
+                                    cp -rp target /root/.m2/; cd /root/.m2/target && mv work-attendance*.jar work-attendance.jar"
+                return
+            }
+
             switch (this.conf.getAttr('codeLanguage')) {
                 case 'node':
                     this.script.sh "test -e node_modules && rm -fr node_modules; " +
@@ -31,9 +39,7 @@ class Compile {
                     this.script.sh "make"
                     return
                 case 'java':
-                    this.script.sh "mvn package -Dmaven.test.skip=true; \
-                                    test -e /root/.m2/target && rm -fr /root/.m2/target; \
-                                    cp -rp target /root/.m2/; cd /root/.m2/target && mv work-attendance*.jar work-attendance.jar"
+                    this.script.sh "mvn package -Dmaven.test.skip=true"
             }
         }
     }

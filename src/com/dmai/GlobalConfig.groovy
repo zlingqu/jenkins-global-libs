@@ -2550,7 +2550,7 @@ class GlobalConfig implements Serializable {
                     'configMapName': 'config.env', //是否使用configmap
                     'useStore': false, // 是否使用存储资源。
                     'useService': false, // 是否使用service
-                    'makeImage'   : false, // 是否进行镜像的构造，打镜像，push镜像
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'sonarCheck'  : false
             ],
             'xmart-court-frontend': [
