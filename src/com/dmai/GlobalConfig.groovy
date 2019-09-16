@@ -2532,7 +2532,7 @@ class GlobalConfig implements Serializable {
 //                    'domain': 'app-deploy-platform.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
 //                    'cpuRequests' : '200m',
 //                    'memoryRequests' : '400Mi',
-                    'cpuLimits' : '500m',
+//                    'cpuLimits' : '500m',
                     'memoryLimits' : '1000Mi',
                     'dev': 'dev', // dev分支部署到开发环境
                     'test': false, // 是否从dev分支部署到测试环境
