@@ -2549,7 +2549,7 @@ class GlobalConfig implements Serializable {
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'configMapName': 'config.env', //是否使用configmap
                     'useStore': false, // 是否使用存储资源。
-                    'useService': false, // 是否使用service
+                    'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'sonarCheck'  : false
             ],
