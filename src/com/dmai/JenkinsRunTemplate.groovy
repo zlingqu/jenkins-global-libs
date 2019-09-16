@@ -51,6 +51,12 @@ spec:
   - ip: 192.168.3.38
     hostnames:
     - npm.dm-ai.cn
+  - ip: 192.168.13.201
+    hostnames:
+    - docker.dm-ai.cn
+  - ip: 192.168.3.38
+    hostnames:
+    - pip.dm-ai.cn
   imagePullSecrets:
   - name: regsecret
   containers:
