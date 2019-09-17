@@ -158,6 +158,16 @@ def call(Map map, env) {
                             throw "master分支请运维人员触发！"
                         }
 
+                        // 自定义appName
+                        if (conf.appName == 'xmc-xc-model-serving') {
+                            conf.setAppName(params.APP_NAME)
+                            echo conf.appName
+                            if (conf.appName == 'xmc-xc-model-serving') {
+                                throw "请修改APP_NAME"
+                            }
+                            conf.setUserAttr(new GlobalConfig().globalConfig.get(conf.appName))
+                        }
+
                         if (conf.appName == 'xmc2-frontend') {
                             conf.setAppName(conf.appName + (vueAppScene == 'main' ? '' : '-' + vueAppScene) + (vueAppSchool == 'S00001' ? '' : '-' + vueAppSchool)  )
                             conf.setVueAppScene(vueAppScene)
@@ -191,14 +201,6 @@ def call(Map map, env) {
                         // 前端专用
                         conf.setAttr('nodeEnv', params.NODE_ENV)
 
-                        // 自定义appName
-                        if (conf.appName == 'xmc-xc-model-serving') {
-                            conf.setAppName(params.APP_NAME)
-                            echo conf.appName
-                            if (conf.appName == 'xmc-xc-model-serving') {
-                                throw "请修改APP_NAME"
-                            }
-                        }
                     }
                 }
             }
