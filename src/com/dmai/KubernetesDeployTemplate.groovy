@@ -434,7 +434,7 @@ spec:
         def returnString = '''
         volumeMounts:
 '''
-        if (this.conf.getAttr('useConfigMap')) {
+        if (this.conf.getAttr('useConfigMap') && this.conf.getAttr('configMapName')) {
             returnString += String.format('''
         - name: %s
           mountPath: /app/%s
