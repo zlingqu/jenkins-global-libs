@@ -2637,7 +2637,7 @@ class GlobalConfig implements Serializable {
 //                    'cpuLimits' : '500m',
                     'memoryLimits' : '1000Mi',
                     'dev': 'dev', // dev分支部署到开发环境
-                    'test': false, // 是否从dev分支部署到测试环境
+                    'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/x2/cloud/ta-advanced-stats-server.git',
                     'compile': true, // 是否编译
