@@ -1274,6 +1274,8 @@ class GlobalConfig implements Serializable {
                     'configMapName': 'config.js', //是否使用configmap
                     'useStore': false, // 是否使用存储资源。
                     'useService': false, // 是否使用service
+                    'useEnvFile'  : true, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
+                    'envType'     : 'gpu', //分为gpu 和非gpu的环境
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
             ],
             'xmc-model-serving-student': [
