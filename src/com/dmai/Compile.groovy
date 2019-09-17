@@ -33,7 +33,7 @@ class Compile {
                             "cp -rp node_modules/* /data/cache/node_modules/"
                     return
                 case 'js':
-                    this.script.sh "npm config set registry http://192.168.3.13:8081/repository/npm/ && yarn install && yarn run build"
+                    this.script.sh String.format("export FRONTEND_ENV=%s;npm config set registry http://192.168.3.13:8081/repository/npm/ && yarn install && yarn run build", this.conf.getAttr('nodeEnv'))
                     return
                 case 'c++':
                     this.script.sh "make"
