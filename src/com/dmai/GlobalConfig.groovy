@@ -1244,6 +1244,38 @@ class GlobalConfig implements Serializable {
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'sonarCheck'  : true
             ],
+            'xmc-model-serving-student': [
+                    'servicePort' : '80',
+                    'namespace': 'xmc',
+//                    'nodePort' : '31165',
+                    'containerPort': '3000',
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
+                    'cpuRequests' : '',
+                    'memoryRequests' : '',
+                    'cpuLimits' : '',
+                    'memoryLimits' : '',
+                    'gpuLimits' : 1, //一个副本使用几张gpu的卡。
+                    'replicas' : 1,
+                    'dev': 'dev', // dev分支部署到开发环境
+                    'test': true, // 是否从dev分支部署到测试环境
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
+                    'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc-xc-model-serving.git',
+                    'useModel': true,
+                    'modelGitAddress': 'http://192.168.3.29:8082/eng-team-models/XMC/xmc_models.git',
+                    'compile': false, // 是否编译
+                    'deploy': true, // 是否自动化部署
+                    'customDockerfile': true, // 是否使用自定义 dockerfile
+                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
+                    'useConfigMap': true, //是否使用configmap
+                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
+                    'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'command': 'command: ["python", "main.py", "--config", "config-student.yaml"]', //自定义pod启动的命令行
+                    'configMapName': 'config.js', //是否使用configmap
+                    'useStore': false, // 是否使用存储资源。
+                    'useService': false, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+            ],
             'xmc-online-api': [
                     'servicePort' : '80',
                     'namespace': 'xmc',

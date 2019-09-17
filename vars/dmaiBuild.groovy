@@ -103,7 +103,8 @@ def call(Map map, env) {
             string(name: 'MEMORY_REQUEST', defaultValue: defaultMemoryRequests, description: '应用的内存初始设置，示例：500Mi, 使用内存500m，空代表不限制')
             string(name: 'MEMORY_LIMIT', defaultValue: defaultMemoryLimits, description: '应用的内存限制设置，示例：1000Mi, 使用内存1000m，空代表不限制')
 
-
+            // 自定义 appName
+            choice(name: 'APP_NAME', choices: [appName, 'xmc-model-serving-student', 'xmc-model-serving-teacher'], description: '可以自定义appName，特殊场景，其他项目不使用。')
         }
 
 //        triggers {
@@ -189,6 +190,15 @@ def call(Map map, env) {
 
                         // 前端专用
                         conf.setAttr('nodeEnv', params.NODE_ENV)
+
+                        // 自定义appName
+                        if (conf.appName == 'xmc-xc-model-serving') {
+                            conf.setAppName(params.APP_NAME)
+                            echo conf.appName
+                            if (conf.appName == 'xmc-xc-model-serving') {
+                                throw "请修改APP_NAME"
+                            }
+                        }
                     }
                 }
             }
@@ -260,6 +270,27 @@ def call(Map map, env) {
                             try {
                                 withCredentials([usernamePassword(credentialsId: 'passwd-zs', passwordVariable: 'password', usernameVariable: 'username')]) {
                                     sh 'source /etc/profile; git config --global http.sslVerify false ; git clone https://$username:$password@gitlab.dm-ai.cn/application-engineering/devops/deployment.git'
+                                }
+                            } catch (e) {
+                                sh "echo ${e}"
+                            }
+                        }
+                    }
+                }
+            }
+
+            stage('Download Model') {
+                when {
+                    allOf {
+                        expression { return conf.getAttr('useModel') };
+                    }
+                }
+                steps {
+                    container('kubectl') {
+                        script {
+                            try {
+                                withCredentials([usernamePassword(credentialsId: 'dev-admin-model', passwordVariable: 'password', usernameVariable: 'username')]) {
+                                    sh 'source /etc/profile; git config --global http.sslVerify false ; git clone http://$username:$password@192.168.3.29:8082/eng-team-models/XMC/xmc_models.git model'
                                 }
                             } catch (e) {
                                 sh "echo ${e}"
