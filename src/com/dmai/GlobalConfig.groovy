@@ -1271,7 +1271,7 @@ class GlobalConfig implements Serializable {
                     'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'command': 'command: ["python", "main.py", "--config", "config-student.yaml"]', //自定义pod启动的命令行
-                    'configMapName': 'config.js', //是否使用configmap
+//                    'configMapName': 'config.js', //是否使用configmap
                     'useStore': false, // 是否使用存储资源。
                     'useService': false, // 是否使用service
                     'useEnvFile'  : true, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
@@ -1305,7 +1305,7 @@ class GlobalConfig implements Serializable {
                     'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'command': 'command: ["python", "main.py", "--config", "config-student.yaml"]', //自定义pod启动的命令行
-                    'configMapName': 'config.js', //是否使用configmap
+//                    'configMapName': 'config.js', //是否使用configmap
                     'useStore': false, // 是否使用存储资源。
                     'useService': false, // 是否使用service
                     'useEnvFile'  : true, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
@@ -1339,7 +1339,7 @@ class GlobalConfig implements Serializable {
                     'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'command': 'command: ["python", "main.py", "--config", "config-teacher.yaml"]', //自定义pod启动的命令行
-                    'configMapName': 'config.js', //是否使用configmap
+//                    'configMapName': 'config.js', //是否使用configmap
                     'useStore': false, // 是否使用存储资源。
                     'useService': false, // 是否使用service
                     'useEnvFile'  : true, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
