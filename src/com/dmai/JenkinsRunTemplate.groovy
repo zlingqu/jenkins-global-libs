@@ -64,7 +64,7 @@ spec:
     }
 
     private String nodeSelect() {
-        if (this.conf.getAttr('envType') == 'gpu') {
+        if (this.conf.getAttr('buildEnvType') == 'gpu') {
             return '''
   nodeSelector:
     makeenv: gpu
