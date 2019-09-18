@@ -292,7 +292,7 @@ def call(Map map, env) {
                         script {
                             try {
                                 withCredentials([usernamePassword(credentialsId: 'dev-admin-model', passwordVariable: 'password', usernameVariable: 'username')]) {
-                                    sh 'source /etc/profile; git config --global http.sslVerify false ; git clone http://$username:$password@192.168.3.29:8082/eng-team-models/XMC/xmc_models.git model'
+                                    sh 'source /etc/profile; git config --global http.sslVerify false ; git clone http://$username:$password@' + conf.getAttr("modelGitAddress").replace("http://", "") + ' model'
                                 }
                             } catch (e) {
                                 sh "echo ${e}"
