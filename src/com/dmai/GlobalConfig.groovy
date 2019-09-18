@@ -1290,7 +1290,7 @@ class GlobalConfig implements Serializable {
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc-xc-model-serving.git',
                     'useModel': true,
-                    'modelGitAddress': 'http://192.168.3.29:8082/eng-team-models/XMC/xmc_models.git',
+                    'modelGitAddress': 'http://192.168.3.29:8082/eng-team-models/XMC/xmc_models.git', //请按此格式书写，http，不要git@
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': true, // 是否使用自定义 dockerfile
@@ -1324,7 +1324,7 @@ class GlobalConfig implements Serializable {
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc-xc-model-serving.git',
                     'useModel': true,
-                    'modelGitAddress': 'http://192.168.3.29:8082/eng-team-models/XMC/xmc_models.git',
+                    'modelGitAddress': 'http://192.168.3.29:8082/eng-team-models/XMC/xmc_models.git', //请按此格式书写，http，不要git@
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': true, // 是否使用自定义 dockerfile
@@ -1358,7 +1358,7 @@ class GlobalConfig implements Serializable {
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc-xc-model-serving.git',
                     'useModel': true,
-                    'modelGitAddress': 'http://192.168.3.29:8082/eng-team-models/XMC/xmc_models.git',
+                    'modelGitAddress': 'http://192.168.3.29:8082/eng-team-models/XMC/xmc_models.git', //请按此格式书写，http，不要git@
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': true, // 是否使用自定义 dockerfile
