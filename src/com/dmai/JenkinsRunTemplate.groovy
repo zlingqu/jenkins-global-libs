@@ -117,7 +117,7 @@ spec:
         if ( this.conf.getAttr('compile') && this.conf.getAttr('codeLanguage') == 'java') {
             return String.format('''
 %s
-  - name: java_cache
+  - name: java-cache
     persistentVolumeClaim:
       claimName: jenkins-pvc
 ''', this.conf.getAttr('makeImage') ? '' : '  volumes:', this.conf.getAttr('namespace'), this.conf.appName)
@@ -296,7 +296,7 @@ spec:
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
       value: docker.dm-ai.cn
     volumeMounts:
-    - name: java_cache
+    - name: java-cache
       mountPath: /root/.m2
       subPath: java_home/%s
     command:
