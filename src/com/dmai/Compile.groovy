@@ -11,7 +11,7 @@ class Compile {
     }
 
     public void compile(){
-        if (this.conf.getAttr('compile')) {
+        if (this.conf.getAttr('compile') || this.conf.getAttr('codeLanguage') == 'node') {
             if (this.conf.getAttr('customCompileCommand')) {
                 this.script.sh "${this.conf.getAttr('customCompileCommand')}"
                 return
