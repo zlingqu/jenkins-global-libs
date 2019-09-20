@@ -12,6 +12,9 @@ class Compile {
 
     public void compile(){
         if (this.conf.getAttr('compile') || this.conf.getAttr('codeLanguage') == 'node') {
+            // wocao
+            if (this.conf.appName in ['content-producer']) return
+
             if (this.conf.getAttr('customCompileCommand')) {
                 if (this.conf.getAttr('codeLanguage') in ['js', 'nodes']) {
                     this.script.sh "test -e node_modules && rm -fr node_modules ; " +
