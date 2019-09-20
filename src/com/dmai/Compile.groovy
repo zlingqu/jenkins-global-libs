@@ -13,6 +13,13 @@ class Compile {
     public void compile(){
         if (this.conf.getAttr('compile') || this.conf.getAttr('codeLanguage') == 'node') {
             if (this.conf.getAttr('customCompileCommand')) {
+                if (this.conf.getAttr('codeLanguage') in ['js', 'nodes']) {
+                    this.script.sh "test -e node_modules && rm -fr node_modules ; " +
+                            "test -e /data/cache/node_modules/node_modules.tar && cp -rp /data/cache/node_modules/node_modules.tar ./ ; tar xf node_modules.tar && rm -fr node_modules.tar ; " +
+                            "${this.conf.getAttr('customCompileCommand')} && tar cf node_modules.tar node_modules ;" +
+                            "cp -rp node_modules.tar /data/cache/node_modules && rm -fr node_modules.tar"
+                    return
+                }
                 this.script.sh "${this.conf.getAttr('customCompileCommand')}"
                 return
             }
