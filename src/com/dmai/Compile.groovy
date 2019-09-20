@@ -26,11 +26,9 @@ class Compile {
 
             switch (this.conf.getAttr('codeLanguage')) {
                 case 'node':
-                    this.script.sh "test -e node_modules && rm -fr node_modules; " +
-                            "cd /data/cache; tar cf node_modules.tar node_modules;cd -;cp -rp /data/cache/node_modules.tar ./; tar xf node_modules.tar; rm -fr node_modules.tar; " +
-                            "npm config set registry http://192.168.3.13:8081/repository/npm && npm install;" +
-                            "rm -fr  /data/cache/node_modules/*; " +
-                            "cp -rp node_modules/* /data/cache/node_modules/"
+                    this.script.sh "test -e node_modules && rm -fr node_modules && " +
+                            "test -e /data/cache/node_modules/node_modules.tar && cp -rp /data/cache/node_modules/node_modules.tar ./ && tar xf node_modules.tar && rm -fr node_modules.tar && " +
+                            "npm config set registry http://192.168.3.13:8081/repository/npm && npm install && tar cf node_modules.tar node_modules && cp -rp node_modules.tar /data/cache/node_modules && rm -fr node_modules.tar"
                     return
                 case 'js':
                     this.script.sh String.format("export FRONTEND_ENV=%s;npm config set registry http://192.168.3.13:8081/repository/npm/ && yarn install && yarn run build", this.conf.getAttr('nodeEnv'))
