@@ -27,7 +27,7 @@ class Compile {
             switch (this.conf.getAttr('codeLanguage')) {
                 case 'node':
                     this.script.sh "test -e node_modules && rm -fr node_modules; " +
-                            "cp -rp /data/cache/node_modules ./; " +
+                            "cd /data/cache; tar cf node_modules.tar node_modules;cd -;cp -rp /data/cache/node_modules.tar ./; tar xf node_modules.tar; rm -fr node_modules.tar; " +
                             "npm config set registry http://192.168.3.13:8081/repository/npm && npm install;" +
                             "rm -fr  /data/cache/node_modules/*; " +
                             "cp -rp node_modules/* /data/cache/node_modules/"
