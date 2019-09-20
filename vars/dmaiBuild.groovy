@@ -245,9 +245,8 @@ def call(Map map, env) {
 
                 // 当项目的全局选项设置为compile == true的时候，才进行部署的操作
                 when {
-                    anyOf {
+                    allOf {
                         expression { return conf.getAttr('compile') };
-                        expression { return conf.getAttr('codeLanguage') == "node"};
 
                     }
                 }
