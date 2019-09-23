@@ -5,10 +5,14 @@ class DmaiEmail {
 
     protected final def script
     private Conf conf
+    private String adpUrl
+    private String jenkinsUrl
 
     DmaiEmail(script, Conf conf) {
         this.script = script
         this.conf = conf
+        this.adpUrl = 'http://192.168.3.21:30102/api/v1/deployments/change'
+        this.jenkinsUrl = 'http://jenkins.ops.dm-ai.cn'
     }
 
     public userSureEmail() {
@@ -28,7 +32,37 @@ class DmaiEmail {
         }
     }
 
+    private String requestBodyString(String token, String status) {
+        return String.format('''
+{
+"token":"%s",
+"status":"%s"
+}
+''', token, status)
+    }
+
+    public writeBuildResultToAdp(String buildResult) {
+        def jenkinsUrl = String.format('''%s/blue/organizations/jenkins/%s/detail/%s/%s/pipeline''', this.jenkinsUrl, this.conf.getAttr('jobName'), this.conf.getAttr('branchName'), this.conf.getAttr('buildNumber'))
+        def status =  buildResult == 'success' ? 'online' : 'failed'
+
+        URL url = new URL(this.adpUrl)
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection()
+        conn.setRequestMethod("POST")
+        conn.setRequestProperty("Content-Type", "application/json")
+        conn.doOutput = true
+        def writer = new OutputStreamWriter(conn.outputStream)
+        writer.write(this.requestBodyString(jenkinsUrl, status))
+        writer.flush()
+        writer.close()
+        conn.connect()
+        def respText = conn.content.text
+        println(respText)
+        return respText
+    }
+
     public sendEmail(String buildResult) {
+        //
+        this.writeBuildResultToAdp(buildResult)
 
         // 构建结果的中文提示：
         def buildResultZh = buildResult == 'success' ? '成功' : '失败'
