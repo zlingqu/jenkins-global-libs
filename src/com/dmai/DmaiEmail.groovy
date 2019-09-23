@@ -38,7 +38,7 @@ class DmaiEmail {
 "token":"%s",
 "status":"%s"
 }
-''', )
+''', token, status)
     }
 
     public writeBuildResultToAdp(String buildResult) {
