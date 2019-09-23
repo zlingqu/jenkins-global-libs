@@ -51,7 +51,7 @@ class DmaiEmail {
         conn.setRequestProperty("Content-Type", "application/json")
         conn.doOutput = true
         def writer = new OutputStreamWriter(conn.outputStream)
-        writer.write(this.requestBodyString(jenkinsUrl, buildResult))
+        writer.write(this.requestBodyString(jenkinsUrl, status))
         writer.flush()
         writer.close()
         conn.connect()
