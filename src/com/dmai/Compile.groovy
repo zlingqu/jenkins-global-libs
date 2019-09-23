@@ -51,6 +51,10 @@ class Compile {
                     return
                 case 'java':
                     this.script.sh "mvn package -Dmaven.test.skip=true"
+                    return
+                case 'android':
+                    this.script.sh "bash compile.sh " + "${this.conf.getAttr('compileParam')}"
+                    return
             }
         }
     }

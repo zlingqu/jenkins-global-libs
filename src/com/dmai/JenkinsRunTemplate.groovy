@@ -257,6 +257,20 @@ spec:
     tty: true
 ''', this.templateJsCompilevolumeMounts())
 
+            case 'android': return '''
+  - name: compile
+    image: docker.dm-ai.cn/devops/dm-android:0.1
+    imagePullPolicy: IfNotPresent
+    env: #指定容器中的环境变量
+    - name: DMAI_PRIVATE_DOCKER_REGISTRY
+      value: docker.dm-ai.cn
+    command:
+    - "sleep"
+    args:
+    - "2400"
+    tty: true
+'''
+
             case 'node':
                 return String.format('''
   - name: compile
