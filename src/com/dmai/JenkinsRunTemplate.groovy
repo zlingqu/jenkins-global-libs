@@ -269,6 +269,11 @@ spec:
     args:
     - "2400"
     tty: true
+    resources:
+      limits:
+      requests:
+        cpu: 4000m
+        memory: 8000Mi
 '''
 
             case 'node':
