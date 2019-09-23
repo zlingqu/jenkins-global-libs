@@ -53,7 +53,7 @@ class Compile {
                     this.script.sh "mvn package -Dmaven.test.skip=true"
                     return
                 case 'android':
-                    this.script.sh ". /etc/profile; bash -x compile.sh;env;sleep 6000 " + "${this.conf.getAttr('compileParam')}"
+                    this.script.sh ";which java;. /etc/profile; bash -x compile.sh;env;sleep 6000 " + "${this.conf.getAttr('compileParam')}"
                     return
             }
         }
