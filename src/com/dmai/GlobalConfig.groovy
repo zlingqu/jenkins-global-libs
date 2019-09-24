@@ -2578,7 +2578,7 @@ class GlobalConfig implements Serializable {
             ],
             'cp2-device-connector': [
                     'servicePort' : '80',
-                    'namespace': 'devops',
+                    'namespace': 'cp',
                     'nodePort': '30095',
                     'containerPort': '80',
 //                    'domain': 'cp2.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
