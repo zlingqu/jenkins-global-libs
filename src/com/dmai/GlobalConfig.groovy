@@ -2580,7 +2580,7 @@ class GlobalConfig implements Serializable {
                     'servicePort' : '80',
                     'namespace': 'cp',
                     'nodePort': '30095',
-                    'containerPort': '80',
+                    'containerPort': '8000',
 //                    'domain': 'cp2.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
 //                    'cpuRequests' : '200m',
 //                    'memoryRequests' : '400Mi',
