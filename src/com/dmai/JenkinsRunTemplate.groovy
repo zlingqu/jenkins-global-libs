@@ -151,7 +151,7 @@ spec:
     }
 
     private String templateDockerKubectl() {
-        if (this.conf.getAttr('branchName') == 'master' && this.deployMasterPassword != 'dmai2019') return ''
+        if (this.conf.getAttr('branchName') == 'master' && this.deployMasterPassword != 'dmai2019999') return ''
 
         if (this.conf.getAttr('deploy')) {
             return  String.format('''
@@ -193,7 +193,7 @@ spec:
         if (this.conf.getAttr('branchName') == 'stage') return 'stage'
         if (this.conf.appName in  [ 'xmc-online-api', 'xmc-detection-api', 'xmc-gesture-api', 'xmc-holdobj-api', 'facial-expression-cls' ]) return 'test'
         if (this.conf.getAttr('branchName') == 'master' ) {
-            if (this.conf.getAttr('master') == 'prd' && this.deployMasterPassword == 'dmai2019') {
+            if (this.conf.getAttr('master') == 'prd' && this.deployMasterPassword == 'dmai2019999') {
                 return 'master'
             } else {
                 return ''
