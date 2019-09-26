@@ -130,7 +130,7 @@ spec:
         if (this.conf.getAttr('compile') && this.conf.getAttr('codeLanguage') == 'android') {
             return String.format('''
 %s
-  - name: android-cache
+  - name: android-data
     persistentVolumeClaim:
       claimName: jenkins-pvc
 ''', this.conf.getAttr('makeImage') ? '' : '  volumes:')
@@ -278,19 +278,14 @@ spec:
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
       value: docker.dm-ai.cn
     volumeMounts:
-    - name: android-cache
-      mountPath: /root/.gradle
+    - name: android-data
+      mountPath: /data
       subPath: android_home/%s/%s
     command:
     - "sleep"
     args:
     - "2400"
     tty: true
-    resources:
-      limits:
-      requests:
-        cpu: 4000m
-        memory: 8000Mi
 ''', this.conf.appName, this.conf.getAttr('branchName'))
 
             case 'node':
