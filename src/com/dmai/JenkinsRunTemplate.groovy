@@ -29,6 +29,7 @@ class JenkinsRunTemplate {
                 this.templateDockerCompose() +
                 this.templateJsCompileVolumes() +
                 this.templateJavaCompileVolumes() +
+                this.templateAndroidCompileVolumes() +
                 this.nodeSelect()
         return returnString
     }
@@ -121,6 +122,18 @@ spec:
     persistentVolumeClaim:
       claimName: jenkins-pvc
 ''', this.conf.getAttr('makeImage') ? '' : '  volumes:', this.conf.getAttr('namespace'), this.conf.appName)
+        }
+        return ''
+    }
+
+    private String templateAndroidCompileVolumes() {
+        if (this.conf.getAttr('compile') && this.conf.getAttr('codeLanguage') == 'android') {
+            return String.format('''
+%s
+  - name: android-cache
+    persistentVolumeClaim:
+      claimName: jenkins-pvc
+''', this.conf.getAttr('makeImage') ? '' : '  volumes:')
         }
         return ''
     }
@@ -257,13 +270,17 @@ spec:
     tty: true
 ''', this.templateJsCompilevolumeMounts())
 
-            case 'android': return '''
+            case 'android': return String.format('''
   - name: compile
     image: docker.dm-ai.cn/devops/dm-android:0.1
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
       value: docker.dm-ai.cn
+    volumeMounts:
+    - name: java-cache
+      mountPath: /root/.gradle
+      subPath: android_home/%s/%s
     command:
     - "sleep"
     args:
@@ -274,7 +291,7 @@ spec:
       requests:
         cpu: 4000m
         memory: 8000Mi
-'''
+''', this.conf.appName, this.conf.getAttr('branchName'))
 
             case 'node':
                 return String.format('''
