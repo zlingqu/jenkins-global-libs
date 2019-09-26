@@ -155,7 +155,7 @@ def call(Map map, env) {
                         echo currentBuild.projectName
 //                        echo currentBuild.fullProjectName
 
-                        if (conf.getAttr('branchName') == 'master' && deployMasterPassword != 'dmai2019') {
+                        if (conf.getAttr('branchName') == 'master' && deployMasterPassword != 'dmai2019999') {
                             throw "master分支请运维人员触发！"
                         }
 
@@ -373,7 +373,7 @@ def call(Map map, env) {
                     container('kubectl') {
                         script {
 
-                            if (conf.getAttr('branchName') == 'master' && deployMasterPassword != 'dmai2019') {
+                            if (conf.getAttr('branchName') == 'master' && deployMasterPassword != 'dmai2019999') {
                                 throw "master分支请运维人员触发！"
                             }
 
