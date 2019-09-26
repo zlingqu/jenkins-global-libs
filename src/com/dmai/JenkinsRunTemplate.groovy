@@ -278,7 +278,7 @@ spec:
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
       value: docker.dm-ai.cn
     volumeMounts:
-    - name: java-cache
+    - name: android-cache
       mountPath: /root/.gradle
       subPath: android_home/%s/%s
     command:
