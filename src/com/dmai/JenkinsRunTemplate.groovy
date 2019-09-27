@@ -107,7 +107,7 @@ spec:
     - name: jenkins-build-path
       mountPath: /models
       subPath: models/%s/%s
-''', this.conf.appName, this.conf.getAttr('branchName'))
+''', this.conf.appName, this.conf.getDeployEnv())
         }
         return ''
     }
