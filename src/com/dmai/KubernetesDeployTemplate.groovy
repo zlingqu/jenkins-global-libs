@@ -17,7 +17,7 @@ class KubernetesDeployTemplate {
         if (!this.conf.getAttr('useService')) return ''
 
         def svcType = conf.getAttr('svcType')
-        if (this.conf.getAttr('branchName') == 'master') {
+        if (this.conf.getAttr('deployEnv') == 'prd') {
             svcType = 'ClusterIP'
         }
 
@@ -90,7 +90,7 @@ $volumes
                 'resources'             : this.resourcesTemplate(),
                 'envFrom'               : this.getEnvFrom(),
                 'tolerations'           : this.getTolerations(),
-                'apollo_env'            : this.conf.getDeployEnv().toUpperCase(),
+                'apollo_env'            : this.conf.getAttr('deployEnv').toUpperCase(),
         ]
         return Tools.simpleTemplate(text, bind)
     }
@@ -134,7 +134,8 @@ $volumes
         effect: "NoSchedule"
 '''
         }
-        if (this.conf.getAttr('dev') == 'lexue' && this.conf.appName in ['vod-service', 'storage-service'])  {
+
+        if (this.conf.getAttr('deployEnv') == 'lexue' && this.conf.appName in ['vod-service', 'storage-service'])  {
             return '''
       nodeSelector:
         env: storage
@@ -341,7 +342,7 @@ spec:
 
     private String getVolumesString() {
         if (this.conf.appName in ['media-gateway', 'media-access']) {
-            if (this.conf.getAttr('dev') == 'lexue') {
+            if (this.conf.getAttr('deployEnv') == 'lexue') {
                 return String.format('''
       volumes:
       - name: config
@@ -395,7 +396,7 @@ spec:
 
         if (this.conf.getAttr('useStore')) {
 //
-            if (this.conf.getAttr('dev') == 'lexue') {
+            if (this.conf.getAttr('deployEnv') == 'lexue') {
                 returnString += String.format('''
       - name: data
         hostPath:

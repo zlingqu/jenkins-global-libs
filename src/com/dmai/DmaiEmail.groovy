@@ -180,7 +180,7 @@ sonar检查结果：$sonarAddress
 
 //    根据dev标签来判断用户的dev分支部署在那个环境
     private String getDevUrl() {
-        switch (this.conf.getAttr('dev')) {
+        switch (this.conf.getAttr('deployEnv')) {
             case 'test':
                 return 'http://192.168.3.140'
             case 'dev':

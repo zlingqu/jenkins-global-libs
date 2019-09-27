@@ -1,4 +1,5 @@
 import com.dmai.*
+import com.tool.Tools
 
 def call(Map map, env) {
     // 默认master 和 dev分支才进行构建
@@ -56,23 +57,30 @@ def call(Map map, env) {
     //
     if (conf.appName == 'work-attendance' && conf.getAttr('branchName') != 'master') return
 
+    //
+    def deployEnv =  Tools.addItemToListHead(['prd', 'dev', 'test', 'stage'], conf.getDeployEnv())
+
+    //
+    def topEnvType = Tools.addItemToListHead(['cpu','gpu', 'all'], defaultEnvType)
+
     // tmp 专门给高鹏
-    if (conf.getAttr('branchName') == 'release') {
-        if ( conf.getAttr('namespace') != 'x2-ta' ) {
-            return
-        } else {
-            conf.setAttr('namespace', 'x2-ta-release')
-            if (conf.getAttr('nodePort')) {
-                conf.setAttr('nodePort', Integer.valueOf(conf.getAttr('nodePort')) + 300)
-            }
-
-            if (conf.getAttr('domain')) {
-                conf.setAttr('domain', 'release-' + conf.getAttr('domain'))
-            }
-
-            conf.setAttr('branchName', 'dev')
-        }
-    }
+//    if (conf.getAttr('branchName') == 'release') {
+//        conf.setAttr('')
+//        if ( conf.getAttr('namespace') != 'x2-ta' ) {
+//            return
+//        } else {
+//            conf.setAttr('namespace', 'x2-ta-release')
+//            if (conf.getAttr('nodePort')) {
+//                conf.setAttr('nodePort', Integer.valueOf(conf.getAttr('nodePort')) + 300)
+//            }
+//
+//            if (conf.getAttr('domain')) {
+//                conf.setAttr('domain', 'release-' + conf.getAttr('domain'))
+//            }
+//
+//            conf.setAttr('branchName', 'dev')
+//        }
+//    }
 
 
 
@@ -81,8 +89,8 @@ def call(Map map, env) {
 
         // 在整个构建之前，先进行参数化的设置
         parameters {
-            choice(name: 'DEPLOY_ENV', choices: ['dev', 'test', 'lexue'], description: 'dev分支部署的环境，目前支持：dev/test/lexue, lexue 针对的是xmc2项目。')
-            choice(name: 'ENV_TYPE', choices: [defaultEnvType, 'cpu','gpu', 'all'], description: 'cpu代表部署cpu服务器，gpu代表gpu服务器，all代表不做限制任意漂流')
+            choice(name: 'DEPLOY_ENV', choices: deployEnv, description: 'dev分支部署的环境，目前支持：dev/test/lexue, lexue 针对的是xmc2项目。')
+            choice(name: 'ENV_TYPE', choices: topEnvType, description: 'cpu代表部署cpu服务器，gpu代表gpu服务器，all代表不做限制任意漂流')
             string(name: 'GIT_VERSION', defaultValue: 'last', description: 'git的commit 版本号，git log 查看。')
             string(name: 'VUE_APP_SCHOOL', defaultValue: 'S00001', description: '学校的Code，xmc2-frontend项目使用，其他不关注,s小写    ')
             choice(name: 'VUE_APP_SCENE', choices: ['main', 'training'], description: 'xmc2-frontend项目使用，其他不关注')
@@ -114,7 +122,6 @@ def call(Map map, env) {
 
         // 转化为可用的环境变量
         environment {
-            deployEnvironment = "${params.DEPLOY_ENV}"
             envType = "${params.ENV_TYPE}"
             gitVersion = "${params.GIT_VERSION}"
             vueAppScene = "${params.VUE_APP_SCENE}"
@@ -181,13 +188,13 @@ def call(Map map, env) {
                         conf.setAttr('replicas', userReplicas)
                             echo conf.getAttr('replicas')
 
-                        conf.setAttr('dev', deployEnvironment)
-                            echo deployEnvironment
+//                        conf.setAttr('dev', deployEnvironment)
+                            echo conf.getAttr('deployEnv')
 
                         conf.setAttr('envType', envType)
                             echo envType
 
-                        if (conf.getAttr('dev') == 'lexue') {
+                        if (conf.getAttr('deployEnv') == 'lexue') {
                             conf.setockerRegistryHost('rdac-docker.dm-ai.cn')
                         }
 
@@ -366,7 +373,7 @@ def call(Map map, env) {
                 when {
                     allOf {
                         expression { return conf.getAttr('deploy') };
-                        expression { return deployEnvironment != 'test'};
+                        expression { return conf.getAttr('deployEnv') != 'test'};
                     }
                 }
 
@@ -378,7 +385,7 @@ def call(Map map, env) {
                                 throw "master分支请运维人员触发！"
                             }
 
-                            echo deployEnvironment
+                            echo conf.getAttr('deployEnv')
                             deploykubernetes.createIngress()
                             deploykubernetes.createConfigMap()
                             deploykubernetes.deployKubernetes()
@@ -389,10 +396,9 @@ def call(Map map, env) {
             }
 
             stage('Deploy test') {
-//                when { expression { return deployEnvironment == 'test' } }
                 when {
                     allOf {
-                        expression { return deployEnvironment == 'test' };
+                        expression { return conf.getAttr('deployEnv') == 'test' };
                     }
                 }
 
@@ -435,7 +441,7 @@ def call(Map map, env) {
                         expression { return conf.getAttr('branchName') == 'dev' };
                         expression { return  conf.getAttr('codeLanguage') in  ['js', 'node']};
                         expression { return  conf.getAttr('sonarCheck') };
-                        expression { return  deployEnvironment != 'test' };
+                        expression { return  conf.getAttr('deployEnv') != 'test' };
                     }
                 }
 //                when { expression { return  conf.getAttr('codeLanguage') in  ['js', 'node'] && conf.getAttr('sonarCheck') && deployEnvironment != 'test'}  }
@@ -458,7 +464,7 @@ def call(Map map, env) {
                         expression { return conf.getAttr('branchName') == 'dev' };
                         expression { return conf.getAttr('codeLanguage') in  ['js', 'node'] };
                         expression { return conf.getAttr('sonarCheck') };
-                        expression { return deployEnvironment != 'test' };
+                        expression { return conf.getAttr('deployEnv') != 'test' };
                     }
                 }
 //                when { expression { return  conf.getAttr('branchName') == 'dev' && conf.getAttr('codeLanguage') in  ['js', 'node'] && conf.getAttr('sonarCheck') && deployEnvironment != 'test' }}
