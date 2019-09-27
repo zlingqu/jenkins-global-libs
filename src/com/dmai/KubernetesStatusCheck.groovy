@@ -18,7 +18,7 @@ class KubernetesStatusCheck {
 "kubernetes_pods_name": "%s", 
 "namespace": "%s"
 }
-''', this.conf.getDeployEnv(), this.conf.appName, this.conf.getAttr("namespace"))
+''', this.conf.getAttr('deployEnv'), this.conf.appName, this.conf.getAttr("namespace"))
     }
 
     private String getServiceAppStatus() {
