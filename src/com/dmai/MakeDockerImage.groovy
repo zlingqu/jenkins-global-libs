@@ -22,6 +22,11 @@ class MakeDockerImage {
 
         this.script.sh "echo '${ this.dockerFileTemplate.getDockerComposeFile() }' > docker-compose.yml"
 
+        // 在进行构建之前复制需要的模型文件
+        if (this.conf.getAttr('useModel') && this.conf.getAttr('modelPath')) {
+            this.script.sh "mkdir -p ${this.conf.getAttr('modelPath')}; cp -rp /models/* ${this.conf.getAttr('modelPath')}"
+        }
+
         // 对 xmc2-frontend做特殊处理。
 //        if (this.conf.appName == 'xmc2-frontend') {
             this.script.sh String.format('pwd;ls;docker-compose build --build-arg VUE_APP_SCENE=%s --build-arg VUE_APP_SCHOOL=%s --build-arg MODEL_VERSION=%s --build-arg FRONTEND_ENV=%s service-docker-build',

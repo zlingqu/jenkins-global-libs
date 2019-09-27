@@ -27,9 +27,10 @@ class JenkinsRunTemplate {
                 this.templateSonarCheck() +
                 this.customImage() +
                 this.templateDockerCompose() +
-                this.templateJsCompileVolumes() +
-                this.templateJavaCompileVolumes() +
-                this.templateAndroidCompileVolumes() +
+//                this.templateJsCompileVolumes() +
+//                this.templateJavaCompileVolumes() +
+//                this.templateAndroidCompileVolumes() +
+                this.defaultVolumes() +
                 this.nodeSelect()
         return returnString
     }
@@ -91,58 +92,78 @@ spec:
     volumeMounts:
     - name: sock
       mountPath: /var/run/docker.sock
+%s
     command:
     - "sleep"
     args:
     - "2400"
     tty: true
+''', this.conf.vueAppScene, this.useModelPath())
+    }
+
+    private String useModelPath() {
+        if (this.conf.getAttr('useModel') && this.conf.getAttr('modelPath')) {
+            return String.format('''
+    - name: jenkins-build-path
+      mountPath: /models
+      subPath: models/%s/%s
+''', this.conf.appName, this.conf.getAttr('branchName'))
+        }
+        return ''
+    }
+
+    private String defaultVolumes() {
+        return String.format('''
   volumes:
   - name: sock
     hostPath:
       path: /var/run/docker.sock
-''', this.conf.vueAppScene)
-    }
-
-    private String templateJsCompileVolumes() {
-        if (this.conf.getAttr('makeImage') && this.conf.getAttr('codeLanguage') in ['js', 'node']) {
-            return String.format('''
-  - name: node-modules
+  - name: jenkins-build-path
     persistentVolumeClaim:
       claimName: jenkins-pvc
-''',this.conf.getAttr('namespace'), this.conf.appName)
-        }
-        return ''
+''')
     }
 
-    private String templateJavaCompileVolumes() {
-        if ( this.conf.getAttr('compile') && this.conf.getAttr('codeLanguage') == 'java') {
-            return String.format('''
-%s
-  - name: java-cache
-    persistentVolumeClaim:
-      claimName: jenkins-pvc
-''', this.conf.getAttr('makeImage') ? '' : '  volumes:', this.conf.getAttr('namespace'), this.conf.appName)
-        }
-        return ''
-    }
+//    private String templateJsCompileVolumes() {
+//        if (this.conf.getAttr('makeImage') && this.conf.getAttr('codeLanguage') in ['js', 'node']) {
+//            return String.format('''
+//  - name: jenkins-build-path
+//    persistentVolumeClaim:
+//      claimName: jenkins-pvc
+//''',this.conf.getAttr('namespace'), this.conf.appName)
+//        }
+//        return ''
+//    }
 
-    private String templateAndroidCompileVolumes() {
-        if (this.conf.getAttr('compile') && this.conf.getAttr('codeLanguage') == 'android') {
-            return String.format('''
-%s
-  - name: android-data
-    persistentVolumeClaim:
-      claimName: jenkins-pvc
-''', this.conf.getAttr('makeImage') ? '' : '  volumes:')
-        }
-        return ''
-    }
+//    private String templateJavaCompileVolumes() {
+//        if ( this.conf.getAttr('compile') && this.conf.getAttr('codeLanguage') == 'java') {
+//            return String.format('''
+//%s
+//  - name: jenkins-build-path
+//    persistentVolumeClaim:
+//      claimName: jenkins-pvc
+//''', this.conf.getAttr('makeImage') ? '' : '  volumes:', this.conf.getAttr('namespace'), this.conf.appName)
+//        }
+//        return ''
+//    }
+
+//    private String templateAndroidCompileVolumes() {
+//        if (this.conf.getAttr('compile') && this.conf.getAttr('codeLanguage') == 'android') {
+//            return String.format('''
+//%s
+//  - name: jenkins-build-path
+//    persistentVolumeClaim:
+//      claimName: jenkins-pvc
+//''', this.conf.getAttr('makeImage') ? '' : '  volumes:')
+//        }
+//        return ''
+//    }
 
     private String templateJsCompilevolumeMounts() {
         if (this.conf.getAttr('makeImage') && this.conf.getAttr('codeLanguage') in ['js', 'node']) {
             return String.format('''
     volumeMounts:
-    - name: node-modules
+    - name: jenkins-build-path
       mountPath: /data/cache/node_modules
       subPath: jenkins_home/node_cache/%s/%s
 ''', this.conf.appName, this.conf.getAttr('branchName'))
@@ -278,7 +299,7 @@ spec:
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
       value: docker.dm-ai.cn
     volumeMounts:
-    - name: android-data
+    - name: jenkins-build-path
       mountPath: /data
       subPath: android_home/%s/%s
     command:
@@ -327,7 +348,7 @@ spec:
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
       value: docker.dm-ai.cn
     volumeMounts:
-    - name: java-cache
+    - name: jenkins-build-path
       mountPath: /root/.m2
       subPath: java_home/%s
     command:
