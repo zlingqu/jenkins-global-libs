@@ -29,4 +29,15 @@ class Tools {
         }
         return list;
     }
+
+    public static def addItemToListHead(list, item) {
+        def returnList = []
+        if (item in list) {
+            returnList = list - item
+        } else {
+            returnList = list
+        }
+        returnList = item + returnList
+        return returnList
+    }
 }

@@ -13,7 +13,7 @@ class JenkinsRunTemplate {
 
     public String getJenkinsRunTemplate(String deployMasterPassword, String deployEnvironment) {
         this.deployMasterPassword = deployMasterPassword
-        this.conf.setAttr('dev', deployEnvironment)
+        this.conf.setAttr('deployEnv', deployEnvironment)
 
 //        set branchName , jobName, buildNumber
 //        this.conf.setAttr('branchName', currentBuild.projectName)
@@ -107,7 +107,7 @@ spec:
     - name: jenkins-build-path
       mountPath: /models
       subPath: models/%s/%s
-''', this.conf.appName, this.conf.getDeployEnv())
+''', this.conf.appName, this.conf.getAttr('deployEnv'))
         }
         return ''
     }
@@ -187,7 +187,7 @@ spec:
     args:
     - "2400"
     tty: true
-''', this.getKubectlBranch())
+''', this.conf.getAttr('deployEnv'))
         } else {
             return ''
         }
@@ -210,27 +210,27 @@ spec:
     }
 
 //    设置不同的分支部署到不同的环境
-    private String getKubectlBranch(){
-        if (this.conf.getAttr('branchName') == 'stage') return 'stage'
-        if (this.conf.appName in  [ 'xmc-online-api', 'xmc-detection-api', 'xmc-gesture-api', 'xmc-holdobj-api', 'facial-expression-cls' ]) return 'test'
-        if (this.conf.getAttr('branchName') == 'master' ) {
-            if (this.conf.getAttr('master') == 'prd' && this.deployMasterPassword == 'dmai2019999') {
-                return 'master'
-            } else {
-                return ''
-            }
-        }
+//    private String getKubectlBranch(){
+//        if (this.conf.getAttr('branchName') == 'stage') return 'stage'
+//        if (this.conf.appName in  [ 'xmc-online-api', 'xmc-detection-api', 'xmc-gesture-api', 'xmc-holdobj-api', 'facial-expression-cls' ]) return 'test'
+//        if (this.conf.getAttr('branchName') == 'master' ) {
+//            if (this.conf.getAttr('master') == 'prd' && this.deployMasterPassword == 'dmai2019999') {
+//                return 'master'
+//            } else {
+//                return ''
+//            }
+//        }
 
-        switch (this.conf.getAttr('dev')){
-            case 'dev'  : return 'dev'
-            case 'test' : return 'test'
-            case 'lexue' : return 'lexue'
-//            case 'master': return 'master'
-        }
-
-        throw "dev分支，目前只能部署dev/test/lexue环境，其他的均为异常情况"
-//        return ''
-    }
+//        switch (this.conf.getAttr('dev')){
+//            case 'dev'  : return 'dev'
+//            case 'test' : return 'test'
+//            case 'lexue' : return 'lexue'
+////            case 'master': return 'master'
+//        }
+//
+//        throw "dev分支，目前只能部署dev/test/lexue环境，其他的均为异常情况"
+////        return ''
+//    }
 
 
     private templateDockerKubectlTest() {

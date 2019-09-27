@@ -39,7 +39,8 @@ class Deploykubernetes {
         try {
             this.script.sh String.format("kubectl apply -f deployment/%s/%s/%s/configmap.yml",
                     this.conf.getAttr('namespace'),
-                    this.conf.getAttr('branchName') in ['master', 'dev'] ? this.conf.getAttr(this.conf.getAttr('branchName')) : this.conf.getAttr('branchName'),
+//                    this.conf.getAttr('branchName') in ['master', 'dev'] ? this.conf.getAttr(this.conf.getAttr('branchName')) : this.conf.getAttr('branchName'),
+                    this.conf.getAttr('deployEnv'),
                     this.conf.appName
             )
         } catch (e) {
@@ -55,7 +56,8 @@ class Deploykubernetes {
         try {
             this.script.sh String.format("kubectl apply -f deployment/%s/%s/%s/ingress.yml",
                     this.conf.getAttr('namespace'),
-                    this.conf.getAttr('branchName') in ['master', 'dev'] ? this.conf.getAttr(this.conf.getAttr('branchName')) : this.conf.getAttr('branchName'),
+//                    this.conf.getAttr('branchName') in ['master', 'dev'] ? this.conf.getAttr(this.conf.getAttr('branchName')) : this.conf.getAttr('branchName'),
+                    this.conf.getAttr('deployEnv'),
                     this.conf.appName
             )
         } catch (e) {
@@ -104,13 +106,8 @@ spec:
 ''',
                 this.conf.appName,
                 this.conf.getAttr('namespace'),
-                this.conf.getAttr('branchName') == 'master' ? '' : this.getBranchName() + '.',
+                this.conf.getAttr('branchName') == 'master' ? '' : this.conf.getAttr('deployEnv') + '.',
                 this.conf.getAttr('domain'),
                 this.conf.appName)
-    }
-
-    private String getBranchName() {
-        if (this.conf.getAttr('branchName') == 'dev') return this.conf.getAttr('dev')
-        if (this.conf.getAttr('branchName') == 'stage') return 'stage'
     }
 }

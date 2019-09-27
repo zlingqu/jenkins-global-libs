@@ -91,6 +91,7 @@ class Conf implements Serializable{
     }
 
     public def getDeployEnv() {
+        if (this.appName in  [ 'xmc-online-api', 'xmc-detection-api', 'xmc-gesture-api', 'xmc-holdobj-api', 'facial-expression-cls' ]) return 'test'
         def branchName = this.getAttr('branchName')
         switch (branchName) {
             case 'master':
@@ -100,7 +101,7 @@ class Conf implements Serializable{
             case 'stage':
                 return "stage"
             case 'release':
-                return "dev"
+                return "test"
             default:
                 return "default"
         }
