@@ -94,7 +94,7 @@ class Conf implements Serializable{
             printString += s + " : " + this.appConf.get(s) + "\n"
 //            this.script.sh "echo ${s} : ${this.appConf.get(s)}"
         }
-        this.script.sh "echo ${printString}"
+        return printString
 //        for (i in this.appConf) {
 //            this.script.sh "echo ${this.appConf.get(i)}"
 //        }
