@@ -85,6 +85,13 @@ class Conf implements Serializable{
         }
     }
 
+    // print appConf
+    public def printAppConf() {
+        for (i in this.appConf) {
+            this.script.sh "${i} : ${this.appConf.get(i)}"
+        }
+    }
+
     // set user attr
     public def setUserAttr(Map<String, String> userSetMap) {
         this.appConf.putAll(userSetMap)

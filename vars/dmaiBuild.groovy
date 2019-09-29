@@ -222,6 +222,10 @@ def call(Map map, env) {
                         // set name spaces
                         conf.setAttr('namespace', params.NAMESPACE)
 
+                        // print all data
+                        conf.printAppConf()
+//                        for (i in conf.)
+
                     }
                 }
             }
