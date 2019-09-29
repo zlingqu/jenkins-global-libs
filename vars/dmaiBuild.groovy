@@ -72,26 +72,8 @@ def call(Map map, env) {
     // compile
     def defaultCompile = conf.getAttr('compile') ? conf.getAttr('compile') : ''
 
-    // tmp 专门给高鹏
-//    if (conf.getAttr('branchName') == 'release') {
-//        conf.setAttr('')
-//        if ( conf.getAttr('namespace') != 'x2-ta' ) {
-//            return
-//        } else {
-//            conf.setAttr('namespace', 'x2-ta-release')
-//            if (conf.getAttr('nodePort')) {
-//                conf.setAttr('nodePort', Integer.valueOf(conf.getAttr('nodePort')) + 300)
-//            }
-//
-//            if (conf.getAttr('domain')) {
-//                conf.setAttr('domain', 'release-' + conf.getAttr('domain'))
-//            }
-//
-//            conf.setAttr('branchName', 'dev')
-//        }
-//    }
-
-
+    // code language
+    def defaultCodeLanguage = conf.getAttr('codeLanguage') ? conf.getAttr('codeLanguage') : ''
 
     println('【开始进行构建】')
     pipeline {
@@ -125,8 +107,12 @@ def call(Map map, env) {
 
             // namespace
             string(name: 'NAMESPACE', defaultValue: defaultNamespace, description: '应用部署的时候，k8s使用的namespace， 默认为产品名')
+
             // git address
             string(name: 'GIT_ADDRESS', defaultValue: defaultGitAddress, description: '应用的git 代码 地址')
+
+            // codeLanguage
+            string(name: 'CODE_LANGUAGE', defaultValue: defaultCodeLanguage, description: 'code language')
 
             //
             booleanParam(name: 'COMPILE', defaultValue: defaultCompile, description: '是否编译')
@@ -238,6 +224,9 @@ def call(Map map, env) {
 
                         // set compile
                         conf.setAttr('compile', params.COMPILE)
+
+                        // set code language
+                        conf.setAttr('codeLanguage', params.CODE_LANGUAGE)
 
                         // print all data
                         println(conf.printAppConf())
