@@ -72,6 +72,9 @@ def call(Map map, env) {
     // compile
     def defaultCompile = conf.getAttr('compile') ? conf.getAttr('compile') : ''
 
+    // deploy
+    def defaultDeploy = conf.getAttr('deploy') ? conf.getAttr('deploy') : ''
+
     // code language
     def defaultCodeLanguage = conf.getAttr('codeLanguage') ? conf.getAttr('codeLanguage') : ''
 
@@ -116,6 +119,9 @@ def call(Map map, env) {
 
             //
             booleanParam(name: 'COMPILE', defaultValue: defaultCompile, description: '是否编译')
+
+            //
+            booleanParam(name: 'DEPLOY', defaultValue: defaultDeploy, description: '是否部署')
         }
 
 //        triggers {
@@ -227,6 +233,9 @@ def call(Map map, env) {
 
                         // set code language
                         conf.setAttr('codeLanguage', params.CODE_LANGUAGE)
+
+                        // set deploy
+                        conf.setAttr('deploy', params.DEPLOY)
 
                         // print all data
                         println(conf.printAppConf())
