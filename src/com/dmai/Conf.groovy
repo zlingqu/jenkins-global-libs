@@ -13,6 +13,7 @@ class Conf implements Serializable{
     protected final def script
     private Map<String, String> userSetMap
     private Map<String, String> appConf
+    private Map<String, Map<String, String>> globalConfig
     private Map<String, String> jenkinsEnv
 
     Conf(script, String appName, Map<String, String> userSetMap) {
@@ -29,9 +30,18 @@ class Conf implements Serializable{
 
         // 全局设置中没添加这个项目，需要报错。
         try {
-            this.appConf = new GlobalConfig().globalConfig.get(appName)
+            this.globalConfig = new GlobalConfig().globalConfig
+            if (this.globalConfig.containsKey(appName)) {
+                this.appConf = this.globalConfig.get(appName)
+            } else {
+                this.appConf = new HashMap<String, String>()
+            }
+
+            // set servicePort
+            this.appConf.put('servicePort', '80')
         }
         catch (e) {
+            //
             this.script.sh "echo ${e}"
         }
     }
