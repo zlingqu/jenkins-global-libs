@@ -174,7 +174,7 @@ def call(Map map, env) {
                         // 自定义appName
                         if (conf.appName == 'xmc-xc-model-serving') {
                             conf.setAppName(params.APP_NAME)
-                            echo conf.appName
+//                            echo conf.appName
                             if (conf.appName == 'xmc-xc-model-serving') {
                                 throw "请修改APP_NAME"
                             }
@@ -186,20 +186,20 @@ def call(Map map, env) {
                             conf.setVueAppScene(vueAppScene)
                             conf.setVueAppSchool(vueAppSchool)
 
-                            echo conf.vueAppScene
-                            echo conf.vueAppSchool
+//                            echo conf.vueAppScene
+//                            echo conf.vueAppSchool
                         }
 
                         conf.setAttr('replicas', userReplicas)
-                            echo conf.getAttr('replicas')
+//                            echo conf.getAttr('replicas')
 
 //                        conf.setAttr('dev', deployEnvironment)
                         println("部署环境：" + conf.getAttr("deployEnv"))
-                            echo conf.getAttr('deployEnv')
+//                            echo conf.getAttr('deployEnv')
 
 
                         conf.setAttr('envType', envType)
-                            echo envType
+//                            echo envType
 
                         if (conf.getAttr('deployEnv') == 'lexue') {
                             conf.setockerRegistryHost('rdac-docker.dm-ai.cn')
