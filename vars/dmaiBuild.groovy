@@ -63,6 +63,9 @@ def call(Map map, env) {
     //
     def topEnvType = Tools.addItemToListHead(['cpu','gpu', 'all'], defaultEnvType)
 
+    // namespace
+    def namespace = conf.getAttr('namespace') ? conf.getAttr('namespace') : ''
+
     // tmp 专门给高鹏
 //    if (conf.getAttr('branchName') == 'release') {
 //        conf.setAttr('')
@@ -113,6 +116,9 @@ def call(Map map, env) {
 
             // 自定义 appName
             choice(name: 'APP_NAME', choices: ['xmc-model-serving-student', 'xmc-model-serving-teacher'], description: '可以自定义appName，特殊场景，其他项目不使用。')
+
+            // namespace
+            string(name: 'NAMESPACE', defaultValue: namespace, description: '应用部署的时候，k8s使用的namespace， 默认为产品名')
         }
 
 //        triggers {
@@ -212,6 +218,9 @@ def call(Map map, env) {
 
                         // set android param
                         conf.setAttr('compileParam', params.COMPILE_PARAM)
+
+                        // set name spaces
+                        conf.setAttr('namespace', params.NAMESPACE)
 
                     }
                 }
