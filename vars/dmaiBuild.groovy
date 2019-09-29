@@ -89,7 +89,7 @@ def call(Map map, env) {
 
         // 在整个构建之前，先进行参数化的设置
         parameters {
-            choice(name: 'DEPLOY_ENV', choices: deployEnv, description: 'dev分支部署的环境，目前支持：dev/test/lexue, lexue 针对的是xmc2项目。')
+            choice(name: 'DEPLOY_ENV', choices: deployEnv, description: 'dev分支部署的环境，目前支持：prd/dev/test/stage, lexue 针对的是xmc2项目。')
             choice(name: 'ENV_TYPE', choices: topEnvType, description: 'cpu代表部署cpu服务器，gpu代表gpu服务器，all代表不做限制任意漂流')
             string(name: 'GIT_VERSION', defaultValue: 'last', description: 'git的commit 版本号，git log 查看。')
             string(name: 'VUE_APP_SCHOOL', defaultValue: 'S00001', description: '学校的Code，xmc2-frontend项目使用，其他不关注,s小写    ')
@@ -189,7 +189,9 @@ def call(Map map, env) {
                             echo conf.getAttr('replicas')
 
 //                        conf.setAttr('dev', deployEnvironment)
+                        println("部署环境：" + conf.getAttr("deployEnv"))
                             echo conf.getAttr('deployEnv')
+
 
                         conf.setAttr('envType', envType)
                             echo envType
