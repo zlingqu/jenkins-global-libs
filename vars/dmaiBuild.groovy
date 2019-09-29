@@ -162,9 +162,9 @@ def call(Map map, env) {
                 steps {
                     script {
 
-                        echo currentBuild.displayName
-                        echo currentBuild.fullDisplayName
-                        echo currentBuild.projectName
+//                        echo currentBuild.displayName
+//                        echo currentBuild.fullDisplayName
+//                        echo currentBuild.projectName
 //                        echo currentBuild.fullProjectName
 
                         if (conf.getAttr('branchName') == 'master' && deployMasterPassword != 'dmai2019999') {
@@ -194,7 +194,7 @@ def call(Map map, env) {
 //                            echo conf.getAttr('replicas')
 
 //                        conf.setAttr('dev', deployEnvironment)
-                        println("部署环境：" + conf.getAttr("deployEnv"))
+//                        println("部署环境：" + conf.getAttr("deployEnv"))
 //                            echo conf.getAttr('deployEnv')
 
 
