@@ -88,7 +88,7 @@ class Conf implements Serializable{
     // print appConf
     public def printAppConf() {
         for (i in this.appConf) {
-            this.script.sh "echo ${i} : ${this.appConf.get(i)}"
+            this.script.sh "echo ${i}"
         }
     }
 
