@@ -189,7 +189,9 @@ def call(Map map, env) {
                             echo conf.getAttr('replicas')
 
 //                        conf.setAttr('dev', deployEnvironment)
+                        println("部署环境：" + conf.getAttr("deployEnv"))
                             echo conf.getAttr('deployEnv')
+
 
                         conf.setAttr('envType', envType)
                             echo envType
