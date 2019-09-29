@@ -87,11 +87,14 @@ class Conf implements Serializable{
 
     // print appConf
     public def printAppConf() {
+        String printString = ''
         Set<String> key = this.appConf.keySet()
         for (Iterator<String> it = key.iterator(); it.hasNext();){
             String s = it.next();
-            this.script.sh "echo ${s} : ${this.appConf.get(s)}"
+            printString += s + " : " + this.appConf.get(s) + "\n"
+//            this.script.sh "echo ${s} : ${this.appConf.get(s)}"
         }
+        this.script.sh "echo "
 //        for (i in this.appConf) {
 //            this.script.sh "echo ${this.appConf.get(i)}"
 //        }
