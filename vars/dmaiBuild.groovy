@@ -66,6 +66,9 @@ def call(Map map, env) {
     // namespace
     def defaultNamespace = conf.getAttr('namespace') ? conf.getAttr('namespace') : ''
 
+    // git address
+    def defaultGitAddress = conf.getAttr('gitAddress') ? conf.getAttr('gitAddress') : ''
+
     // tmp 专门给高鹏
 //    if (conf.getAttr('branchName') == 'release') {
 //        conf.setAttr('')
@@ -119,6 +122,8 @@ def call(Map map, env) {
 
             // namespace
             string(name: 'NAMESPACE', defaultValue: defaultNamespace, description: '应用部署的时候，k8s使用的namespace， 默认为产品名')
+            // git address
+            string(name: 'GIT_ADDRESS', defaultValue: defaultGitAddress, description: '应用的git 代码 地址')
         }
 
 //        triggers {
@@ -221,6 +226,9 @@ def call(Map map, env) {
 
                         // set name spaces
                         conf.setAttr('namespace', params.NAMESPACE)
+
+                        // set git address
+                        conf.setAttr('gitAddress', params.GIT_ADDRESS)
 
                         // print all data
                         println(conf.printAppConf())
