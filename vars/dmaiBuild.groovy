@@ -104,7 +104,6 @@ def call(Map map, env) {
             //算法专用，其他不用理会，
             string(name: 'MODEL_VERSION', defaultValue: 'latest', description: '算法模型专用，其他项目不用')
 
-
             // 资源限制
             string(name: 'CPU_REQUEST', defaultValue: defaultCpuRequests, description: '应用的cpu初始设置，示例：300m, 300分片，0.3核, 空代表不限制')
             string(name: 'CPU_LIMIT', defaultValue: defaultCpuLimits, description: '应用的cpu限制设置，示例：500m, 500分片，0.5核，空代表不限制')
