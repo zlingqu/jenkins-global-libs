@@ -66,6 +66,12 @@ def call(Map map, env) {
     // namespace
     def defaultNamespace = conf.getAttr('namespace') ? conf.getAttr('namespace') : ''
 
+    // git address
+    def defaultGitAddress = conf.getAttr('gitAddress') ? conf.getAttr('gitAddress') : ''
+
+    // compile
+    def defaultCompile = conf.getAttr('compile') ? conf.getAttr('compile') : ''
+
     // tmp 专门给高鹏
 //    if (conf.getAttr('branchName') == 'release') {
 //        conf.setAttr('')
@@ -119,6 +125,11 @@ def call(Map map, env) {
 
             // namespace
             string(name: 'NAMESPACE', defaultValue: defaultNamespace, description: '应用部署的时候，k8s使用的namespace， 默认为产品名')
+            // git address
+            string(name: 'GIT_ADDRESS', defaultValue: defaultGitAddress, description: '应用的git 代码 地址')
+
+            //
+            booleanParam(name: 'COMPILE', defaultValue: defaultCompile, description: '是否编译')
         }
 
 //        triggers {
@@ -162,9 +173,9 @@ def call(Map map, env) {
                 steps {
                     script {
 
-                        echo currentBuild.displayName
-                        echo currentBuild.fullDisplayName
-                        echo currentBuild.projectName
+//                        echo currentBuild.displayName
+//                        echo currentBuild.fullDisplayName
+//                        echo currentBuild.projectName
 //                        echo currentBuild.fullProjectName
 
                         if (conf.getAttr('branchName') == 'master' && deployMasterPassword != 'dmai2019999') {
@@ -174,7 +185,7 @@ def call(Map map, env) {
                         // 自定义appName
                         if (conf.appName == 'xmc-xc-model-serving') {
                             conf.setAppName(params.APP_NAME)
-                            echo conf.appName
+//                            echo conf.appName
                             if (conf.appName == 'xmc-xc-model-serving') {
                                 throw "请修改APP_NAME"
                             }
@@ -186,20 +197,20 @@ def call(Map map, env) {
                             conf.setVueAppScene(vueAppScene)
                             conf.setVueAppSchool(vueAppSchool)
 
-                            echo conf.vueAppScene
-                            echo conf.vueAppSchool
+//                            echo conf.vueAppScene
+//                            echo conf.vueAppSchool
                         }
 
                         conf.setAttr('replicas', userReplicas)
-                            echo conf.getAttr('replicas')
+//                            echo conf.getAttr('replicas')
 
 //                        conf.setAttr('dev', deployEnvironment)
-                        println("部署环境：" + conf.getAttr("deployEnv"))
-                            echo conf.getAttr('deployEnv')
+//                        println("部署环境：" + conf.getAttr("deployEnv"))
+//                            echo conf.getAttr('deployEnv')
 
 
                         conf.setAttr('envType', envType)
-                            echo envType
+//                            echo envType
 
                         if (conf.getAttr('deployEnv') == 'lexue') {
                             conf.setockerRegistryHost('rdac-docker.dm-ai.cn')
@@ -221,6 +232,17 @@ def call(Map map, env) {
 
                         // set name spaces
                         conf.setAttr('namespace', params.NAMESPACE)
+
+                        // set git address
+                        conf.setAttr('gitAddress', params.GIT_ADDRESS)
+
+                        // set compile
+                        conf.setAttr('compile', params.COMPILE)
+
+                        // print all data
+                        println(conf.printAppConf())
+//                        for (i in conf.)
+
 
                     }
                 }

@@ -85,6 +85,21 @@ class Conf implements Serializable{
         }
     }
 
+    // print appConf
+    public def printAppConf() {
+        String printString = ''
+        Set<String> key = this.appConf.keySet()
+        for (Iterator<String> it = key.iterator(); it.hasNext();){
+            String s = it.next();
+            printString += s + " : " + this.appConf.get(s) + "\n"
+//            this.script.sh "echo ${s} : ${this.appConf.get(s)}"
+        }
+        return printString
+//        for (i in this.appConf) {
+//            this.script.sh "echo ${this.appConf.get(i)}"
+//        }
+    }
+
     // set user attr
     public def setUserAttr(Map<String, String> userSetMap) {
         this.appConf.putAll(userSetMap)
