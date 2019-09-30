@@ -40,7 +40,7 @@ def call(Map map, env) {
     def defaultEnvType = conf.getAttr('envType') ? conf.getAttr('envType') : 'cpu'
 
     // gpu_card_count
-    def defaultGpuLimits = String.valueOf( conf.getAttr('gpuLimits') ? conf.getAttr('gpuLimits') : 1)
+    def defaultGpuLimits = String.valueOf( conf.getAttr('gpuLimits') ? conf.getAttr('gpuLimits') : 0)
 
     // cpuRequests
     def defaultCpuRequests = conf.getAttr('cpuRequests') ? conf.getAttr('cpuRequests') : ''
