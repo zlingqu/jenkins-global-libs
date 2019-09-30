@@ -70,13 +70,16 @@ def call(Map map, env) {
     def defaultGitAddress = conf.getAttr('gitAddress') ? conf.getAttr('gitAddress') : ''
 
     // compile
-    def defaultCompile = conf.getAttr('compile') ? conf.getAttr('compile') : ''
+    def defaultCompile = conf.getAttr('compile') ? conf.getAttr('compile') : false
 
     // deploy
-    def defaultDeploy = conf.getAttr('deploy') ? conf.getAttr('deploy') : ''
+    def defaultDeploy = conf.getAttr('deploy') ? conf.getAttr('deploy') : false
 
     // code language
     def defaultCodeLanguage = conf.getAttr('codeLanguage') ? conf.getAttr('codeLanguage') : ''
+
+    // domain
+    def defaultDomain = conf.getAttr('domain') ? conf.getAttr('domain') : ''
 
     println('【开始进行构建】')
     pipeline {
@@ -122,6 +125,9 @@ def call(Map map, env) {
 
             //
             booleanParam(name: 'DEPLOY', defaultValue: defaultDeploy, description: '是否部署')
+
+            //domain
+            string(name: 'DOMAIN', defaultValue: defaultDomain, description: '应用使用的域名')
         }
 
 //        triggers {
@@ -236,6 +242,9 @@ def call(Map map, env) {
 
                         // set deploy
                         conf.setAttr('deploy', params.DEPLOY)
+
+                        // set domain
+                        conf.setAttr('domain', params.DOMAIN)
 
                         // print all data
                         println(conf.printAppConf())
