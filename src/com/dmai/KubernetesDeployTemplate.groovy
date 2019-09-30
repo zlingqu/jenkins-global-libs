@@ -212,7 +212,7 @@ $volumes
 ''', this.conf.getAttr('memoryLimits'))
         }
 
-        if (this.conf.getAttr('gpuLimits') && this.conf.getAttr('gpuLimits') != '') {
+        if (this.conf.getAttr('gpuLimits') &&  this.conf.getAttr('envType') == 'gpu'){
             returnString += String.format('''
             nvidia.com/gpu: %s
 ''', this.conf.getAttr('gpuLimits'))
