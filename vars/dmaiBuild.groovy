@@ -39,6 +39,9 @@ def call(Map map, env) {
     // default cpu
     def defaultEnvType = conf.getAttr('envType') ? conf.getAttr('envType') : 'cpu'
 
+    // gpu_card_count
+    def defaultGpuLimits = conf.getAttr('gpuLimits') ? conf.getAttr('gpuLimits') : '1'
+
     // cpuRequests
     def defaultCpuRequests = conf.getAttr('cpuRequests') ? conf.getAttr('cpuRequests') : ''
 
@@ -74,6 +77,7 @@ def call(Map map, env) {
 
     // deploy
     def defaultDeploy = conf.getAttr('deploy') ? conf.getAttr('deploy') : false
+
 
     // code language
     def defaultCodeLanguage = conf.getAttr('codeLanguage') ? conf.getAttr('codeLanguage') : ''
