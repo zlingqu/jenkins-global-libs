@@ -96,7 +96,7 @@ spec:
     command:
     - "sleep"
     args:
-    - "2400"
+    - "3600"
     tty: true
 ''', this.conf.vueAppScene, this.useModelPath())
     }
@@ -185,7 +185,7 @@ spec:
     command:
     - "sleep"
     args:
-    - "2400"
+    - "3600"
     tty: true
 ''', this.conf.getAttr('deployEnv'))
         } else {
@@ -204,7 +204,7 @@ spec:
     command:
     - "sleep"
     args:
-    - "2400"
+    - "3600"
     tty: true
 ''')
     }
@@ -245,7 +245,7 @@ spec:
     command:
     - "sleep"
     args:
-    - "2400"
+    - "3600"
     tty: true
 '''
         }
@@ -264,7 +264,7 @@ spec:
     command:
     - "sleep"
     args:
-    - "2400"
+    - "3600"
     tty: true
 ''', this.conf.getAttr('customImage'))
         }
@@ -287,7 +287,7 @@ spec:
     command:
     - "sleep"
     args:
-    - "2400"
+    - "3600"
     tty: true
 ''', this.templateJsCompilevolumeMounts())
 
@@ -305,7 +305,7 @@ spec:
     command:
     - "sleep"
     args:
-    - "2400"
+    - "3600"
     tty: true
 ''', this.conf.appName, this.conf.getAttr('branchName'))
 
@@ -321,7 +321,7 @@ spec:
     command:
     - "sleep"
     args:
-    - "2400"
+    - "3600"
     tty: true
 ''', this.templateJsCompilevolumeMounts())
 
@@ -336,7 +336,7 @@ spec:
     command:
     - "sleep"
     args:
-    - "2400"
+    - "3600"
     tty: true
 '''
             case 'java':
