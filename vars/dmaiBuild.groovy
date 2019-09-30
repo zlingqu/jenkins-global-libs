@@ -87,6 +87,12 @@ def call(Map map, env) {
     // auto deploy content
     def autoDeployContent = conf.getAttr('autoDeployContent') ? conf.getAttr('autoDeployContent') : ''
 
+    // customDockerfile
+    def useCustomDockerFile = conf.getAttr('customDockerfile') ? conf.getAttr('customDockerfile') : false
+
+    // custom dockerfile content
+    def customDockerfileContent = conf.getAttr('customDockerfileContent') ? conf.getAttr('customDockerfileContent') : ''
+
     println('【开始进行构建】')
     pipeline {
 
@@ -140,6 +146,12 @@ def call(Map map, env) {
 
             //  auto deploy content
             string(name: 'CUSTOM_KUBERNETES_DEPLOY_TEMPLATE_CONTENT', defaultValue: autoDeployContent, description: '自定义模版内容')
+
+            // customDockerfile
+            booleanParam(name: 'CUSTOM_DOCKERFILE', defaultValue: useCustomDockerFile, description: '是否使用自定义的dockerfile')
+
+            // custom dockerfile content
+            string(name: 'CUSTOM_DOCKERFILE_CONTENT', defaultValue: customDockerfileContent, description: '自定义的dockerfile内容')
 
         }
 
@@ -264,6 +276,12 @@ def call(Map map, env) {
 
                         // set CUSTOM_KUBERNETES_DEPLOY_TEMPLATE_CONTENT
                         conf.setAttr('autoDeployContent', params.CUSTOM_KUBERNETES_DEPLOY_TEMPLATE_CONTENT)
+
+                        // set CUSTOM_DOCKERFILE
+                        conf.setAttr('customDockerfile', params.CUSTOM_DOCKERFILE)
+
+                        // set CUSTOM_DOCKERFILE_CONTENT
+                        conf.setAttr('customDockerfileContent', params.CUSTOM_DOCKERFILE_CONTENT)
 
                         // print all data
                         println(conf.printAppConf())
