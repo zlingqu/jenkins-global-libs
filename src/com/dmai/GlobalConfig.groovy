@@ -2545,7 +2545,7 @@ class GlobalConfig implements Serializable {
             ],
             'x2-essayanalyzer': [
                     'servicePort' : '80',
-                    'namespace': 'x2',
+                    'namespace': 'x2-ta',
                     'nodePort' : '30410',
                     'containerPort': '5000',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
@@ -2558,6 +2558,8 @@ class GlobalConfig implements Serializable {
                     'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/research-algorithm/nlp-lib/EssayAnalyzer.git',
+                    'useModel': true,
+                    'modelPath': '/models', //模型文件path, 在构建的时候相对于当前的代码的主目录
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': true, // 是否使用自定义 dockerfile
