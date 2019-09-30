@@ -13,7 +13,7 @@ class Deploykubernetes {
     }
 
     public void deployKubernetes() {
-        if (! conf.getAttr('customKubernetesDeployTemplate')) {
+        if (! this.conf.getAttr('customKubernetesDeployTemplate')) {
             try {
 
                 this.script.sh "echo '${this.kubernetesDeployTemplate.getKubernetesDeployTemplate()}' > Deploy-k8s.yml"
@@ -23,11 +23,10 @@ class Deploykubernetes {
             }
         }
 
-//        // 先创建configMap
-//        if (this.conf.getAttr('useConfigMap')) {
-//            this.createConfigMap()
-//            this.createConfigMapTest()
-//        }
+        //
+        if (this.conf.getAttr('customKubernetesDeployTemplate') && this.conf.getAttr('autoDeployContent')) {
+            this.script.sh "echo '${this.conf.getAttr('autoDeployContent')}' > Deploy-k8s.yml"
+        }
 
         this.script.sh 'kubectl apply -f Deploy-k8s.yml; rm -fr Deploy-k8s.yml'
     }

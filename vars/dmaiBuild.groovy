@@ -81,6 +81,12 @@ def call(Map map, env) {
     // domain
     def defaultDomain = conf.getAttr('domain') ? conf.getAttr('domain') : ''
 
+    // if_use_auto_deploy_file
+    def useAutoDeployFile = conf.getAttr('customKubernetesDeployTemplate') ? conf.getAttr('customKubernetesDeployTemplate') : false
+
+    // auto deploy content
+    def autoDeployContent = conf.getAttr('autoDeployContent') ? conf.getAttr('autoDeployContent') : ''
+
     println('【开始进行构建】')
     pipeline {
 
@@ -128,6 +134,13 @@ def call(Map map, env) {
 
             //domain
             string(name: 'DOMAIN', defaultValue: defaultDomain, description: '应用使用的域名')
+
+            // if_use_auto_deploy_file
+            booleanParam(name: 'CUSTOM_KUBERNETES_DEPLOY_TEMPLATE', defaultValue: useAutoDeployFile, description: '使用使用自定义的k8s部署模版')
+
+            //  auto deploy content
+            string(name: 'CUSTOM_KUBERNETES_DEPLOY_TEMPLATE_CONTENT', defaultValue: autoDeployContent, description: '自定义模版内容')
+
         }
 
 //        triggers {
@@ -246,9 +259,14 @@ def call(Map map, env) {
                         // set domain
                         conf.setAttr('domain', params.DOMAIN)
 
+                        // set CUSTOM_KUBERNETES_DEPLOY_TEMPLATE
+                        conf.setAttr('customKubernetesDeployTemplate', params.CUSTOM_KUBERNETES_DEPLOY_TEMPLATE)
+
+                        // set CUSTOM_KUBERNETES_DEPLOY_TEMPLATE_CONTENT
+                        conf.setAttr('autoDeployContent', params.CUSTOM_KUBERNETES_DEPLOY_TEMPLATE_CONTENT)
+
                         // print all data
                         println(conf.printAppConf())
-//                        for (i in conf.)
 
 
                     }
