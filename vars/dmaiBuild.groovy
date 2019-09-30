@@ -40,7 +40,7 @@ def call(Map map, env) {
     def defaultEnvType = conf.getAttr('envType') ? conf.getAttr('envType') : 'cpu'
 
     // gpu_card_count
-    def defaultGpuLimits = conf.getAttr('gpuLimits') ? conf.getAttr('gpuLimits') : '1'
+    def defaultGpuLimits = String.valueOf( conf.getAttr('gpuLimits') ? conf.getAttr('gpuLimits') : 1)
 
     // cpuRequests
     def defaultCpuRequests = conf.getAttr('cpuRequests') ? conf.getAttr('cpuRequests') : ''
@@ -104,6 +104,8 @@ def call(Map map, env) {
         parameters {
             choice(name: 'DEPLOY_ENV', choices: deployEnv, description: 'dev分支部署的环境，目前支持：prd/dev/test/stage, lexue 针对的是xmc2项目。')
             choice(name: 'ENV_TYPE', choices: topEnvType, description: 'cpu代表部署cpu服务器，gpu代表gpu服务器，all代表不做限制任意漂流')
+            string(name: 'GPU_CARD_COUNT', defaultValue: defaultGpuLimits, description: '使用gpu卡的时候，在k8s集群中，一个pods使用的gpu卡的限制。')
+
             string(name: 'GIT_VERSION', defaultValue: 'last', description: 'git的commit 版本号，git log 查看。')
             string(name: 'VUE_APP_SCHOOL', defaultValue: 'S00001', description: '学校的Code，xmc2-frontend项目使用，其他不关注,s小写    ')
             choice(name: 'VUE_APP_SCENE', choices: ['main', 'training'], description: 'xmc2-frontend项目使用，其他不关注')
@@ -237,6 +239,9 @@ def call(Map map, env) {
 
 
                         conf.setAttr('envType', envType)
+
+                        // set GPU_CARD_COUNT
+                        conf.setAttr('gpuLimits', params.GPU_CARD_COUNT)
 //                            echo envType
 
                         if (conf.getAttr('deployEnv') == 'lexue') {
