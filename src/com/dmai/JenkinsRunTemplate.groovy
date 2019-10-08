@@ -19,14 +19,20 @@ class JenkinsRunTemplate {
                 throw "请修改APP_NAME"
             }
             this.conf.setUserAttr(new GlobalConfig().globalConfig.get(this.conf.appName))
-        }
-
-        if (this.conf.appName == 'xmc2-frontend') {
+        } else if (this.conf.appName == 'xmc2-frontend') {
             this.conf.setAppName(this.conf.appName + (params.VUE_APP_SCENE == 'school' ? '' : '-' + params.VUE_APP_SCENE) + (params.VUE_APP_SCHOOL == 'S00001' ? '' : '-' + params.VUE_APP_SCHOOL)  )
             this.conf.setVueAppScene(params.VUE_APP_SCENE)
             this.conf.setVueAppSchool(params.VUE_APP_SCHOOL)
-
+        } else {
+            this.conf.setAppName(params.APP_NAME)
         }
+
+//        if (this.conf.appName == 'xmc2-frontend') {
+//            this.conf.setAppName(this.conf.appName + (params.VUE_APP_SCENE == 'school' ? '' : '-' + params.VUE_APP_SCENE) + (params.VUE_APP_SCHOOL == 'S00001' ? '' : '-' + params.VUE_APP_SCHOOL)  )
+//            this.conf.setVueAppScene(params.VUE_APP_SCENE)
+//            this.conf.setVueAppSchool(params.VUE_APP_SCHOOL)
+//
+//        }
 
         this.conf.setAttr('replicas', params.REPLICAS)
 
