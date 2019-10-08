@@ -132,7 +132,7 @@ def call(Map map, env) {
             choice(name: 'APP_NAME', choices: ['xmc-model-serving-student', 'xmc-model-serving-teacher'], description: '可以自定义appName，特殊场景，其他项目不使用。')
 
             // namespace
-            choice(name: 'NAMESPACE', defaultValue: topNamespace, description: '应用部署的时候，k8s使用的namespace， 默认为产品名,特殊情况下可选')
+            choice(name: 'NAMESPACE', choices: topNamespace, description: '应用部署的时候，k8s使用的namespace， 默认为产品名,特殊情况下可选')
 
             // git address
             string(name: 'GIT_ADDRESS', defaultValue: defaultGitAddress, description: '应用的git 代码 地址')
