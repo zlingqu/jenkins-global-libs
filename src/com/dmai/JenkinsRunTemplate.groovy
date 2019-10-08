@@ -24,7 +24,9 @@ class JenkinsRunTemplate {
             this.conf.setVueAppScene(params.VUE_APP_SCENE)
             this.conf.setVueAppSchool(params.VUE_APP_SCHOOL)
         } else {
-            this.conf.setAppName(params.APP_NAME)
+            if (params.APP_NAME != 'xmc-xc-model-serving' && params.APP_NAME != 'xmc-model-serving-student') {
+                this.conf.setAppName(params.APP_NAME)
+            }
         }
 
 //        if (this.conf.appName == 'xmc2-frontend') {
