@@ -169,16 +169,8 @@ def call(Map map, env) {
 
         // 转化为可用的环境变量
         environment {
-            envType = "${params.ENV_TYPE}"
             gitVersion = "${params.GIT_VERSION}"
-            vueAppScene = "${params.VUE_APP_SCENE}"
-            vueAppSchool = "${params.VUE_APP_SCHOOL}"
             deployMasterPassword = "${params.DEPLOY_MASTER_PASSWORD}"
-            userReplicas = "${params.REPLICAS}"
-            cpuRequests = "${params.CPU_REQUEST}"
-            cpuLimits = "${params.CPU_LIMIT}"
-            memoryRequests = "${params.MEMORY_REQUEST}"
-            memoryLimits = "${params.MEMORY_LIMIT}"
         }
 
         agent {
@@ -216,7 +208,6 @@ def call(Map map, env) {
                         // 自定义appName
                         if (conf.appName == 'xmc-xc-model-serving') {
                             conf.setAppName(params.APP_NAME)
-//                            echo conf.appName
                             if (conf.appName == 'xmc-xc-model-serving') {
                                 throw "请修改APP_NAME"
                             }
@@ -224,27 +215,18 @@ def call(Map map, env) {
                         }
 
                         if (conf.appName == 'xmc2-frontend') {
-                            conf.setAppName(conf.appName + (vueAppScene == 'school' ? '' : '-' + vueAppScene) + (vueAppSchool == 'S00001' ? '' : '-' + vueAppSchool)  )
-                            conf.setVueAppScene(vueAppScene)
-                            conf.setVueAppSchool(vueAppSchool)
+                            conf.setAppName(conf.appName + (params.VUE_APP_SCENE == 'school' ? '' : '-' + params.VUE_APP_SCENE) + (params.VUE_APP_SCHOOL == 'S00001' ? '' : '-' + params.VUE_APP_SCHOOL)  )
+                            conf.setVueAppScene(params.VUE_APP_SCENE)
+                            conf.setVueAppSchool(params.VUE_APP_SCHOOL)
 
-//                            echo conf.vueAppScene
-//                            echo conf.vueAppSchool
                         }
 
-                        conf.setAttr('replicas', userReplicas)
-//                            echo conf.getAttr('replicas')
+                        conf.setAttr('replicas', params.REPLICAS)
 
-//                        conf.setAttr('dev', deployEnvironment)
-//                        println("部署环境：" + conf.getAttr("deployEnv"))
-//                            echo conf.getAttr('deployEnv')
-
-
-                        conf.setAttr('envType', envType)
+                        conf.setAttr('envType', params.ENV_TYPE)
 
                         // set GPU_CARD_COUNT
                         conf.setAttr('gpuLimits', params.GPU_CARD_COUNT)
-//                            echo envType
 
                         if (conf.getAttr('deployEnv') == 'lexue') {
                             conf.setockerRegistryHost('rdac-docker.dm-ai.cn')
