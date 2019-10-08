@@ -63,7 +63,7 @@ class Conf implements Serializable{
     }
 
     public def setAppName(String appName) {
-        if (this.vueAppScene != 'main') {
+        if (this.vueAppScene != 'school') {
             this.appName = appName.toLowerCase()
         }
     }
