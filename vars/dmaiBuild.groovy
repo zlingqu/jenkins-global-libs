@@ -181,6 +181,10 @@ def call(Map map, env) {
             memoryLimits = "${params.MEMORY_LIMIT}"
         }
 
+        script {
+            echo 1111111
+        }
+
         agent {
             kubernetes {
                 cloud 'kubernetes-dev'
