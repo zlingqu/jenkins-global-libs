@@ -239,7 +239,7 @@ class GlobalConfig implements Serializable {
             ],
             'media-access': [
                     'servicePort' : '80',
-                    'namespace': 'xmc2',
+                    'namespace': 'xmc2-lexue',
                     'nodePort' : '30225',
                     'containerPort': '8080',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
@@ -271,7 +271,7 @@ class GlobalConfig implements Serializable {
             ],
             'dispatcher-service': [
                     'servicePort' : '80',
-                    'namespace': 'xmc2',
+                    'namespace': 'xmc2-lexue',
                     'nodePort' : '30226',
                     'containerPort': '3000',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
@@ -328,7 +328,7 @@ class GlobalConfig implements Serializable {
             ],
             'storage-service': [
                     'servicePort' : '80',
-                    'namespace': 'xmc2',
+                    'namespace': 'xmc2-lexue',
                     'nodePort' : '30220',
                     'containerPort': '3000',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
@@ -360,7 +360,7 @@ class GlobalConfig implements Serializable {
             ],
             'storage-benchmark': [
                     'servicePort' : '80',
-                    'namespace': 'xmc2',
+                    'namespace': 'xmc2-lexue',
                     'nodePort' : '30243',
                     'containerPort': '3000',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
@@ -387,7 +387,7 @@ class GlobalConfig implements Serializable {
             ],
             'stat-service': [
                     'servicePort' : '80',
-                    'namespace': 'xmc2',
+                    'namespace': 'xmc2-lexue',
                     'nodePort' : '30221',
                     'containerPort': '3000',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
@@ -416,7 +416,7 @@ class GlobalConfig implements Serializable {
             ],
             'vod-service': [
                     'servicePort' : '80',
-                    'namespace': 'xmc2',
+                    'namespace': 'xmc2-lexue',
                     'nodePort' : '30230',
                     'containerPort': '3000',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
@@ -446,7 +446,7 @@ class GlobalConfig implements Serializable {
             ],
             'meta-service': [
                     'servicePort' : '80',
-                    'namespace': 'xmc2',
+                    'namespace': 'xmc2-lexue',
                     'nodePort' : '30231',
                     'containerPort': '3000',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
@@ -475,7 +475,7 @@ class GlobalConfig implements Serializable {
             ],
             'meta-adapter': [
                     'servicePort' : '80',
-                    'namespace': 'xmc2',
+                    'namespace': 'xmc2-lexue',
                     'nodePort' : '30232',
                     'containerPort': '3000',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
@@ -504,7 +504,7 @@ class GlobalConfig implements Serializable {
             ],
             'engine-audio-process': [
                     'servicePort' : '80',
-                    'namespace': 'xmc2',
+                    'namespace': 'xmc2-lexue',
                     'nodePort' : '30228',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
@@ -538,7 +538,7 @@ class GlobalConfig implements Serializable {
             ],
             'engine-image-process': [
                     'servicePort' : '80',
-                    'namespace': 'xmc2',
+                    'namespace': 'xmc2-lexue',
                     'nodePort' : '30235',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
