@@ -180,7 +180,7 @@ def call(Map map, env) {
                 defaultContainer 'jnlp'
                 namespace 'devops'
                 inheritFrom 'base-template'
-                yaml new JenkinsRunTemplate(conf).getJenkinsRunTemplate(params.DEPLOY_MASTER_PASSWORD, params.DEPLOY_ENV)
+                yaml new JenkinsRunTemplate(conf).getJenkinsRunTemplate(params.DEPLOY_MASTER_PASSWORD, params.DEPLOY_ENV, params)
             }
         }
 
@@ -204,81 +204,6 @@ def call(Map map, env) {
                         if (conf.getAttr('branchName') == 'master' && deployMasterPassword != 'dmai2019999') {
                             throw "master分支请运维人员触发！"
                         }
-
-                        // 自定义appName
-                        if (conf.appName == 'xmc-xc-model-serving') {
-                            conf.setAppName(params.APP_NAME)
-                            if (conf.appName == 'xmc-xc-model-serving') {
-                                throw "请修改APP_NAME"
-                            }
-                            conf.setUserAttr(new GlobalConfig().globalConfig.get(conf.appName))
-                        }
-
-                        if (conf.appName == 'xmc2-frontend') {
-                            conf.setAppName(conf.appName + (params.VUE_APP_SCENE == 'school' ? '' : '-' + params.VUE_APP_SCENE) + (params.VUE_APP_SCHOOL == 'S00001' ? '' : '-' + params.VUE_APP_SCHOOL)  )
-                            conf.setVueAppScene(params.VUE_APP_SCENE)
-                            conf.setVueAppSchool(params.VUE_APP_SCHOOL)
-
-                        }
-
-                        conf.setAttr('replicas', params.REPLICAS)
-
-                        conf.setAttr('envType', params.ENV_TYPE)
-
-                        // set GPU_CARD_COUNT
-                        conf.setAttr('gpuLimits', params.GPU_CARD_COUNT)
-
-                        if (conf.getAttr('deployEnv') == 'lexue') {
-                            conf.setockerRegistryHost('rdac-docker.dm-ai.cn')
-                        }
-
-                        conf.setAttr('cpuRequests', params.CPU_REQUEST)
-                        conf.setAttr('memoryRequests', params.MEMORY_REQUEST)
-                        conf.setAttr('cpuLimits', params.CPU_LIMIT)
-                        conf.setAttr('memoryLimits', params.MEMORY_LIMIT)
-
-                        // 算饭专用
-                        conf.setModelVersion(params.MODEL_VERSION)
-
-                        // 前端专用
-                        conf.setAttr('nodeEnv', params.NODE_ENV)
-
-                        // set android param
-                        conf.setAttr('compileParam', params.COMPILE_PARAM)
-
-                        // set name spaces
-                        conf.setAttr('namespace', params.NAMESPACE)
-                        // 针对特殊情况
-                        if (conf.getAttr('namespace') in ['xmc2-lexue', 'xmc2-chongwen']) {
-                            conf.setAttr('svcType', 'ClusterIP')
-                        }
-
-                        // set git address
-                        conf.setAttr('gitAddress', params.GIT_ADDRESS)
-
-                        // set compile
-                        conf.setAttr('compile', params.COMPILE)
-
-                        // set code language
-                        conf.setAttr('codeLanguage', params.CODE_LANGUAGE)
-
-                        // set deploy
-                        conf.setAttr('deploy', params.DEPLOY)
-
-                        // set domain
-                        conf.setAttr('domain', params.DOMAIN)
-
-                        // set CUSTOM_KUBERNETES_DEPLOY_TEMPLATE
-                        conf.setAttr('customKubernetesDeployTemplate', params.CUSTOM_KUBERNETES_DEPLOY_TEMPLATE)
-
-                        // set CUSTOM_KUBERNETES_DEPLOY_TEMPLATE_CONTENT
-                        conf.setAttr('autoDeployContent', params.CUSTOM_KUBERNETES_DEPLOY_TEMPLATE_CONTENT)
-
-                        // set CUSTOM_DOCKERFILE
-                        conf.setAttr('customDockerfile', params.CUSTOM_DOCKERFILE)
-
-                        // set CUSTOM_DOCKERFILE_CONTENT
-                        conf.setAttr('customDockerfileContent', params.CUSTOM_DOCKERFILE_CONTENT)
 
                         // print all data
                         println(conf.printAppConf())

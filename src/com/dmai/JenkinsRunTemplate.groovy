@@ -11,9 +11,87 @@ class JenkinsRunTemplate {
         this.deployMasterPassword = ''
     }
 
-    public String getJenkinsRunTemplate(String deployMasterPassword, String deployEnvironment) {
+    private void setConfInitPara(params) {
+        // 自定义appName
+        if (this.conf.appName == 'xmc-xc-model-serving') {
+            this.conf.setAppName(params.APP_NAME)
+            if (this.conf.appName == 'xmc-xc-model-serving') {
+                throw "请修改APP_NAME"
+            }
+            this.conf.setUserAttr(new GlobalConfig().globalConfig.get(this.conf.appName))
+        }
+
+        if (this.conf.appName == 'xmc2-frontend') {
+            this.conf.setAppName(this.conf.appName + (params.VUE_APP_SCENE == 'school' ? '' : '-' + params.VUE_APP_SCENE) + (params.VUE_APP_SCHOOL == 'S00001' ? '' : '-' + params.VUE_APP_SCHOOL)  )
+            this.conf.setVueAppScene(params.VUE_APP_SCENE)
+            this.conf.setVueAppSchool(params.VUE_APP_SCHOOL)
+
+        }
+
+        this.conf.setAttr('replicas', params.REPLICAS)
+
+        this.conf.setAttr('envType', params.ENV_TYPE)
+
+        // set GPU_CARD_COUNT
+        this.conf.setAttr('gpuLimits', params.GPU_CARD_COUNT)
+
+        if (this.conf.getAttr('deployEnv') == 'lexue') {
+            this.conf.setockerRegistryHost('rdac-docker.dm-ai.cn')
+        }
+
+        this.conf.setAttr('cpuRequests', params.CPU_REQUEST)
+        this.conf.setAttr('memoryRequests', params.MEMORY_REQUEST)
+        this.conf.setAttr('cpuLimits', params.CPU_LIMIT)
+        this.conf.setAttr('memoryLimits', params.MEMORY_LIMIT)
+
+        // 算饭专用
+        this.conf.setModelVersion(params.MODEL_VERSION)
+
+        // 前端专用
+        this.conf.setAttr('nodeEnv', params.NODE_ENV)
+
+        // set android param
+        this.conf.setAttr('compileParam', params.COMPILE_PARAM)
+
+        // set name spaces
+        this.conf.setAttr('namespace', params.NAMESPACE)
+        // 针对特殊情况
+        if (this.conf.getAttr('namespace') in ['xmc2-lexue', 'xmc2-chongwen']) {
+            this.conf.setAttr('svcType', 'ClusterIP')
+        }
+
+        // set git address
+        this.conf.setAttr('gitAddress', params.GIT_ADDRESS)
+
+        // set compile
+        this.conf.setAttr('compile', params.COMPILE)
+
+        // set code language
+        this.conf.setAttr('codeLanguage', params.CODE_LANGUAGE)
+
+        // set deploy
+        this.conf.setAttr('deploy', params.DEPLOY)
+
+        // set domain
+        this.conf.setAttr('domain', params.DOMAIN)
+
+        // set CUSTOM_KUBERNETES_DEPLOY_TEMPLATE
+        this.conf.setAttr('customKubernetesDeployTemplate', params.CUSTOM_KUBERNETES_DEPLOY_TEMPLATE)
+
+        // set CUSTOM_KUBERNETES_DEPLOY_TEMPLATE_CONTENT
+        this.conf.setAttr('autoDeployContent', params.CUSTOM_KUBERNETES_DEPLOY_TEMPLATE_CONTENT)
+
+        // set CUSTOM_DOCKERFILE
+        this.conf.setAttr('customDockerfile', params.CUSTOM_DOCKERFILE)
+
+        // set CUSTOM_DOCKERFILE_CONTENT
+        this.conf.setAttr('customDockerfileContent', params.CUSTOM_DOCKERFILE_CONTENT)
+    }
+
+    public String getJenkinsRunTemplate(String deployMasterPassword, String deployEnvironment, params) {
         this.deployMasterPassword = deployMasterPassword
         this.conf.setAttr('deployEnv', deployEnvironment)
+        this.setConfInitPara(params)
 
 //        set branchName , jobName, buildNumber
 //        this.conf.setAttr('branchName', currentBuild.projectName)
