@@ -69,6 +69,8 @@ def call(Map map, env) {
     // namespace
     def defaultNamespace = conf.getAttr('namespace') ? conf.getAttr('namespace') : ''
 
+    def topNamespace = Tools.addItemToListHead(['xmc2-lexue', 'xmc2-chongwen'], defaultNamespace)
+
     // git address
     def defaultGitAddress = conf.getAttr('gitAddress') ? conf.getAttr('gitAddress') : ''
 
@@ -130,7 +132,7 @@ def call(Map map, env) {
             choice(name: 'APP_NAME', choices: ['xmc-model-serving-student', 'xmc-model-serving-teacher'], description: '可以自定义appName，特殊场景，其他项目不使用。')
 
             // namespace
-            string(name: 'NAMESPACE', defaultValue: defaultNamespace, description: '应用部署的时候，k8s使用的namespace， 默认为产品名')
+            choice(name: 'NAMESPACE', defaultValue: topNamespace, description: '应用部署的时候，k8s使用的namespace， 默认为产品名,特殊情况下可选')
 
             // git address
             string(name: 'GIT_ADDRESS', defaultValue: defaultGitAddress, description: '应用的git 代码 地址')
@@ -264,6 +266,10 @@ def call(Map map, env) {
 
                         // set name spaces
                         conf.setAttr('namespace', params.NAMESPACE)
+                        // 针对特殊情况
+                        if (conf.getAttr('namespace') in ['xmc2-lexue', 'xmc2-chongwen']) {
+                            conf.setAttr('svcType', 'ClusterIP')
+                        }
 
                         // set git address
                         conf.setAttr('gitAddress', params.GIT_ADDRESS)
