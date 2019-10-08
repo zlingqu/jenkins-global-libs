@@ -67,7 +67,7 @@ def call(Map map, env) {
     def topEnvType = Tools.addItemToListHead(['cpu','gpu', 'all'], defaultEnvType)
 
     // namespace
-    def defaultNamespace = conf.getAttr('namespace') ? conf.getAttr('namespace') : ''
+    def defaultNamespace = conf.getAttr('namespace') ? conf.getAttr('namespace') : 'test'
 
     def topNamespace = Tools.addItemToListHead(['xmc2-lexue', 'xmc2-chongwen'], defaultNamespace)
 
