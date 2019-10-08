@@ -90,7 +90,7 @@ class GlobalConfig implements Serializable {
             ],
             'sync-service': [
                     'servicePort' : '80',
-                    'namespace': 'xmc2',
+                    'namespace': 'xmc2-lexue',
                     'nodePort' : '30223',
                     'containerPort': '3000',
                     'domain': '',// domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
@@ -120,7 +120,7 @@ class GlobalConfig implements Serializable {
             ],
             'ui-backend-service': [
                     'servicePort' : '80',
-                    'namespace': 'xmc2',
+                    'namespace': 'xmc2-lexue',
                     'nodePort' : '30227',
                     'containerPort': '3000',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
@@ -149,7 +149,7 @@ class GlobalConfig implements Serializable {
             ],
             'engine-video-extract': [
                     'servicePort' : '80',
-                    'namespace': 'xmc2',
+                    'namespace': 'xmc2-lexue',
                     'nodePort' : '30222',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
@@ -179,7 +179,7 @@ class GlobalConfig implements Serializable {
             ],
             'media-gateway': [
                     'servicePort' : '80',
-                    'namespace': 'xmc2',
+                    'namespace': 'xmc2-lexue',
                     'nodePort' : '30224',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
@@ -210,7 +210,7 @@ class GlobalConfig implements Serializable {
             ],
             'monitor-service': [
                     'servicePort' : '80',
-                    'namespace': 'xmc2',
+                    'namespace': 'xmc2-lexue',
                     'nodePort' : '30237',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
@@ -300,7 +300,7 @@ class GlobalConfig implements Serializable {
             ],
             'showcase': [
                     'servicePort' : '80',
-                    'namespace': 'xmc2',
+                    'namespace': 'xmc2-lexue',
                     'nodePort' : '30997',
                     'containerPort': '3000',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
@@ -815,7 +815,7 @@ class GlobalConfig implements Serializable {
             ],
             'engine-pipeline-manager': [
                     'servicePort' : '80',
-                    'namespace': 'xmc2',
+                    'namespace': 'xmc2-lexue',
                     'nodePort' : '30234',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
@@ -846,7 +846,7 @@ class GlobalConfig implements Serializable {
             ],
             'engine-metric-service': [
                     'servicePort' : '80',
-                    'namespace': 'xmc2',
+                    'namespace': 'xmc2-lexue',
                     'nodePort' : '30229',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
@@ -876,10 +876,10 @@ class GlobalConfig implements Serializable {
             ],
             'xmc2-frontend': [
                     'servicePort' : '80',
-                    'namespace': 'xmc2',
+                    'namespace': 'xmc2-lexue',
                     'nodePort': '30233',
                     'containerPort': '80',
-                    'domain': 'xmc2.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
+                    'domain': 'lexue.xmc2.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
 //                    'cpuRequests' : '200m',
 //                    'memoryRequests' : '400Mi',
 //                    'cpuLimits' : '400m',
