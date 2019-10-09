@@ -395,6 +395,7 @@ def call(Map map, env) {
             stage('Deploy test') {
                 when {
                     allOf {
+                        expression { return conf.getAttr('deploy') };
                         expression { return conf.getAttr('deployEnv') == 'test' };
                     }
                 }
