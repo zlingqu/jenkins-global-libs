@@ -393,7 +393,7 @@ spec:
     args:
     - "3600"
     tty: true
-''', this.conf.appName, this.conf.getAttr('branchName'))
+''', this.conf.appName, this.conf.getAttr('deployEnv'))
 
             case 'node':
                 return String.format('''
