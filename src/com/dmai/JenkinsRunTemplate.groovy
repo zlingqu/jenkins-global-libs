@@ -192,8 +192,8 @@ spec:
             return String.format('''
     - name: jenkins-build-path
       mountPath: /models
-      subPath: models/%s/%s
-''', this.conf.appName, this.conf.getAttr('deployEnv'))
+      subPath: models/%s/%s/%s
+''', this.conf.getAttr('namespace'), this.conf.getAttr('deployEnv'), this.conf.appName)
         }
         return ''
     }
