@@ -2028,7 +2028,7 @@ class GlobalConfig implements Serializable {
             ],
             'cp2-webgl-simulator': [
                     'servicePort' : '80',
-                    'namespace': 'x2-ta',
+                    'namespace': 'cp',
 //                    'nodePort' : '31225',
                     'containerPort': '80',
                     'domain': 'cp2-simulator.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
@@ -2794,7 +2794,7 @@ class GlobalConfig implements Serializable {
             ],
             'cp2-aog': [
                     'servicePort' : '80',
-                    'namespace': 'devops',
+                    'namespace': 'cp',
 //                    'nodePort': '30092',
                     'containerPort': '80',
                     'domain': 'cp2.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
@@ -2825,7 +2825,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'cp',
                     'nodePort': '30095',
                     'containerPort': '8000',
-//                    'domain': 'cp2.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
+                    'domain': 'cp2-connector.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
 //                    'cpuRequests' : '200m',
 //                    'memoryRequests' : '400Mi',
                     'cpuLimits' : '200m',
