@@ -553,7 +553,7 @@ class GlobalConfig implements Serializable {
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2-xc/xmc2-cv-service.git',
                     'useModel': true,
-                    'modelPath': 'models', //模型文件path, 在构建的时候相对于当前的代码的主目录
+                    'modelPath': 'app/data', //模型文件path, 在构建的时候相对于当前的代码的主目录
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': true, // 是否使用自定义 dockerfile
