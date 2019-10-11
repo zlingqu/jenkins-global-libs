@@ -2391,6 +2391,36 @@ class GlobalConfig implements Serializable {
                     'useEnvFile'  : true, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
                     'sonarCheck'  : false
             ],
+            'x3-proxy-service': [
+                    'servicePort' : '80',
+                    'namespace': 'x3',
+//                    'nodePort' : '30339',
+                    'containerPort': '80',
+                    'domain': 'x3-proxy-service.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
+//                    'cpuRequests' : '1000m',
+//                    'memoryRequests' : '2000Mi',
+                    'cpuLimits' : '500m',
+                    'memoryLimits' : '1000Mi',
+                    'replicas' : 1,
+                    'dev': 'dev', // dev分支部署到测试环境
+                    'test': true, // 是否从dev分支部署到测试环境
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
+                    'gitAddress': 'https://gitlab.dm-ai.cn/X3/proxy-service.git',
+                    'compile': false, // 是否编译
+                    'deploy': true, // 是否自动化部署
+                    'customDockerfile': false, // 是否使用自定义 dockerfile
+                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
+                    'useConfigMap': false, //是否使用configmap
+                    'configMapName': '', //是否使用configmap
+                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
+                    'codeLanguage' : 'js', // 临时的，默认是【js,node,golang,java,php,python】
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'useStore': false, // 是否使用存储资源。
+                    'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'useEnvFile'  : false, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
+                    'sonarCheck'  : false
+            ],
             'x3-content-manager-question-service': [
                     'servicePort' : '80',
                     'namespace': 'x3',
