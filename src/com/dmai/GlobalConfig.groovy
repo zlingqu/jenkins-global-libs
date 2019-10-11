@@ -2788,7 +2788,7 @@ class GlobalConfig implements Serializable {
                     'useEnvFile'  : true, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
                     'sonarCheck'  : false
             ],
-            'handwriting-recog-service': [
+            'ta-essay-ocr-service': [
                     'servicePort' : '80',
                     'namespace': 'x2-ta',
                     'containerPort': '80',
