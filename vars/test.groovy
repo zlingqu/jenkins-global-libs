@@ -17,3 +17,8 @@
 //println(respText == "111")
 println("http://192.168.3.29:8082/eng-team-models/XMC/xmc_models.git".replace("http://", ""))
 println("git@192.168.3.29:eng-team-models/XMC/xmc_models.git".replace("http://", ""))
+
+// groovy 读取文件, 一次性读取
+String fileContents = new File('/Users/zuoshenglo/goland-workspace/src/devops-dm-ai/deployment/devops/dev/jenkins-test/deploy.yml').getText('UTF-8')
+println(fileContents.replaceAll('JENKINS_DEPLOY_IMAGE_ADDRESS', "wocaowuqing"))
+

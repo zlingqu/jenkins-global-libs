@@ -54,6 +54,10 @@ class Conf implements Serializable{
         this.appConf.put('replicas', replicas)
     }
 
+    public def getBuildImageAddress() {
+       return String.format('''%s/%s/%s:%s-%s''', this.getAttr('namespace'),  this.appName, this.getAttr('branchName'), this.getAttr('buildNumber'))
+    }
+
     public def setAttr(key, value) {
         this.appConf.put(key, value)
     }
