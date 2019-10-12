@@ -22,8 +22,8 @@ println("git@192.168.3.29:eng-team-models/XMC/xmc_models.git".replace("http://",
 //String fileContents = new File('/Users/zuoshenglo/goland-workspace/src/devops-dm-ai/deployment/devops/dev/jenkins-test/deploy.yml').getText('UTF-8')
 //println(fileContents.replaceAll('JENKINS_DEPLOY_IMAGE_ADDRESS', "wocaowuqing"))
 
-File file0 = new File('/Users/zuoshenglo/goland-workspace/src/devops-dm-ai/deployment/devops/dev/jenkins-test/deploy.yml');
-File file = file0.getParentFile();
-if(!file.exists()) {
-    println("file bucunzai")
+File file0 = new File('1/Users/zuoshenglo/goland-workspace/src/devops-dm-ai/deployment/devops/dev/jenkins-test/deploy.yml');
+//File file =
+if(file0.exists()) {
+    println("bucunzai")
 }

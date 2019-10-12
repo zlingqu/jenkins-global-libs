@@ -30,8 +30,8 @@ class Deploykubernetes {
 
         // 如果 Deploy-k8s.yml 还不存在，说明，当前代码目录下没有文件，用deplayment下面的文件
         File deployFile = new File('Deploy-k8s.yml');
-        File file = deployFile.getParentFile();
-        if (!file.exists()) {
+//        File file = deployFile.getParentFile();
+        if (!deployFile.exists()) {
             String deployFileTemplate = String.format('''deployment/%s/%s/%s/deploy.yml''',  this.conf.getAttr('namespace'), this.conf.getAttr('branchName'), this.conf.appName)
             String deployFileContents = new File(deployFileTemplate).getText('UTF-8').replaceAll('JENKINS_DEPLOY_IMAGE_ADDRESS', this.conf.getBuildImageAddress())
             this.script.sh "echo ${deployFileContents} > Deploy-k8s.yml"
