@@ -29,15 +29,8 @@ class Deploykubernetes {
         }
 
         // 如果 Deploy-k8s.yml 还不存在，说明，当前代码目录下没有文件，用deplayment下面的文件
-//        File deployFile = new File('Deploy-k8s.yml');
-////        File file = deployFile.getParentFile();
-//        if (!deployFile.exists()) {
-//            String deployFileTemplate = String.format('''deployment/%s/%s/%s/deploy.yml''',  this.conf.getAttr('namespace'), this.conf.getAttr('branchName'), this.conf.appName)
-//            String deployFileContents = new File(deployFileTemplate).getText('UTF-8').replaceAll('JENKINS_DEPLOY_IMAGE_ADDRESS', this.conf.getBuildImageAddress())
-//            this.script.sh "echo ${deployFileContents} > Deploy-k8s.yml"
-//        }
 
-        String deployFileTemplate = String.format('''deployment/%s/%s/%s/deploy.yml''',  this.conf.getAttr('namespace'), this.conf.getAttr('branchName'), this.conf.appName)
+        def deployFileTemplate = String.format('''deployment/%s/%s/%s/deploy.yml''',  this.conf.getAttr('namespace'), this.conf.getAttr('branchName'), this.conf.appName)
         this.script.sh "test -e  Deploy-k8s.yml || cat ${deployFileTemplate}  | sed s#APOLLO_CONFIG_ADDRESS#${this.conf.getBuildImageAddress()}#g"
 
         this.script.sh 'kubectl apply -f Deploy-k8s.yml; rm -fr Deploy-k8s.yml'
