@@ -32,7 +32,7 @@ class Deploykubernetes {
 
         def deployFileTemplate = String.format('''deployment/%s/%s/%s/deploy.yml''',  this.conf.getAttr('namespace'), this.conf.getAttr('branchName'), this.conf.appName)
         this.script.sh "test -e  Deploy-k8s.yml || cat ${deployFileTemplate}  | sed s#APOLLO_CONFIG_ADDRESS#${this.conf.getBuildImageAddress()}#g > Deploy-k8s.yml"
-        this.script.sh "cat ${deployFileTemplate}"
+        this.script.sh "cat Deploy-k8s.yml"
 
         this.script.sh 'kubectl apply -f Deploy-k8s.yml; rm -fr Deploy-k8s.yml'
     }
