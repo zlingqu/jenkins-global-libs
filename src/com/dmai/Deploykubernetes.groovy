@@ -30,7 +30,7 @@ class Deploykubernetes {
 
         // 如果 Deploy-k8s.yml 还不存在，说明，当前代码目录下没有文件，用deplayment下面的文件
 
-        def deployFileTemplate = String.format('''deployment/%s/%s/%s/deploy.yml''',  this.conf.getAttr('namespace'), this.conf.getAttr('branchName'), this.conf.appName)
+        def deployFileTemplate = String.format('''deployment/%s/%s/%s/deploy.yml''',  this.conf.getAttr('namespace'), this.conf.getAttr('deployEnv'), this.conf.appName)
         this.script.sh "test -e  Deploy-k8s.yml || cat ${deployFileTemplate}  | sed s#APOLLO_CONFIG_ADDRESS#${this.conf.getBuildImageAddress()}#g > Deploy-k8s.yml"
         this.script.sh "cat Deploy-k8s.yml"
 
