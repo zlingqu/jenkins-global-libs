@@ -94,6 +94,9 @@ class JenkinsRunTemplate {
 
         // set CUSTOM_DOCKERFILE_CONTENT
         this.conf.setAttr('customDockerfileContent', params.CUSTOM_DOCKERFILE_CONTENT)
+        // set IF_CHECK_PODS_STATUS
+
+        this.conf.setAttr('checkPodsStatus', params.IF_CHECK_PODS_STATUS)
     }
 
     public String getJenkinsRunTemplate(String deployMasterPassword, String deployEnvironment, params) {

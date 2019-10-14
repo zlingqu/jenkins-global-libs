@@ -99,6 +99,9 @@ def call(Map map, env) {
     // custom dockerfile content
     def customDockerfileContent = conf.getAttr('customDockerfileContent') ? conf.getAttr('customDockerfileContent') : ''
 
+    // if check pods service
+    def defaultCheckPodsStatus = true
+
     println('【开始进行构建】')
     pipeline {
 
@@ -160,6 +163,9 @@ def call(Map map, env) {
 
             // custom dockerfile content
             string(name: 'CUSTOM_DOCKERFILE_CONTENT', defaultValue: customDockerfileContent, description: '自定义的dockerfile内容')
+
+            // success deploy, check pods status
+            booleanParam(name: 'IF_CHECK_PODS_STATUS', defaultValue: defaultCheckPodsStatus, description: '是否在部署后检查pods的状态')
 
         }
 
@@ -417,7 +423,13 @@ def call(Map map, env) {
                 }
 
             stage('Check service') {
-                when { expression { return conf.getAttr('deploy') } }
+                when {
+                    allOf {
+                        expression { return conf.getAttr('deploy') };
+                        expression { return conf.getAttr('checkPodsStatus') }
+                    }
+                }
+//                when { expression { return conf.getAttr('deploy') } }
                 steps {
                     container('kubectl') {
                         script {
