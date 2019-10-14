@@ -55,7 +55,7 @@ class Conf implements Serializable{
     }
 
     public def getBuildImageAddress() {
-       return String.format('''%s/%s/%s:%s-%s''', this.dockerRegistryHost ,this.getAttr('namespace'),  this.appName, this.getAttr('branchName'), this.getAttr('buildNumber'))
+       return String.format('''%s/%s/%s:%s-%s''', this.dockerRegistryHost ,this.getAttr('namespace'),  this.appName, this.getAttr('deployEnv'), this.getAttr('buildNumber'))
     }
 
     public def setAttr(key, value) {
