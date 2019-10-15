@@ -2556,9 +2556,9 @@ class GlobalConfig implements Serializable {
                     'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/X3/X3-Content-Manager-Front.git',
-                    'compile': false, // 是否编译
+                    'compile': true, // 是否编译
                     'deploy': true, // 是否自动化部署
-                    'customDockerfile': true, // 是否使用自定义 dockerfile
+                    'customDockerfile': false, // 是否使用自定义 dockerfile
                     'buildArg' : true, //使用自定义dockerfile的时候，是否注入环境变量，VUE_APP_SCENE=xxxx，支持前端一个项目通过参数构建出不同的项目
                     'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
                     'useConfigMap': false, //是否使用configmap
