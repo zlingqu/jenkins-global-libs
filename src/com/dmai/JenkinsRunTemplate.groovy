@@ -94,8 +94,11 @@ class JenkinsRunTemplate {
 
         // set CUSTOM_DOCKERFILE_CONTENT
         this.conf.setAttr('customDockerfileContent', params.CUSTOM_DOCKERFILE_CONTENT)
-        // set IF_CHECK_PODS_STATUS
 
+        // if make images
+        this.conf.setAttr('makeImage', params.IF_MAKE_IMAGE)
+
+        // set IF_CHECK_PODS_STATUS
         this.conf.setAttr('checkPodsStatus', params.IF_CHECK_PODS_STATUS)
     }
 

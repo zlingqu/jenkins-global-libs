@@ -99,6 +99,9 @@ def call(Map map, env) {
     // custom dockerfile content
     def customDockerfileContent = conf.getAttr('customDockerfileContent') ? conf.getAttr('customDockerfileContent') : ''
 
+    // make images
+    def defaultMakeImage = conf.getAttr('makeImage') ? conf.getAttr('makeImage') : false
+
     // if check pods service
     def defaultCheckPodsStatus = true
 
@@ -163,6 +166,9 @@ def call(Map map, env) {
 
             // custom dockerfile content
             string(name: 'CUSTOM_DOCKERFILE_CONTENT', defaultValue: customDockerfileContent, description: '自定义的dockerfile内容')
+
+            // if make images
+            booleanParam(name: 'IF_MAKE_IMAGE', defaultValue: defaultMakeImage, description: '是否制作镜像')
 
             // success deploy, check pods status
             booleanParam(name: 'IF_CHECK_PODS_STATUS', defaultValue: defaultCheckPodsStatus, description: '是否在部署后检查pods的状态')
