@@ -249,7 +249,8 @@ spec:
 //    }
 
     private String templateJsCompilevolumeMounts() {
-        if (this.conf.getAttr('makeImage') && this.conf.getAttr('codeLanguage') in ['js', 'node']) {
+//        if (this.conf.getAttr('makeImage') && this.conf.getAttr('codeLanguage') in ['js', 'node']) {
+        if (this.conf.getAttr('codeLanguage') in ['js', 'node']) {
             return String.format('''
     volumeMounts:
     - name: jenkins-build-path
