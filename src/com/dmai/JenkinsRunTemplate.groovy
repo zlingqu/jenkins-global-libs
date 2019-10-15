@@ -95,6 +95,15 @@ class JenkinsRunTemplate {
         // set CUSTOM_DOCKERFILE_CONTENT
         this.conf.setAttr('customDockerfileContent', params.CUSTOM_DOCKERFILE_CONTENT)
 
+        // set SERVICE_TYPE
+        this.conf.setAttr('svcType', params.SERVICE_TYPE)
+
+        // set USE_SERVICE
+        this.conf.setAttr('useService', params.USE_SERVICE)
+
+        // set K8S_KIND
+        this.conf.setAttr('k8sKind', params.K8S_KIND)
+
         // if make images
         this.conf.setAttr('makeImage', params.IF_MAKE_IMAGE)
 
