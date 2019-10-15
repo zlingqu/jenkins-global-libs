@@ -2545,7 +2545,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'x3',
                     'nodePort': '30233',
                     'containerPort': '80',
-                    'domain': 'content-manger-front-x3.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
+                    'domain': 'content-manager-front-x3.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
 //                    'cpuRequests' : '200m',
 //                    'memoryRequests' : '400Mi',
 //                    'cpuLimits' : '400m',
