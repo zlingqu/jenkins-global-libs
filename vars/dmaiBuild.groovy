@@ -99,6 +99,17 @@ def call(Map map, env) {
     // custom dockerfile content
     def customDockerfileContent = conf.getAttr('customDockerfileContent') ? conf.getAttr('customDockerfileContent') : ''
 
+    // sevice type
+    def defaultServiceType = conf.getAttr('svcType') ? conf.getAttr('svcType') : 'ClusterIP'
+    def toDefaultServiceType = Tools.addItemToListHead(['ClusterIP', 'NodePort', 'None'], defaultEnvType)
+
+    // use service
+    def useService = conf.getAttr('useService') ? conf.getAttr('useService') : true
+
+    // k8sKind
+    def defaultK8sKind = conf.getAttr('k8sKind') ? conf.getAttr('k8sKind') :'deployment'
+    def toK8sKind = Tools.addItemToListHead(['Deployment', 'StatefulSet'], defaultK8sKind)
+
     // make images
     def defaultMakeImage = conf.getAttr('makeImage') ? conf.getAttr('makeImage') : false
 
@@ -166,6 +177,15 @@ def call(Map map, env) {
 
             // custom dockerfile content
             string(name: 'CUSTOM_DOCKERFILE_CONTENT', defaultValue: customDockerfileContent, description: '自定义的dockerfile内容')
+
+            // service type
+            choice(name: 'SERVICE_TYPE', choices: toDefaultServiceType, description: '项目默认使用的服务的类型')
+
+            // use service
+            booleanParam(name: 'USE_SERVICE', defaultValue: useService, description: '是否使用service')
+
+            // k8s kind
+            choice(name: 'K8S_KIND', choices: toK8sKind, description: 'k8s使用的kind的类型')
 
             // if make images
             booleanParam(name: 'IF_MAKE_IMAGE', defaultValue: defaultMakeImage, description: '是否制作镜像')
