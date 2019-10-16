@@ -1,7 +1,7 @@
 import com.dmai.Conf
 
 def call(Map map, env) {
-
+    if (!(env.BRANCH_NAME in ['master'])) return
     // 定义定义的全局的配置项目
     String appName = map.get('appName')
     Conf conf = new Conf(this, appName, map)
