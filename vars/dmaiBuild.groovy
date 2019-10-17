@@ -101,7 +101,7 @@ def call(Map map, env) {
 
     // sevice type
     def defaultServiceType = conf.getAttr('svcType') ? conf.getAttr('svcType') : 'ClusterIP'
-    def toDefaultServiceType = Tools.addItemToListHead(['ClusterIP', 'NodePort', 'None'], defaultEnvType)
+    def toDefaultServiceType = Tools.addItemToListHead(['ClusterIP', 'NodePort', 'None'], defaultServiceType)
 
     // use service
     def useService = conf.getAttr('useService') ? conf.getAttr('useService') : true
