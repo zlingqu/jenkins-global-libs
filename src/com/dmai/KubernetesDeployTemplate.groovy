@@ -26,6 +26,10 @@ class KubernetesDeployTemplate {
                 return this.svcTemplateClusterIP()
             case 'NodePort':
                 return this.svcTemplateNodePort()
+            case 'None':
+                return ''
+            default:
+                return this.svcTemplateClusterIP()
         }
     }
 
