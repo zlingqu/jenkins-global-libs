@@ -99,7 +99,7 @@ sonar检查结果：$sonarAddress
                 'buildResult'    : buildResult,
                 'gitAddress'     : this.conf.getAttr('gitAddress'),
                 'buildEnvInfo'   : this.buildEnvInfo(),
-                'buildTestInfo'  : this.buildTestInfo(),
+//                'buildTestInfo'  : this.buildTestInfo(),
                 'useSvcInfo'     : this.useSvcInfo(),
                 'sonarAddress'   : 'http://sonar.ops.dm-ai.cn/dashboard?id=' + this.conf.appName
         ]
@@ -121,10 +121,23 @@ sonar检查结果：$sonarAddress
     }
 
     private String buildEnvInfo() {
-        // 如果用户设置了域名地址
-        if (!(this.conf.getAttr('domain') in [null, ''])) {
-            return '构建完成, 用户访问地址：'  + this.getDomainTopString() + this.conf.getAttr('domain')
+        // 兼容新版的域名地址 launcher-management-x2.deploy-env.dm-ai.cn
+        if (this.conf.getAttr('domain') ) {
+            if (this.conf.getAttr('domain').indexOf('deploy-env')) {
+                if (this.conf.getAttr('deployEnv') == 'prd') {
+                    return '构建完成, 用户访问地址：' + this.conf.getAttr('domain').replaceAll('deploy-env.', '')
+                } else {
+                    return '构建完成, 用户访问地址：' + this.conf.getAttr('domain').replaceAll('deploy-env', this.conf.getAttr('deployEnv'))
+                }
+            } else {
+                return '构建完成, 用户访问地址：'  + this.getDomainTopString() + this.conf.getAttr('domain')
+            }
         }
+
+        // 如果用户设置了域名地址
+//        if (!(this.conf.getAttr('domain') in [null, ''])) {
+//            return '构建完成, 用户访问地址：'  + this.getDomainTopString() + this.conf.getAttr('domain')
+//        }
 
         if (this.conf.getAttr('useService') && this.conf.getAttr('svcType') == 'NodePort') {
             return '构建完成, 用户访问地址：' + this.getAppUrl()
