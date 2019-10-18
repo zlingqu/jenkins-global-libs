@@ -187,6 +187,8 @@ sonar检查结果：$sonarAddress
                 return 'http://192.168.3.21'
             case 'master':
                 return 'http://192.168.11.20'
+            case 'jenkins':
+                return 'http://192.168.69.32'
         }
     }
 }
