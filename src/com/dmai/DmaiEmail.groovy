@@ -122,15 +122,16 @@ sonar检查结果：$sonarAddress
     private String buildEnvInfo() {
         // 兼容新版的域名地址 launcher-management-x2.deploy-env.dm-ai.cn
         if (this.conf.getAttr('domain') ) {
-            if (this.conf.getAttr('domain').indexOf('deploy-env')) {
-                if (this.conf.getAttr('deployEnv') == 'prd') {
-                    return '构建完成, 用户访问地址：' + this.conf.getAttr('domain').replaceAll('deploy-env.', '')
-                } else {
-                    return '构建完成, 用户访问地址：' + this.conf.getAttr('domain').replaceAll('deploy-env', this.conf.getAttr('deployEnv'))
-                }
-            } else {
-                return '构建完成, 用户访问地址：'  + this.getDomainTopString() + this.conf.getAttr('domain')
-            }
+            return '构建完成, 用户访问地址：' + 'http://' + this.conf.getDomain()
+//            if (this.conf.getAttr('domain').indexOf('deploy-env')) {
+//                if (this.conf.getAttr('deployEnv') == 'prd') {
+//                    return '构建完成, 用户访问地址：' + this.conf.getAttr('domain').replaceAll('deploy-env.', '')
+//                } else {
+//                    return '构建完成, 用户访问地址：' + this.conf.getAttr('domain').replaceAll('deploy-env', this.conf.getAttr('deployEnv'))
+//                }
+//            } else {
+//                return '构建完成, 用户访问地址：'  + this.getDomainTopString() + this.conf.getAttr('domain')
+//            }
         }
 
         // 如果用户设置了域名地址
@@ -139,7 +140,7 @@ sonar检查结果：$sonarAddress
 //        }
 
         if (this.conf.getAttr('useService') && this.conf.getAttr('svcType') == 'NodePort') {
-            return '构建完成, 用户访问地址：' + this.getAppUrl()
+            return '构建完成, 用户访问地址：' + this.conf.getAppUrl()
         }
 
         return ''
@@ -172,35 +173,35 @@ sonar检查结果：$sonarAddress
         return '用户未部署测试分支'
     }
 
-    private String getAppUrl() {
-        switch (this.conf.getAttr('svcType')) {
-            case 'ClusterIP':
-                return '用户使用的svc模式为ClusterIP,外部无法直接访问。'
-            case 'NodePort':
-                return this.nodePortAddress() + ':' + this.conf.getAttr('nodePort')
-        }
-    }
-
-    private String nodePortAddress() {
-        switch (this.conf.getAttr('branchName')) {
-            case 'master':
-                return 'http://192.168.11.20'
-            case 'dev':
-                return this.getDevUrl()
-        }
-    }
-
-//    根据dev标签来判断用户的dev分支部署在那个环境
-    private String getDevUrl() {
-        switch (this.conf.getAttr('deployEnv')) {
-            case 'test':
-                return 'http://192.168.3.140'
-            case 'dev':
-                return 'http://192.168.3.21'
-            case 'master':
-                return 'http://192.168.11.20'
-            case 'jenkins':
-                return 'http://192.168.69.32'
-        }
-    }
+//    private String getAppUrl() {
+//        switch (this.conf.getAttr('svcType')) {
+//            case 'ClusterIP':
+//                return '用户使用的svc模式为ClusterIP,外部无法直接访问。'
+//            case 'NodePort':
+//                return this.nodePortAddress() + ':' + this.conf.getAttr('nodePort')
+//        }
+//    }
+//
+//    private String nodePortAddress() {
+//        switch (this.conf.getAttr('branchName')) {
+//            case 'master':
+//                return 'http://192.168.11.20'
+//            case 'dev':
+//                return this.getDevUrl()
+//        }
+//    }
+//
+////    根据dev标签来判断用户的dev分支部署在那个环境
+//    private String getDevUrl() {
+//        switch (this.conf.getAttr('deployEnv')) {
+//            case 'test':
+//                return 'http://192.168.3.140'
+//            case 'dev':
+//                return 'http://192.168.3.21'
+//            case 'master':
+//                return 'http://192.168.11.20'
+//            case 'jenkins':
+//                return 'http://192.168.69.32'
+//        }
+//    }
 }
