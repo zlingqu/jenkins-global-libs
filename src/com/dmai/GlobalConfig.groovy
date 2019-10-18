@@ -2022,7 +2022,7 @@ class GlobalConfig implements Serializable {
                     'servicePort' : '80',
                     'namespace': 'x2-ta',
                     'containerPort': '8888',
-//                    'domain': 'prepare-server-x2.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
+                    'domain': 'launcher-management-x2.deploy-env.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
 //                    'cpuRequests' : '1000m',
 //                    'memoryRequests' : '2000Mi',
                     'cpuLimits' : '500m',
