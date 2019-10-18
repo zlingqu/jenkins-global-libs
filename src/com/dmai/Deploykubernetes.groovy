@@ -102,7 +102,7 @@ metadata:
     kubernetes.io/ingress.class: traefik
 spec:
   rules:
-  - host: %s%s
+  - host: %s
     http:
       paths:
       - backend:
@@ -113,7 +113,6 @@ spec:
                 this.conf.getAttr('namespace'),
 //                this.conf.getAttr('branchName') == 'master' ? '' : this.conf.getAttr('deployEnv') + '.',
                 this.conf.getDomain(),
-                this.conf.getAttr('domain'),
                 this.conf.appName)
     }
 }
