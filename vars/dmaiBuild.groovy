@@ -64,7 +64,7 @@ def call(Map map, env) {
     def deployEnv =  Tools.addItemToListHead(['prd', 'dev', 'test', 'stage', 'jenkins'], conf.getDeployEnv())
 
     //
-    def topEnvType = Tools.addItemToListHead(['cpu','gpu', 'all'], defaultEnvType)
+    def topEnvType = Tools.addItemToListHead(['cpu','gpu', 'arm', 'all'], defaultEnvType)
 
     // namespace
     def defaultNamespace = conf.getAttr('namespace') ? conf.getAttr('namespace') : 'test'
