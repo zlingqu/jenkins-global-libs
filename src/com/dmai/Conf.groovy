@@ -89,6 +89,60 @@ class Conf implements Serializable{
         }
     }
 
+    public def getDomain() {
+        String cfgDomain = this.getAttr('domain')
+        String userRequestAddress = ''
+        String deployEnv = this.getAttr('deployEnv')
+        if (cfgDomain) {
+            if (cfgDomain.indexOf('deploy-env')) {
+                if (this.getAttr('deployEnv') == 'prd') {
+                    userRequestAddress = cfgDomain.replaceAll('deploy-env.', '')
+                } else {
+                    userRequestAddress = cfgDomain.replaceAll('deploy-env', deployEnv)
+                }
+            } else {
+                if (this.getAttr('deployEnv') == 'prd') {
+                    userRequestAddress = cfgDomain
+                } else {
+                    userRequestAddress = deployEnv + '.' + cfgDomain
+                }
+            }
+        }
+        return userRequestAddress
+    }
+
+    public String getAppUrl() {
+        switch (this.getAttr('svcType')) {
+            case 'ClusterIP':
+                return '用户使用的svc模式为ClusterIP,外部无法直接访问。'
+            case 'NodePort':
+                return this.nodePortAddress() + ':' + this.getAttr('nodePort')
+        }
+    }
+
+    private String nodePortAddress() {
+        switch (this.getAttr('branchName')) {
+            case 'master':
+                return 'http://192.168.11.20'
+            case 'dev':
+                return this.getDevUrl()
+        }
+    }
+
+//    根据dev标签来判断用户的dev分支部署在那个环境
+    private String getDevUrl() {
+        switch (this.getAttr('deployEnv')) {
+            case 'test':
+                return 'http://192.168.3.140'
+            case 'dev':
+                return 'http://192.168.3.21'
+            case 'master':
+                return 'http://192.168.11.20'
+            case 'jenkins':
+                return 'http://192.168.69.32'
+        }
+    }
+
     // print appConf
     public def printAppConf() {
         String printString = ''
