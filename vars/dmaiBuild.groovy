@@ -61,7 +61,7 @@ def call(Map map, env) {
     if (conf.appName == 'work-attendance' && conf.getAttr('branchName') != 'master') return
 
     //
-    def deployEnv =  Tools.addItemToListHead(['prd', 'dev', 'test', 'stage'], conf.getDeployEnv())
+    def deployEnv =  Tools.addItemToListHead(['prd', 'dev', 'test', 'stage', 'jenkins'], conf.getDeployEnv())
 
     //
     def topEnvType = Tools.addItemToListHead(['cpu','gpu', 'all'], defaultEnvType)
