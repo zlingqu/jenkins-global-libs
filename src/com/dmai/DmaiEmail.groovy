@@ -88,7 +88,6 @@ Jenkins构建地址： $jenkinsAddress/blue/organizations/jenkins/$jobName/detai
 Git地址：$gitAddress
 $useSvcInfo
 $buildEnvInfo
-$buildTestInfo
 sonar检查结果：$sonarAddress
 '''
         def bind = [
