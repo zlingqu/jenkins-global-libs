@@ -27,3 +27,9 @@ File file0 = new File('1/Users/zuoshenglo/goland-workspace/src/devops-dm-ai/depl
 if(file0.exists()) {
     println("bucunzai")
 }
+
+if ('x2.dm-ai.cn'.indexOf('deploy-env')) {
+    println(1111)
+}
+
+println('x2.dm-ai.cn111111'.indexOf('deploy-env'))

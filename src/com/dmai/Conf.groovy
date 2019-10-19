@@ -94,7 +94,7 @@ class Conf implements Serializable{
         String userRequestAddress = ''
         String deployEnv = this.getAttr('deployEnv')
         if (cfgDomain) {
-            if (cfgDomain.indexOf('deploy-env')) {
+            if (cfgDomain.indexOf('deploy-env') != -1) {
                 if (this.getAttr('deployEnv') == 'prd') {
                     userRequestAddress = cfgDomain.replaceAll('deploy-env.', '')
                 } else {
