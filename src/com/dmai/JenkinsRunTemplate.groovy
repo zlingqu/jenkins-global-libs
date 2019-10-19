@@ -63,10 +63,6 @@ class JenkinsRunTemplate {
 
         // set name spaces
         this.conf.setAttr('namespace', params.NAMESPACE)
-        // 针对特殊情况
-        if (this.conf.getAttr('namespace') in ['xmc2-lexue', 'xmc2-chongwen']) {
-            this.conf.setAttr('svcType', 'ClusterIP')
-        }
 
         // set git address
         this.conf.setAttr('gitAddress', params.GIT_ADDRESS)
@@ -114,6 +110,11 @@ class JenkinsRunTemplate {
 
         // set IF_CHECK_PODS_STATUS
         this.conf.setAttr('checkPodsStatus', params.IF_CHECK_PODS_STATUS)
+
+        // 针对特殊情况
+        if (this.conf.getAttr('namespace') in ['xmc2-lexue', 'xmc2-chongwen']) {
+            this.conf.setAttr('svcType', 'ClusterIP')
+        }
     }
 
     public String getJenkinsRunTemplate(String deployMasterPassword, String deployEnvironment, params) {
