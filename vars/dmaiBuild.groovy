@@ -474,6 +474,7 @@ def call(Map map, env) {
             stage('Install nyc') {
                 when {
                     allOf {
+                        expression { return conf.getAttr('deploy') };
                         expression { return conf.getAttr('branchName') == 'dev' };
                         expression { return  conf.getAttr('codeLanguage') in  ['js', 'node']};
                         expression { return  conf.getAttr('sonarCheck') };
@@ -497,6 +498,7 @@ def call(Map map, env) {
             stage('sonar-check') {
                 when {
                     allOf {
+                        expression { return conf.getAttr('deploy') };
                         expression { return conf.getAttr('branchName') == 'dev' };
                         expression { return conf.getAttr('codeLanguage') in  ['js', 'node'] };
                         expression { return conf.getAttr('sonarCheck') };
