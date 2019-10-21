@@ -189,7 +189,7 @@ spec:
         if (! this.conf.getAttr('makeImage')) return ''
         return String.format('''
   - name: docker-compose
-    image: docker.dm-ai.cn/devops/base-image-docker-compose:0.05
+    image: docker.dm-ai.cn/devops/base-image-docker-compose:%s0.05
     imagePullPolicy: IfNotPresent
     env:
     - name: VUE_APP_SCENE
@@ -205,7 +205,7 @@ spec:
     args:
     - "3600"
     tty: true
-''', this.conf.vueAppScene, this.useModelPath())
+''', this.conf.getAttr('deployEnv') == 'arm' ? 'arm' : '', this.conf.vueAppScene, this.useModelPath())
     }
 
     private String useModelPath() {
