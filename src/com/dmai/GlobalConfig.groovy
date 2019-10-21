@@ -2048,7 +2048,7 @@ class GlobalConfig implements Serializable {
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'useEnvFile'  : true, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
             ],
-            'x3-frontend': [
+            'x3-web': [
                     'servicePort' : '80',
                     'namespace': 'x3',
                     'containerPort': '80',
