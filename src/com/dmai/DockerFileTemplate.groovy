@@ -61,7 +61,7 @@ ENTRYPOINT nginx -g "daemon off;"
     }
 
     private String getNodeDockerfile() {
-        if (this.conf.getAttr('envtype') == 'arm') {
+        if (this.conf.getAttr('envType') == 'arm') {
             return '''
 FROM docker.dm-ai.cn/arm64/node:10.16.3-slim-tx2
 WORKDIR /app
