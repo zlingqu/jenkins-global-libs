@@ -126,8 +126,8 @@ def call(Map map, env) {
             string(name: 'GPU_CARD_COUNT', defaultValue: defaultGpuLimits, description: '使用gpu卡的时候，在k8s集群中，一个pods使用的gpu卡的限制。')
 
             string(name: 'GIT_VERSION', defaultValue: 'last', description: 'git的commit 版本号，git log 查看。')
-            string(name: 'VUE_APP_SCHOOL', defaultValue: 'S00001', description: '学校的Code，xmc2-frontend项目使用，其他不关注,s小写    ')
-            choice(name: 'VUE_APP_SCENE', choices: ['agency', 'school'], description: 'xmc2-frontend项目使用，其他不关注')
+            choice(name: 'VUE_APP_SCHOOL', choices: ['chongwen', 'S00001'], description: '学校的Code，xmc2-frontend项目使用，其他不关注,s小写    ')
+            choice(name: 'VUE_APP_SCENE', choices: ['school', 'agency'], description: 'xmc2-frontend项目使用，其他不关注')
             choice(name: 'NODE_ENV', choices: ['dev', 'prod', 'test', 'stage'], description: '前端专用，其他不关注')
 
             string(name: 'DEPLOY_MASTER_PASSWORD', defaultValue: 'please-input-password', description: '部署master分支请找运维人员输入密码自动部署')
