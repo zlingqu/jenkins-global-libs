@@ -121,6 +121,11 @@ class JenkinsRunTemplate {
         if (this.conf.getAttr('namespace') in ['xmc2-lexue', 'xmc2-chongwen']) {
             this.conf.setAttr('svcType', 'ClusterIP')
         }
+
+        // 特殊设置默认的useEnvFile
+        if (this.conf.getAttr('useConfigMap') && ! this.conf.getAttr('configMapName')) {
+            this.conf.setAttr('useEnvFile', true)
+        }
     }
 
     public String getJenkinsRunTemplate(String deployMasterPassword, String deployEnvironment, params) {
