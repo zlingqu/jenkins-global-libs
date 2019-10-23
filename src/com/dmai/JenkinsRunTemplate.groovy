@@ -111,6 +111,12 @@ class JenkinsRunTemplate {
         // set IF_CHECK_PODS_STATUS
         this.conf.setAttr('checkPodsStatus', params.IF_CHECK_PODS_STATUS)
 
+        // set USE_MODEL
+        this.conf.setAttr('useModel', params.USE_MODEL)
+
+        // set USE_CONFIGMAP
+        this.conf.setAttr('useConfigMap', params.USE_CONFIGMAP)
+
         // 针对特殊情况
         if (this.conf.getAttr('namespace') in ['xmc2-lexue', 'xmc2-chongwen']) {
             this.conf.setAttr('svcType', 'ClusterIP')
