@@ -113,6 +113,13 @@ def call(Map map, env) {
     // make images
     def defaultMakeImage = conf.getAttr('makeImage') ? conf.getAttr('makeImage') : false
 
+    // 是否使用模型
+    def defaultUseModel = conf.getAttr('useModel') ? conf.getAttr('useModel') :
+            false
+
+    // 是否使用configmap注入环境变量
+    def defaultUseConfigmap = conf.getAttr('useConfigMap') ? conf.getAttr('useConfigMap') : false
+
     // if check pods service
     def defaultCheckPodsStatus = true
 
@@ -190,14 +197,20 @@ def call(Map map, env) {
             // if make images
             booleanParam(name: 'IF_MAKE_IMAGE', defaultValue: defaultMakeImage, description: '是否制作镜像')
 
+            // defaultUseModel
+            booleanParam(name: 'USE_MODEL', defaultValue: defaultUseModel, description: '是否使用模型文件')
+
+            //
+            booleanParam(name: 'USE_CONFIGMAP', defaultValue: defaultUseConfigmap, description: '是否使用configmap注入环境变量')
+
             // success deploy, check pods status
             booleanParam(name: 'IF_CHECK_PODS_STATUS', defaultValue: defaultCheckPodsStatus, description: '是否在部署后检查pods的状态')
 
         }
 
-//        triggers {
-//            cron('H/30 * * * *')
-//        }
+        triggers {
+            pollSCM('H/30 * * * *')
+        }
 
         // 转化为可用的环境变量
         environment {
