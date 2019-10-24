@@ -353,8 +353,8 @@ spec:
 
 
     private templateDockerKubectlTest() {
-        if (this.conf.getAttr('test')) {
-            return '''
+//        if (this.conf.getAttr('test')) {
+        return '''
   - name: kubectl-test 
     image: docker.dm-ai.cn/devops/base-image-kubectl:test-0.04
     imagePullPolicy: IfNotPresent
@@ -367,8 +367,8 @@ spec:
     - "3600"
     tty: true
 '''
-        }
-        return ''
+//        }
+//        return ''
     }
 
     private customImage() {
