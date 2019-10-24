@@ -208,9 +208,9 @@ def call(Map map, env) {
 
         }
 
-        triggers {
-            pollSCM('H/30 * * * *')
-        }
+//        triggers {
+//            pollSCM('H/30 * * * *')
+//        }
 
         // 转化为可用的环境变量
         environment {
