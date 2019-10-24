@@ -30,6 +30,7 @@ class DockerFileTemplate {
     private String getCppDockerfile() {
         return '''
 FROM docker.dm-ai.cn/devops/media-access:r.13
+ENV TZ=Asia/Shanghai
 ADD . /src
 CMD '/src/run.sh'
 '''
