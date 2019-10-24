@@ -104,13 +104,13 @@ spec:
       containers:
       - name: deployment-jenkins-server  #容器的名字
         image: jenkins/jenkins:2.176 #容器使用的镜像地址
-#        resources:
-#          limits:
-#            memory: 6000Mi
-#            cpu: 3000m
-#          requests:
-#            cpu: 3000m
-#            memory: 6000Mi
+        resources:
+          limits:
+            memory: 13000Mi
+            cpu: 6000m
+          requests:
+            cpu: 5000m
+            memory: 12000Mi
         imagePullPolicy: Always # 默认值,总是拉取 pull
 #        imagePullPolicy: Never # 只使用本地镜像，从不拉取
 #        imagePullPolicy: IfNotPresent # 本地有则使用本地镜像,不拉取
@@ -121,7 +121,7 @@ spec:
         - name: TZ
           value: Asia/Shanghai
         - name: JAVA_OPTS
-          value: "-server -Xms6000m -Xmx8120m"
+          value: "-server -Xms9g -Xmx11g -XX:PermSize=2048m -XX:MaxNewSize=3072m -XX:MaxPermSize=2048m"
         ports:
         - containerPort: 8080 #容器开发对外的端口
         - containerPort: 30500 #容器开发对外的端口, 修改默认的端口为30500
