@@ -3204,10 +3204,10 @@ class GlobalConfig implements Serializable {
                     'nodePort' : '30410',
                     'containerPort': '5000',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-//                    'cpuRequests' : '1000m',
-//                    'memoryRequests' : '2000Mi',
-//                    'cpuLimits' : '1500m',
-//                    'memoryLimits' : '3000Mi',
+                    'cpuRequests' : '1500m',
+                    'memoryRequests' : '6500Mi',
+                    'cpuLimits' : '2000m',
+                    'memoryLimits' : '8000Mi',
                     'replicas' : 1,
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
@@ -3224,8 +3224,8 @@ class GlobalConfig implements Serializable {
                     'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
-                    'useStore': true, // 是否使用存储资源。
-                    'storePath' : '/app/models',
+//                    'useStore': true, // 是否使用存储资源。
+//                    'storePath' : '/app/models',
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'useEnvFile'  : true, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。

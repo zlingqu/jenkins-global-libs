@@ -360,7 +360,7 @@ def call(Map map, env) {
                         script {
                             try {
                                 withCredentials([usernamePassword(credentialsId: 'dev-admin-model', passwordVariable: 'password', usernameVariable: 'username')]) {
-                                    sh 'source /etc/profile; git config --global http.sslVerify false ; git clone http://$username:$password@' + conf.getAttr("modelGitAddress").replace("http://", "") + ' model'
+                                    sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + conf.getAttr("modelGitAddress").replace("https://", 'https://$username:$password@') + ' model'
                                 }
                             } catch (e) {
                                 sh "echo ${e}"
