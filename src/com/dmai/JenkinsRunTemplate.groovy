@@ -117,7 +117,13 @@ class JenkinsRunTemplate {
         // set USE_CONFIGMAP
         this.conf.setAttr('useConfigMap', params.USE_CONFIGMAP)
 
-        // 针对特殊情况
+        // set IF_STORAGE_LOCALE
+        this.conf.setAttr('useStore', params.IF_STORAGE_LOCALE)
+
+        // set STORAGE_PATH
+        this.conf.setAttr('storePath', params.STORAGE_PATH)
+
+        // ///////////// 针对特殊情况
         if (this.conf.getAttr('namespace') in ['xmc2-lexue', 'xmc2-chongwen']) {
             this.conf.setAttr('svcType', 'ClusterIP')
         }
