@@ -362,6 +362,7 @@ def call(Map map, env) {
                                 withCredentials([usernamePassword(credentialsId: 'dev-admin-model', passwordVariable: 'password', usernameVariable: 'username')]) {
                                     sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + conf.getAttr("modelGitAddress").replace("https://", 'https://$username:$password@') + ' model'
                                 }
+                                sh 'rm -fr model/.git'
                             } catch (e) {
                                 sh "echo ${e}"
                             }
