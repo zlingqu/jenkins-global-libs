@@ -50,7 +50,7 @@ class Compile {
                     this.script.sh "make"
                     return
                 case 'java':
-                    this.script.sh "mvn package -Dmaven.test.skip=true -P dm-boot"
+                    this.script.sh "mvn package -Dmaven.test.skip=true"
                     return
                 case 'android':
                     this.script.sh "bash -x compile.sh  " + "${this.conf.getAttr('compileParam')}"
