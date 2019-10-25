@@ -128,6 +128,10 @@ class JenkinsRunTemplate {
             this.conf.setAttr('svcType', 'ClusterIP')
         }
 
+        if (this.conf.getAttr('useModel') && ! this.conf.getAttr('modelPath')) {
+            this.conf.setAttr('modelPath', 'app/data')
+        }
+
         // 特殊设置默认的useEnvFile
         if (this.conf.getAttr('useConfigMap') && ! this.conf.getAttr('configMapName')) {
             this.conf.setAttr('useEnvFile', true)
