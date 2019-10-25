@@ -80,7 +80,7 @@ class DmaiEmail {
 
     private String emailBody(String buildResult) {
         def text = '''Jenkins构建信息
-构建项目：$jobName
+构建项目：$appName
 特别说明：目前发布平台在建设中，master分支要上线到生产环境，请找运维人员(输密码)，手动上线，避免出现问题，master分支的自动上线已关闭, 自动上线默认失败！
 构建结果：$buildResult
 Jenkins构建地址： $jenkinsAddress/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline
@@ -91,8 +91,9 @@ $buildEnvInfo
 sonar检查结果：$sonarAddress
 '''
         def bind = [
+                'appName'        : this.conf.appName,
                 'jenkinsAddress' : this.conf.jenkinsAddress,
-                'jobName'        : this.conf.appName,
+                'jobName'        : this.conf.getAttr('jobName'),
                 'branchName'     : this.conf.getAttr('branchName'),
                 'buildNumber'    : this.conf.getAttr('buildNumber'),
                 'buildResult'    : buildResult,
