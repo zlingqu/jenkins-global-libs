@@ -3102,10 +3102,10 @@ class GlobalConfig implements Serializable {
                     'nodePort' : '30410',
                     'containerPort': '5000',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-                    'cpuRequests' : '1000m',
-                    'memoryRequests' : '2000Mi',
-                    'cpuLimits' : '1500m',
-                    'memoryLimits' : '3000Mi',
+//                    'cpuRequests' : '1000m',
+//                    'memoryRequests' : '2000Mi',
+//                    'cpuLimits' : '1500m',
+//                    'memoryLimits' : '3000Mi',
                     'replicas' : 1,
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
