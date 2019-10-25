@@ -92,7 +92,7 @@ sonar检查结果：$sonarAddress
 '''
         def bind = [
                 'jenkinsAddress' : this.conf.jenkinsAddress,
-                'jobName'        : this.conf.getAttr('jobName'),
+                'jobName'        : this.conf.appName,
                 'branchName'     : this.conf.getAttr('branchName'),
                 'buildNumber'    : this.conf.getAttr('buildNumber'),
                 'buildResult'    : buildResult,
