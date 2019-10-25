@@ -120,6 +120,12 @@ def call(Map map, env) {
     // 是否使用configmap注入环境变量
     def defaultUseConfigmap = conf.getAttr('useConfigMap') ? conf.getAttr('useConfigMap') : false
 
+    // 是否有存储需求
+    def defaultUseStore = conf.getAttr('useStore') ? conf.getAttr('useStore') : false
+
+    // 存储路径
+    def defaultStorePath = conf.getAttr('storePath') ? conf.getAttr('storePath') : '/data'
+
     // if check pods service
     def defaultCheckPodsStatus = true
 
@@ -202,6 +208,12 @@ def call(Map map, env) {
 
             //
             booleanParam(name: 'USE_CONFIGMAP', defaultValue: defaultUseConfigmap, description: '是否使用configmap注入环境变量')
+
+            //
+            booleanParam(name: 'IF_STORAGE_LOCALE', defaultValue: defaultUseStore, description: '是否使用本地存储')
+
+            //
+            string(name: 'STORAGE_PATH', defaultValue: defaultStorePath, description: '使用的本地存储路径')
 
             // success deploy, check pods status
             booleanParam(name: 'IF_CHECK_PODS_STATUS', defaultValue: defaultCheckPodsStatus, description: '是否在部署后检查pods的状态')
