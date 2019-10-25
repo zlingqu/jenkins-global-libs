@@ -1541,7 +1541,7 @@ class GlobalConfig implements Serializable {
             ],
             'tk-engine-image-process': [
                     'servicePort' : '80',
-                    'namespace': 'xmc2-tk',
+                    'namespace': 'xmc-tk',
 //                    'nodePort' : '31165',
                     'containerPort': '3000',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
@@ -1575,7 +1575,7 @@ class GlobalConfig implements Serializable {
             ],
             'tk-engine-image-process-student': [
                     'servicePort' : '80',
-                    'namespace': 'xmc2-tk',
+                    'namespace': 'xmc-tk',
 //                    'nodePort' : '31165',
                     'containerPort': '3000',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
@@ -1609,7 +1609,7 @@ class GlobalConfig implements Serializable {
             ],
             'tk-engine-image-process-teacher': [
                     'servicePort' : '80',
-                    'namespace': 'xmc2-tk',
+                    'namespace': 'xmc-tk',
 //                    'nodePort' : '31165',
                     'containerPort': '3000',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
