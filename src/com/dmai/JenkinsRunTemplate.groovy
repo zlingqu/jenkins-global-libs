@@ -398,6 +398,23 @@ spec:
 
 
     private String templateDockerCompile() {
+        if (this.conf.appName == 'aia-webrtc-stream') {
+            return String.format('''
+  - name: compile
+    image: docker.dm-ai.cn/public/centos-node:v1.0
+    imagePullPolicy: IfNotPresent
+    env: #指定容器中的环境变量
+    - name: DMAI_PRIVATE_DOCKER_REGISTRY
+      value: docker.dm-ai.cn
+%s
+    command:
+    - "sleep"
+    args:
+    - "3600"
+    tty: true
+''', this.templateJsCompilevolumeMounts())
+        }
+
         if (this.conf.getAttr('codeLanguage') == 'node' && this.conf.getAttr('envType') == 'arm') {
             return String.format('''
   - name: compile
