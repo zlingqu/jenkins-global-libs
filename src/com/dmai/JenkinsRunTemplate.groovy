@@ -299,7 +299,7 @@ spec:
     private String templateDockerKubectl() {
         if (this.conf.getAttr('branchName') == 'master' && this.deployMasterPassword != 'dmai2019999') return ''
 
-        if (this.conf.getAttr('deploy')) {
+//        if (this.conf.getAttr('deploy')) {
             return  String.format('''
   - name: kubectl 
     image: docker.dm-ai.cn/devops/base-image-kubectl:%s-0.04
@@ -313,9 +313,9 @@ spec:
     - "3600"
     tty: true
 ''', this.conf.getAttr('deployEnv'))
-        } else {
-            return ''
-        }
+//        } else {
+//            return ''
+//        }
     }
 
     private String templateSonarCheck() {
