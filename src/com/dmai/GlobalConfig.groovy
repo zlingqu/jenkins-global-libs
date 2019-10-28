@@ -1600,7 +1600,7 @@ class GlobalConfig implements Serializable {
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'useStore': false, // 是否使用存储资源。
                     'storePath' : '',
-                    'useService': true, // 是否使用service
+                    'useService': false, // 是否使用service
                     'useEnvFile'  : false, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'envType'     : 'cpu', //分为gpu 和非gpu的环境
