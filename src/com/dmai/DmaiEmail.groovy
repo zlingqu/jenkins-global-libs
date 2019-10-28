@@ -62,6 +62,11 @@ class DmaiEmail {
 
     public sendEmail(String buildResult) {
         //
+        if (this.conf.getAttr('gitVersion') == 'update') {
+            return
+        }
+
+
         this.writeBuildResultToAdp(buildResult)
 
         // 构建结果的中文提示：

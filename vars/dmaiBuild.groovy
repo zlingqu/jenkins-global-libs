@@ -262,6 +262,11 @@ def call(Map map, env) {
                             throw "master分支请运维人员触发！"
                         }
 
+                        if (conf.getAttr('gitVersion') == 'update') {
+                            println("配置更新")
+                            throw "配置更新"
+                        }
+
                         // print all data
                         println(conf.printAppConf())
 
