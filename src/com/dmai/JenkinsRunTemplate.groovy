@@ -123,6 +123,9 @@ class JenkinsRunTemplate {
         // set STORAGE_PATH
         this.conf.setAttr('storePath', params.STORAGE_PATH)
 
+        // GIT_VERSION
+        this.conf.setAttr('gitVersion', params.GIT_VERSION)
+
         // ///////////// 针对特殊情况
         if (this.conf.getAttr('namespace') in ['xmc2-lexue', 'xmc2-chongwen']) {
             this.conf.setAttr('svcType', 'ClusterIP')
