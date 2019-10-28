@@ -1574,8 +1574,8 @@ class GlobalConfig implements Serializable {
             'tk-metrics': [
                     'servicePort' : '80',
                     'namespace': 'xmc-tk',
-                    'nodePort' : '30220',
-                    'containerPort': '3000',
+                    'nodePort' : '',
+                    'containerPort': '',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '200m',
                     'memoryRequests' : '200Mi',
@@ -1599,7 +1599,7 @@ class GlobalConfig implements Serializable {
                     'storage': false,  //是否需要挂载存储
                     'useStore': false, // 是否使用存储资源。
                     'storePath' : '/data',
-                    'useService': true, // 是否使用service
+                    'useService': false, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'sonarCheck'  : true
             ],
