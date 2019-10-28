@@ -55,7 +55,7 @@ def call(Map map, env) {
     def defaultMemoryLimits = conf.getAttr('memoryLimits') ? conf.getAttr('memoryLimits') : ''
 
     //
-    if (conf.getAttr('branchName') == 'master' && conf.getAttr('master') !='prd') return
+//    if (conf.getAttr('branchName') == 'master' && conf.getAttr('master') !='prd') return
 
     //
     if (conf.appName == 'work-attendance' && conf.getAttr('branchName') != 'master') return
@@ -258,7 +258,7 @@ def call(Map map, env) {
 //                        echo currentBuild.projectName
 //                        echo currentBuild.fullProjectName
 
-                        if (conf.getAttr('branchName') == 'master' && deployMasterPassword != 'dmai2019999') {
+                        if (conf.getAttr('deployEnv') == 'prd' && deployMasterPassword != 'dmai2019999') {
                             throw "master分支请运维人员触发！"
                         }
 
