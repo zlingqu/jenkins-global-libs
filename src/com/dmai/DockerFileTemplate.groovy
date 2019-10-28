@@ -24,6 +24,8 @@ class DockerFileTemplate {
                 return this.getCppDockerfile()
             case 'nginx':
                 return  this.getNginxDockerfile()
+            case 'java':
+                return  this.getJavaDockerfiel()
         }
     }
 
@@ -33,6 +35,17 @@ FROM docker.dm-ai.cn/devops/media-access:r.13
 ENV TZ=Asia/Shanghai
 ADD . /src
 CMD '/src/run.sh'
+'''
+    }
+
+    private  String getJavaDockerfiel() {
+        return '''
+FROM docker.dm-ai.cn/devops/base-image-java8:0.0.1
+ENV TZ=Asia/Shanghai
+WORKDIR /app
+ADD ./deploy /app
+EXPOSE 3000
+ENTRYPOINT ["bash", "./start.sh"]
 '''
     }
 
