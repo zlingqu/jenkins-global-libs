@@ -1582,26 +1582,26 @@ class GlobalConfig implements Serializable {
 //                    'cpuLimits' : '12000m',
 //                    'memoryLimits' : '16000Mi',
 //                    'gpuLimits' : 1, //一个副本使用几张gpu的卡。
-                    'replicas' : 2,
+                    'replicas' : 1,
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc-tk/xmc-engine-audio-process.git',
-                    'useModel': true,
-                    'modelPath': 'app/data', //模型文件path, 在构建的时候相对于当前的代码的主目录
+                    'useModel': false,
+                    'modelPath': '', //模型文件path, 在构建的时候相对于当前的代码的主目录
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': true, // 是否使用自定义 dockerfile
                     'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
                     'useConfigMap': true, //是否使用configmap
-                    'configMapName': 'config.yaml', //是否使用configmap
+                    'configMapName': '', //是否使用configmap
                     'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'useStore': false, // 是否使用存储资源。
-                    'storePath' : '/app/data',
+                    'storePath' : '',
                     'useService': true, // 是否使用service
-                    'useEnvFile'  : true, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
+                    'useEnvFile'  : false, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'envType'     : 'cpu', //分为gpu 和非gpu的环境
                     'sonarCheck'  : true
