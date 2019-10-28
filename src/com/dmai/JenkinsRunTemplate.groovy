@@ -13,9 +13,9 @@ class JenkinsRunTemplate {
 
     private void setConfInitPara(params) {
         // 自定义appName
-        if (this.conf.appName == 'xmc-xc-model-serving') {
+        if (this.conf.appName in  ['xmc-xc-model-serving', 'tk-engine-image-process']) {
             this.conf.setAppName(params.APP_NAME)
-            if (this.conf.appName == 'xmc-xc-model-serving') {
+            if (this.conf.appName in  ['xmc-xc-model-serving', 'tk-engine-image-process']) {
                 throw "请修改APP_NAME"
             }
             this.conf.setUserAttr(new GlobalConfig().globalConfig.get(this.conf.appName))
