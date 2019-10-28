@@ -55,7 +55,7 @@ class Compile {
                         this.script.sh "mvn package -Dmaven.test.skip=true"
                         return
                     }
-                    this.script.sh "mvn dm:package"
+                    this.script.sh "mvn dm:package -Ddeploy.env=${this.conf.getAttr('deployEnv')}"
                     return
                 case 'android':
                     this.script.sh "bash -x compile.sh  " + "${this.conf.getAttr('compileParam')}"
