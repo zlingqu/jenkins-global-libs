@@ -131,7 +131,7 @@ class JenkinsRunTemplate {
             this.conf.setAttr('svcType', 'ClusterIP')
         }
 
-        if (this.conf.getAttr('useModel') && ! this.conf.getAttr('modelPath')) {
+        if (this.conf.getAttr('useModel') && ! this.conf.getAttr('modelPath') && ! this.conf.getAttr('modelGitAddress')) {
             this.conf.setAttr('modelPath', 'app/data')
         }
 
