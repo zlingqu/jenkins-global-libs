@@ -1574,8 +1574,8 @@ class GlobalConfig implements Serializable {
              'tk-engine-audio-process': [
                     'servicePort' : '80',
                     'namespace': 'xmc-tk',
-                    'nodePort' : '30228',
-                    'containerPort': '80',
+                    'nodePort' : '',
+                    'containerPort': '', // 没有端口监听，不需要svc
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
 //                    'cpuRequests' : '2000m',
 //                    'memoryRequests' : '2000Mi',
