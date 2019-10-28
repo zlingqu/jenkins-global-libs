@@ -104,7 +104,7 @@ def call(Map map, env) {
     def toDefaultServiceType = Tools.addItemToListHead(['ClusterIP', 'NodePort', 'None'], defaultServiceType)
 
     // use service
-    def useService = conf.getAttr('useService') ? conf.getAttr('useService') : true
+    def useService = conf.getAttr('useService') ? conf.getAttr('useService') : false
 
     // k8sKind
     def defaultK8sKind = conf.getAttr('k8sKind') ? conf.getAttr('k8sKind') :'deployment'
