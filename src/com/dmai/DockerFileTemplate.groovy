@@ -113,15 +113,10 @@ version: "2"
 services:
   service-docker-build:
     build: ./
-    image: $dockerRegistryHost/$namespace/$appName:$branchName-$buildNumber-$gitVersion'''
+    image: $imageAddress'''
 
         def binding = [
-                'dockerRegistryHost' : conf.dockerRegistryHost,
-                'namespace' : conf.getAttr('namespace'),
-                'appName' : conf.appName,
-                'branchName' : conf.getAttr('branchName'),
-                'buildNumber' : conf.getAttr('buildNumber'),
-                'gitVersion' : this.conf.getAttr('gitVersion') != 'last' ? this.conf.getAttr('gitVersion') : ''
+                'imageAddress': this.conf.getBuildImageAddress(),
         ]
 
         return Tools.simpleTemplate(text, binding)
