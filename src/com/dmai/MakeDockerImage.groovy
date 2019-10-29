@@ -25,7 +25,8 @@ class MakeDockerImage {
             this.script.sh "echo '${this.conf.getAttr('customDockerfileContent')}' > Dockerfile"
         }
 
-        this.script.sh "echo '${ this.dockerFileTemplate.getDockerComposeFile() }' > docker-compose.yml"
+        this.script.sh "printf '${ this.dockerFileTemplate.getDockerComposeFile() }' > docker-compose.yml"
+        this.script.sh "cat gitVersion >> docker-compose.yml"
 
         // 在进行构建之前复制需要的模型文件
         if (this.conf.getAttr('useModel') && this.conf.getAttr('modelPath')) {

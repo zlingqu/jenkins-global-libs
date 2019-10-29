@@ -253,10 +253,7 @@ def call(Map map, env) {
                 steps {
                     script {
 
-//                        echo currentBuild.displayName
-//                        echo currentBuild.fullDisplayName
-//                        echo currentBuild.projectName
-//                        echo currentBuild.fullProjectName
+//                        echo currentBuild.displayName, currentBuild.fullDisplayName, currentBuild.projectName, currentBuild.fullProjectName
 
                         if (conf.getAttr('deployEnv') == 'prd' && deployMasterPassword != 'dmai2019999') {
                             throw "master分支请运维人员触发！"
@@ -281,7 +278,6 @@ def call(Map map, env) {
                         expression { return  gitVersion != 'last'};
                     }
                 }
-//                when { expression { return  gitVersion != 'last'} }
                 steps {
                     container('kubectl') {
                         script {
@@ -303,7 +299,6 @@ def call(Map map, env) {
                         expression { return  conf.getAttr('useCustomImage')};
                     }
                 }
-//                when { expression { return  conf.getAttr('useCustomImage')} }
                 steps {
                     container('custom-image') {
                         sh conf.getAttr('execCommand')
@@ -315,13 +310,10 @@ def call(Map map, env) {
 
                 // 当项目的全局选项设置为compile == true的时候，才进行部署的操作
                 when {
-                    anyOf {
-                        expression { return conf.getAttr('compile') };
-                        expression { return conf.getAttr('codeLanguage') == 'node' };
-
+                    allOf {
+                        expression { return conf.getAttr('compile') || conf.getAttr('codeLanguage') == 'node'};
                     }
                 }
-//                when { expression { return conf.getAttr('compile') } }
                 steps {
                     container('compile') {
                         script {
@@ -386,6 +378,7 @@ def call(Map map, env) {
                 steps {
                     container('docker-compose') {
                         script {
+                            sh 'git show -s --format=%H > gitVersion'
                             makeDockerImage.makeImage()
                         }
                     }
