@@ -378,7 +378,7 @@ def call(Map map, env) {
                 steps {
                     container('docker-compose') {
                         script {
-                            sh 'git show -s --format=%H > gitVersion; sleep 6000'
+                            sh 'git show -s --format=%H > gitVersion'
                             makeDockerImage.makeImage()
                         }
                     }
