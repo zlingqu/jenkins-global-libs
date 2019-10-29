@@ -113,8 +113,7 @@ version: "2"
 services:
   service-docker-build:
     build: ./
-    image: $dockerRegistryHost/$namespace/$appName:$branchName-$buildNumber-$gitVersion
-'''
+    image: $dockerRegistryHost/$namespace/$appName:$branchName-$buildNumber-$gitVersion'''
 
         def binding = [
                 'dockerRegistryHost' : conf.dockerRegistryHost,
