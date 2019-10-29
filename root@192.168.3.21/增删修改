@@ -1,0 +1,74 @@
+## 新增一个服务(多分支流水线)。
+
+curl -X POST http://jenkins.ops.dm-ai.cn/createItem?name=zuoshengtest --data-binary "@/Users/zuoshenglo/goland-workspace/tools/jenkins/Api/config.xml" -H "Content-Type: text/xml" -u admin:123456
+
+## 删除一个多分支流水线
+curl -X POST http://jenkins.ops.dm-ai.cn/job/zuoshengtest/doDelete -u admin:123456
+
+## 修改不做
+
+## job 状态查询：
+
+## 最后一次api构建的状态：
+curl http://jenkins.ops.dm-ai.cn/job/zuoshengtest/871783/api/json
+
+## 查询构建的状态：
+最后一次的构建状态：
+
+curl http://jenkins.ops.dm-ai.cn/job/jenkins-test/job/dev/lastBuild/api/json -u admin:123456
+curl -X POST http://jenkins.ops.dm-ai.cn/job/jenkins-test/job/dev/lastBuild/api/json -u admin:123456
+
+## 按照id查询
+curl http://jenkins.ops.dm-ai.cn/job/zuoshengtest/job/dev/1/api/json
+
+## 查询队列：
+curl -X POST http://jenkins.ops.dm-ai.cn/queue/item/871905/  -u admin:123456
+
+## 构建
+curl -X POST http://jenkins.ops.dm-ai.cn/job/jenkins-test/job/dev/build  -u admin:123456
+
+## 初始化添加的时候，需要index
+curl -X POST http://jenkins.ops.dm-ai.cn/job/woshitest2222/build  -H "Content-Type: text/xml" -u admin:123456
+
+
+http://jenkins.ops.dm-ai.cn/job/jenkins-test/job/dev/build
+
+{"json" ""}
+### 新上线的构建地址获得：
+
+1. 通过接口触发构建。
+post 方法，可以添加构建的参数。
+http://jenkins.ops.dm-ai.cn/multibranch-webhook-trigger/invoke?token=jenkins-test-2456788
+{
+	"DEPLOY_ENV": "dev",
+	"GIT_VERSION": "last"
+}
+
+2. 获得当前分支的最后一次构建信息。
+
+对下面的信息进行校验。
+
+{
+    "status": "ok",
+    "data": {
+        "triggerResults": {
+            "zuoshengtest": {
+                "triggered": true,
+                "id": 890961,
+                "url": "queue/item/890961/"
+            }
+        }
+    }
+}
+
+curl http://jenkins.ops.dm-ai.cn/job/zuoshengtest/job/dev/lastBuild/api/json
+
+3. 返回个个体应用发布平台构建的地址信息。
+
+Value: {"parameter": [{"name": "DEPLOY_ENV", "value": "test"}, {"name": "GIT_VERSION", "value": "last"}]}
+
+
+F2LZ9427KPJ5
+
+
+curl -X POST http://jenkins.ops.dm-ai.cn/job/prometheus-alertmanager/job/master/build  -H "Content-Type: application/x-www-form-urlencoded" -d 'json={"parameter":[{"name":"GIT_VERSION","value":"update"}]}'

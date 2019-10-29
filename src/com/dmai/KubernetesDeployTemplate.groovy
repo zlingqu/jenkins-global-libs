@@ -57,7 +57,7 @@ spec:
 $tolerations
       containers:
       - name: $appName
-        image: $dockerRegistryHost/$namespace/$appName:$branchName-$buildNumber
+        image: $imageAddress
         imagePullPolicy: Always #
         $command
         $envFrom
@@ -95,6 +95,7 @@ $volumes
                 'envFrom'               : this.getEnvFrom(),
                 'tolerations'           : this.getTolerations(),
                 'apollo_env'            : this.conf.getAttr('deployEnv').toUpperCase(),
+                'imageAddress'          : this.conf.getBuildImageAddress()
         ]
         return Tools.simpleTemplate(text, bind)
     }

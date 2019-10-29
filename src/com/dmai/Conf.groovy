@@ -55,7 +55,8 @@ class Conf implements Serializable{
     }
 
     public def getBuildImageAddress() {
-       return String.format('''%s/%s/%s:%s-%s''', this.dockerRegistryHost ,this.getAttr('namespace'),  this.appName, this.getAttr('branchName'), this.getAttr('buildNumber'))
+       return String.format('''%s/%s/%s:%s-%s-%s''', this.dockerRegistryHost ,this.getAttr('namespace'),  this.appName, this.getAttr('branchName'), this.getAttr('buildNumber'),
+       this.getAttr('gitVersion') != 'last' ? this.getAttr('gitVersion') : 'gitVersion')
     }
 
     public def setAttr(key, value) {
@@ -188,5 +189,17 @@ class Conf implements Serializable{
             default:
                 return "default"
         }
+    }
+
+    public def ifBuild() {
+        if (this.getAttr('gitVersion') == 'update') return false
+        if (this.getAttr('deployPassword') != 'dmai2019999' || this.getAttr('deployEnv') == 'prd') return false
+        return true
+//        if (this.getAttr('gitVersion') != 'update' &&
+//                (this.getAttr('deployPassword') != 'dmai2019999' || this.getAttr('deployEnv') == 'prd')
+//        ) {
+//            return true
+//        }
+//        return false
     }
 }

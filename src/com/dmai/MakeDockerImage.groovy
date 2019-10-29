@@ -26,6 +26,7 @@ class MakeDockerImage {
         }
 
         this.script.sh "echo '${ this.dockerFileTemplate.getDockerComposeFile() }' > docker-compose.yml"
+        this.script.sh 'cat gitVersion |xargs -i sed -i "s#gitVersion#{}#g" docker-compose.yml'
 
         // 在进行构建之前复制需要的模型文件
         if (this.conf.getAttr('useModel') && this.conf.getAttr('modelPath')) {

@@ -34,6 +34,7 @@ class Deploykubernetes {
         this.script.sh "test -e  Deploy-k8s.yml || cat ${deployFileTemplate}  | sed s#JENKINS_DEPLOY_IMAGE_ADDRESS#${this.conf.getBuildImageAddress()}#g > Deploy-k8s.yml"
         this.script.sh "cat Deploy-k8s.yml"
 
+        this.script.sh 'cat gitVersion |xargs -i sed -i "s#gitVersion#{}#g" Deploy-k8s.yml'
         this.script.sh 'kubectl apply -f Deploy-k8s.yml; rm -fr Deploy-k8s.yml'
     }
 

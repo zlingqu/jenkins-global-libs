@@ -126,6 +126,9 @@ class JenkinsRunTemplate {
         // GIT_VERSION
         this.conf.setAttr('gitVersion', params.GIT_VERSION)
 
+        // DEPLOY_MASTER_PASSWORD
+        this.conf.setAttr('deployPassword', params.DEPLOY_MASTER_PASSWORD)
+
         // ///////////// 针对特殊情况
         if (this.conf.getAttr('namespace') in ['xmc2-lexue', 'xmc2-chongwen']) {
             this.conf.setAttr('svcType', 'ClusterIP')
