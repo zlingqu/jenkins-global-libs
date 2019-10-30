@@ -183,7 +183,7 @@ def call(Map map, env) {
             booleanParam(name: 'CUSTOM_KUBERNETES_DEPLOY_TEMPLATE', defaultValue: useAutoDeployFile, description: '使用使用自定义的k8s部署模版')
 
             //  auto deploy content
-            string(name: 'CUSTOM_KUBERNETES_DEPLOY_TEMPLATE_CONTENT', defaultValue: autoDeployContent, description: '自定义模版内容')
+            text(name: 'CUSTOM_KUBERNETES_DEPLOY_TEMPLATE_CONTENT', defaultValue: autoDeployContent, description: '自定义模版内容')
 
             // customDockerfile
             booleanParam(name: 'CUSTOM_DOCKERFILE', defaultValue: useCustomDockerFile, description: '是否使用自定义的dockerfile')
@@ -509,7 +509,7 @@ def call(Map map, env) {
                 steps {
                     container('compile') {
                         script {
-                            sh 'npm config set registry http://192.168.3.13:8081/repository/npm/ && yarn install || echo 0'
+                            sh 'npm config set registry http://192.168.3.13:8081/repository/npm/ &&  yarn config set registry http://192.168.3.13:8081/repository/npm/  && yarn install || echo 0'
                             sh 'npm i -g nyc || echo 0'
                             sh 'npm i -g mocha || echo 0'
                             sh 'rm -fr deployment || echo 0'
@@ -542,19 +542,28 @@ def call(Map map, env) {
             }
 
             post {
-                always {
-                    echo "构建完成！"
-                }
+//                always {
+//                    echo "构建完成！"
+//                }
 
                 failure {
                     script {
+                        conf.setAttr('buildResult', 'failure')
                         dmaiEmail.sendEmail('failure')
                     }
                 }
 
                 success {
                     script {
+                        conf.setAttr('buildResult', 'success')
                         dmaiEmail.sendEmail('success')
+                    }
+                }
+
+                always {
+                    script {
+                        echo currentBuild.result
+                        dmaiEmail.writeBuildResultToAdp(conf.getAttr('buildResult'))
                     }
                 }
             }

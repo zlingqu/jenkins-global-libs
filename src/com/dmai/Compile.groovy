@@ -43,7 +43,7 @@ class Compile {
                 case 'js':
                     this.script.sh String.format("test -e node_modules && rm -fr node_modules ; " +
                             "test -e /data/cache/node_modules/node_modules.tar && cp -rp /data/cache/node_modules/node_modules.tar ./ ; tar xf node_modules.tar && rm -fr node_modules.tar ; " +
-                            "export FRONTEND_ENV=%s;npm config set registry http://192.168.3.13:8081/repository/npm/ && yarn install && yarn run build && tar cf node_modules.tar node_modules;" +
+                            "export FRONTEND_ENV=%s;npm config set registry http://192.168.3.13:8081/repository/npm/ && yarn config set registry http://192.168.3.13:8081/repository/npm/ && yarn install && yarn run build && tar cf node_modules.tar node_modules;" +
                             "cp -rp node_modules.tar /data/cache/node_modules && rm -fr node_modules.tar", this.conf.getAttr('nodeEnv'))
                     return
                 case 'c++':

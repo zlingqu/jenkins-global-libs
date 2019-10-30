@@ -1,6 +1,8 @@
 package com.dmai
 import com.tool.Tools
 
+import java.util.concurrent.TimeUnit
+
 class DmaiEmail {
 
     protected final def script
@@ -42,6 +44,9 @@ class DmaiEmail {
     }
 
     public writeBuildResultToAdp(String buildResult) {
+        // 测试等待5秒后发送是否可以取到真实的值。
+        TimeUnit.SECONDS.sleep(5)
+
         def jenkinsUrl = String.format('''%s/blue/organizations/jenkins/%s/detail/%s/%s/pipeline''', this.jenkinsUrl, this.conf.getAttr('jobName'), this.conf.getAttr('branchName'), this.conf.getAttr('buildNumber'))
         def status =  buildResult == 'success' ? 'online' : 'failed'
 
@@ -61,13 +66,15 @@ class DmaiEmail {
     }
 
     public sendEmail(String buildResult) {
+//        this.conf.setAttr('buildResult', buildResult)
+
         //
         if (this.conf.getAttr('gitVersion') == 'update') {
             return
         }
 
 
-        this.writeBuildResultToAdp(buildResult)
+//        this.writeBuildResultToAdp(buildResult)
 
         // 构建结果的中文提示：
         def buildResultZh = buildResult == 'success' ? '成功' : '失败'
