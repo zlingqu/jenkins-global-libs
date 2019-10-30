@@ -1778,7 +1778,7 @@ class GlobalConfig implements Serializable {
                     'stage': false, //是否部署到stage环境
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
-                    'customDockerfile': true, // 是否使用自定义 dockerfile
+                    'customDockerfile': false, // 是否使用自定义 dockerfile
                     'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
                     'useConfigMap': true, //是否使用configmap
                     'configMapName': '.env', //是否使用configmap
