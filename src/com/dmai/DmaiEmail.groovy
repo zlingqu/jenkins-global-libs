@@ -74,7 +74,7 @@ class DmaiEmail {
 //        this.conf.setAttr('buildResult', buildResult)
 
         //
-        if (this.conf.getAttr('gitVersion') == 'update') {
+        if (!this.conf.ifBuild()) {
             return
         }
 

@@ -206,7 +206,8 @@ class Conf implements Serializable{
 
     public def ifBuild() {
         if (this.getAttr('gitVersion') == 'update') return false
-        if (this.getAttr('deployPassword') != 'dmai2019999' || this.getAttr('deployEnv') == 'prd') return false
+        if (this.getAttr('deployPassword') != 'dmai2019999' && this.getAttr('deployEnv') == 'prd') return false
+        if (this.getAttr('namespace') == 'test') return false
         return true
 //        if (this.getAttr('gitVersion') != 'update' &&
 //                (this.getAttr('deployPassword') != 'dmai2019999' || this.getAttr('deployEnv') == 'prd')
