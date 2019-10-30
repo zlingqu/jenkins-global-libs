@@ -514,7 +514,7 @@ def call(Map map, env) {
                 when {
                     allOf {
                         expression { return  conf.ifBuild() };
-                        expression { return conf.getAttr('deploy') == 'prd' };
+                        expression { return conf.getAttr('deployEnv') == 'prd' };
                     }
                 }
 
