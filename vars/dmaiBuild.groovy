@@ -495,6 +495,29 @@ def call(Map map, env) {
                 }
             }
 
+            stage('apidoc') {
+                when {
+                    allOf {
+                        expression { return conf.getAttr('deploy') == 'prd' };
+                    }
+                }
+
+                steps {
+                    container('docker-compose') {
+                        script {
+                            try {
+                                sh 'git clone https://gitlab.dm-ai.cn/MSF/java/dm-api-doc.git /tmp/dm-api-doc'
+                                sh 'cd /tmp/dm-api-doc && timeout -t 30 sh -x apidoc.sh ' + conf.jenkinsWorkPath()
+                            } catch (e) {
+                                sh "echo ${e}"
+                                // send email to liaolonglong
+                            }
+
+                        }
+                    }
+                }
+            }
+
             stage('Install nyc') {
                 when {
                     allOf {

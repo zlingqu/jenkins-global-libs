@@ -219,7 +219,7 @@ spec:
         if (! this.conf.getAttr('makeImage')) return ''
         return String.format('''
   - name: docker-compose
-    image: docker.dm-ai.cn/devops/base-image-docker-compose:%s0.05
+    image: docker.dm-ai.cn/devops/base-image-docker-compose:%s0.06
     imagePullPolicy: IfNotPresent
     env:
     - name: VUE_APP_SCENE
