@@ -61,13 +61,15 @@ class DmaiEmail {
     }
 
     public sendEmail(String buildResult) {
+        this.conf.setAttr('buildResult', buildResult)
+
         //
         if (this.conf.getAttr('gitVersion') == 'update') {
             return
         }
 
 
-        this.writeBuildResultToAdp(buildResult)
+//        this.writeBuildResultToAdp(buildResult)
 
         // 构建结果的中文提示：
         def buildResultZh = buildResult == 'success' ? '成功' : '失败'
