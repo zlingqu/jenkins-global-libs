@@ -1544,7 +1544,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'xmc-tk',
                     'nodePort': '',
                     'containerPort': '80',
-                    'domain': 'tk.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
+                    'domain': 'xmc-tk.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '',
                     'memoryRequests' : '',
                     'cpuLimits' : '',
