@@ -250,19 +250,24 @@ def call(Map map, env) {
         stages {
 
             stage('Build-Init') {
+                when {
+                    allOf {
+                        expression { return  conf.ifBuild() };
+                    }
+                }
                 steps {
                     script {
 
 //                        echo currentBuild.displayName, currentBuild.fullDisplayName, currentBuild.projectName, currentBuild.fullProjectName
 
-                        if (conf.getAttr('deployEnv') == 'prd' && deployMasterPassword != 'dmai2019999') {
-                            throw "master分支请运维人员触发！"
-                        }
+//                        if (conf.getAttr('deployEnv') == 'prd' && deployMasterPassword != 'dmai2019999') {
+//                            throw "master分支请运维人员触发！"
+//                        }
 
-                        if (conf.getAttr('gitVersion') == 'update') {
-                            println("配置更新")
-                            throw "配置更新"
-                        }
+//                        if (conf.getAttr('gitVersion') == 'update') {
+//                            println("配置更新")
+//                            throw "配置更新"
+//                        }
 
                         // print all data
                         println(conf.printAppConf())
@@ -275,6 +280,7 @@ def call(Map map, env) {
             stage('Specified version') {
                 when {
                     allOf {
+                        expression { return  conf.ifBuild() };
                         expression { return  gitVersion != 'last'};
                     }
                 }
@@ -296,6 +302,7 @@ def call(Map map, env) {
             stage('Exec Command') {
                 when {
                     allOf {
+                        expression { return  conf.ifBuild() };
                         expression { return  conf.getAttr('useCustomImage')};
                     }
                 }
@@ -311,6 +318,7 @@ def call(Map map, env) {
                 // 当项目的全局选项设置为compile == true的时候，才进行部署的操作
                 when {
                     allOf {
+                        expression { return  conf.ifBuild() };
                         expression { return conf.getAttr('compile') || conf.getAttr('codeLanguage') == 'node'};
                     }
                 }
@@ -326,6 +334,7 @@ def call(Map map, env) {
             stage('Download Config file') {
                 when {
                     allOf {
+                        expression { return  conf.ifBuild() };
                         expression { return conf.getAttr('deploy') };
                     }
                 }
@@ -348,6 +357,7 @@ def call(Map map, env) {
             stage('Download Model') {
                 when {
                     allOf {
+                        expression { return  conf.ifBuild() };
                         expression { return conf.getAttr('useModel') };
                         expression { return conf.getAttr('modelGitAddress') };
                     }
@@ -371,6 +381,7 @@ def call(Map map, env) {
             stage('Make Image') {
                 when {
                     allOf {
+                        expression { return  conf.ifBuild() };
                         expression { return  conf.getAttr('makeImage')};
                     }
                 }
@@ -388,6 +399,7 @@ def call(Map map, env) {
             stage('Push Image') {
                 when {
                     allOf {
+                        expression { return  conf.ifBuild() };
                         expression { return  conf.getAttr('makeImage')}
                     }
                 }
@@ -425,6 +437,7 @@ def call(Map map, env) {
 
                 when {
                     allOf {
+                        expression { return  conf.ifBuild() };
                         expression { return conf.getAttr('deploy') };
                         expression { return conf.getAttr('deployEnv') != 'test'};
                     }
@@ -451,6 +464,7 @@ def call(Map map, env) {
             stage('Deploy test') {
                 when {
                     allOf {
+                        expression { return  conf.ifBuild() };
                         expression { return conf.getAttr('deploy') };
                         expression { return conf.getAttr('deployEnv') == 'test' };
                     }
@@ -475,6 +489,7 @@ def call(Map map, env) {
             stage('Check service') {
                 when {
                     allOf {
+                        expression { return  conf.ifBuild() };
                         expression { return conf.getAttr('deploy') };
                         expression { return conf.getAttr('checkPodsStatus') }
                     }
@@ -498,6 +513,7 @@ def call(Map map, env) {
             stage('apidoc') {
                 when {
                     allOf {
+                        expression { return  conf.ifBuild() };
                         expression { return conf.getAttr('deploy') == 'prd' };
                     }
                 }
@@ -521,6 +537,7 @@ def call(Map map, env) {
             stage('Install nyc') {
                 when {
                     allOf {
+                        expression { return  conf.ifBuild() };
                         expression { return conf.getAttr('deploy') };
                         expression { return conf.getAttr('branchName') == 'dev' };
                         expression { return  conf.getAttr('codeLanguage') in  ['js', 'node']};
@@ -545,6 +562,7 @@ def call(Map map, env) {
             stage('sonar-check') {
                 when {
                     allOf {
+                        expression { return  conf.ifBuild() };
                         expression { return conf.getAttr('deploy') };
                         expression { return conf.getAttr('branchName') == 'dev' };
                         expression { return conf.getAttr('codeLanguage') in  ['js', 'node'] };
