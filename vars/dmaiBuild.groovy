@@ -548,14 +548,12 @@ def call(Map map, env) {
 
                 failure {
                     script {
-                        conf.setAttr('buildResult', 'failure')
                         dmaiEmail.sendEmail('failure')
                     }
                 }
 
                 success {
                     script {
-                        conf.setAttr('buildResult', 'success')
                         dmaiEmail.sendEmail('success')
                     }
                 }
@@ -563,7 +561,7 @@ def call(Map map, env) {
                 always {
                     script {
                         echo currentBuild.result
-                        dmaiEmail.writeBuildResultToAdp(conf.getAttr('buildResult'))
+                        dmaiEmail.writeBuildResultToAdp(currentBuild.result)
                     }
                 }
             }

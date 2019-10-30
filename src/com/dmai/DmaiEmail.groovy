@@ -44,11 +44,16 @@ class DmaiEmail {
     }
 
     public writeBuildResultToAdp(String buildResult) {
+
+        if (buildResult == 'SUCCESS') {
+            this.conf.setAttr('buildResult', 'success')
+        }
+
         // 测试等待5秒后发送是否可以取到真实的值。
         TimeUnit.SECONDS.sleep(5)
 
         def jenkinsUrl = String.format('''%s/blue/organizations/jenkins/%s/detail/%s/%s/pipeline''', this.jenkinsUrl, this.conf.getAttr('jobName'), this.conf.getAttr('branchName'), this.conf.getAttr('buildNumber'))
-        def status =  buildResult == 'success' ? 'online' : 'failed'
+        def status =  this.conf.getAttr('buildResult') == 'success' ? 'online' : 'failed'
 
         URL url = new URL(this.adpUrl)
         HttpURLConnection conn = (HttpURLConnection) url.openConnection()
