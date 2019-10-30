@@ -563,7 +563,6 @@ def call(Map map, env) {
                 always {
                     script {
                         echo currentBuild.result
-                        echo currentBuild.buildVariables
                         dmaiEmail.writeBuildResultToAdp(conf.getAttr('buildResult'))
                     }
                 }
