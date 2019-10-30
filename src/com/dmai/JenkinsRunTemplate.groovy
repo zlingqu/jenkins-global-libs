@@ -134,6 +134,9 @@ class JenkinsRunTemplate {
             this.conf.setAttr('svcType', 'ClusterIP')
         }
 
+        // 设置全局的默认构建结果为失败
+        this.conf.setAttr('buildResult', 'failure')
+
         if (this.conf.getAttr('useModel') && ! this.conf.getAttr('modelPath') && ! this.conf.getAttr('modelGitAddress')) {
             this.conf.setAttr('modelPath', 'app/data')
         }

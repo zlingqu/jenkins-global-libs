@@ -542,9 +542,9 @@ def call(Map map, env) {
             }
 
             post {
-                always {
-                    echo "构建完成！"
-                }
+//                always {
+//                    echo "构建完成！"
+//                }
 
                 failure {
                     script {
@@ -555,6 +555,12 @@ def call(Map map, env) {
                 success {
                     script {
                         dmaiEmail.sendEmail('success')
+                    }
+                }
+
+                always {
+                    script {
+                        dmaiEmail.writeBuildResultToAdp(conf.getAttr('buildResult'))
                     }
                 }
             }
