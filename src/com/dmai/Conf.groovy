@@ -105,7 +105,8 @@ class Conf implements Serializable{
                 if (this.getAttr('deployEnv') == 'prd') {
                     userRequestAddress = cfgDomain
                 } else {
-                    userRequestAddress = deployEnv + '.' + cfgDomain
+//                    userRequestAddress = deployEnv + '.' + cfgDomain
+                    userRequestAddress = cfgDomain.replaceAll('dm-ai.cn', deployEnv + '.' + 'dm-ai.cn')
                 }
             }
         }

@@ -152,32 +152,32 @@ sonar检查结果：$sonarAddress
         return ''
     }
 
-    private String getDomainTopString() {
-        if (this.conf.getAttr('branchName') == 'master') {
-            return 'http://'
-        }
-        return 'http://' + this.conf.getAttr('branchName') + '.'
-//        return 'http://' + this.conf.getAttr('branchName') == 'master' ? '' : this.conf.getAttr('branchName') + '.'
-    }
+//    private String getDomainTopString() {
+//        if (this.conf.getAttr('branchName') == 'master') {
+//            return 'http://'
+//        }
+//        return 'http://' + this.conf.getAttr('branchName') + '.'
+////        return 'http://' + this.conf.getAttr('branchName') == 'master' ? '' : this.conf.getAttr('branchName') + '.'
+//    }
 
-    private String buildTestInfo() {
-        if (!(this.conf.getAttr('domain') in [null, ''])) {
-            return '测试环境, 用户访问地址：'  + 'http://test.' + this.conf.getAttr('domain')
-        }
+//    private String buildTestInfo() {
+//        if (!(this.conf.getAttr('domain') in [null, ''])) {
+//            return '测试环境, 用户访问地址：'  + 'http://test.' + this.conf.getAttr('domain')
+//        }
+//
+//        if (this.conf.getAttr('test')) {
+//            return '测试环境, 用户访问地址：' + this.getTestAddress()
+//        }
+//        return ''
+//    }
 
-        if (this.conf.getAttr('test')) {
-            return '测试环境, 用户访问地址：' + this.getTestAddress()
-        }
-        return ''
-    }
-
-    private String getTestAddress() {
-        if (this.conf.getAttr('test')) {
-            return 'http://192.168.3.140:' + this.conf.getAttr('nodePort')
-        }
-
-        return '用户未部署测试分支'
-    }
+//    private String getTestAddress() {
+//        if (this.conf.getAttr('test')) {
+//            return 'http://192.168.3.140:' + this.conf.getAttr('nodePort')
+//        }
+//
+//        return '用户未部署测试分支'
+//    }
 
 //    private String getAppUrl() {
 //        switch (this.conf.getAttr('svcType')) {
