@@ -548,12 +548,14 @@ def call(Map map, env) {
 
                 failure {
                     script {
+                        conf.setAttr('buildResult', 'failure')
                         dmaiEmail.sendEmail('failure')
                     }
                 }
 
                 success {
                     script {
+                        conf.setAttr('buildResult', 'success')
                         dmaiEmail.sendEmail('success')
                     }
                 }
