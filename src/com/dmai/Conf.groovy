@@ -54,6 +54,10 @@ class Conf implements Serializable{
         this.appConf.put('replicas', replicas)
     }
 
+    public def jenkinsWorkPath() {
+        return String.format('''/home/jenkins/workspace/%s_%s''', this.getAttr('jobName'), this.getAttr('branchName'))
+    }
+
     public def getBuildImageAddress() {
        return String.format('''%s/%s/%s:%s-%s-%s''', this.dockerRegistryHost ,this.getAttr('namespace'),  this.appName, this.getAttr('branchName'), this.getAttr('buildNumber'),
        this.getAttr('gitVersion') != 'last' ? this.getAttr('gitVersion') : 'gitVersion')
