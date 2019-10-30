@@ -86,7 +86,7 @@ class DmaiEmail {
         try {
             this.script.emailext(
                     body: this.emailBody(buildResultZh),
-                    subject: '构建 : ' + buildResultZh + "，应用名：" + this.conf.appName+ "，分支：" + this.conf.getAttr('branchName'),
+                    subject: '构建 : ' + buildResultZh + "，应用名：" + this.conf.appName+ "，分支：" + this.conf.getAttr('branchName') + "，部署环境：" + this.conf.getAttr('deployEnv'),
                     to: conf.getAttr('emailAddress') + ',zuosheng@dm-ai.cn'
             )
         }
@@ -103,6 +103,7 @@ class DmaiEmail {
 Jenkins构建地址： $jenkinsAddress/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline
 构建分支：$branchName
 Git地址：$gitAddress
+K8s管理页面地址：$k8sWebAddress
 $useSvcInfo
 $buildEnvInfo
 sonar检查结果：$sonarAddress
@@ -115,6 +116,7 @@ sonar检查结果：$sonarAddress
                 'buildNumber'    : this.conf.getAttr('buildNumber'),
                 'buildResult'    : buildResult,
                 'gitAddress'     : this.conf.getAttr('gitAddress'),
+                'k8sWebAddress'  : this.conf.getK8sWebAddress(),
                 'buildEnvInfo'   : this.buildEnvInfo(),
 //                'buildTestInfo'  : this.buildTestInfo(),
                 'useSvcInfo'     : this.useSvcInfo(),

@@ -59,6 +59,14 @@ class Conf implements Serializable{
        this.getAttr('gitVersion') != 'last' ? this.getAttr('gitVersion') : 'gitVersion')
     }
 
+    public def getK8sWebAddress() {
+        def k8sWebAddress =  String.format('''http://%s.k8s.dm-ai.cn/#!/pod?namespace=%s''', this.getAttr('deployEnv'), this.getAttr('namespace'))
+        if (this.getAttr('deployEnv') == 'prd') {
+            return k8sWebAddress.replaceAll('http://prd.', 'http://')
+        }
+        return k8sWebAddress
+    }
+
     public def setAttr(key, value) {
         this.appConf.put(key, value)
     }
