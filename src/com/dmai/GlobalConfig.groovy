@@ -1416,7 +1416,7 @@ class GlobalConfig implements Serializable {
                     'envType'     : 'gpu', //分为gpu 和非gpu的环境
                     'sonarCheck'  : false
             ],
-			'tx2-stat-service': [
+		'tx2-stat-service': [
                     'servicePort' : '80',
                     'namespace': 'xmc2-tx2',
                     'envType'     : 'arm',
@@ -1728,7 +1728,7 @@ class GlobalConfig implements Serializable {
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'sonarCheck'  : true
             ],
-            'tk-user-validation': [
+            'tk-backend-user-validation': [
                     'servicePort' : '80',
                     'namespace': 'xmc-tk',
                     'nodePort' : '30220',
@@ -1742,7 +1742,7 @@ class GlobalConfig implements Serializable {
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
-                    'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc-tk/user-validation.git',
+                    'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc-tk/xmc-backend-user-validation.git',
                     'stage': false, //是否部署到stage环境
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
