@@ -102,7 +102,6 @@ $buildEnvInfo
 其他服务调用当前服务地址：http://$appName
 重要->服务之间的访问：服务之间访问请使用服务名,前端使用域名，非前端的测试开发域名用于日常开发调试，请coder注意。
 Jenkins构建地址： $jenkinsAddress/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline
-构建分支：$branchName
 Git地址：$gitAddress
 K8s管理页面地址：$k8sWebAddress
 通过端口映射访问服务，设置wiki：https://wiki.dm-ai.cn/pages/viewpage.action?pageId=76354849
