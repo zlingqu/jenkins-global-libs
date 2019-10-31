@@ -129,7 +129,7 @@ class JenkinsRunTemplate {
         // DEPLOY_MASTER_PASSWORD
         this.conf.setAttr('deployPassword', params.DEPLOY_MASTER_PASSWORD)
 
-        // ///////////// 针对特殊情况
+         ///////////// 针对特殊情况
         if (this.conf.getAttr('namespace') in ['xmc2-lexue', 'xmc2-chongwen']) {
             this.conf.setAttr('svcType', 'ClusterIP')
         }
@@ -144,6 +144,10 @@ class JenkinsRunTemplate {
         // 特殊设置默认的useEnvFile
         if (this.conf.getAttr('useConfigMap') && ! this.conf.getAttr('configMapName')) {
             this.conf.setAttr('useEnvFile', true)
+        }
+
+        if (this.conf.getAttr('deployEnv') in ['dev', 'test']) {
+            this.conf.setAttr('domain', this.conf.getAttr('domain') ? this.conf.getAttr('domain') : this.conf.appName + '.dm-ai.cn' )
         }
     }
 
