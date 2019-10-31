@@ -96,7 +96,7 @@ class DmaiEmail {
     }
 
     private String emailBody(String buildResult) {
-        def text = '''Jenkins构建信息
+        def text = '''构建信息:
 构建项目：$appName
 $buildEnvInfo
 其他服务调用当前服务地址：http://$appName
@@ -145,7 +145,7 @@ sonar检查结果：$sonarAddress
     private String buildEnvInfo() {
         // 兼容新版的域名地址 launcher-management-x2.deploy-env.dm-ai.cn
         if (this.conf.getAttr('domain') ) {
-            return '构建完成, 用户访问地址：' + 'http://' + this.conf.getDomain()
+            return '用户测试验证地址：' + 'http://' + this.conf.getDomain()
 //            if (this.conf.getAttr('domain').indexOf('deploy-env')) {
 //                if (this.conf.getAttr('deployEnv') == 'prd') {
 //                    return '构建完成, 用户访问地址：' + this.conf.getAttr('domain').replaceAll('deploy-env.', '')
@@ -163,7 +163,7 @@ sonar检查结果：$sonarAddress
 //        }
 
         if (this.conf.getAttr('useService') && this.conf.getAttr('svcType') == 'NodePort') {
-            return '构建完成, 用户访问地址：' + this.conf.getAppUrl()
+            return '用户测试验证地址：' + this.conf.getAppUrl()
         }
 
         return ''
