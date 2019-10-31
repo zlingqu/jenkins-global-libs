@@ -99,7 +99,7 @@ class DmaiEmail {
         def text = '''Jenkins构建信息
 构建项目：$appName
 $buildEnvInfo
-
+其他服务调用当前服务地址：http://$appName
 重要->服务之间的访问：服务之间访问请使用服务名,前端使用域名，非前端的测试开发域名用于日常开发调试，请coder注意。
 特别说明：目前发布平台在建设中，master分支要上线到生产环境，请找运维人员(输密码)，手动上线，避免出现问题，master分支的自动上线已关闭, 自动上线默认失败！
 构建结果：$buildResult
