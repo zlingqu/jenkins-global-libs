@@ -244,7 +244,7 @@ def call(Map map, env) {
         // 设置任务的超时时间为1个小时。
         options {
             timeout(time: 1, unit: 'HOURS')
-            retry(2)
+//            retry(2)
         }
 
         stages {
