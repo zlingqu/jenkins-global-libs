@@ -590,12 +590,14 @@ def call(Map map, env) {
                 failure {
                     script {
                         dmaiEmail.sendEmail('failure')
+                        dmaiEmail.writeBuildResultToAdp('failure')
                     }
                 }
 
                 success {
                     script {
                         dmaiEmail.sendEmail('success')
+                        dmaiEmail.writeBuildResultToAdp('success')
                     }
                 }
 
