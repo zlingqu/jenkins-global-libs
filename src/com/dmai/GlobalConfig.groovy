@@ -1984,6 +1984,36 @@ class GlobalConfig implements Serializable {
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'sonarCheck'  : true
             ],
+            'tk-engine-video-extract': [
+                    'servicePort' : '80',
+                    'namespace': 'xmc-tk',
+                    'nodePort' : '',
+                    'containerPort': '80',
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
+                    'cpuRequests' : '',
+                    'memoryRequests' : '',
+                    'cpuLimits' : '',
+                    'memoryLimits' : '',
+                    'replicas' : 2,
+                    'dev': 'dev', // dev分支部署到测试环境
+                    'test': true, // 是否从dev分支部署到测试环境
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
+                    'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc-tk/xmc-engine-video-extract.git',
+                    'compile': false, // 是否编译
+                    'deploy': true, // 是否自动化部署
+                    'customDockerfile': true, // 是否使用自定义 dockerfile
+                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
+                    'useConfigMap': true, //是否使用configmap
+                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
+                    'codeLanguage' : 'golang', // 临时的，默认是【js,node,golang,java,php,python】
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'storage': true,  //是否需要挂载存储
+                    'useStore': true, // 是否使用存储资源。
+                    'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'envType'     : 'all', //分为gpu 和非gpu的环境, 不做限制
+                    'sonarCheck'  : true
+            ],
              'tk-engine-audio-process': [
                     'servicePort' : '80',
                     'namespace': 'xmc-tk',
