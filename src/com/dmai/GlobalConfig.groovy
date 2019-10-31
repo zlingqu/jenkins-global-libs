@@ -1920,7 +1920,7 @@ class GlobalConfig implements Serializable {
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'sonarCheck'  : true
             ],
-            'tk-backend-teaching-quanlity': [
+            'tk-backend-teaching-quality': [
                     'servicePort' : '80',
                     'namespace': 'xmc-tk',
                     'nodePort' : '30220',
@@ -1934,7 +1934,7 @@ class GlobalConfig implements Serializable {
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
-                    'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc-tk/xmc-backend-teaching-quanlity.git',
+                    'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc-tk/xmc-backend-teaching-quality.git',
                     'stage': false, //是否部署到stage环境
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
