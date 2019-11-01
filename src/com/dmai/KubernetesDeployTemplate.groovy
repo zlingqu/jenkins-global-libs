@@ -67,7 +67,7 @@ $tolerations
         - name: APOLLO_ENV
           value: $apollo_env
         - name: APOLLO_CONFIG_ADDRESS
-          value: http://$apollo_env-conf.apollo.cc.dm-ai.cn
+          value: http://$apollo_url-conf.apollo.cc.dm-ai.cn
 $volumeMounts
         ports:
         - containerPort: $containerPort
@@ -95,6 +95,7 @@ $volumes
                 'envFrom'               : this.getEnvFrom(),
                 'tolerations'           : this.getTolerations(),
                 'apollo_env'            : this.conf.getAttr('deployEnv').toUpperCase(),
+                'apollo_url'            : this.conf.getAttr('deployEnv').toLowerCase(),
                 'imageAddress'          : this.conf.getBuildImageAddress()
         ]
         return Tools.simpleTemplate(text, bind)
