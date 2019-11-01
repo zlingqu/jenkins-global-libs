@@ -2008,8 +2008,8 @@ class GlobalConfig implements Serializable {
                     'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'golang', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
-                    'storage': true,  //是否需要挂载存储
                     'useStore': true, // 是否使用存储资源。
+                    'storePath' : '/data',
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'envType'     : 'all', //分为gpu 和非gpu的环境, 不做限制
@@ -2042,8 +2042,8 @@ class GlobalConfig implements Serializable {
                     'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
-                    'useStore': false, // 是否使用存储资源。
-                    'storePath' : '',
+                    'useStore': true, // 是否使用存储资源。
+                    'storePath' : '/data',
                     'useService': false, // 是否使用service
                     'useEnvFile'  : false, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
