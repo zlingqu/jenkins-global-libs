@@ -333,16 +333,17 @@ spec:
     }
 
     private String getVolumes() {
-        switch (conf.getAttr('codeLanguage')) {
-            case 'node':
-                return this.getVolumesString()
-            case 'python':
-                return this.getVolumesString()
-            case 'c++':
-                return this.getVolumesString()
-            default:
-                return ''
-        }
+        return this.getVolumesString()
+//        switch (conf.getAttr('codeLanguage')) {
+//            case 'node':
+//                return this.getVolumesString()
+//            case 'python':
+//                return this.getVolumesString()
+//            case 'c++':
+//                return this.getVolumesString()
+//            default:
+//                return ''
+//        }
     }
 
 
