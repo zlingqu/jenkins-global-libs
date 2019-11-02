@@ -249,6 +249,8 @@ def call(Map map, env) {
 
         stages {
 
+            checkout scm
+
             stage('Build-Init') {
                 when {
                     allOf {
