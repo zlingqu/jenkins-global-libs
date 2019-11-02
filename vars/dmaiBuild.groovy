@@ -257,8 +257,6 @@ def call(Map map, env) {
                     }
                 }
                 steps {
-                    
-                    checkout scm
                     script {
 
 //                        echo currentBuild.displayName, currentBuild.fullDisplayName, currentBuild.projectName, currentBuild.fullProjectName
