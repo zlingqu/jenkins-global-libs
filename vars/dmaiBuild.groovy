@@ -249,7 +249,6 @@ def call(Map map, env) {
 
         stages {
 
-            checkout scm
 
             stage('Build-Init') {
                 when {
@@ -258,6 +257,8 @@ def call(Map map, env) {
                     }
                 }
                 steps {
+                    
+                    checkout scm
                     script {
 
 //                        echo currentBuild.displayName, currentBuild.fullDisplayName, currentBuild.projectName, currentBuild.fullProjectName
