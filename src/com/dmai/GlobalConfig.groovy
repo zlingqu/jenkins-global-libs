@@ -4124,10 +4124,10 @@ class GlobalConfig implements Serializable {
                     'nodePort': '30245',
                     'containerPort': '8001',
 //                    'domain': 'app-deploy-platform.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-//                    'cpuRequests' : '200m',
-//                    'memoryRequests' : '400Mi',
-                    'cpuLimits' : '500m',
-                    'memoryLimits' : '1000Mi',
+                    'cpuRequests' : '500m',
+                    'memoryRequests' : '1000Mi',
+                    'cpuLimits' : '1000m',
+                    'memoryLimits' : '2000Mi',
                     'dev': 'dev', // dev分支部署到开发环境
                     'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
