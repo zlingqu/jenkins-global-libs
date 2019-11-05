@@ -111,14 +111,14 @@ class Conf implements Serializable{
                 if (this.getAttr('deployEnv') == 'prd') {
                     userRequestAddress = cfgDomain.replaceAll('deploy-env.', '')
                 } else {
-                    userRequestAddress = cfgDomain.replaceAll('deploy-env', deployEnv)
+                    userRequestAddress = cfgDomain.replaceAll('deploy-env', this.getAttr('namespace') + '.' + deployEnv)
                 }
             } else {
                 if (this.getAttr('deployEnv') == 'prd') {
                     userRequestAddress = cfgDomain
                 } else {
 //                    userRequestAddress = deployEnv + '.' + cfgDomain
-                    userRequestAddress = cfgDomain.replaceAll('dm-ai.cn', deployEnv + '.' + 'dm-ai.cn')
+                    userRequestAddress = cfgDomain.replaceAll('dm-ai.cn', this.getAttr('namespace') + '.' + deployEnv + '.' + 'dm-ai.cn')
                 }
             }
         }
