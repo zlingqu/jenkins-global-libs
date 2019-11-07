@@ -1606,7 +1606,7 @@ class GlobalConfig implements Serializable {
                     'containerPort': '3000',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '200m',
-                    'memoryRequests' : '1000Mi',
+                    'memoryRequests' : '2000Mi',
                     'replicas' : 3,
                     'cpuLimits' : '1000m',
                     'memoryLimits' : '2000Mi',
