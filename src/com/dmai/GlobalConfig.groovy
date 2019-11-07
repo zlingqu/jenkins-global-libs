@@ -1320,7 +1320,7 @@ class GlobalConfig implements Serializable {
                     'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc-tx2/engine-audio-process.git',
-                    'useModel': False,
+                    'useModel': false,
                     'modelPath': 'app/data', //模型文件path, 在构建的时候相对于当前的代码的主目录
                     'compile': false, // 是否编译
                     'deploy': false, // 是否自动化部署
@@ -1331,7 +1331,7 @@ class GlobalConfig implements Serializable {
                     'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
-                    'useStore': False, // 是否使用存储资源。
+                    'useStore': false, // 是否使用存储资源。
                     'storePath' : '/data',
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
