@@ -1974,8 +1974,7 @@ class GlobalConfig implements Serializable {
                     'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
-                    'storage': false,  //是否需要挂载存储
-                    'useStore': false, // 是否使用存储资源
+                    'useStore': true, // 是否使用存储资源
                     'storePath' : '/data',
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
