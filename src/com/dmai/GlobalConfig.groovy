@@ -1193,7 +1193,7 @@ class GlobalConfig implements Serializable {
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'sonarCheck'  : true
             ],
-			'xmc-backend-service': [
+		'xmc-backend-service': [
                     'servicePort' : '80',
                     'namespace': 'xmc',
                     'nodePort' : '31147',
@@ -1222,7 +1222,7 @@ class GlobalConfig implements Serializable {
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'sonarCheck'  : true
             ],
-			'xmc-data-stream': [
+		'xmc-data-stream': [
                     'servicePort' : '80',
                     'namespace': 'xmc',
                     'nodePort' : '31165',
@@ -1250,7 +1250,7 @@ class GlobalConfig implements Serializable {
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'sonarCheck'  : true
             ],
-			'xmc-data-collector': [
+		'xmc-data-collector': [
                     'servicePort' : '80',
                     'namespace': 'xmc',
                     'nodePort' : '31141',
@@ -1279,7 +1279,7 @@ class GlobalConfig implements Serializable {
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'sonarCheck'  : true
             ],
-			'xmc-storage-service': [
+		'xmc-storage-service': [
                     'servicePort' : '80',
                     'namespace': 'xmc',
                     'nodePort' : '31165',
@@ -1315,24 +1315,24 @@ class GlobalConfig implements Serializable {
                     'nodePort' : '30228',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-                    'replicas' : 2,
+                    'replicas' : 1,
                     'dev': 'dev', // dev分支部署到测试环境
                     'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
-                    'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2-xc/xmc2-voice-cls-service.git',
-                    'useModel': true,
+                    'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc-tx2/engine-audio-process.git',
+                    'useModel': False,
                     'modelPath': 'app/data', //模型文件path, 在构建的时候相对于当前的代码的主目录
                     'compile': false, // 是否编译
                     'deploy': false, // 是否自动化部署
                     'customDockerfile': true, // 是否使用自定义 dockerfile
                     'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
-                    'useConfigMap': true, //是否使用configmap
+                    'useConfigMap': False, //是否使用configmap
                     'configMapName': 'config.yaml', //是否使用configmap
                     'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
-                    'useStore': false, // 是否使用存储资源。
-                    'storePath' : '/app/data',
+                    'useStore': False, // 是否使用存储资源。
+                    'storePath' : '/data',
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'envType'     : 'gpu', //分为gpu 和非gpu的环境
@@ -1356,7 +1356,7 @@ class GlobalConfig implements Serializable {
                     'deploy': false, // 是否自动化部署
                     'customDockerfile': true, // 是否使用自定义 dockerfile
                     'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
-                    'useConfigMap': true, //是否使用configmap
+                    'useConfigMap': False, //是否使用configmap
                     'configMapName': 'config.yaml', //是否使用configmap
                     'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
