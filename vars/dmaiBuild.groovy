@@ -126,6 +126,9 @@ def call(Map map, env) {
     // 存储路径
     def defaultStorePath = conf.getAttr('storePath') ? conf.getAttr('storePath') : '/data'
 
+    // 分支名称
+    def branchName = conf.getAttr('branchName') ? conf.getAttr('branchName') : ''
+
     // if check pods service
     def defaultCheckPodsStatus = true
 
@@ -141,6 +144,7 @@ def call(Map map, env) {
             string(name: 'VERSION_CONTROL_MODE', defaultValue: 'GitCommitId', description: '构建的时候的版本控制方式，commit和tags，默认commitId')
             string(name: 'GIT_TAG', defaultValue: '', description: 'git的tag版本')
             string(name: 'GIT_VERSION', defaultValue: 'last', description: 'git的commit 版本号，git log 查看。')
+            string(name: 'BRANCH_NAME', defaultValue: branchName, description: '分支名')
 
             choice(name: 'VUE_APP_SCHOOL', choices: ['chongwen', 'S00001'], description: '学校的Code，xmc2-frontend项目使用，其他不关注,s小写    ')
             choice(name: 'VUE_APP_SCENE', choices: ['school', 'agency'], description: 'xmc2-frontend项目使用，其他不关注')
@@ -290,7 +294,7 @@ def call(Map map, env) {
                     }
                 }
                 steps {
-                    container('kubectl') {
+                    container('docker-compose') {
                         script {
 
                             if (conf.getAttr('versionControlMode') == 'GitTags' && ! conf.getAttr('gitTag')) {
@@ -300,7 +304,7 @@ def call(Map map, env) {
                             try {
                                 withCredentials([usernamePassword(credentialsId: 'passwd-zs', passwordVariable: 'password', usernameVariable: 'username')]) {
                                     if (conf.getAttr('versionControlMode') == 'GitTags') {
-                                        sh "source /etc/profile; git config --global http.sslVerify false ; sleep 6000;git checkout ${conf.getAttr('gitTag')}"
+                                        sh "source /etc/profile; git config --global http.sslVerify false ; git checkout ${conf.getAttr('branchName')} ; git fetch ;git checkout ${conf.getAttr('gitTag')}"
                                     } else {
                                         sh 'source /etc/profile; git config --global http.sslVerify false ; git reset --hard "${gitVersion}"'
                                     }
