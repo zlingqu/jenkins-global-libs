@@ -304,7 +304,7 @@ def call(Map map, env) {
                             try {
                                 withCredentials([usernamePassword(credentialsId: 'passwd-zs', passwordVariable: 'password', usernameVariable: 'username')]) {
                                     if (conf.getAttr('versionControlMode') == 'GitTags') {
-                                        sh "source /etc/profile; git config --global http.sslVerify false ; git checkout ${conf.getAttr('branchName')} ; git fetch ;git checkout ${conf.getAttr('gitTag')}"
+                                        sh "source /etc/profile; git config --global http.sslVerify false ; git checkout master ; git fetch ;git checkout ${conf.getAttr('gitTag')}"
                                     } else {
                                         sh 'source /etc/profile; git config --global http.sslVerify false ; git reset --hard "${gitVersion}"'
                                     }
