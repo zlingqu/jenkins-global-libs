@@ -132,6 +132,9 @@ class JenkinsRunTemplate {
         // GIT_VERSION
         this.conf.setAttr('gitVersion', params.GIT_VERSION)
 
+        //BRANCH_NAME
+        this.conf.setAttr('branchName', params.BRANCH_NAME)
+
         // DEPLOY_MASTER_PASSWORD
         this.conf.setAttr('deployPassword', params.DEPLOY_MASTER_PASSWORD)
 
