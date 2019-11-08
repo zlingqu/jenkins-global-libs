@@ -123,6 +123,12 @@ class JenkinsRunTemplate {
         // set STORAGE_PATH
         this.conf.setAttr('storePath', params.STORAGE_PATH)
 
+        // VERSION_CONTROL_MODE
+        this.conf.setAttr('versionControlMode', params.VERSION_CONTROL_MODE)
+
+        // GIT_TAG
+        this.conf.setAttr('gitTag', params.GIT_TAG)
+
         // GIT_VERSION
         this.conf.setAttr('gitVersion', params.GIT_VERSION)
 

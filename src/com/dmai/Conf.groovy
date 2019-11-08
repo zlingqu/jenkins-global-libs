@@ -59,8 +59,19 @@ class Conf implements Serializable{
     }
 
     public def getBuildImageAddress() {
-       return String.format('''%s/%s/%s:%s-%s-%s''', this.dockerRegistryHost ,this.getAttr('namespace'),  this.appName, this.getAttr('branchName'), this.getAttr('buildNumber'),
-       this.getAttr('gitVersion') != 'last' ? this.getAttr('gitVersion') : 'gitVersion')
+        if (this.getAttr('versionControlMode') == 'GitTags') {
+            return String.format('''%s/%s/%s:tag-%s''',
+                    this.dockerRegistryHost ,
+                    this.getAttr('namespace'),
+                    this.appName, this.getAttr('gitTag'))
+        }
+       return String.format('''%s/%s/%s:%s-%s-%s''',
+               this.dockerRegistryHost ,
+               this.getAttr('namespace'),
+               this.appName,
+               this.getAttr('branchName'),
+               this.getAttr('buildNumber'),
+               this.getAttr('gitVersion') != 'last' ? this.getAttr('gitVersion') : 'gitVersion')
     }
 
     public def getK8sWebAddress() {
