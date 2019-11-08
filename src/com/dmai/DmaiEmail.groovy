@@ -104,7 +104,6 @@ $buildEnvInfo
 Jenkins构建地址： $jenkinsAddress/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline
 Git地址：$gitAddress
 K8s管理页面地址：$k8sWebAddress
-通过端口映射访问服务，设置wiki：https://wiki.dm-ai.cn/pages/viewpage.action?pageId=76354849
 $useSvcInfo
 sonar检查结果：$sonarAddress
 

@@ -126,6 +126,9 @@ def call(Map map, env) {
     // 存储路径
     def defaultStorePath = conf.getAttr('storePath') ? conf.getAttr('storePath') : '/data'
 
+    // 分支名称
+    def branchName = conf.getAttr('branchName') ? conf.getAttr('branchName') : ''
+
     // if check pods service
     def defaultCheckPodsStatus = true
 
@@ -138,7 +141,11 @@ def call(Map map, env) {
             choice(name: 'ENV_TYPE', choices: topEnvType, description: 'cpu代表部署cpu服务器，gpu代表gpu服务器，all代表不做限制任意漂流')
             string(name: 'GPU_CARD_COUNT', defaultValue: defaultGpuLimits, description: '使用gpu卡的时候，在k8s集群中，一个pods使用的gpu卡的限制。')
 
+            string(name: 'VERSION_CONTROL_MODE', defaultValue: 'GitCommitId', description: '构建的时候的版本控制方式，commit和tags，默认commitId')
+            string(name: 'GIT_TAG', defaultValue: '', description: 'git的tag版本')
             string(name: 'GIT_VERSION', defaultValue: 'last', description: 'git的commit 版本号，git log 查看。')
+            string(name: 'BRANCH_NAME', defaultValue: branchName, description: '分支名')
+
             choice(name: 'VUE_APP_SCHOOL', choices: ['chongwen', 'S00001'], description: '学校的Code，xmc2-frontend项目使用，其他不关注,s小写    ')
             choice(name: 'VUE_APP_SCENE', choices: ['school', 'agency'], description: 'xmc2-frontend项目使用，其他不关注')
             choice(name: 'NODE_ENV', choices: ['dev', 'prod', 'test', 'stage'], description: '前端专用，其他不关注')
@@ -282,18 +289,29 @@ def call(Map map, env) {
                 when {
                     allOf {
                         expression { return  conf.ifBuild() };
-                        expression { return  gitVersion != 'last'};
+//                        expression { return  gitVersion != 'last'};
+                        expression { return  (conf.getAttr('versionControlMode') == 'GitCommitId' && gitVersion != 'last') || ( conf.getAttr('versionControlMode') == 'GitTags')};
                     }
                 }
                 steps {
-                    container('kubectl') {
+                    container('docker-compose') {
                         script {
+
+                            if (conf.getAttr('versionControlMode') == 'GitTags' && ! conf.getAttr('gitTag')) {
+                                throw '请指定tag号!'
+                            }
+
                             try {
                                 withCredentials([usernamePassword(credentialsId: 'passwd-zs', passwordVariable: 'password', usernameVariable: 'username')]) {
-                                    sh 'source /etc/profile; git config --global http.sslVerify false ; git reset --hard "${gitVersion}"'
+                                    if (conf.getAttr('versionControlMode') == 'GitTags') {
+                                        sh "source /etc/profile; git config --global http.sslVerify false ; git checkout ${conf.getAttr('branchName')} ; git fetch ;git checkout ${conf.getAttr('gitTag')}"
+                                    } else {
+                                        sh 'source /etc/profile; git config --global http.sslVerify false ; git reset --hard "${gitVersion}"'
+                                    }
                                 }
                             } catch (e) {
                                 sh "echo ${e}"
+                                throw e
                             }
                         }
                     }
