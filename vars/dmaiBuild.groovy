@@ -299,7 +299,7 @@ def call(Map map, env) {
 
                             try {
                                 withCredentials([usernamePassword(credentialsId: 'passwd-zs', passwordVariable: 'password', usernameVariable: 'username')]) {
-                                    if (conf.getAttr('versionControlMode') == 'GitCommitId') {
+                                    if (conf.getAttr('versionControlMode') == 'GitTags') {
                                         sh "source /etc/profile; git config --global http.sslVerify false ; git checkout ${conf.getAttr('gitTag')}"
                                     } else {
                                         sh 'source /etc/profile; git config --global http.sslVerify false ; git reset --hard "${gitVersion}"'
