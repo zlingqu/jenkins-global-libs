@@ -3736,39 +3736,39 @@ class GlobalConfig implements Serializable {
                     'useEnvFile'  : false, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
                     'sonarCheck'  : true
             ],
-            'x2-essayanalyzer': [
-                    'servicePort' : '80',
-                    'namespace': 'x2-ta',
-                    'nodePort' : '30410',
-                    'containerPort': '5000',
-                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-                    'cpuRequests' : '1500m',
-                    'memoryRequests' : '6500Mi',
-                    'cpuLimits' : '2000m',
-                    'memoryLimits' : '8000Mi',
-                    'replicas' : 1,
-                    'dev': 'dev', // dev分支部署到测试环境
-                    'test': true, // 是否从dev分支部署到测试环境
-                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
-                    'gitAddress': 'https://gitlab.dm-ai.cn/research-algorithm/nlp-lib/EssayAnalyzer.git',
-//                    'useModel': true,
-//                    'modelPath': 'models', //模型文件path, 在构建的时候相对于当前的代码的主目录
-                    'compile': false, // 是否编译
-                    'deploy': true, // 是否自动化部署
-                    'customDockerfile': true, // 是否使用自定义 dockerfile
-                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
-                    'useConfigMap': true, //是否使用configmap
-                    'configMapName': 'config.ini', //是否使用configmap
-                    'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
-                    'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
-                    'k8sKind': 'deployment', // 部署的服务的类型
-//                    'useStore': true, // 是否使用存储资源。
-//                    'storePath' : '/app/models',
-                    'useService': true, // 是否使用service
-                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
-                    'useEnvFile'  : true, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
-                    'sonarCheck'  : false
-            ],
+//            'x2-essayanalyzer': [
+//                    'servicePort' : '80',
+//                    'namespace': 'x2-ta',
+//                    'nodePort' : '30410',
+//                    'containerPort': '5000',
+//                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
+//                    'cpuRequests' : '1500m',
+//                    'memoryRequests' : '6500Mi',
+//                    'cpuLimits' : '2000m',
+//                    'memoryLimits' : '8000Mi',
+//                    'replicas' : 1,
+//                    'dev': 'dev', // dev分支部署到测试环境
+//                    'test': true, // 是否从dev分支部署到测试环境
+//                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
+//                    'gitAddress': 'https://gitlab.dm-ai.cn/research-algorithm/nlp-lib/EssayAnalyzer.git',
+////                    'useModel': true,
+////                    'modelPath': 'models', //模型文件path, 在构建的时候相对于当前的代码的主目录
+//                    'compile': false, // 是否编译
+//                    'deploy': true, // 是否自动化部署
+//                    'customDockerfile': true, // 是否使用自定义 dockerfile
+//                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
+//                    'useConfigMap': true, //是否使用configmap
+//                    'configMapName': 'config.ini', //是否使用configmap
+//                    'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
+//                    'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
+//                    'k8sKind': 'deployment', // 部署的服务的类型
+////                    'useStore': true, // 是否使用存储资源。
+////                    'storePath' : '/app/models',
+//                    'useService': true, // 是否使用service
+//                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+//                    'useEnvFile'  : true, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
+//                    'sonarCheck'  : false
+//            ],
             'ta-speech-eval-gateway': [
                     'servicePort' : '80',
                     'namespace': 'x2-ta',
