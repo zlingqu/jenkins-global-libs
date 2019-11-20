@@ -487,12 +487,15 @@ spec:
     - name: jenkins-build-path
       mountPath: /data
       subPath: android_home/%s/%s
+    - name: jenkins-build-path
+      mountPath: /cache
+      subPath: android_cache/%s/%s
     command:
     - "sleep"
     args:
     - "3600"
     tty: true
-''', this.conf.appName, this.conf.getAttr('deployEnv'))
+''', this.conf.appName, this.conf.getAttr('deployEnv'), this.conf.appName, this.conf.getAttr('deployEnv'))
 
             case 'node':
                 return String.format('''
