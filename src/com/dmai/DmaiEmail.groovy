@@ -82,7 +82,7 @@ class DmaiEmail {
 //        this.writeBuildResultToAdp(buildResult)
 
         // 构建结果的中文提示：
-        def buildResultZh = buildResult == 'success' ? '成功' : '失败'
+        def buildResultZh = buildResult == 'success' ? '成功' : '失败: ' + this.conf.failMsg
         try {
             this.script.emailext(
                     body: this.emailBody(buildResultZh),

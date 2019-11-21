@@ -9,6 +9,7 @@ class Conf implements Serializable{
     public String vueAppSchool
     public String modelVersion
     public String kubernetesStatusCheckHttpAddress
+    public String failMsg
     public int checkKubernetesServiceStatusSleepTimes
     protected final def script
     private Map<String, String> userSetMap
@@ -27,6 +28,7 @@ class Conf implements Serializable{
         this.vueAppScene = ''
         this.vueAppSchool = ''
         this.modelVersion = ''
+        this.failMsg = ''
 
         // 全局设置中没添加这个项目，需要报错。
         try {
