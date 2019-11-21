@@ -311,6 +311,7 @@ def call(Map map, env) {
                                 }
                             } catch (e) {
                                 sh "echo ${e}"
+                                conf.failMsg = '拉取指定git的版本或者tag失败，请检查版本或者tag是否正确';
                                 throw e
                             }
                         }
@@ -327,7 +328,15 @@ def call(Map map, env) {
                 }
                 steps {
                     container('custom-image') {
-                        sh conf.getAttr('execCommand')
+                        script {
+                            try {
+                                sh conf.getAttr('execCommand')
+                            } catch (e) {
+                                sh "echo ${e}"
+                                conf.failMsg = '自定义镜像执行命令失败，执行命令为：' + conf.getAttr('execCommand');
+                                throw e
+                            }
+                        }
                     }
                 }
             }
@@ -344,7 +353,13 @@ def call(Map map, env) {
                 steps {
                     container('compile') {
                         script {
-                            compile.compile()
+                            try {
+                                compile.compile()
+                            } catch (e) {
+                                sh "echo ${e}"
+                                conf.failMsg = '编译失败！';
+                                throw e
+                            }
                         }
                     }
                 }
@@ -367,6 +382,8 @@ def call(Map map, env) {
                                 }
                             } catch (e) {
                                 sh "echo ${e}"
+                                conf.failMsg = '下载deployment配置文件失败！';
+                                throw e
                             }
                         }
                     }
@@ -391,6 +408,8 @@ def call(Map map, env) {
                                 sh 'rm -fr model/.git'
                             } catch (e) {
                                 sh "echo ${e}"
+                                conf.failMsg = '从gitlab下载模型文件失败！';
+                                throw e;
                             }
                         }
                     }
@@ -408,8 +427,14 @@ def call(Map map, env) {
                 steps {
                     container('docker-compose') {
                         script {
-                            sh 'pwd;ls;git show -s --format=%H > gitVersion'
-                            makeDockerImage.makeImage()
+                            try {
+                                sh 'pwd;ls;git show -s --format=%H > gitVersion'
+                                makeDockerImage.makeImage()
+                            } catch (e) {
+                                sh "echo ${e}"
+                                conf.failMsg = '制作容器镜像失败！';
+                                throw e
+                            }
                         }
                     }
                 }
@@ -426,7 +451,13 @@ def call(Map map, env) {
                 steps {
                     container('docker-compose') {
                         script {
-                            makeDockerImage.pushImage()
+                            try {
+                                makeDockerImage.pushImage()
+                            } catch (e) {
+                                sh "echo ${e}"
+                                conf.failMsg = '推送镜像到镜像仓库失败！';
+                                throw e
+                            }
                         }
                     }
                 }
@@ -469,11 +500,16 @@ def call(Map map, env) {
                             if (conf.getAttr('branchName') == 'master' && deployMasterPassword != 'dmai2019999') {
                                 throw "master分支请运维人员触发！"
                             }
-
-                            echo conf.getAttr('deployEnv')
-                            deploykubernetes.createIngress()
-                            deploykubernetes.createConfigMap()
-                            deploykubernetes.deployKubernetes()
+                            try {
+                                echo conf.getAttr('deployEnv')
+                                deploykubernetes.createIngress()
+                                deploykubernetes.createConfigMap()
+                                deploykubernetes.deployKubernetes()
+                            } catch (e) {
+                                sh "echo ${e}"
+                                conf.failMsg = '使用kubectl部署服务到k8s失败！';
+                                throw e
+                            }
                         }
                     }
 
@@ -497,9 +533,15 @@ def call(Map map, env) {
                     steps {
                         container('kubectl-test') {
                             script {
-                                deploykubernetes.createIngress()
-                                deploykubernetes.createConfigMapTest()
-                                deploykubernetes.deployKubernetes()
+                                try {
+                                    deploykubernetes.createIngress()
+                                    deploykubernetes.createConfigMapTest()
+                                    deploykubernetes.deployKubernetes()
+                                } catch (e) {
+                                    sh "echo ${e}"
+                                    conf.failMsg = '使用kubectl部署服务到k8s-test失败！';
+                                    throw e
+                                }
                             }
                         }
                     }
@@ -517,12 +559,18 @@ def call(Map map, env) {
                 steps {
                     container('kubectl') {
                         script {
-                            sh "echo '检查部署在k8s集群中的服务的pod是否正常运行，等待限时120秒。'"
-                            if (kubernetesStatusCheck.waitKubernetesServerStarted() == true ) {
-                                sh "echo '部署在k8s集群中的服务已正常运行'"
-                            } else {
-                                sh "echo '在120秒内，检查k8s集群中服务的pods的状态失败，请手动检查服务部署后的pod状态，构建失败！！'"
-                                throw "please check service status with admin."
+                            try {
+                                sh "echo '检查部署在k8s集群中的服务的pod是否正常运行，等待限时120秒。'"
+                                if (kubernetesStatusCheck.waitKubernetesServerStarted() == true ) {
+                                    sh "echo '部署在k8s集群中的服务已正常运行'"
+                                } else {
+                                    sh "echo '在120秒内，检查k8s集群中服务的pods的状态失败，请手动检查服务部署后的pod状态，构建失败！！'"
+                                    throw "please check service status with admin."
+                                }
+                            } catch (e) {
+                                sh "echo ${e}"
+                                conf.failMsg = '部署完成后，检查服务的pod，在k8s中启动是否成功，2分钟内启动不成功即失败，请手动检查k8s的服务的日志和状态。';
+                                throw e
                             }
                         }
                     }
@@ -545,6 +593,7 @@ def call(Map map, env) {
                                 sh 'cd /tmp/dm-api-doc && timeout -t 60 sh -x apidoc.sh ' + conf.jenkinsWorkPath()
                             } catch (e) {
                                 sh "echo ${e}"
+                                conf.failMsg = '执行apidoc步骤失败';
                                 // send email to liaolonglong
                             }
 
@@ -568,11 +617,18 @@ def call(Map map, env) {
                 steps {
                     container('compile') {
                         script {
-                            sh 'npm config set registry http://192.168.3.13:8081/repository/npm/ &&  yarn config set registry http://192.168.3.13:8081/repository/npm/  && yarn install || echo 0'
-                            sh 'npm i -g nyc || echo 0'
-                            sh 'npm i -g mocha || echo 0'
-                            sh 'rm -fr deployment || echo 0'
-                            sh 'nyc --reporter=lcov --reporter=text --report-dir=coverage mocha test/**/*.js --exit || echo 0'
+                            try {
+                                sh 'npm config set registry http://192.168.3.13:8081/repository/npm/ &&  yarn config set registry http://192.168.3.13:8081/repository/npm/  && yarn install || echo 0'
+                                sh 'npm i -g nyc || echo 0'
+                                sh 'npm i -g mocha || echo 0'
+                                sh 'rm -fr deployment || echo 0'
+                                sh 'nyc --reporter=lcov --reporter=text --report-dir=coverage mocha test/**/*.js --exit || echo 0'
+                            } catch (e) {
+                                sh "echo ${e}"
+                                conf.failMsg = '执行sonar检查。安装nyc 失败';
+                                throw e
+                            }
+
                         }
                     }
                 }
@@ -593,7 +649,13 @@ def call(Map map, env) {
                 steps {
                     container('sonar-check') {
                         script {
-                            codeCheck.sonarCheck()
+                            try {
+                                codeCheck.sonarCheck()
+                            } catch (e) {
+                                sh "echo ${e}"
+                                conf.failMsg = '执行sonar检查失败';
+                                throw e
+                            }
                         }
                     }
                 }
