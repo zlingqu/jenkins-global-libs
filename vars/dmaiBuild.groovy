@@ -278,7 +278,6 @@ def call(Map map, env) {
 //                        }
 
                         // print all data
-                        sh 'sleep 6000'
                         println(conf.printAppConf())
 
 
