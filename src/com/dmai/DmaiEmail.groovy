@@ -82,11 +82,11 @@ class DmaiEmail {
 //        this.writeBuildResultToAdp(buildResult)
 
         // 构建结果的中文提示：
-        def buildResultZh = buildResult == 'success' ? '成功' : '失败: '
+        def buildResultZh = buildResult == 'success' ? '成功' : '失败: ' + conf.failMsg
         try {
             this.script.emailext(
                     body: this.emailBody(buildResultZh),
-                    subject: "应用名：" + this.conf.appName+ ',构建 : ' + buildResultZh +  + "，分支：" + this.conf.getAttr('branchName') + "，部署环境：" + this.conf.getAttr('deployEnv'),
+                    subject: "应用名：" + this.conf.appName+ ',构建 : ' + buildResultZh + "，分支：" + this.conf.getAttr('branchName') + "，部署环境：" + this.conf.getAttr('deployEnv'),
                     to: conf.getAttr('emailAddress') + ',zuosheng@dm-ai.cn'
             )
         }

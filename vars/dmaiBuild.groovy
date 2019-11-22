@@ -594,7 +594,7 @@ def call(Map map, env) {
                                 sh 'cd /tmp/dm-api-doc && timeout -t 60 sh -x apidoc.sh ' + conf.jenkinsWorkPath()
                             } catch (e) {
                                 sh "echo ${e}"
-                                conf.failMsg = '执行apidoc步骤失败';
+//                                conf.failMsg = '执行apidoc步骤失败';
                                 // send email to liaolonglong
                             }
 
