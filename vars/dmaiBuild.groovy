@@ -265,7 +265,6 @@ def call(Map map, env) {
                 }
                 steps {
                     script {
-                        echo currentBuild.commitsId
 //                        echo currentBuild.displayName, currentBuild.fullDisplayName, currentBuild.projectName, currentBuild.fullProjectName
 
 //                        if (conf.getAttr('deployEnv') == 'prd' && deployMasterPassword != 'dmai2019999') {
