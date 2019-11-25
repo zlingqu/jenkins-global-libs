@@ -96,7 +96,7 @@ $volumes
                 'tolerations'           : this.getTolerations(),
                 'apollo_env'            : this.conf.getAttr('deployEnv').toUpperCase(),
                 'apollo_url'            : this.conf.getAttr('deployEnv').toLowerCase(),
-                'imageAddress'          : this.conf.getBuildImageAddress()
+                'imageAddress'          : this.conf.getAttr('buildImageAddress')
         ]
         return Tools.simpleTemplate(text, bind)
     }
