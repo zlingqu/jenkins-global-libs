@@ -114,7 +114,7 @@ services:
     image: $imageAddress'''
 
         def binding = [
-                'imageAddress': this.conf.getBuildImageAddress(),
+                'imageAddress': this.conf.getAttr('buildImageAddress'),
         ]
 
         return Tools.simpleTemplate(text, binding)

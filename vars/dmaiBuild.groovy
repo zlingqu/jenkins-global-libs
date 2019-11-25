@@ -283,6 +283,9 @@ def call(Map map, env) {
                         if ( env.GIT_COMMIT && conf.getAttr('gitVersion') == 'last' && conf.getAttr('versionControlMode') == 'GitCommitId' ) {
                             conf.setAttr('gitVersion', env.GIT_COMMIT)
                         }
+
+                        // set build image
+                        conf.setAttr('buildImageAddress', conf.getBuildImageAddress())
 //                        echo currentBuild.displayName, currentBuild.fullDisplayName, currentBuild.projectName, currentBuild.fullProjectName
 
 //                        if (conf.getAttr('deployEnv') == 'prd' && deployMasterPassword != 'dmai2019999') {
