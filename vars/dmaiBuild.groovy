@@ -278,6 +278,7 @@ def call(Map map, env) {
                                 }
                             }
                         }
+                        echo env.GIT_COMMIT
 //                        echo currentBuild.displayName, currentBuild.fullDisplayName, currentBuild.projectName, currentBuild.fullProjectName
 
 //                        if (conf.getAttr('deployEnv') == 'prd' && deployMasterPassword != 'dmai2019999') {
