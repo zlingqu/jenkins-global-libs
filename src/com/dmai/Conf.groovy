@@ -73,7 +73,7 @@ class Conf implements Serializable{
                this.appName,
                this.getAttr('branchName'),
                this.getAttr('buildNumber'),
-               this.getAttr('gitVersion') != 'last' ? this.getAttr('gitVersion') : 'gitVersion')
+               this.getAttr('gitVersion'))
     }
 
     public def getK8sWebAddress() {
