@@ -518,7 +518,6 @@ def call(Map map, env) {
                                 withEnv(conf.withEnvList) {
                                     sh 'cd /workspace; dockerize -template src_dir:dest_dir'
                                     sh 'cat /workspace/dest_dir/template-svc.tmpl'
-                                    sh 'sleep 6000'
                                 }
                             } catch (e) {
                                 sh "echo ${e}"
