@@ -301,6 +301,9 @@ def call(Map map, env) {
 
                         // print all data
                         println(conf.printAppConf())
+                        withEnv(conf.withEnvList) {
+                            sh 'printenv'
+                        }
                     }
                 }
             }
