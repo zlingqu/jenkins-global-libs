@@ -225,6 +225,8 @@ def call(Map map, env) {
             // success deploy, check pods status
             booleanParam(name: 'IF_CHECK_PODS_STATUS', defaultValue: defaultCheckPodsStatus, description: '是否在部署后检查pods的状态')
 
+            // set build platform
+            string(name: 'BUILD_PLATFORM', defaultValue: 'jenkins', description: '构建平台，默认jenkins，adp代表发布平台，为了额兼容性考虑')
         }
 
 //        triggers {

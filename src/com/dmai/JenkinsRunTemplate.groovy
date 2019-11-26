@@ -138,6 +138,9 @@ class JenkinsRunTemplate {
         // DEPLOY_MASTER_PASSWORD
         this.conf.setAttr('deployPassword', params.DEPLOY_MASTER_PASSWORD)
 
+        //BUILD_PLATFORM
+        this.conf.setAttr('buildPlatform', params.BUILD_PLATFORM)
+
          ///////////// 针对特殊情况
         if (this.conf.getAttr('namespace') in ['xmc2-lexue', 'xmc2-chongwen']) {
             this.conf.setAttr('svcType', 'ClusterIP')
