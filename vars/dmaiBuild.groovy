@@ -518,6 +518,7 @@ def call(Map map, env) {
                                 withEnv(conf.withEnvList) {
                                     sh 'cd /workspace; dockerize -template src_dir:dest_dir'
                                     sh 'cat /workspace/dest_dir/template-svc.tmpl'
+                                    sh 'cp -rp /workspace/dest_dir/template.tmpl ./'
                                 }
                             } catch (e) {
                                 sh "echo ${e}"
@@ -547,10 +548,14 @@ def call(Map map, env) {
                                 throw "master分支请运维人员触发！"
                             }
                             try {
-                                echo conf.getAttr('deployEnv')
-                                deploykubernetes.createIngress()
-                                deploykubernetes.createConfigMap()
-                                deploykubernetes.deployKubernetes()
+                                if (conf.getAttr('buildPlatform') != 'adp' ) {
+                                    echo conf.getAttr('deployEnv')
+                                    deploykubernetes.createIngress()
+                                    deploykubernetes.createConfigMap()
+                                    deploykubernetes.deployKubernetes()
+                                } else {
+                                    sh 'kubectl apply -f template.tmpl'
+                                }
                             } catch (e) {
                                 sh "echo ${e}"
                                 conf.failMsg = '使用kubectl部署服务到k8s失败！';
@@ -580,9 +585,13 @@ def call(Map map, env) {
                         container('kubectl-test') {
                             script {
                                 try {
-                                    deploykubernetes.createIngress()
-                                    deploykubernetes.createConfigMapTest()
-                                    deploykubernetes.deployKubernetes()
+                                    if (conf.getAttr('buildPlatform') != 'adp' ) {
+                                        deploykubernetes.createIngress()
+                                        deploykubernetes.createConfigMapTest()
+                                        deploykubernetes.deployKubernetes()
+                                    } else {
+                                        sh 'kubectl apply -f template.tmpl'
+                                    }
                                 } catch (e) {
                                     sh "echo ${e}"
                                     conf.failMsg = '使用kubectl部署服务到k8s-test失败！';
