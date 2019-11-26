@@ -174,16 +174,14 @@ class Conf implements Serializable{
 
     // print appConf
     public def printAppConf() {
-        def withEnvList = [];
         String printString = ''
         Set<String> key = this.appConf.keySet()
         for (Iterator<String> it = key.iterator(); it.hasNext();){
             String s = it.next();
             printString += s + " : " + this.appConf.get(s) + "\n"
-            withEnvList + [s + '=' + 'BUILD_ENV_' + this.appConf.get(s)]
+            this.withEnvList += ['BUILD_ENV_' + s + '='  + this.appConf.get(s)]
 //            this.script.sh "echo ${s} : ${this.appConf.get(s)}"
         }
-        this.withEnvList = withEnvList
         return printString
 //        for (i in this.appConf) {
 //            this.script.sh "echo ${this.appConf.get(i)}"
