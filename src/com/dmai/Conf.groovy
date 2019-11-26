@@ -16,6 +16,7 @@ class Conf implements Serializable{
     private Map<String, String> appConf
     private Map<String, Map<String, String>> globalConfig
     private Map<String, String> jenkinsEnv
+    public withEnvList
 
     Conf(script, String appName, Map<String, String> userSetMap) {
         this.script = script
@@ -29,6 +30,7 @@ class Conf implements Serializable{
         this.vueAppSchool = ''
         this.modelVersion = ''
         this.failMsg = ''
+        this.withEnvList = []
 
         // 全局设置中没添加这个项目，需要报错。
         try {
@@ -172,13 +174,16 @@ class Conf implements Serializable{
 
     // print appConf
     public def printAppConf() {
+        def withEnvList = [];
         String printString = ''
         Set<String> key = this.appConf.keySet()
         for (Iterator<String> it = key.iterator(); it.hasNext();){
             String s = it.next();
             printString += s + " : " + this.appConf.get(s) + "\n"
+            withEnvList + [s + '=' + this.appConf.get(s)]
 //            this.script.sh "echo ${s} : ${this.appConf.get(s)}"
         }
+        this.withEnvList = withEnvList
         return printString
 //        for (i in this.appConf) {
 //            this.script.sh "echo ${this.appConf.get(i)}"
