@@ -502,6 +502,29 @@ def call(Map map, env) {
 //                    }
 //                }
 //            }
+            stage('Create deploy template') {
+                when {
+                    allOf {
+                        expression { return  conf.getAttr('buildPlatform') == 'adp' };
+                    }
+                }
+
+                steps {
+                    container('dockerize') {
+                        script {
+                            try {
+                                sh 'pwd'
+                                withEnv(conf.withEnvList) {
+                                    sh 'dockerize -template src_dir:dest_dir'
+                                    sh 'cat /workspace/dest_dir/template-svc.tmpl'
+                                }
+                            } catch (e) {
+                                sh "echo ${e}"
+                            }
+                        }
+                    }
+                }
+            }
 
             stage('Deploy') {
 
