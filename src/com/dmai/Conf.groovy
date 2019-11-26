@@ -180,7 +180,7 @@ class Conf implements Serializable{
         for (Iterator<String> it = key.iterator(); it.hasNext();){
             String s = it.next();
             printString += s + " : " + this.appConf.get(s) + "\n"
-            withEnvList + [s + '=' + this.appConf.get(s)]
+            withEnvList + [s + '=' + 'BUILD_ENV_' + this.appConf.get(s)]
 //            this.script.sh "echo ${s} : ${this.appConf.get(s)}"
         }
         this.withEnvList = withEnvList

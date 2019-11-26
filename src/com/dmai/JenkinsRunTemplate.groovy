@@ -161,6 +161,7 @@ class JenkinsRunTemplate {
         if (this.conf.getAttr('deployEnv') in ['dev', 'test', 'stage']) {
             this.conf.setAttr('domain', this.conf.getAttr('domain') ? this.conf.getAttr('domain') : this.conf.appName + '.dm-ai.cn' )
         }
+        this.conf.setAttr('domain', this.conf.getDomain())
     }
 
     public String getJenkinsRunTemplate(String deployMasterPassword, String deployEnvironment, params) {
