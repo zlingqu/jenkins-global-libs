@@ -513,6 +513,7 @@ def call(Map map, env) {
                     container('dockerize') {
                         script {
                             try {
+                                println(conf.printAppConf())
                                 sh 'pwd'
                                 withEnv(conf.withEnvList) {
                                     sh 'cd /workspace; dockerize -template src_dir:dest_dir'
