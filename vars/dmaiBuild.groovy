@@ -502,7 +502,7 @@ def call(Map map, env) {
 //                    }
 //                }
 //            }
-            stage('Create deploy template') {
+            stage('Create template') {
                 when {
                     allOf {
                         expression { return  conf.getAttr('buildPlatform') == 'adp' };
@@ -517,7 +517,7 @@ def call(Map map, env) {
                                 sh 'pwd'
                                 withEnv(conf.withEnvList) {
                                     sh 'cd /workspace; dockerize -template src_dir:dest_dir'
-                                    sh 'cat /workspace/dest_dir/template-svc.tmpl'
+                                    sh 'cat /workspace/dest_dir/template.tmpl'
                                     sh 'cp -rp /workspace/dest_dir/template.tmpl ./'
                                 }
                             } catch (e) {
