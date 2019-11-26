@@ -515,7 +515,7 @@ def call(Map map, env) {
                             try {
                                 sh 'pwd'
                                 withEnv(conf.withEnvList) {
-                                    sh 'dockerize -template src_dir:dest_dir'
+                                    sh 'cd /workspace; dockerize -template src_dir:dest_dir'
                                     sh 'cat /workspace/dest_dir/template-svc.tmpl'
                                 }
                             } catch (e) {
