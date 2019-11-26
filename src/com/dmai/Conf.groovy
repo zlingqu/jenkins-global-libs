@@ -174,6 +174,7 @@ class Conf implements Serializable{
 
     // print appConf
     public def printAppConf() {
+        this.withEnvList = []
         String printString = ''
         Set<String> key = this.appConf.keySet()
         for (Iterator<String> it = key.iterator(); it.hasNext();){
