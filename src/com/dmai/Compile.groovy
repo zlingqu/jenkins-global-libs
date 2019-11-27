@@ -58,7 +58,12 @@ class Compile {
                     this.script.sh String.format('''mvn dm:package -Ddeploy.env=%s''', this.conf.getAttr('deployEnv'))
                     return
                 case 'android':
-                    this.script.sh "bash -x compile.sh  " + "${this.conf.getAttr('compileParam')}"
+                    this.script.sh "test -e /cache/.gradle && rm -fr /cache/.gradle; test -e /root/.gradle && rm -fr /root/.gradle; " +
+                            "test -e /android_cache/.gradle-cache.tar && cp -rp /android_cache/.gradle-cache.tar /cache && tar xf /cache/.gradle-cache.tar -C /cache;" +
+                            "test -e /android_cache/.gradle-root.tar && cp -rp /android_cache/.gradle-root.tar /cache && tar xf /cache/.gradle-root.tar -C /root;" +
+                            "bash -x compile.sh  " + "${this.conf.getAttr('compileParam')} && " +
+                            "cd /cache && tar cf .gradle-cache.tar .gradle && mv .gradle-cache.tar /android_cache && " +
+                            "cd /root && tar cf .gradle-root.tar .gradle && mv .gradle-root.tar /android_cache"
                     return
             }
         }
