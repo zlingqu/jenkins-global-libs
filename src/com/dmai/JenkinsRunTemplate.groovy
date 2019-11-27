@@ -509,7 +509,7 @@ spec:
       mountPath: /data
       subPath: android_home/%s/%s
     - name: jenkins-build-path
-      mountPath: /cache
+      mountPath: /android_cache
       subPath: android_cache/%s/%s
     command:
     - "sleep"
