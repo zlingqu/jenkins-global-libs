@@ -548,7 +548,7 @@ def call(Map map, env) {
                                 throw "master分支请运维人员触发！"
                             }
                             try {
-                                if (conf.getAttr('buildPlatform') != 'adp' ) {
+                                if (conf.getAttr('buildPlatform') != 'adp' || conf.getAttr('customKubernetesDeployTemplate')) {
                                     echo conf.getAttr('deployEnv')
                                     deploykubernetes.createIngress()
                                     deploykubernetes.createConfigMap()
@@ -585,7 +585,7 @@ def call(Map map, env) {
                         container('kubectl-test') {
                             script {
                                 try {
-                                    if (conf.getAttr('buildPlatform') != 'adp' ) {
+                                    if (conf.getAttr('buildPlatform') != 'adp' || conf.getAttr('customKubernetesDeployTemplate')) {
                                         deploykubernetes.createIngress()
                                         deploykubernetes.createConfigMapTest()
                                         deploykubernetes.deployKubernetes()
