@@ -448,6 +448,19 @@ def call(Map map, env) {
                 }
 //                when { expression { return  conf.getAttr('makeImage')} }
                 steps {
+                    container('dockerize') {
+                        script {
+                            try {
+                                println(conf.printAppConf())
+                                sh 'pwd'
+                                withEnv(conf.withEnvList) {
+                                    sh 'test -e nginx.conf &&  dockerize -template nginx.conf:nginx.conf'
+                                }
+                            } catch (e) {
+                                sh "echo ${e}"
+                            }
+                        }
+                    }
                     container('docker-compose') {
                         script {
                             try {
