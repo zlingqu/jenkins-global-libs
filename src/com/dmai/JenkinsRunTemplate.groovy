@@ -162,6 +162,8 @@ class JenkinsRunTemplate {
             this.conf.setAttr('domain', this.conf.getAttr('domain') ? this.conf.getAttr('domain') : this.conf.appName + '.dm-ai.cn' )
         }
         this.conf.setAttr('domain', this.conf.getDomain())
+
+        this.conf.setAttr('jobName', this.conf.getAttr('jobName').toLowerCase())
     }
 
     public String getJenkinsRunTemplate(String deployMasterPassword, String deployEnvironment, params) {
