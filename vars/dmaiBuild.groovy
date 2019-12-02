@@ -289,16 +289,6 @@ def call(Map map, env) {
                         // set build image
                         conf.setAttr('buildImageAddress', conf.getBuildImageAddress())
 //                        echo currentBuild.displayName, currentBuild.fullDisplayName, currentBuild.projectName, currentBuild.fullProjectName
-
-//                        if (conf.getAttr('deployEnv') == 'prd' && deployMasterPassword != 'dmai2019999') {
-//                            throw "master分支请运维人员触发！"
-//                        }
-
-//                        if (conf.getAttr('gitVersion') == 'update') {
-//                            println("配置更新")
-//                            throw "配置更新"
-//                        }
-
                         // print all data
                         println(conf.printAppConf())
                         withEnv(conf.withEnvList) {
@@ -446,7 +436,6 @@ def call(Map map, env) {
                         expression { return  conf.getAttr('makeImage')};
                     }
                 }
-//                when { expression { return  conf.getAttr('makeImage')} }
                 steps {
                     container('dockerize') {
                         script {
