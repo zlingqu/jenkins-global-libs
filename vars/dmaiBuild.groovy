@@ -129,6 +129,9 @@ def call(Map map, env) {
     // 分支名称
     def branchName = conf.getAttr('branchName') ? conf.getAttr('branchName') : ''
 
+    // buildPlatform
+    def defBuildPlatform = conf.getAttr('buildPlatform') ? conf.getAttr('buildPlatform') : 'jenkins'
+
     // if check pods service
     def defaultCheckPodsStatus = true
 
@@ -226,7 +229,7 @@ def call(Map map, env) {
             booleanParam(name: 'IF_CHECK_PODS_STATUS', defaultValue: defaultCheckPodsStatus, description: '是否在部署后检查pods的状态')
 
             // set build platform
-            string(name: 'BUILD_PLATFORM', defaultValue: 'jenkins', description: '构建平台，默认jenkins，adp代表发布平台，为了额兼容性考虑')
+            string(name: 'BUILD_PLATFORM', defaultValue: defBuildPlatform, description: '构建平台，默认jenkins，adp代表发布平台，为了额兼容性考虑')
         }
 
 //        triggers {
