@@ -919,7 +919,6 @@ class GlobalConfig implements Serializable {
             ],
             'mis-org-frontend': [
                     'servicePort' : '80',
-                    'nodePort': '30093',
                     'namespace': 'mis',
                     'containerPort': '80',
                     'domain': 'org.mis.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
