@@ -536,6 +536,22 @@ spec:
     tty: true
 ''', this.templateJsCompilevolumeMounts())
 
+            case 'nodets':
+                return String.format('''
+  - name: compile
+    image: docker.dm-ai.cn/devops/node:0.0.4
+    imagePullPolicy: IfNotPresent
+    env: #指定容器中的环境变量
+    - name: DMAI_PRIVATE_DOCKER_REGISTRY
+      value: docker.dm-ai.cn
+%s
+    command:
+    - "sleep"
+    args:
+    - "3600"
+    tty: true
+''', this.templateJsCompilevolumeMounts())
+
             case 'c++':
                 return '''
   - name: compile
