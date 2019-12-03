@@ -829,7 +829,9 @@ class GlobalConfig implements Serializable {
                     'useStore': false, // 是否使用存储资源。
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
-                    'sonarCheck'  : true
+                    'sonarCheck'  : true,
+                    'defBuildPlatform': 'adp'                    
+
             ],
             'mis-admin-frontend': [
                     'servicePort' : '80',
