@@ -65,6 +65,9 @@ class Compile {
                             "cd /cache && tar cf .gradle-cache.tar .gradle && mv .gradle-cache.tar /android_cache && " +
                             "cd /root && tar cf .gradle-root.tar .gradle && mv .gradle-root.tar /android_cache"
                     return
+                case 'golang':
+                    this.script.sh "make compile"
+                    return
             }
         }
     }

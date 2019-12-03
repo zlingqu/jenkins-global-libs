@@ -565,9 +565,23 @@ spec:
     command:
     - "sleep"
     args:
-    - "1200"
+    - "3600"
     tty: true
 ''', this.conf.appName)
+            case 'golang':
+                return String.format('''
+  - name: compile
+    image: docker.dm-ai.cn/devops/base-image-golang:dev-2-dd3966652a4c21519ec58fad27c47f04c284fb98
+    imagePullPolicy: IfNotPresent
+    env: #指定容器中的环境变量
+    - name: DMAI_PRIVATE_DOCKER_REGISTRY
+      value: docker.dm-ai.cn
+    command:
+    - "sleep"
+    args:
+    - "3600"
+    tty: true
+''')
             default:
                 return ''
         }
