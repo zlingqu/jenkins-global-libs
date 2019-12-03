@@ -108,8 +108,18 @@ ENV TZ="Asia/Shanghai"
 ENTRYPOINT [ "npm","start" ]
 '''
         }
+        if (this.conf.getAttr('codeLanguage') == 'nodets') {
+            return '''
+FROM docker.dm-ai.cn/devops/node:0.0.4
+WORKDIR /app
+COPY . .
+RUN npm config set registry http://192.168.3.13:8081/repository/npm && npm install && tsc
+ENV TZ="Asia/Shanghai"
+ENTRYPOINT [ "npm","start" ]
+'''
+        }
         return '''
-FROM docker.dm-ai.cn/devops/node:0.0.2
+FROM docker.dm-ai.cn/devops/node:0.0.4
 WORKDIR /app
 COPY . .
 RUN npm config set registry http://192.168.3.13:8081/repository/npm && npm install
