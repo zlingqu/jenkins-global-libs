@@ -63,6 +63,9 @@ def call(Map map, env) {
     //
     def deployEnv =  Tools.addItemToListHead(['prd', 'dev', 'test', 'stage', 'jenkins'], conf.getDeployEnv())
 
+    // default node env
+    def defaultNodeEnvList = Tools.addItemToListHead(['dev', 'prod', 'test', 'stage'], conf.getDeployEnv().replaceAll('prd', 'prod'))
+
     //
     def topEnvType = Tools.addItemToListHead(['cpu','gpu', 'arm', 'all'], defaultEnvType)
 
@@ -151,7 +154,7 @@ def call(Map map, env) {
 
             choice(name: 'VUE_APP_SCHOOL', choices: ['chongwen', 'S00001'], description: '学校的Code，xmc2-frontend项目使用，其他不关注,s小写    ')
             choice(name: 'VUE_APP_SCENE', choices: ['school', 'agency'], description: 'xmc2-frontend项目使用，其他不关注')
-            choice(name: 'NODE_ENV', choices: ['dev', 'prod', 'test', 'stage'], description: '前端专用，其他不关注')
+            choice(name: 'NODE_ENV', choices: defaultNodeEnvList, description: '前端专用，其他不关注')
 
             string(name: 'DEPLOY_MASTER_PASSWORD', defaultValue: 'please-input-password', description: '部署master分支请找运维人员输入密码自动部署')
             string(name: 'COMPILE_PARAM', defaultValue: '', description: 'android项目自定义的编译参数')
