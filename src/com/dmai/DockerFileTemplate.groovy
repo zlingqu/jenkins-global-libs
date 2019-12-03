@@ -26,7 +26,20 @@ class DockerFileTemplate {
                 return  this.getNginxDockerfile()
             case 'java':
                 return  this.getJavaDockerfiel()
+            case 'golang':
+                return this.getGolangDockerfile()
         }
+    }
+
+    private String getGolangDockerfile() {
+        return String.format('''
+FROM docker.dm-ai.cn/devops/base-image-golang:dev-2-dd3966652a4c21519ec58fad27c47f04c284fb98
+WORKDIR /workspace
+ADD ./build /workspace/
+ADD ./Makefile /workspace/Makefile
+EXPOSE 80
+CMD ["make", "run"]
+''', this.conf.getAttr('jobName'), this.conf.getAttr('jobName'), this.conf.getAttr('jobName'))
     }
 
     private String getCppDockerfile() {
