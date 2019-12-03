@@ -253,10 +253,9 @@ metadata:
 spec:
   ports:
   - port: $servicePort
-    protocol: TCP
     targetPort: $containerPort
     nodePort: $nodePort
-    name: $appName-$containerPort
+    name: http
 $getTcpSvc    
   selector:
     app: $appName
