@@ -366,7 +366,7 @@ def call(Map map, env) {
                 when {
                     allOf {
                         expression { return  conf.ifBuild() };
-                        expression { return conf.getAttr('compile') || conf.getAttr('codeLanguage') == 'node'};
+                        expression { return conf.getAttr('compile') || conf.getAttr('codeLanguage') in ['node', 'nodets']};
                     }
                 }
                 steps {
