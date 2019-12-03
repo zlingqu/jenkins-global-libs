@@ -302,7 +302,7 @@ metadata:
 spec:
   ports:
   - port: $servicePort
-    protocol: TCP
+    name: http
     targetPort: $containerPort
   selector:
     app: $appName
