@@ -37,7 +37,7 @@ class DockerFileTemplate {
         return String.format('''
 FROM docker.dm-ai.cn/devops/base-image-golang:dev-2-dd3966652a4c21519ec58fad27c47f04c284fb98
 WORKDIR /workspace
-ADD ./build /workspace/
+ADD ./build ./build
 ADD ./Makefile /workspace/Makefile
 EXPOSE 80
 CMD ["make", "run"]
