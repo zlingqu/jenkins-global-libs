@@ -272,6 +272,8 @@ def call(Map map, env) {
                     }
                 }
                 steps {
+                    checkout scm
+                    
                     script {
 //                        def changeLogSets = currentBuild.changeSets
 //                        for (int i = 0; i < changeLogSets.size(); i++) {
@@ -304,18 +306,6 @@ def call(Map map, env) {
                 }
             }
 
-            stage('checkout scm') {
-                when {
-                    allOf {
-                        expression { return  conf.ifBuild() };
-                    }
-                }
-                steps {
-                    container('docker-compose') {
-                        checkout scm
-                    }
-                }
-            }
 
             stage('Specified version') {
                 when {
