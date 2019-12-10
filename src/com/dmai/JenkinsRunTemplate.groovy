@@ -236,7 +236,7 @@ spec:
     }
 
     private String templateDockerCompose() {
-        if (! this.conf.getAttr('makeImage')) return ''
+//        if (! this.conf.getAttr('makeImage')) return ''
         return String.format('''
   - name: docker-compose
     image: docker.dm-ai.cn/devops/base-image-docker-compose:%s0.06
