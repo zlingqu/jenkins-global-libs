@@ -272,6 +272,7 @@ def call(Map map, env) {
                     }
                 }
                 steps {
+
                     script {
 //                        def changeLogSets = currentBuild.changeSets
 //                        for (int i = 0; i < changeLogSets.size(); i++) {
@@ -303,6 +304,7 @@ def call(Map map, env) {
                     }
                 }
             }
+
 
             stage('Specified version') {
                 when {
