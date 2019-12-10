@@ -9,12 +9,14 @@ class DmaiEmail {
     private Conf conf
     private String adpUrl
     private String jenkinsUrl
+    private String adpUrlApp
 
     DmaiEmail(script, Conf conf) {
         this.script = script
         this.conf = conf
         this.adpUrl = 'http://service-adp-deploy.dm-ai.cn/api/v1/deployments/change'
         this.jenkinsUrl = 'http://jenkins.ops.dm-ai.cn'
+        this.adpUrlApp = 'http://adp.dm-ai.cn/#/project-management'
     }
 
     public userSureEmail() {
@@ -108,6 +110,7 @@ $useSvcInfo
 sonar检查结果：$sonarAddress
 
 特别说明：目前发布平台在建设中，master分支要上线到生产环境，请找运维人员(输密码)，手动上线，避免出现问题，master分支的自动上线已关闭, 自动上线默认失败！
+发布平台地址：$adpUrlApp
 '''
         def bind = [
                 'appName'        : this.conf.appName,
@@ -121,7 +124,8 @@ sonar检查结果：$sonarAddress
                 'buildEnvInfo'   : this.buildEnvInfo(),
 //                'buildTestInfo'  : this.buildTestInfo(),
                 'useSvcInfo'     : this.useSvcInfo(),
-                'sonarAddress'   : 'http://sonar.ops.dm-ai.cn/dashboard?id=' + this.conf.appName
+                'sonarAddress'   : 'http://sonar.ops.dm-ai.cn/dashboard?id=' + this.conf.appName,
+                'adpUrlApp'      : this.adpUrlApp
         ]
         return Tools.simpleTemplate(text, bind)
     }
