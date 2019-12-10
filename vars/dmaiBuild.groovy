@@ -272,8 +272,7 @@ def call(Map map, env) {
                     }
                 }
                 steps {
-                    checkout scm
-                    
+
                     script {
 //                        def changeLogSets = currentBuild.changeSets
 //                        for (int i = 0; i < changeLogSets.size(); i++) {
