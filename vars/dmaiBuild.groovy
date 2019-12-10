@@ -304,6 +304,21 @@ def call(Map map, env) {
                 }
             }
 
+            stage('checkout scm') {
+                when {
+                    allOf {
+                        expression { return  conf.ifBuild() };
+                    }
+                }
+                steps {
+                    container('docker-compose') {
+                        script {
+                            checkout scm
+                        }
+                    }
+                }
+            }
+
             stage('Specified version') {
                 when {
                     allOf {
