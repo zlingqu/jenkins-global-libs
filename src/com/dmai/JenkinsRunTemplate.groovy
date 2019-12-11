@@ -158,12 +158,18 @@ class JenkinsRunTemplate {
             this.conf.setAttr('useEnvFile', true)
         }
 
+        this.conf.setAttr('jobName', this.conf.getAttr('jobName').toLowerCase())
+
         if (this.conf.getAttr('deployEnv') in ['dev', 'test', 'stage']) {
             this.conf.setAttr('domain', this.conf.getAttr('domain') ? this.conf.getAttr('domain') : this.conf.appName + '.dm-ai.cn' )
         }
+
         this.conf.setAttr('domain', this.conf.getDomain())
 
-        this.conf.setAttr('jobName', this.conf.getAttr('jobName').toLowerCase())
+        if (this.conf.getAttr('deployEnv') != 'prd' && this.conf.getAttr('buildPlatform') == 'adp') {
+            this.conf.setAttr('domain', this.conf.getAttr('jobName') + "." + this.conf.getAttr('namespace') + "." +  this.conf.getAttr('deployEnv') + '.dm-ai.cn')
+        }
+
     }
 
     public String getJenkinsRunTemplate(String deployMasterPassword, String deployEnvironment, params) {
