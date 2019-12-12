@@ -56,7 +56,7 @@ class Compile {
                     return
                 case 'java':
 //                    this.script.sh "mvn package -Dmaven.test.skip=true"
-                    if (this.conf.appName in ['work-attendance', 'ta-advanced-stats-server']) {
+                    if (this.conf.appName in ['work-attendance', 'ta-advanced-stats-server', 'ta-advanced-stats-serve2']) {
                         this.script.sh "mvn package -Dmaven.test.skip=true"
                         return
                     }
