@@ -552,7 +552,7 @@ def call(Map map, env) {
                     container('kubectl') {
                         script {
 
-                            if (conf.getAttr('branchName') == 'master' && deployMasterPassword != 'dmai2019999') {
+                            if (conf.getAttr('deployEnv') == 'prd' && deployMasterPassword != 'dmai2019999') {
                                 throw "master分支请运维人员触发！"
                             }
                             try {
