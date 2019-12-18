@@ -103,7 +103,7 @@ $volumes
 
     private String getTolerations() {
         // tmp
-        if (this.conf.appName in  ['xmc-online-api', 'xmc-detection-api', 'xmc-gesture-api', 'xmc-holdobj-api', 'facial-expression-cls']) {
+        if (this.conf.appName in  ['xmc-online-api', 'xmc-body-action','xmc-detection-api', 'xmc-gesture-api', 'xmc-holdobj-api', 'facial-expression-cls']) {
             return '''
       nodeSelector:
         tools: zhengwenyong
