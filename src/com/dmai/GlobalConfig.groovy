@@ -1875,7 +1875,7 @@ class GlobalConfig implements Serializable {
             'xmc-online-api': [
                     'servicePort' : '80',
                     'namespace': 'platform',
-//                    'nodePort' : '31166',
+                    'nodePort' : '31166',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '',
@@ -1907,7 +1907,7 @@ class GlobalConfig implements Serializable {
             'xmc-body-action': [
                     'servicePort' : '80',
                     'namespace': 'platform',
-//                    'nodePort' : '31166',
+                    'nodePort' : '30436',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
 //                    'cpuRequests' : '400m',
@@ -1971,7 +1971,7 @@ class GlobalConfig implements Serializable {
             'xmc-detection-api': [
                     'servicePort' : '80',
                     'namespace': 'platform',
-//                    'nodePort' : '31167',
+                    'nodePort' : '31167',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '',
@@ -2003,7 +2003,7 @@ class GlobalConfig implements Serializable {
             'xmc-gesture-api': [
                     'servicePort' : '80',
                     'namespace': 'platform',
-//                    'nodePort' : '31168',
+                    'nodePort' : '31168',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '',
@@ -2035,7 +2035,7 @@ class GlobalConfig implements Serializable {
             'xmc-holdobj-api': [
                     'servicePort' : '80',
                     'namespace': 'platform',
-//                    'nodePort' : '31169',
+                    'nodePort' : '31169',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '',
