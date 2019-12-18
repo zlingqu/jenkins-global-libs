@@ -2993,6 +2993,35 @@ class GlobalConfig implements Serializable {
                     'useEnvFile'  : false, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
                     'sonarCheck'  : true
             ],
+            'x2-custom-x3-tts-serving' : [
+                    'servicePort' : '80',
+                    'namespace': 'x2-custom',
+                    'containerPort': '3000',
+                    'domain': 'x2-custom-tts-serving.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
+//                    'cpuRequests' : '1000m',
+//                    'memoryRequests' : '2000Mi',
+                    'cpuLimits' : '1000m',
+                    'memoryLimits' : '2000Mi',
+                    'replicas' : 1,
+                    'dev': 'dev', // dev分支部署到测试环境
+                    'test': true, // 是否从dev分支部署到测试环境
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
+                    'gitAddress': 'https://gitlab.dm-ai.cn/x2/x2-custom/tts-serving.git',
+                    'compile': false, // 是否编译
+                    'deploy': true, // 是否自动化部署
+                    'customDockerfile': true, // 是否使用自定义 dockerfile
+                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
+                    'useConfigMap': true, //是否使用configmap
+                    'configMapName': 'config.ini', //是否使用configmap
+                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
+                    'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'useStore': true, // 是否使用存储资源。
+                    'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'useEnvFile'  : false, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
+                    'sonarCheck'  : true
+            ],
             'x3-content-manager-front': [
                     'servicePort' : '80',
                     'namespace': 'x3',
@@ -3117,6 +3146,36 @@ class GlobalConfig implements Serializable {
                     'useEnvFile'  : false, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
                     'sonarCheck'  : true
             ],
+            'x2-custom-x3-core-algorithm' : [
+                    'servicePort' : '80',
+                    'namespace': 'x2-custom',
+//                    'nodePort' : '30333',
+                    'containerPort': '3000',
+                    'domain': 'core-algorithm.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
+//                    'cpuRequests' : '1000m',
+//                    'memoryRequests' : '2000Mi',
+                    'cpuLimits' : '1000m',
+                    'memoryLimits' : '2000Mi',
+                    'replicas' : 1,
+                    'dev': 'dev', // dev分支部署到测试环境
+                    'test': true, // 是否从dev分支部署到测试环境
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
+                    'gitAddress': 'https://gitlab.dm-ai.cn/x2/x2-custom/Core-Algorithm.git',
+                    'compile': false, // 是否编译
+                    'deploy': true, // 是否自动化部署
+                    'customDockerfile': true, // 是否使用自定义 dockerfile
+                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
+                    'useConfigMap': false, //是否使用configmap
+                    'configMapName': 'config.js', //是否使用configmap
+                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
+                    'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'useStore': false, // 是否使用存储资源。
+                    'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'useEnvFile'  : false, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
+                    'sonarCheck'  : true
+            ],
             'x3-ocr-model-serving-mathpix' : [
                     'servicePort' : '80',
                     'namespace': 'x3',
@@ -3147,6 +3206,36 @@ class GlobalConfig implements Serializable {
                     'useEnvFile'  : false, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
                     'sonarCheck'  : true
             ],
+            'x2-custom-x3-ocr-model-serving-mathpix' : [
+                    'servicePort' : '80',
+                    'namespace': 'x2-custom',
+//                    'nodePort' : '30331',
+                    'containerPort': '3000',
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
+//                    'cpuRequests' : '1000m',
+//                    'memoryRequests' : '2000Mi',
+                    'cpuLimits' : '1000m',
+                    'memoryLimits' : '2000Mi',
+                    'replicas' : 1,
+                    'dev': 'dev', // dev分支部署到测试环境
+                    'test': true, // 是否从dev分支部署到测试环境
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
+                    'gitAddress': 'https://gitlab.dm-ai.cn/x2/x2-custom/ocr-model-serving-mathpix.git',
+                    'compile': false, // 是否编译
+                    'deploy': true, // 是否自动化部署
+                    'customDockerfile': true, // 是否使用自定义 dockerfile
+                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
+                    'useConfigMap': false, //是否使用configmap
+                    'configMapName': 'config.js', //是否使用configmap
+                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
+                    'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'useStore': false, // 是否使用存储资源。
+                    'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'useEnvFile'  : false, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
+                    'sonarCheck'  : true
+            ],
             'x3-dispatcher-service': [
                     'servicePort' : '80',
                     'namespace': 'x3',
@@ -3162,6 +3251,36 @@ class GlobalConfig implements Serializable {
                     'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/X3/X3-dispatcher-service.git',
+                    'compile': true, // 是否编译
+                    'deploy': true, // 是否自动化部署
+                    'customDockerfile': false, // 是否使用自定义 dockerfile
+                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
+                    'useConfigMap': true, //是否使用configmap
+                    'configMapName': 'config.js', //是否使用configmap
+                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
+                    'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'useStore': false, // 是否使用存储资源。
+                    'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'useEnvFile'  : false, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
+                    'sonarCheck'  : false
+            ],
+            'x2-custom-x3-dispatcher-service': [
+                    'servicePort' : '80',
+                    'namespace': 'x2-custom',
+//                    'nodePort' : '30332',
+                    'containerPort': '3000',
+                    'domain': 'x3.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
+//                    'cpuRequests' : '1000m',
+//                    'memoryRequests' : '2000Mi',
+                    'cpuLimits' : '500m',
+                    'memoryLimits' : '1000Mi',
+                    'replicas' : 1,
+                    'dev': 'dev', // dev分支部署到测试环境
+                    'test': true, // 是否从dev分支部署到测试环境
+                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
+                    'gitAddress': 'https://gitlab.dm-ai.cn/x2/x2-custom/X3-dispatcher-service.git',
                     'compile': true, // 是否编译
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': false, // 是否使用自定义 dockerfile
