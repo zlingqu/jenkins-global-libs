@@ -1874,8 +1874,8 @@ class GlobalConfig implements Serializable {
             ],
             'xmc-online-api': [
                     'servicePort' : '80',
-                    'namespace': 'xmc',
-                    'nodePort' : '31166',
+                    'namespace': 'platform',
+//                    'nodePort' : '31166',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '',
@@ -1906,7 +1906,7 @@ class GlobalConfig implements Serializable {
             ],
             'xmc-body-action': [
                     'servicePort' : '80',
-                    'namespace': 'xmc',
+                    'namespace': 'platform',
 //                    'nodePort' : '31166',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
@@ -1938,8 +1938,8 @@ class GlobalConfig implements Serializable {
             ],
             'facial-expression-cls': [
                     'servicePort' : '80',
-                    'namespace': 'xmc',
-                    'nodePort' : '31170',
+                    'namespace': 'platform',
+//                    'nodePort' : '31170',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '',
@@ -1970,8 +1970,8 @@ class GlobalConfig implements Serializable {
             ],
             'xmc-detection-api': [
                     'servicePort' : '80',
-                    'namespace': 'xmc',
-                    'nodePort' : '31167',
+                    'namespace': 'platform',
+//                    'nodePort' : '31167',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '',
@@ -2002,8 +2002,8 @@ class GlobalConfig implements Serializable {
             ],
             'xmc-gesture-api': [
                     'servicePort' : '80',
-                    'namespace': 'xmc',
-                    'nodePort' : '31168',
+                    'namespace': 'platform',
+//                    'nodePort' : '31168',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '',
@@ -2034,8 +2034,8 @@ class GlobalConfig implements Serializable {
             ],
             'xmc-holdobj-api': [
                     'servicePort' : '80',
-                    'namespace': 'xmc',
-                    'nodePort' : '31169',
+                    'namespace': 'platform',
+//                    'nodePort' : '31169',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '',
