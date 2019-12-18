@@ -1905,7 +1905,7 @@ class GlobalConfig implements Serializable {
             ],
             'xmc-online-api': [
                     'servicePort' : '80',
-                    'namespace': 'xmc',
+                    'namespace': 'platform',
                     'nodePort' : '31166',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
@@ -1937,14 +1937,14 @@ class GlobalConfig implements Serializable {
             ],
             'xmc-body-action': [
                     'servicePort' : '80',
-                    'namespace': 'xmc',
-//                    'nodePort' : '31166',
+                    'namespace': 'platform',
+                    'nodePort' : '30436',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-                    'cpuRequests' : '',
-                    'memoryRequests' : '',
-                    'cpuLimits' : '400m',
-                    'memoryLimits' : '1000Mi',
+//                    'cpuRequests' : '400m',
+//                    'memoryRequests' : '2000Mi',
+//                    'cpuLimits' : '1000m',
+//                    'memoryLimits' : '4000Mi',
                     'gpuLimits' : 1, //一个副本使用几张gpu的卡。
                     'replicas' : 1,
                     'dev': 'test', // dev分支部署到开发环境
@@ -1969,8 +1969,8 @@ class GlobalConfig implements Serializable {
             ],
             'facial-expression-cls': [
                     'servicePort' : '80',
-                    'namespace': 'xmc',
-                    'nodePort' : '31170',
+                    'namespace': 'platform',
+//                    'nodePort' : '31170',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '',
@@ -2001,7 +2001,7 @@ class GlobalConfig implements Serializable {
             ],
             'xmc-detection-api': [
                     'servicePort' : '80',
-                    'namespace': 'xmc',
+                    'namespace': 'platform',
                     'nodePort' : '31167',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
@@ -2033,7 +2033,7 @@ class GlobalConfig implements Serializable {
             ],
             'xmc-gesture-api': [
                     'servicePort' : '80',
-                    'namespace': 'xmc',
+                    'namespace': 'platform',
                     'nodePort' : '31168',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
@@ -2065,7 +2065,7 @@ class GlobalConfig implements Serializable {
             ],
             'xmc-holdobj-api': [
                     'servicePort' : '80',
-                    'namespace': 'xmc',
+                    'namespace': 'platform',
                     'nodePort' : '31169',
                     'containerPort': '80',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
@@ -2997,7 +2997,7 @@ class GlobalConfig implements Serializable {
             'x3-tts-serving' : [
                     'servicePort' : '80',
                     'namespace': 'x3',
-                    'nodePort' : '30330',
+//                    'nodePort' : '30330',
                     'containerPort': '3000',
                     'domain': 'tts-serving.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
 //                    'cpuRequests' : '1000m',
@@ -3015,7 +3015,7 @@ class GlobalConfig implements Serializable {
                     'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
                     'useConfigMap': true, //是否使用configmap
                     'configMapName': 'config.ini', //是否使用configmap
-                    'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
+                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'useStore': true, // 是否使用存储资源。
@@ -3121,7 +3121,7 @@ class GlobalConfig implements Serializable {
             'x3-core-algorithm' : [
                     'servicePort' : '80',
                     'namespace': 'x3',
-                    'nodePort' : '30333',
+//                    'nodePort' : '30333',
                     'containerPort': '3000',
                     'domain': 'core-algorithm.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
 //                    'cpuRequests' : '1000m',
@@ -3139,7 +3139,7 @@ class GlobalConfig implements Serializable {
                     'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
                     'useConfigMap': false, //是否使用configmap
                     'configMapName': 'config.js', //是否使用configmap
-                    'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
+                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'useStore': false, // 是否使用存储资源。
@@ -3151,7 +3151,7 @@ class GlobalConfig implements Serializable {
             'x3-ocr-model-serving-mathpix' : [
                     'servicePort' : '80',
                     'namespace': 'x3',
-                    'nodePort' : '30331',
+//                    'nodePort' : '30331',
                     'containerPort': '3000',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
 //                    'cpuRequests' : '1000m',
@@ -3169,7 +3169,7 @@ class GlobalConfig implements Serializable {
                     'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
                     'useConfigMap': false, //是否使用configmap
                     'configMapName': 'config.js', //是否使用configmap
-                    'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
+                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'useStore': false, // 是否使用存储资源。
@@ -3181,7 +3181,7 @@ class GlobalConfig implements Serializable {
             'x3-dispatcher-service': [
                     'servicePort' : '80',
                     'namespace': 'x3',
-                    'nodePort' : '30332',
+//                    'nodePort' : '30332',
                     'containerPort': '3000',
                     'domain': 'x3.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
 //                    'cpuRequests' : '1000m',
@@ -3199,7 +3199,7 @@ class GlobalConfig implements Serializable {
                     'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
                     'useConfigMap': true, //是否使用configmap
                     'configMapName': 'config.js', //是否使用configmap
-                    'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
+                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'useStore': false, // 是否使用存储资源。
