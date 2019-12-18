@@ -221,7 +221,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'xmc2-chongwen',
                     'nodePort' : '30226',
                     'containerPort': '3000',
-                    'domain': 'dispatcher.chongwen.xmc2.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
+                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '50m',
                     'memoryRequests' : '50Mi',
                     'cpuLimits' : '500m',
