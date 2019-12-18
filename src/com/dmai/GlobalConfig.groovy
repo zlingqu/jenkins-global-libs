@@ -3258,7 +3258,7 @@ class GlobalConfig implements Serializable {
             'x3-tts-serving' : [
                     'servicePort' : '80',
                     'namespace': 'x3',
-                    'nodePort' : '30330',
+//                    'nodePort' : '30330',
                     'containerPort': '3000',
                     'domain': 'tts-serving.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
 //                    'cpuRequests' : '1000m',
@@ -3276,7 +3276,7 @@ class GlobalConfig implements Serializable {
                     'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
                     'useConfigMap': true, //是否使用configmap
                     'configMapName': 'config.ini', //是否使用configmap
-                    'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
+                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'useStore': true, // 是否使用存储资源。
@@ -3382,7 +3382,7 @@ class GlobalConfig implements Serializable {
             'x3-core-algorithm' : [
                     'servicePort' : '80',
                     'namespace': 'x3',
-                    'nodePort' : '30333',
+//                    'nodePort' : '30333',
                     'containerPort': '3000',
                     'domain': 'core-algorithm.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
 //                    'cpuRequests' : '1000m',
@@ -3400,7 +3400,7 @@ class GlobalConfig implements Serializable {
                     'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
                     'useConfigMap': false, //是否使用configmap
                     'configMapName': 'config.js', //是否使用configmap
-                    'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
+                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'useStore': false, // 是否使用存储资源。
@@ -3412,7 +3412,7 @@ class GlobalConfig implements Serializable {
             'x3-ocr-model-serving-mathpix' : [
                     'servicePort' : '80',
                     'namespace': 'x3',
-                    'nodePort' : '30331',
+//                    'nodePort' : '30331',
                     'containerPort': '3000',
                     'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
 //                    'cpuRequests' : '1000m',
@@ -3430,7 +3430,7 @@ class GlobalConfig implements Serializable {
                     'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
                     'useConfigMap': false, //是否使用configmap
                     'configMapName': 'config.js', //是否使用configmap
-                    'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
+                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'useStore': false, // 是否使用存储资源。
@@ -3442,7 +3442,7 @@ class GlobalConfig implements Serializable {
             'x3-dispatcher-service': [
                     'servicePort' : '80',
                     'namespace': 'x3',
-                    'nodePort' : '30332',
+//                    'nodePort' : '30332',
                     'containerPort': '3000',
                     'domain': 'x3.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
 //                    'cpuRequests' : '1000m',
@@ -3460,7 +3460,7 @@ class GlobalConfig implements Serializable {
                     'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
                     'useConfigMap': true, //是否使用configmap
                     'configMapName': 'config.js', //是否使用configmap
-                    'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
+                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'useStore': false, // 是否使用存储资源。
