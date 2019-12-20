@@ -101,6 +101,7 @@ class JenkinsRunTemplate {
         this.conf.setAttr('k8sKind', params.K8S_KIND)
 
         // set default port
+        this.conf.setAttr('containerPort', params.CONTAINER_PORT)
         if (! this.conf.getAttr('containerPort')) {
             this.conf.setAttr('containerPort', '80')
         }

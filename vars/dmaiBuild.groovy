@@ -36,6 +36,9 @@ def call(Map map, env) {
     // default replicas
     def replicas = String.valueOf( conf.getAttr('replicas') ? conf.getAttr('replicas') : 1)
 
+    // default containerPort
+    def containerPort = String.valueOf( conf.getAttr('containerPort') ? conf.getAttr('containerPort') : 80)
+
     // default cpu
     def defaultEnvType = conf.getAttr('envType') ? conf.getAttr('envType') : 'cpu'
 
@@ -160,6 +163,7 @@ def call(Map map, env) {
             string(name: 'COMPILE_PARAM', defaultValue: '', description: 'android项目自定义的编译参数')
 
             string(name: 'REPLICAS', defaultValue: replicas, description: '部署在k8s集群中需要的副本数')
+            string(name: 'CONTAINER_PORT', defaultValue: containerPort, description: '默认的容器监听端口')
 
             //算法专用，其他不用理会，
             string(name: 'MODEL_VERSION', defaultValue: 'latest', description: '算法模型专用，其他项目不用')
