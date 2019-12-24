@@ -35,7 +35,7 @@ class DockerFileTemplate {
 
     private String getGolangDockerfile() {
         return String.format('''
-FROM docker.dm-ai.cn/devops/base-image-golang-run-env:tag-v0.0.1
+FROM docker.dm-ai.cn/devops/base-image-golang-run-env:tag-v0.0.2
 WORKDIR /workspace
 ADD ./build ./build
 ADD ./Makefile /workspace/Makefile
