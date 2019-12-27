@@ -68,6 +68,17 @@ $tolerations
           value: $apollo_env
         - name: APOLLO_CONFIG_ADDRESS
           value: http://$apollo_url-conf.apollo.cc.dm-ai.cn
+        readinessProbe:
+          tcpSocket:
+            port: $containerPort
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          failureThreshold: 10
+        livenessProbe:
+          tcpSocket:
+            port: $containerPort
+          initialDelaySeconds: 15
+          periodSeconds: 20
 $volumeMounts
         ports:
         - containerPort: $containerPort
