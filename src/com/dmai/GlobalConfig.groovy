@@ -1601,7 +1601,7 @@ class GlobalConfig implements Serializable {
                     'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
-                    'useStore': false, // 是否使用存储资源。
+                    'useStore': true, // 是否使用存储资源。
                     'storePath' : '/data',
                     'useService': true, // 是否使用service
                     'useEnvFile'  : false, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
