@@ -594,7 +594,7 @@ spec:
             case 'golang':
                 return String.format('''
   - name: compile
-    image: docker.dm-ai.cn/devops/base-image-golang:dev-2-dd3966652a4c21519ec58fad27c47f04c284fb98
+    image: docker.dm-ai.cn/devops/base-image-golang-compile:master-2-1e85e1e99bfee20f6f0cc5de5a74ce339100d4bd
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
