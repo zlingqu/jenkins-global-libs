@@ -16,7 +16,7 @@ class DmaiEmail {
         this.conf = conf
         this.adpUrl = 'http://service-adp-deploy.dm-ai.cn/api/v1/deployments/change'
         this.jenkinsUrl = 'http://jenkins.ops.dm-ai.cn'
-        this.adpUrlApp = 'http://adp.dm-ai.cn/#/project-management'
+        this.adpUrlApp = 'http://app-deploy-platform.dm-ai.cn/#/project-management'
     }
 
     public userSureEmail() {
