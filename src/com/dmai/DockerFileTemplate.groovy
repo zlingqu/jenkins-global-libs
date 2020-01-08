@@ -111,25 +111,24 @@ ENTRYPOINT [ "npm","start" ]
     }
 
     private String getNodeDockerfile() {
+        def imageString = 'docker.dm-ai.cn/devops/node:0.0.4'
+
         if (this.conf.getAttr('envType') == 'arm') {
-            return '''
-FROM docker.dm-ai.cn/arm64/node:10.16.3-slim-tx2
-WORKDIR /app
-COPY . .
-RUN npm config set registry http://192.168.3.13:8081/repository/npm && npm install
-ENV TZ="Asia/Shanghai"
-ENTRYPOINT [ "npm","start" ]
-'''
+            imageString = 'docker.dm-ai.cn/arm64/node:10.16.3-slim-tx2'
         }
 
-        return '''
-FROM docker.dm-ai.cn/devops/node:0.0.4
+        if (this.conf.appName == 'xmart-court-backend') {
+            imageString = 'docker.dm-ai.cn/devops/node-xmart-court:0.0.1'
+        }
+
+        return String.format('''
+FROM %s
 WORKDIR /app
 COPY . .
 RUN npm config set registry http://192.168.3.13:8081/repository/npm && npm install
 ENV TZ="Asia/Shanghai"
-ENTRYPOINT [ "npm","start" ]
-'''
+CMD [ "npm","start" ]
+''', imageString)
     }
 
     public String getDockerComposeFile() {
