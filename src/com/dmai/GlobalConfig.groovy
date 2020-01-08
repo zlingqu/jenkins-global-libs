@@ -1671,7 +1671,7 @@ class GlobalConfig implements Serializable {
                     'useService': false, // 是否使用service
                     'useEnvFile'  : false, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
-                    'envType'     : 'cpu', //分为gpu 和非gpu的环境
+                    'envType'     : 'gpu', //分为gpu 和非gpu的环境
                     'sonarCheck'  : true
             ],
             'tk-engine-asr-service': [
