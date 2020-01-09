@@ -3408,7 +3408,7 @@ class GlobalConfig implements Serializable {
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/application-engineering/devops/app-deploy-platform/app-deploy-platform-frontend.git',
                     'compile': true, // 是否编译
-                    'customCompileCommand' : 'npm config set registry http://192.168.3.13:8081/repository/npm/ &&  npm install && npm run build',
+                    'customCompileCommand' : 'npm config set registry http://nexus.dm-ai.cn/repository/npm/ &&  npm install && npm run build',
                     'deploy': true, // 是否自动化部署
                     'customDockerfile': false, // 是否使用自定义 dockerfile
                     'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
