@@ -104,7 +104,7 @@ ENTRYPOINT nginx -g "daemon off;"
 FROM docker.dm-ai.cn/devops/node:0.0.4
 WORKDIR /app
 COPY . .
-RUN npm config set registry http://192.168.3.13:8081/repository/npm && npm install && tsc
+RUN npm config set registry http://nexus.dm-ai.cn/repository/npm && npm install && tsc
 ENV TZ="Asia/Shanghai"
 ENTRYPOINT [ "npm","start" ]
 '''
@@ -125,7 +125,7 @@ ENTRYPOINT [ "npm","start" ]
 FROM %s
 WORKDIR /app
 COPY . .
-RUN npm config set registry http://192.168.3.13:8081/repository/npm && npm install
+RUN npm config set registry http://nexus.dm-ai.cn/repository/npm && npm install
 ENV TZ="Asia/Shanghai"
 CMD [ "npm","start" ]
 ''', imageString)
