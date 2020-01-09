@@ -223,6 +223,9 @@ spec:
   - ip: 192.168.3.38
     hostnames:
     - pip.dm-ai.cn
+  - ip: 192.168.3.13
+    hostnames:
+    - nexus.dm-ai.cn
   imagePullSecrets:
   - name: regsecret
   containers:
