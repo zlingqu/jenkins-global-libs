@@ -1690,7 +1690,7 @@ class GlobalConfig implements Serializable {
                     'test': true, // 是否从dev分支部署到测试环境
                     'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc-tk/xmc-engine-asr-service.git',
-                    'useModel': false,
+                    'useModel': true,
                     'modelPath': '', //模型文件path, 在构建的时候相对于当前的代码的主目录
                     'compile': false, // 是否编译
                     'deploy': true, // 是否自动化部署
