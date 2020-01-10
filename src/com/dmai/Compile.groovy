@@ -71,7 +71,7 @@ class Compile {
                             "cd /root && tar cf .gradle-root.tar .gradle && mv .gradle-root.tar /android_cache"
                     return
                 case 'golang':
-                    this.script.sh "go env -w GOPRIVATE=gitlab.dm-ai.cn;make compile"
+                    this.script.sh "go env -w GOPRIVATE=gitlab.dm-ai.cn;export GOPROXY=https://goproxy.cn;make compile"
                     return
             }
         }
