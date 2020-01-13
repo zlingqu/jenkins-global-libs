@@ -638,7 +638,7 @@ def call(Map map, env) {
                                 }
                             } catch (e) {
                                 sh "echo ${e}"
-                                conf.failMsg = '部署完成后，检查服务的pod，在k8s中启动是否成功，2分钟内启动不成功即失败，请手动检查k8s的服务的日志和状态。';
+                                conf.failMsg = '部署完成后，检查服务的pod，在k8s中启动是否成功，3分钟内启动不成功即失败，请手动检查k8s的服务的日志和状态。';
                                 throw e
                             }
                         }
