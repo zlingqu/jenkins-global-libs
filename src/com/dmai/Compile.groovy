@@ -11,6 +11,7 @@ class Compile {
     }
 
     public void compile(){
+        if (this.conf.getAttr('jobName') in ['ta-resource-service']) return
         if (this.conf.getAttr('compile') || this.conf.getAttr('codeLanguage') in  ['node', 'nodets']) {
             // wocao
             if (this.conf.appName in ['content-producer']) return
