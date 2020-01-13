@@ -24,7 +24,7 @@ class Conf implements Serializable{
         this.dockerRegistryHost = 'docker.dm-ai.cn'
         this.jenkinsAddress = 'http://jenkins.ops.dm-ai.cn'
         this.kubernetesStatusCheckHttpAddress = 'http://service-k8s-app-status-check.dm-ai.cn/api/v1/app_status_check'
-        this.checkKubernetesServiceStatusSleepTimes = 120 // 120 SECONDS
+        this.checkKubernetesServiceStatusSleepTimes = 180 // 120 SECONDS
         this.userSetMap = userSetMap
         this.vueAppScene = ''
         this.vueAppSchool = ''
