@@ -140,8 +140,13 @@ sonar检查结果：$sonarAddress
     private String buildEnvInfo() {
         // 兼容新版的域名地址 launcher-management-x2.deploy-env.dm-ai.cn
         if (this.conf.getAttr('domain') ) {
-            return '用户测试验证地址：' + 'http://' + this.conf.getAttr('domain')
+            if (this.conf.getAttr('https')) {
+                return  '用户测试验证地址：' + 'https://' + this.conf.getAttr('domain')
+            } else {
+                return '用户测试验证地址：' + 'http://' + this.conf.getAttr('domain')
+            }
         }
+
         if (this.conf.getAttr('useService') && this.conf.getAttr('svcType') == 'NodePort') {
             return '用户测试验证地址：' + this.conf.getAppUrl()
         }

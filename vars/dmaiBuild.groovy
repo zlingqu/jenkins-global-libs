@@ -83,6 +83,9 @@ def call(Map map, env) {
     // compile
     def defaultCompile = conf.getAttr('compile') ? conf.getAttr('compile') : false
 
+    // https
+    def defaultUseHttps = conf.getAttr('https') ? conf.getAttr('https') : false
+
     // deploy
     def defaultDeploy = conf.getAttr('deploy') ? conf.getAttr('deploy') : false
 
@@ -195,6 +198,9 @@ def call(Map map, env) {
 
             //domain
             string(name: 'DOMAIN', defaultValue: defaultDomain, description: '应用使用的域名')
+
+            // https
+            booleanParam(name: 'IF_USE_HTTPS', defaultValue: defaultUseHttps, description: '是否使用https')
 
             // if_use_auto_deploy_file
             booleanParam(name: 'CUSTOM_KUBERNETES_DEPLOY_TEMPLATE', defaultValue: useAutoDeployFile, description: '使用使用自定义的k8s部署模版')
