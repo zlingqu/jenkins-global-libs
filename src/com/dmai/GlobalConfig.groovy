@@ -1574,41 +1574,41 @@ class GlobalConfig implements Serializable {
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'sonarCheck'  : true
             ],
-            'tk-speech-speed-detect': [
-                    'servicePort' : '80',
-                    'namespace': 'xmc-tk',
-                    'nodePort' : '',
-                    'containerPort': '', // 没有端口监听，不需要svc
-                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-                    'cpuRequests' : '1000m',
-                    'memoryRequests' : '2000Mi',
-                    'cpuLimits' : '1000m',
-                    'memoryLimits' : '2000Mi',
-                    'gpuLimits' : 1, //一个副本使用几张gpu的卡。
-                    'replicas' : 1,
-                    'dev': 'dev', // dev分支部署到测试环境
-                    'test': true, // 是否从dev分支部署到测试环境
-                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
-                    'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc-tk/xmc-speech-speed-detect.git',
-                    'useModel': false,
-                    'modelPath': '', //模型文件path, 在构建的时候相对于当前的代码的主目录
-                    'compile': false, // 是否编译
-                    'deploy': true, // 是否自动化部署
-                    'customDockerfile': true, // 是否使用自定义 dockerfile
-                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
-                    'useConfigMap': true, //是否使用configmap
-                    'configMapName': '', //是否使用configmap
-                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
-                    'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
-                    'k8sKind': 'deployment', // 部署的服务的类型
-                    'useStore': true, // 是否使用存储资源。
-                    'storePath' : '/data',
-                    'useService': true, // 是否使用service
-                    'useEnvFile'  : false, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
-                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
-                    'envType'     : 'cpu', //分为gpu 和非gpu的环境
-                    'sonarCheck'  : true
-            ],
+//            'tk-speech-speed-detect': [
+//                    'servicePort' : '80',
+//                    'namespace': 'xmc-tk',
+//                    'nodePort' : '',
+//                    'containerPort': '', // 没有端口监听，不需要svc
+//                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
+//                    'cpuRequests' : '1000m',
+//                    'memoryRequests' : '2000Mi',
+//                    'cpuLimits' : '1000m',
+//                    'memoryLimits' : '2000Mi',
+//                    'gpuLimits' : 1, //一个副本使用几张gpu的卡。
+//                    'replicas' : 1,
+//                    'dev': 'dev', // dev分支部署到测试环境
+//                    'test': true, // 是否从dev分支部署到测试环境
+//                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
+//                    'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc-tk/xmc-speech-speed-detect.git',
+//                    'useModel': false,
+//                    'modelPath': '', //模型文件path, 在构建的时候相对于当前的代码的主目录
+//                    'compile': false, // 是否编译
+//                    'deploy': true, // 是否自动化部署
+//                    'customDockerfile': true, // 是否使用自定义 dockerfile
+//                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
+//                    'useConfigMap': true, //是否使用configmap
+//                    'configMapName': '', //是否使用configmap
+//                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
+//                    'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
+//                    'k8sKind': 'deployment', // 部署的服务的类型
+//                    'useStore': true, // 是否使用存储资源。
+//                    'storePath' : '/data',
+//                    'useService': true, // 是否使用service
+//                    'useEnvFile'  : false, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
+//                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+//                    'envType'     : 'cpu', //分为gpu 和非gpu的环境
+//                    'sonarCheck'  : true
+//            ],
             'tk-engine-video-extract': [
                     'servicePort' : '80',
                     'namespace': 'xmc-tk',
