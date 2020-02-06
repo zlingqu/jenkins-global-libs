@@ -31,6 +31,12 @@ class MakeDockerImage {
         if (this.conf.getAttr('useModel') && this.conf.getAttr('modelPath')) {
             this.script.sh "mkdir -p ${this.conf.getAttr('modelPath')}; cp -rp /models/* ${this.conf.getAttr('modelPath')}"
         }
+        // teshu chuli
+        if (this.conf.getAttr('buildPlatform') == 'adp' && this.conf.getAttr('compile') && this.conf.getAttr('compileParam') && this.conf.getAttr('codeLanguage') == 'js') {
+            this.script.sh String.format('pwd;ls;docker-compose build %s service-docker-build', this.conf.getAttr('compileParam')
+            )
+            return
+        }
 
         // 对 xmc2-frontend做特殊处理。
 //        if (this.conf.appName == 'xmc2-frontend') {
