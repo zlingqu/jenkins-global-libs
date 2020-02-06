@@ -158,7 +158,6 @@ def call(Map map, env) {
             string(name: 'GIT_VERSION', defaultValue: 'last', description: 'git的commit 版本号，git log 查看。')
             string(name: 'BRANCH_NAME', defaultValue: branchName, description: '分支名')
 
-            choice(name: 'VUE_APP_SCHOOL', choices: ['chongwen', 'S00001'], description: '学校的Code，xmc2-frontend项目使用，其他不关注,s小写    ')
             choice(name: 'VUE_APP_SCENE', choices: ['school', 'agency'], description: 'xmc2-frontend项目使用，其他不关注')
             choice(name: 'NODE_ENV', choices: defaultNodeEnvList, description: '前端专用，其他不关注')
 
