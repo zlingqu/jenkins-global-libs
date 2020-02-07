@@ -68,6 +68,10 @@ $tolerations
           value: $apollo_env
         - name: APOLLO_CONFIG_ADDRESS
           value: http://$apollo_url-conf.apollo.cc.dm-ai.cn
+        - name: APOLLO_CLUSTER_NAME
+          value: $namespace
+        - name: APOLLO_NAMESPACE
+          value: $namespace
         readinessProbe:
           tcpSocket:
             port: $containerPort
