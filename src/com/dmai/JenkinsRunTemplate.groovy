@@ -126,6 +126,13 @@ class JenkinsRunTemplate {
         // GIT_TAG
         this.conf.setAttr('gitTag', params.GIT_TAG)
 
+        // APOLLO_CLUSTER_NAME
+        this.conf.setAttr('apolloClusterName', params.APOLLO_CLUSTER_NAME)
+
+        // APOLLO_NAMESPACE
+        this.conf.setAttr('apolloNamespace', params.APOLLO_NAMESPACE)
+
+
         // GIT_VERSION
         this.conf.setAttr('gitVersion', params.GIT_VERSION)
 
