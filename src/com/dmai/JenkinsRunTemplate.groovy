@@ -126,6 +126,13 @@ class JenkinsRunTemplate {
         // GIT_TAG
         this.conf.setAttr('gitTag', params.GIT_TAG)
 
+        // APOLLO_CLUSTER_NAME
+        this.conf.setAttr('apolloClusterName', params.APOLLO_CLUSTER_NAME)
+
+        // APOLLO_NAMESPACE
+        this.conf.setAttr('apolloNamespace', params.APOLLO_NAMESPACE)
+
+
         // GIT_VERSION
         this.conf.setAttr('gitVersion', params.GIT_VERSION)
 
@@ -367,7 +374,7 @@ spec:
     private String templateDockersize() {
         return String.format('''
   - name: dockerize
-    image: docker.dm-ai.cn/devops/service-deploy-template:0.23
+    image: docker.dm-ai.cn/devops/service-deploy-template:0.24
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY

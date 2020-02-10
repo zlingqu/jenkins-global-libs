@@ -155,6 +155,8 @@ def call(Map map, env) {
 
             string(name: 'VERSION_CONTROL_MODE', defaultValue: 'GitCommitId', description: '构建的时候的版本控制方式，GitCommitId和GitTags，默认GitCommitId')
             string(name: 'GIT_TAG', defaultValue: '', description: 'git的tag版本')
+            string(name: 'APOLLO_CLUSTER_NAME', defaultValue: 'default', description: 'git的tag版本')
+            string(name: 'APOLLO_NAMESPACE', defaultValue: 'application', description: 'git的tag版本')
             string(name: 'GIT_VERSION', defaultValue: 'last', description: 'git的commit 版本号，git log 查看。')
             string(name: 'BRANCH_NAME', defaultValue: branchName, description: '分支名')
 
