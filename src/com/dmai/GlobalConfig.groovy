@@ -1121,7 +1121,7 @@ class GlobalConfig implements Serializable {
                     'useConfigMap': true, 
                     'configMapName': '.env', 
                     'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
-                    'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
+                    'codeLanguage' : 'c++', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'storage': true,  //是否需要挂载存储
                     'useStore': true, // 是否使用存储资源。
