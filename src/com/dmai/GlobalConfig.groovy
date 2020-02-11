@@ -1120,7 +1120,7 @@ class GlobalConfig implements Serializable {
                     'customKubernetesDeployTemplate' : true, 
                     'useConfigMap': true, 
                     'configMapName': '.env', 
-                    'IF_CHECK_PODS_STATUS': 'false',
+                    'IF_CHECK_PODS_STATUS': false,
                     'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'c++', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
