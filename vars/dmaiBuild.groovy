@@ -574,6 +574,7 @@ def call(Map map, env) {
                                     deploykubernetes.createConfigMap()
                                     deploykubernetes.deployKubernetes()
                                 } else {
+                                    deploykubernetes.createConfigMap()
                                     sh 'kubectl apply -f template.tmpl'
                                 }
                             } catch (e) {
@@ -610,6 +611,7 @@ def call(Map map, env) {
                                         deploykubernetes.createConfigMapTest()
                                         deploykubernetes.deployKubernetes()
                                     } else {
+                                        deploykubernetes.createConfigMapTest()
                                         sh 'kubectl apply -f template.tmpl'
                                     }
                                 } catch (e) {
