@@ -1117,7 +1117,7 @@ class GlobalConfig implements Serializable {
                     'compile': false, 
                     'deploy': true, 
                     'customDockerfile': true, 
-                    'customKubernetesDeployTemplate' : True, 
+                    'customKubernetesDeployTemplate' : true, 
                     'useConfigMap': true, 
                     'configMapName': '.env', 
                     'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
