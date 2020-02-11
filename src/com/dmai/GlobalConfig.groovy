@@ -1071,23 +1071,23 @@ class GlobalConfig implements Serializable {
                     'namespace': 'xmc-tk',
                     'nodePort' : '30220',
                     'containerPort': '3000',
-                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
+                    'domain': '', 
                     'cpuRequests' : '200m',
                     'memoryRequests' : '2000Mi',
                     'replicas' : 3,
                     'cpuLimits' : '1000m',
                     'memoryLimits' : '2000Mi',
-                    'dev': 'dev', // dev分支部署到测试环境
-                    'test': true, // 是否从dev分支部署到测试环境
-                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
+                    'dev': 'dev', 
+                    'test': true,
+                    'master': 'prd',
                     'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc2/storage-service.git',
-                    'stage': false, //是否部署到stage环境
-                    'compile': false, // 是否编译
-                    'deploy': true, // 是否自动化部署
-                    'customDockerfile': true, // 是否使用自定义 dockerfile
-                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
-                    'useConfigMap': true, //是否使用configmap
-                    'configMapName': '.env', //是否使用configmap
+                    'stage': false,
+                    'compile': false,
+                    'deploy': true,
+                    'customDockerfile': true,
+                    'customKubernetesDeployTemplate' : false,
+                    'useConfigMap': true,
+                    'configMapName': '.env',
                     'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
@@ -1095,6 +1095,38 @@ class GlobalConfig implements Serializable {
                     'useStore': true, // 是否使用存储资源。
                     'storePath' : '/data',
                     'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'sonarCheck'  : true
+            ],
+            'media-converter': [
+                    'servicePort' : '',
+                    'namespace': 'xmc-tk',
+                    'nodePort' : '',
+                    'containerPort': '',
+                    'domain': '',
+                    'cpuRequests' : '200m',
+                    'memoryRequests' : '2000Mi',
+                    'replicas' : 3,
+                    'cpuLimits' : '1000m',
+                    'memoryLimits' : '2000Mi',
+                    'dev': 'dev', 
+                    'test': true, 
+                    'master': 'prd', 
+                    'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc-tk/media-converter.git',
+                    'stage': false, 
+                    'compile': false, 
+                    'deploy': true, 
+                    'customDockerfile': true, 
+                    'customKubernetesDeployTemplate' : True, 
+                    'useConfigMap': true, 
+                    'configMapName': '.env', 
+                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
+                    'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'storage': true,  //是否需要挂载存储
+                    'useStore': true, // 是否使用存储资源。
+                    'storePath' : '/data',
+                    'useService': false, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'sonarCheck'  : true
             ],
