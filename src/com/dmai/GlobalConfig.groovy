@@ -1116,7 +1116,7 @@ class GlobalConfig implements Serializable {
                     'stage': false,
                     'compile': false,
                     'deploy': true,
-                    'customDockerfile': true,
+                    'customDockerfile': false,
                     'customKubernetesDeployTemplate' : false,
                     'useConfigMap': true,
                     'configMapName': '.env',
