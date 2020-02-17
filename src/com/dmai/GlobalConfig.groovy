@@ -1098,6 +1098,38 @@ class GlobalConfig implements Serializable {
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'sonarCheck'  : true
             ],
+            'tk-realtime-alarm': [
+                    'servicePort' : '80',
+                    'namespace': 'xmc-tk',
+                    'nodePort' : '30220',
+                    'containerPort': '3000',
+                    'domain': '', 
+                    'cpuRequests' : '200m',
+                    'memoryRequests' : '2000Mi',
+                    'replicas' : 3,
+                    'cpuLimits' : '1000m',
+                    'memoryLimits' : '2000Mi',
+                    'dev': 'dev', 
+                    'test': true,
+                    'master': 'prd',
+                    'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc-tk/xmc-realtime-alarm.git',
+                    'stage': false,
+                    'compile': false,
+                    'deploy': true,
+                    'customDockerfile': true,
+                    'customKubernetesDeployTemplate' : false,
+                    'useConfigMap': true,
+                    'configMapName': '.env',
+                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
+                    'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
+                    'k8sKind': 'deployment', // 部署的服务的类型
+                    'storage': false,  //是否需要挂载存储
+                    'useStore': false, // 是否使用存储资源。
+                    'storePath' : '/data',
+                    'useService': true, // 是否使用service
+                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
+                    'sonarCheck'  : true
+            ],
             'media-converter': [
                     'servicePort' : '',
                     'namespace': 'xmc-tk',
