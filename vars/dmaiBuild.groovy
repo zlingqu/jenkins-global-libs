@@ -3,7 +3,7 @@ import com.tool.Tools
 
 def call(Map map, env) {
     // 默认master 和 dev分支才进行构建
-    if (!(env.BRANCH_NAME in ['master', 'dev', 'stage','release'])) return
+//    if (!(env.BRANCH_NAME in ['master', 'dev', 'stage','release'])) return
 
     // 定义定义的全局的配置项目
     String appName = map.get('appName')
