@@ -42,6 +42,6 @@ class Tools {
     }
 
     public static def handleBranchName(branchName) {
-        return branchName.replaceAll('/', '-').replaceAll('_', '-').replaceAll('#','-').replaceAll('@', '-').toLowerCase()
+        return branchName.replaceAll('/', '-').replaceAll('_', '-').replaceAll('#','-').replaceAll('@', '-').replaceAll('%', '-').toLowerCase()
     }
 }
