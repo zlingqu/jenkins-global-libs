@@ -40,4 +40,8 @@ class Tools {
         returnList = [item] + returnList
         return returnList
     }
+
+    public static def handleBranchName(branchName) {
+        return branchName.replaceAll('/', '-').replaceAll('_', '-').replaceAll('#','-').replaceAll('@', '-').toLowerCase()
+    }
 }
