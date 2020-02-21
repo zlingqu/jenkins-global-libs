@@ -21,7 +21,6 @@ class JenkinsRunTemplate {
             this.conf.setUserAttr(new GlobalConfig().globalConfig.get(this.conf.appName))
         } else if (this.conf.appName == 'xmc2-frontend') {
             this.conf.setAppName(this.conf.appName)
-//            this.conf.setAppName(this.conf.appName + (params.VUE_APP_SCENE == 'school' ? '' : '-' + params.VUE_APP_SCENE))
             this.conf.setVueAppScene(params.VUE_APP_SCENE)
         } else {
             if (params.APP_NAME != 'xmc-xc-model-serving' && params.APP_NAME != 'xmc-model-serving-student') {
@@ -163,6 +162,7 @@ class JenkinsRunTemplate {
             this.conf.setAttr('useEnvFile', true)
         }
 
+        this.conf.setAttr('jenkinsJobName', this.conf.getAttr('jobName'))
         this.conf.setAttr('jobName', this.conf.getAttr('jobName').toLowerCase())
 
         if (this.conf.getAttr('deployEnv') in ['dev', 'test', 'stage']) {
