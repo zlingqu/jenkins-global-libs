@@ -351,7 +351,7 @@ spec:
     }
 
     private String templateDockerKubectl() {
-        if (this.conf.getAttr('deployEnv') == 'prd' && this.deployMasterPassword != 'dmai2019999') return ''
+        if ((this.conf.getAttr('deployEnv') == 'prd' && this.deployMasterPassword != 'dmai2019999') || this.conf.getAttr('deployEnv') == 'default') return ''
 
 //        if (this.conf.getAttr('deploy')) {
             return  String.format('''
