@@ -1,6 +1,6 @@
 package com.dmai
 import com.tool.Tools
-
+import java.net.URLEncoder
 import java.util.concurrent.TimeUnit
 
 class DmaiEmail {
@@ -116,7 +116,7 @@ sonar检查结果：$sonarAddress
                 'appName'        : this.conf.appName,
                 'jenkinsAddress' : this.conf.jenkinsAddress,
                 'jobName'        : this.conf.getAttr('jobName'),
-                'branchName'     : this.conf.getAttr('jenkinsBranchName'),
+                'branchName'     : URLEncoder.encode(this.conf.getAttr('jenkinsBranchName'), "UTF-8"),
                 'buildNumber'    : this.conf.getAttr('buildNumber'),
                 'buildResult'    : buildResult,
                 'gitAddress'     : this.conf.getAttr('gitAddress'),
