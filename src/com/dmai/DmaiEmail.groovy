@@ -88,7 +88,7 @@ class DmaiEmail {
         try {
             this.script.emailext(
                     body: this.emailBody(buildResultZh),
-                    subject: "应用名：" + this.conf.appName+ ',构建 : ' + buildResultZh + "，分支：" + this.conf.getAttr('branchName') + "，部署环境：" + this.conf.getAttr('deployEnv'),
+                    subject: "应用名：" + this.conf.appName+ ',构建 : ' + buildResultZh + "，分支：" + this.conf.getAttr('jenkinsBranchName') + "，部署环境：" + this.conf.getAttr('deployEnv'),
                     to: conf.getAttr('emailAddress') + ',zuosheng@dm-ai.cn'
             )
         }
@@ -116,7 +116,7 @@ sonar检查结果：$sonarAddress
                 'appName'        : this.conf.appName,
                 'jenkinsAddress' : this.conf.jenkinsAddress,
                 'jobName'        : this.conf.getAttr('jobName'),
-                'branchName'     : this.conf.getAttr('branchName'),
+                'branchName'     : this.conf.getAttr('jenkinsBranchName'),
                 'buildNumber'    : this.conf.getAttr('buildNumber'),
                 'buildResult'    : buildResult,
                 'gitAddress'     : this.conf.getAttr('gitAddress'),
