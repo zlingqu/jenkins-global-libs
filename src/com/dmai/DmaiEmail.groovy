@@ -115,7 +115,7 @@ sonar检查结果：$sonarAddress
         def bind = [
                 'appName'        : this.conf.appName,
                 'jenkinsAddress' : this.conf.jenkinsAddress,
-                'jobName'        : this.conf.getAttr('jobName'),
+                'jobName'        : this.conf.getAttr('jenkinsJobName'),
                 'branchName'     : URLEncoder.encode(this.conf.getAttr('jenkinsBranchName'), "UTF-8"),
                 'buildNumber'    : this.conf.getAttr('buildNumber'),
                 'buildResult'    : buildResult,
