@@ -1098,38 +1098,6 @@ class GlobalConfig implements Serializable {
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'sonarCheck'  : true
             ],
-//            'tk-realtime-alarm': [
-//                    'servicePort' : '80',
-//                    'namespace': 'xmc-tk',
-//                    'nodePort' : '30220',
-//                    'containerPort': '3000',
-//                    'domain': '',
-//                    'cpuRequests' : '200m',
-//                    'memoryRequests' : '2000Mi',
-//                    'replicas' : 3,
-//                    'cpuLimits' : '1000m',
-//                    'memoryLimits' : '2000Mi',
-//                    'dev': 'dev',
-//                    'test': true,
-//                    'master': 'prd',
-//                    'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc-tk/xmc-realtime-alarm.git',
-//                    'stage': false,
-//                    'compile': false,
-//                    'deploy': true,
-//                    'customDockerfile': false,
-//                    'customKubernetesDeployTemplate' : false,
-//                    'useConfigMap': true,
-//                    'configMapName': '.env',
-//                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
-//                    'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
-//                    'k8sKind': 'deployment', // 部署的服务的类型
-//                    'storage': false,  //是否需要挂载存储
-//                    'useStore': false, // 是否使用存储资源。
-//                    'storePath' : '/data',
-//                    'useService': true, // 是否使用service
-//                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
-//                    'sonarCheck'  : true
-//            ],
             'media-converter': [
                     'servicePort' : '',
                     'namespace': 'xmc-tk',
@@ -1639,41 +1607,6 @@ class GlobalConfig implements Serializable {
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'sonarCheck'  : true
             ],
-//            'tk-speech-speed-detect': [
-//                    'servicePort' : '80',
-//                    'namespace': 'xmc-tk',
-//                    'nodePort' : '',
-//                    'containerPort': '', // 没有端口监听，不需要svc
-//                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-//                    'cpuRequests' : '1000m',
-//                    'memoryRequests' : '2000Mi',
-//                    'cpuLimits' : '1000m',
-//                    'memoryLimits' : '2000Mi',
-//                    'gpuLimits' : 1, //一个副本使用几张gpu的卡。
-//                    'replicas' : 1,
-//                    'dev': 'dev', // dev分支部署到测试环境
-//                    'test': true, // 是否从dev分支部署到测试环境
-//                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
-//                    'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc-tk/xmc-speech-speed-detect.git',
-//                    'useModel': false,
-//                    'modelPath': '', //模型文件path, 在构建的时候相对于当前的代码的主目录
-//                    'compile': false, // 是否编译
-//                    'deploy': true, // 是否自动化部署
-//                    'customDockerfile': true, // 是否使用自定义 dockerfile
-//                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
-//                    'useConfigMap': true, //是否使用configmap
-//                    'configMapName': '', //是否使用configmap
-//                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
-//                    'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
-//                    'k8sKind': 'deployment', // 部署的服务的类型
-//                    'useStore': true, // 是否使用存储资源。
-//                    'storePath' : '/data',
-//                    'useService': true, // 是否使用service
-//                    'useEnvFile'  : false, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
-//                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
-//                    'envType'     : 'cpu', //分为gpu 和非gpu的环境
-//                    'sonarCheck'  : true
-//            ],
             'tk-engine-video-extract': [
                     'servicePort' : '80',
                     'namespace': 'xmc-tk',
@@ -2202,35 +2135,6 @@ class GlobalConfig implements Serializable {
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'sonarCheck'  : false
             ],
-//            'mis-admin-backend': [
-//                    'servicePort' : '80',
-//                    'nodePort': '31500',
-//                    'namespace': 'mis',
-//                    'containerPort': '5000',
-//                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-//                    'cpuRequests' : '1000m',
-//                    'memoryRequests' : '2000Mi',
-//                    'cpuLimits' : '2000m',
-//                    'memoryLimits' : '4000Mi',
-//                    'dev': 'dev', // dev分支部署到开发环境
-//                    'test': true, // 是否从dev分支部署到测试环境
-//                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
-//                    'gitAddress': 'https://gitlab.dm-ai.cn/mis/admin/mis-admin-backend.git',
-//                    'compile': false, // 是否编译
-//                    'deploy': true, // 是否自动化部署
-//                    'customDockerfile': false, // 是否使用自定义 dockerfile
-//                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
-//                    'useConfigMap': true, //是否使用configmap
-//                    'svcType' : 'NodePort', // ['ClusterIP', 'NodePort', 'None']
-//                    'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
-//                    'k8sKind': 'deployment', // 部署的服务的类型
-//                    'configMapName': 'config.env', //是否使用configmap
-//                    'useStore': true, // 是否使用存储资源。
-//                    'storePath' : '/app/data',
-//                    'useService': true, // 是否使用service
-//                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
-//                    'sonarCheck'  : true
-//            ],
             'service-prometheus' : [
                     'nodePort': '30090',
                     'namespace': 'devops',
@@ -2507,32 +2411,6 @@ class GlobalConfig implements Serializable {
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'useEnvFile'  : true, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
             ],
-//            'ta-launcher-management': [
-//                    'servicePort' : '80',
-//                    'namespace': 'x2-ta',
-//                    'containerPort': '8888',
-//                    'domain': 'launcher-management-x2.deploy-env.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-////                    'cpuRequests' : '1000m',
-////                    'memoryRequests' : '2000Mi',
-//                    'cpuLimits' : '500m',
-//                    'memoryLimits' : '1000Mi',
-//                    'replicas' : 1,
-//                    'dev': 'dev', // dev分支部署到测试环境
-//                    'test': true, // 是否从dev分支部署到测试环境
-//                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
-//                    'gitAddress': 'https://gitlab.dm-ai.cn/x2/cloud/ta-launcher-management.git',
-//                    'compile': true, // 是否编译
-//                    'deploy': true, // 是否自动化部署
-//                    'customDockerfile': false, // 是否使用自定义 dockerfile
-//                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
-//                    'useConfigMap': true, //是否使用configmap
-//                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
-//                    'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
-//                    'k8sKind': 'deployment', // 部署的服务的类型
-//                    'useService': true, // 是否使用service
-//                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
-//                    'useEnvFile'  : true, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
-//            ],
             'x3-web': [
                     'servicePort' : '80',
                     'namespace': 'x3',
@@ -3407,37 +3285,6 @@ class GlobalConfig implements Serializable {
                     'useEnvFile'  : false, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
                     'sonarCheck'  : true
             ],
-//            'ta-speech-eval-gateway': [
-//                    'servicePort' : '80',
-//                    'namespace': 'x2-ta',
-//                    'containerPort': '80',
-//                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-////                    'cpuRequests' : '1000m',
-////                    'memoryRequests' : '2000Mi',
-//                    'cpuLimits' : '500m',
-//                    'memoryLimits' : '1000Mi',
-//                    'replicas' : 1,
-//                    'dev': 'dev', // dev分支部署到测试环境
-//                    'test': true, // 是否从dev分支部署到测试环境
-//                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
-//                    'gitAddress': 'https://gitlab.dm-ai.cn/x2/cloud/ta-speech-eval-gateway.git',
-////                    'useModel': true,
-////                    'modelPath': 'models', //模型文件path, 在构建的时候相对于当前的代码的主目录
-//                    'compile': false, // 是否编译
-//                    'deploy': true, // 是否自动化部署
-//                    'customDockerfile': true, // 是否使用自定义 dockerfile
-//                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
-//                    'useConfigMap': true, //���否使用configmap
-//                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
-//                    'codeLanguage' : 'python', // 临时的，默认是【js,node,golang,java,php,python】
-//                    'k8sKind': 'deployment', // 部署的服务的类型
-////                    'useStore': true, // 是否使用存储资源。
-////                    'storePath' : '/app/models',
-//                    'useService': true, // 是否使用service
-//                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
-//                    'useEnvFile'  : true, // 是否使用git仓库deployment下的.env的内容来给容器注入环境变量。
-//                    'sonarCheck'  : false
-//            ],
             'ta-essay-ocr-service': [
                     'servicePort' : '80',
                     'namespace': 'x2-ta',
