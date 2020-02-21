@@ -54,7 +54,7 @@ class DmaiEmail {
         // 测试等待5秒后发送是否可以取到真实的值。
         TimeUnit.SECONDS.sleep(5)
 
-        def jenkinsUrl = String.format('''%s/blue/organizations/jenkins/%s/detail/%s/%s/pipeline''', this.jenkinsUrl, this.conf.getAttr('jobName'), this.conf.getAttr('branchName'), this.conf.getAttr('buildNumber'))
+        def jenkinsUrl = String.format('''%s/blue/organizations/jenkins/%s/detail/%s/%s/pipeline''', this.jenkinsUrl, this.conf.getAttr('jobName'), URLEncoder.encode(this.conf.getAttr('jenkinsBranchName'), "UTF-8"), this.conf.getAttr('buildNumber'))
         def status =  this.conf.getAttr('buildResult') == 'success' ? 'online' : 'failed'
 
         URL url = new URL(this.adpUrl)
