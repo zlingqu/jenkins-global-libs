@@ -32,6 +32,12 @@ class JenkinsRunTemplate {
 
         this.conf.setAttr('envType', params.ENV_TYPE)
 
+        // set GPU_CONTROL_MODE
+        this.conf.setAttr('gpuControlMode', params.GPU_CONTROL_MODE)
+
+        // set GPU_MEM_COUNT
+        this.conf.setAttr('gpuMemLimits', params.GPU_MEM_COUNT)
+
         // set GPU_CARD_COUNT
         this.conf.setAttr('gpuLimits', params.GPU_CARD_COUNT)
 
