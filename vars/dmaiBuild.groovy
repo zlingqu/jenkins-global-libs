@@ -153,7 +153,8 @@ def call(Map map, env) {
             choice(name: 'ENV_TYPE', choices: topEnvType, description: 'cpu代表部署cpu服务器，gpu代表gpu服务器，all代表不做限制任意漂流')
             string(name: 'GPU_CARD_COUNT', defaultValue: defaultGpuLimits, description: '使用gpu卡的时候，在k8s集群中，一个pods使用的gpu卡的限制。')
 
-            string(name: 'VERSION_CONTROL_MODE', defaultValue: 'GitCommitId', description: '构建的时候的版本控制方式，GitCommitId和GitTags，默认GitCommitId')
+//            string(name: 'VERSION_CONTROL_MODE', defaultValue: 'GitCommitId', description: '构建的时候的版本控制方式，GitCommitId和GitTags，默认GitCommitId')
+            choice(name: 'VERSION_CONTROL_MODE', choices: ['GitCommitId', 'GitTags'], description: '构建的时候的版本控制方式，GitCommitId和GitTags，默认GitCommitId')
             string(name: 'GIT_TAG', defaultValue: '', description: 'git的tag版本')
             string(name: 'APOLLO_CLUSTER_NAME', defaultValue: 'default', description: 'git的tag版本')
             string(name: 'APOLLO_NAMESPACE', defaultValue: 'application', description: 'git的tag版本')
