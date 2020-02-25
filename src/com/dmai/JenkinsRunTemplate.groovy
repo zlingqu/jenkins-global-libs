@@ -171,7 +171,7 @@ class JenkinsRunTemplate {
         this.conf.setAttr('jenkinsJobName', this.conf.getAttr('jobName'))
         this.conf.setAttr('jobName', this.conf.getAttr('jobName').toLowerCase())
 
-        if (this.conf.getAttr('deployEnv') in ['dev', 'test', 'stage']) {
+        if (this.conf.getAttr('deployEnv') != 'prd') {
             this.conf.setAttr('domain', this.conf.getAttr('domain') ? this.conf.getAttr('domain') : this.conf.appName + '.dm-ai.cn' )
         }
 
