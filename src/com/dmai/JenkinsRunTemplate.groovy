@@ -154,7 +154,7 @@ class JenkinsRunTemplate {
         // APOLLO_ENV
         this.conf.setAttr('apolloEnv', this.conf.getAttr('deployEnv'))
         if (this.conf.getAttr('deployEnv') == 'mlcloud-dev') {
-            this.conf.setAttr('apolloEnv') == 'dev'
+            this.conf.setAttr('apolloEnv', 'dev')
         }
 
          ///////////// 针对特殊情况
