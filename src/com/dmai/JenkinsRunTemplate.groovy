@@ -151,6 +151,12 @@ class JenkinsRunTemplate {
         //BUILD_PLATFORM
         this.conf.setAttr('buildPlatform', params.BUILD_PLATFORM)
 
+        // APOLLO_ENV
+        this.conf.setAttr('apolloEnv', this.conf.getAttr('deployEnv'))
+        if (this.conf.getAttr('deployEnv') == 'mlcloud-dev') {
+            this.conf.setAttr('apolloEnv') == 'dev'
+        }
+
          ///////////// 针对特殊情况
         if (this.conf.getAttr('namespace') in ['xmc2-lexue', 'xmc2-chongwen']) {
             this.conf.setAttr('svcType', 'ClusterIP')
@@ -381,7 +387,7 @@ spec:
     private String templateDockersize() {
         return String.format('''
   - name: dockerize
-    image: docker.dm-ai.cn/devops/service-deploy-template:0.25
+    image: docker.dm-ai.cn/devops/service-deploy-template:0.26
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
