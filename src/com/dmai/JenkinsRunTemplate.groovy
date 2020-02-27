@@ -41,9 +41,9 @@ class JenkinsRunTemplate {
         // set GPU_CARD_COUNT
         this.conf.setAttr('gpuLimits', params.GPU_CARD_COUNT)
 
-        if (this.conf.getAttr('deployEnv') == 'lexue') {
-            this.conf.setockerRegistryHost('rdac-docker.dm-ai.cn')
-        }
+//        if (this.conf.getAttr('deployEnv') == 'lexue') {
+//            this.conf.setockerRegistryHost('rdac-docker.dm-ai.cn')
+//        }
 
         this.conf.setAttr('cpuRequests', params.CPU_REQUEST)
         this.conf.setAttr('memoryRequests', params.MEMORY_REQUEST)
