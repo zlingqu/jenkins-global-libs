@@ -157,6 +157,15 @@ class JenkinsRunTemplate {
             this.conf.setAttr('apolloEnv', 'dev')
         }
 
+        // workspace
+        this.conf.setAttr('configFilePath', '/app')
+        if (this.conf.getAttr('jobName') in ['media-access', 'media-gateway']) {
+            this.conf.setAttr('configFilePath', '/src/debug')
+        }
+
+        // APOLLO_CONFIG_ADDRESS
+        this.conf.setAttr('apolloConfigAddress', "http://" + this.conf.getAttr('apolloEnv') + "-conf.apollo.cc.dm-ai.cn")
+
          ///////////// 针对特殊情况
         if (this.conf.getAttr('namespace') in ['xmc2-lexue', 'xmc2-chongwen']) {
             this.conf.setAttr('svcType', 'ClusterIP')
@@ -272,7 +281,7 @@ spec:
 //        if (! this.conf.getAttr('makeImage')) return ''
         return String.format('''
   - name: docker-compose
-    image: docker.dm-ai.cn/devops/base-image-docker-compose:%s0.06
+    image: docker.dm-ai.cn/devops/base-image-docker-compose:%s0.0.7
     imagePullPolicy: IfNotPresent
     env:
     - name: VUE_APP_SCENE

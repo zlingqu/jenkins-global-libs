@@ -17,6 +17,8 @@ class Conf implements Serializable{
     private Map<String, Map<String, String>> globalConfig
     private Map<String, String> jenkinsEnv
     public withEnvList
+    public List<String> publicK8sEnv
+    public List<String> privateK8sEnv
 
     Conf(script, String appName, Map<String, String> userSetMap) {
         this.script = script
@@ -31,6 +33,8 @@ class Conf implements Serializable{
         this.modelVersion = ''
         this.failMsg = ''
         this.withEnvList = []
+        this.publicK8sEnv = ['prd', 'dev', 'test', 'stage', 'jenkins', 'mlcloud-dev','not-deploy']
+        this.privateK8sEnv = ['xmc2-lexue']
 
         // 全局设置中没添加这个项目，需要报错。
         try {
