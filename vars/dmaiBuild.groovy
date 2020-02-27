@@ -416,7 +416,7 @@ def call(Map map, env) {
                         script {
                             try {
                                 withCredentials([usernamePassword(credentialsId: 'passwd-zs', passwordVariable: 'password', usernameVariable: 'username')]) {
-                                    sh 'source /etc/profile; git config --global http.sslVerify false ; git clone https://$username:$password@gitlab.dm-ai.cn/application-engineering/devops/deployment.git'
+                                    sh 'source /etc/profile; git config --global http.sslVerify false ; git clone --depth=1 https://$username:$password@gitlab.dm-ai.cn/application-engineering/devops/deployment.git'
                                 }
                             } catch (e) {
                                 sh "echo ${e}"
