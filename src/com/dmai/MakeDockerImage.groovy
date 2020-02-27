@@ -28,8 +28,8 @@ class MakeDockerImage {
         //如果不是部署在公司的k8s环境中的镜像，在倒数第二行灌入配置文件。
         if (this.conf.getAttr('deployEnv') in this.conf.privateK8sEnv) {
             try {
-                def tmpConfigFilePath = String.format("deployment/%s/%s/", this.conf.getAttr('namespace'), this.conf.getAttr('deployEnv'), this.conf.getAttr('jobName'))
-                this.script.sh String.format('echo "ADD %s %s" >> Dockerfile', tmpConfigFilePath, this.conf.getAttr('configFilePath'))
+                def tmpConfigFilePath = String.format("deployment/%s/%s/%s", this.conf.getAttr('namespace'), this.conf.getAttr('deployEnv'), this.conf.getAttr('jobName'))
+                this.script.sh String.format('echo "ADD %s %s" >> Dockerfile; echo "RUN rm -fr deployment" >> Dockerfile', tmpConfigFilePath, this.conf.getAttr('configFilePath'))
             } catch (e) {
                 this.script.sh "echo 在deployment下未找到配置文件，开始在apollo中查找数据，并写入环境变量到dockerdile中！"
                 this.script.sh String.format('/usr/bin/--config_server_url=%s --appId=%s --clusterName="%s" --namespaceName="%s" --Dockerfile=`pwd/Dockerfile`',
