@@ -32,7 +32,7 @@ class Conf implements Serializable{
         this.modelVersion = ''
         this.failMsg = ''
         this.withEnvList = []
-        this.privateK8sEnv = ['xmc2-lexue']
+        this.privateK8sEnv = ['lexue', 'tuoke']
 
         // 全局设置中没添加这个项目，需要报错。
         try {
