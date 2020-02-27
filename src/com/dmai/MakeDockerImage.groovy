@@ -25,12 +25,30 @@ class MakeDockerImage {
             this.script.sh "echo '${this.conf.getAttr('customDockerfileContent')}' > Dockerfile"
         }
 
+        //如果不是部署在公司的k8s环境中的镜像，在倒数第二行灌入配置文件。
+        if (this.conf.getAttr('deployEnv') in this.conf.privateK8sEnv) {
+            try {
+                def tmpConfigFilePath = String.format("deployment/%s/%s/", this.conf.getAttr('namespace'), this.conf.getAttr('deployEnv'), this.conf.getAttr('jobName'))
+                this.script.sh String.format('echo "ADD %s %s" >> Dockerfile', this.conf.getAttr(tmpConfigFilePath), this.conf.getAttr('configFilePath'))
+            } catch (e) {
+                this.script.sh "echo 在deployment下未找到配置文件，开始在apollo中查找数据，并写入环境变量到dockerdile中！"
+                this.script.sh String.format('/usr/bin/--config_server_url=%s --appId=%s --clusterName="%s" --namespaceName="%s" --Dockerfile=`pwd/Dockerfile`',
+                this.conf.getAttr('apolloConfigAddress'),
+                this.conf.getAttr('jobName'),
+                this.conf.getAttr('apolloClusterName'),
+                this.conf.getAttr('apolloNamespace'))
+            }
+        }
+        // ### 需要处理 1。 使用环境变量的。 2. 有些业务是没配置文件的。注意。
+
+
         this.script.sh "echo '${ this.dockerFileTemplate.getDockerComposeFile() }' > docker-compose.yml"
 
         // 在进行构建之前复制需要的模型文件
         if (this.conf.getAttr('useModel') && this.conf.getAttr('modelPath')) {
             this.script.sh "mkdir -p ${this.conf.getAttr('modelPath')}; cp -rp /models/* ${this.conf.getAttr('modelPath')}"
         }
+
         // teshu chuli
         if (this.conf.getAttr('buildPlatform') == 'adp' && this.conf.getAttr('compile') && this.conf.getAttr('compileParam') && this.conf.getAttr('codeLanguage') == 'js') {
             this.script.sh String.format('pwd;ls;docker-compose build %s service-docker-build', this.conf.getAttr('compileParam')

@@ -311,7 +311,7 @@ def call(Map map, env) {
                         }
 
                         // set build image
-                        conf.setAttr('buildImageAddress', conf.getBuildImageAddress())
+                        conf.setAttr('buildImageAddress', conf.getBuildImageAddress() + "-" + conf.getAttr('deployEnv'))
 //                        echo currentBuild.displayName, currentBuild.fullDisplayName, currentBuild.projectName, currentBuild.fullProjectName
                         // print all data
                         println(conf.printAppConf())
@@ -563,6 +563,7 @@ def call(Map map, env) {
                         expression { return conf.getAttr('deploy') };
                         expression { return conf.getAttr('deployEnv') != 'test'};
                         expression { return conf.getAttr('deployEnv') != 'not-deploy' }
+                        expression { return ! conf.getAttr('deployEnv') in conf.privateK8sEnv }
                     }
                 }
 
@@ -637,6 +638,7 @@ def call(Map map, env) {
                         expression { return conf.getAttr('deploy') };
                         expression { return conf.getAttr('checkPodsStatus') }
                         expression { return conf.getAttr('deployEnv') != 'not-deploy' }
+                        expression { return ! conf.getAttr('deployEnv') in conf.privateK8sEnv }
                     }
                 }
 //                when { expression { return conf.getAttr('deploy') } }
