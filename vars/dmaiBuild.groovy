@@ -563,7 +563,7 @@ def call(Map map, env) {
                         expression { return conf.getAttr('deploy') };
                         expression { return conf.getAttr('deployEnv') != 'test'};
                         expression { return conf.getAttr('deployEnv') != 'not-deploy' }
-                        expression { return ! conf.getAttr('deployEnv') in conf.privateK8sEnv }
+                        expression { return !(conf.getAttr('deployEnv') in conf.privateK8sEnv) }
                     }
                 }
 
@@ -638,7 +638,7 @@ def call(Map map, env) {
                         expression { return conf.getAttr('deploy') };
                         expression { return conf.getAttr('checkPodsStatus') }
                         expression { return conf.getAttr('deployEnv') != 'not-deploy' }
-                        expression { return ! conf.getAttr('deployEnv') in conf.privateK8sEnv }
+                        expression { return !(conf.getAttr('deployEnv') in conf.privateK8sEnv) }
                     }
                 }
 //                when { expression { return conf.getAttr('deploy') } }
