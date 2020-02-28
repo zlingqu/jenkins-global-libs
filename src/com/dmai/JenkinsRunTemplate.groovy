@@ -201,6 +201,9 @@ class JenkinsRunTemplate {
             if (!(this.conf.getAttr('deployEnv') in ['prd', 'dev', 'test'])) {
                 this.conf.setAttr('domain', this.conf.getAttr('jobName') + "-" + this.conf.getAttr('namespace') + "-" +  this.conf.getAttr('deployEnv') + '.dm-ai.cn')
             }
+            if (this.conf.getAttr('deployEnv') in ['dev', 'test']) {
+                this.conf.setAttr('domain', this.conf.getAttr('jobName') + "-" + this.conf.getAttr('namespace') + "." +  this.conf.getAttr('deployEnv') + '.dm-ai.cn')
+            }
         }
 
     }
