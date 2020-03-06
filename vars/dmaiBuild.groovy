@@ -543,7 +543,6 @@ def call(Map map, env) {
                                 sh 'pwd'
                                 withEnv(conf.withEnvList) {
                                     sh 'cd /workspace; dockerize -template src_dir:dest_dir'
-                                    sh 'sleep 2000'
                                     sh 'cat /workspace/dest_dir/template.tmpl'
                                     sh 'cp -rp /workspace/dest_dir/template.tmpl ./'
                                 }
