@@ -614,7 +614,7 @@ spec:
             case 'java':
                 return String.format('''
   - name: compile
-    image: docker.dm-ai.cn/devops/base-image-mvn:0.01
+    image: docker.dm-ai.cn/devops/base-image-mvn:0.0.2
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
