@@ -238,6 +238,9 @@ metadata:
   namespace: $namespace
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: $appName
   template:
     metadata:
       labels:
@@ -296,13 +299,16 @@ spec:
   type: ClusterIP
 
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: $appName
   namespace: $namespace
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: $appName
   template:
     metadata:
       labels:
@@ -360,13 +366,16 @@ spec:
   type: NodePort
 
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: $appName
   namespace: $namespace
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: $appName
   template:
     metadata:
       labels:
