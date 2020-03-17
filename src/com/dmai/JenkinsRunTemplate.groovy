@@ -80,6 +80,9 @@ class JenkinsRunTemplate {
         // set https
         this.conf.setAttr('https', params.IF_USE_HTTPS)
 
+        // set http
+        this.conf.setAttr('http', params.IF_USE_HTTP)
+
         // set CUSTOM_KUBERNETES_DEPLOY_TEMPLATE
         this.conf.setAttr('customKubernetesDeployTemplate', params.CUSTOM_KUBERNETES_DEPLOY_TEMPLATE)
 
