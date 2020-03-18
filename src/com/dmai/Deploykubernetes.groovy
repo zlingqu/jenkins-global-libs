@@ -78,6 +78,8 @@ class Deploykubernetes {
 
     public void deleteOldIngress() {
         this.script.sh String.format("kubectl delete ing %s -n %s || echo 0", this.conf.getAttr('jobName'), this.conf.getAttr('namespace'))
+        this.script.sh String.format("kubectl delete IngressRoute %s -n %s || echo 0", this.conf.getAttr('jobName'), this.conf.getAttr('namespace'))
+        this.script.sh String.format("kubectl delete IngressRoute %s -n %s || echo 0", this.conf.getAttr('jobName') + '-https', this.conf.getAttr('namespace'))
     }
 
     public void createConfigMapTest() {
