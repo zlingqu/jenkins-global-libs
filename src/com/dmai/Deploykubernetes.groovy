@@ -94,7 +94,7 @@ class Deploykubernetes {
 
     private String  createIngressFile() {
         return String.format('''
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: %s

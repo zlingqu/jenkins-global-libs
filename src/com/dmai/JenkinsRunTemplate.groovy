@@ -80,6 +80,9 @@ class JenkinsRunTemplate {
         // set https
         this.conf.setAttr('https', params.IF_USE_HTTPS)
 
+        // set http
+        this.conf.setAttr('http', params.IF_USE_HTTP)
+
         // set CUSTOM_KUBERNETES_DEPLOY_TEMPLATE
         this.conf.setAttr('customKubernetesDeployTemplate', params.CUSTOM_KUBERNETES_DEPLOY_TEMPLATE)
 
@@ -399,7 +402,7 @@ spec:
     private String templateDockersize() {
         return String.format('''
   - name: dockerize
-    image: docker.dm-ai.cn/devops/service-deploy-template:0.36
+    image: docker.dm-ai.cn/devops/service-deploy-template:0.37
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
@@ -614,7 +617,7 @@ spec:
             case 'java':
                 return String.format('''
   - name: compile
-    image: docker.dm-ai.cn/devops/base-image-mvn:0.01
+    image: docker.dm-ai.cn/devops/base-image-mvn:0.0.2
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
