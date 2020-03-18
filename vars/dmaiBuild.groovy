@@ -627,6 +627,7 @@ def call(Map map, env) {
                                         deploykubernetes.deployKubernetes()
                                     } else {
                                         deploykubernetes.createConfigMapTest()
+                                        deploykubernetes.deleteOldIngress()
                                         sh 'kubectl apply -f template.tmpl'
                                     }
                                 } catch (e) {
