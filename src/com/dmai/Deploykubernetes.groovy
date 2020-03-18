@@ -76,6 +76,10 @@ class Deploykubernetes {
         return
     }
 
+    public void deleteOldIngress() {
+        this.script.sh String.format("kubectl delete ing %s -n %s || echo 0", this.conf.getAttr('jobName'), this.conf.getAttr('namespace'))
+    }
+
     public void createConfigMapTest() {
         if (! this.conf.getAttr('useConfigMap')) return
         if (!this.conf.getAttr('test')) return
