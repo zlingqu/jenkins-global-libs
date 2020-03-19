@@ -473,7 +473,7 @@ def call(Map map, env) {
                         script {
                             try {
                                 withEnv(conf.withEnvList) {
-                                    sh 'test -e nginx.conf &&  dockerize -template nginx.conf:nginx.conf'
+                                    sh 'dockerize -template nginx.conf:nginx.conf || echo 0'
                                 }
                             } catch (e) {
                                 sh "echo ${e}"
