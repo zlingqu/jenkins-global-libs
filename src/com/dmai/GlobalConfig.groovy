@@ -3323,7 +3323,7 @@ class GlobalConfig implements Serializable {
                     'namespace': 'devops',
                     'containerPort': '80',
                     'domain': 'app-deploy-platform.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-                    'cpuRequests' : '200m',
+                    'cpuRequests' : '350m',
                     'memoryRequests' : '400Mi',
                     'cpuLimits' : '400m',
                     'memoryLimits' : '800Mi',
