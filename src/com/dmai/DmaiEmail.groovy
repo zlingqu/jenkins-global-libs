@@ -14,8 +14,8 @@ class DmaiEmail {
     DmaiEmail(script, Conf conf) {
         this.script = script
         this.conf = conf
-//        this.adpUrl = 'http://service-adp-deploy.dm-ai.cn/api/v1/deployments/change'
-        this.adpUrl = 'http://service-adp-deploy.devops.dev.dm-ai.cn/api/v1/deployments/change'
+        this.adpUrl = 'http://service-adp-deploy.dm-ai.cn/api/v1/deployments/change'
+//        this.adpUrl = 'http://service-adp-deploy.devops.dev.dm-ai.cn/api/v1/deployments/change'
         this.jenkinsUrl = 'http://jenkins.ops.dm-ai.cn'
         this.adpUrlApp = 'http://app-deploy-platform.dm-ai.cn/#/project-management'
     }
