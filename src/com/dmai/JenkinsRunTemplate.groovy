@@ -264,6 +264,9 @@ spec:
   - ip: 192.168.3.13
     hostnames:
     - nexus.dm-ai.cn
+  - ip: 192.168.11.4
+    hostnames:
+    - service-adp-deploy.dm-ai.cn
   imagePullSecrets:
   - name: regsecret
   containers:
