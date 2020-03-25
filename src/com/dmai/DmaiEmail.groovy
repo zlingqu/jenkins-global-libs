@@ -88,7 +88,7 @@ class DmaiEmail {
             this.conf.setAttr('buildResult', 'success')
         }
 
-        if (buildResult == 'SUCCESS') {
+        if (buildResult == 'SUCCESS' && this.conf.ifBuild()) {
             URL url = new URL('http://service-adp-build-result.dm-ai.cn/api/v1/result')
             HttpURLConnection conn = (HttpURLConnection) url.openConnection()
             conn.setRequestMethod("POST")
