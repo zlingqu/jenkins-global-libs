@@ -140,6 +140,8 @@ class JenkinsRunTemplate {
         // APOLLO_NAMESPACE
         this.conf.setAttr('apolloNamespace', params.APOLLO_NAMESPACE)
 
+        // JS_VERSION
+        this.conf.setAttr('jsVersion', params.JS_VERSION)
 
         // GIT_VERSION
         this.conf.setAttr('gitVersion', params.GIT_VERSION)
