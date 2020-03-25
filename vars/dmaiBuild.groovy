@@ -257,6 +257,9 @@ def call(Map map, env) {
 
             // set build platform
             string(name: 'BUILD_PLATFORM', defaultValue: defBuildPlatform, description: '构建平台，默认jenkins，adp代表发布平台，为了额兼容性考虑')
+
+            //JS version
+            string(name: 'JS_VERSION', defaultValue: '0.0.0', description: '前端库的版本，用于推流，其他项目不关注')
         }
 
 //        triggers {
