@@ -88,14 +88,18 @@ class DmaiEmail {
             this.conf.setAttr('buildResult', 'success')
         }
 
+        tmpString = String.format("name=%s&deploy_env=%s&version=%s", this.conf.getAttr('jobName'), this.conf.getAttr('deployEnv'), this.conf.getAttr('jsVersion'))
+
         if (buildResult == 'SUCCESS' && this.conf.ifBuild()) {
-            URL url = new URL('http://service-adp-build-result.dm-ai.cn/api/v1/result')
+            URL url = new URL('http://service-adp-build-result.dm-ai.cn/api/v1/result-form')
             HttpURLConnection conn = (HttpURLConnection) url.openConnection()
             conn.setRequestMethod("POST")
-            conn.setRequestProperty("Content-Type", "application/json")
+//            conn.setRequestProperty("Content-Type", "application/json")
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
             conn.doOutput = true
             def writer = new OutputStreamWriter(conn.outputStream)
-            writer.write(this.reqResultString())
+//            writer.write(this.reqResultString())
+            writer.write(tmpString)
             writer.flush()
             writer.close()
             conn.connect()
