@@ -46,6 +46,16 @@ class DmaiEmail {
 ''', token, status)
     }
 
+    private String reqResultString() {
+        return String.format('''
+{
+"name": "%s",
+"deploy_env": "%s",
+"version": "%s"
+}
+''', this.conf.getAttr('jobName'), this.conf.getAttr('deployEnv'), '0.0.1')
+    }
+
     public writeBuildResultToAdp(String buildResult) {
 
         if (buildResult == 'SUCCESS') {
@@ -71,6 +81,28 @@ class DmaiEmail {
         def respText = conn.content.text
         println(respText)
         return respText
+    }
+
+    public writeBuildResultToAdpResult(String buildResult) {
+        if (buildResult == 'SUCCESS') {
+            this.conf.setAttr('buildResult', 'success')
+        }
+
+        if (buildResult == 'SUCCESS') {
+            URL url = new URL('http://service-adp-build-result.dm-ai.cn/api/v1/result')
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection()
+            conn.setRequestMethod("POST")
+            conn.setRequestProperty("Content-Type", "application/json")
+            conn.doOutput = true
+            def writer = new OutputStreamWriter(conn.outputStream)
+            writer.write(this.reqResultString())
+            writer.flush()
+            writer.close()
+            conn.connect()
+            def respText = conn.content.text
+            println(respText)
+            return respText
+        }
     }
 
     public sendEmail(String buildResult) {
