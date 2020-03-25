@@ -53,7 +53,7 @@ class DmaiEmail {
 "deploy_env": "%s",
 "version": "%s"
 }
-''', this.conf.getAttr('jobName'), this.conf.getAttr('deployEnv'), '0.0.1')
+''', this.conf.getAttr('jobName'), this.conf.getAttr('deployEnv'), this.conf.getAttr('jsVersion'))
     }
 
     public writeBuildResultToAdp(String buildResult) {
