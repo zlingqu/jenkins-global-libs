@@ -89,19 +89,27 @@ class DmaiEmail {
         }
 
         if (buildResult == 'SUCCESS' && this.conf.ifBuild()) {
-            URL url = new URL('http://service-adp-build-result.dm-ai.cn/api/v1/result')
+            // param
+            postForm = String.format('name=%s&deploy_env=%s&version=%s', this.conf.getAttr('jobName'), this.conf.getAttr('deployEnv'), this.conf.getAttr('jsVersion'))
+
+            URL url = new URL('http://service-adp-build-result.dm-ai.cn/api/v1/result-form')
             HttpURLConnection conn = (HttpURLConnection) url.openConnection()
             conn.setRequestMethod("POST")
-            conn.setRequestProperty("Content-Type", "application/json")
-            conn.doOutput = true
-            def writer = new OutputStreamWriter(conn.outputStream)
-            writer.write(this.reqResultString())
-            writer.flush()
-            writer.close()
-            conn.connect()
-            def respText = conn.content.text
-            println(respText)
-            return respText
+            conn.setDoOutput(true)
+            byte[] bypes = postForm.toString().getBytes()
+            conn.getOutputStream().write(bypes)
+            InputStream inStream=conn.getInputStream()
+            return StreamTool.readInputStream(inStream)
+//            conn.setRequestProperty("Content-Type", "application/json")
+//            conn.doOutput = true
+//            def writer = new OutputStreamWriter(conn.outputStream)
+//            writer.write(this.reqResultString())
+//            writer.flush()
+//            writer.close()
+//            conn.connect()
+//            def respText = conn.content.text
+//            println(respText)
+//            return respText
         }
     }
 
