@@ -165,7 +165,7 @@ class DmaiEmail {
     </style>
 </head>
 <body>
-    <h2>构建结果如下：</h2>
+    <h2 style="font-size: 22px; font-weight:bold;">构建结果如下：</h2>
     <table class="dataintable" border="1">
         <tbody >
             <tr style="background:#f7f5f4">
