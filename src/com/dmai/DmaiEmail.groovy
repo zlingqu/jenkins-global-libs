@@ -169,44 +169,44 @@ class DmaiEmail {
     <table class="dataintable" border="1">
         <tbody >
             <tr style="background:#f7f5f4">
-                <th>名称</th>
-                <th>信息</th>
+                <th style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">名称</th>
+                <th style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">信息</th>
             </tr>
             <tr>
-                <td>构建项目</td>
-                <td>$appName</td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">构建项目</td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">$appName</td>
             </tr>
             <tr>
-                <td>用户测试地址</td>
-                <td><a target="_blank" href="$buildEnvInfo">$buildEnvInfo</a></td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">用户测试地址</td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a target="_blank" href="$buildEnvInfo">$buildEnvInfo</a></td>
             </tr>
             <tr>
-                <td>其他服务调用本服务地址</td>
-                <td><a target="_blank" href="http://$appName">http://$appName</a></td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">其他服务调用本服务地址</td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a target="_blank" href="http://$appName">http://$appName</a></td>
             </tr>
             <tr>
-                <td>Jenkins-构建地址(blue)</td>
-                <td><a target="_blank" href="$jenkinsAddress/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline">Jenkins-blue-url</a></td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">Jenkins-构建地址(blue)</td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a target="_blank" href="$jenkinsAddress/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline">Jenkins-blue-url</a></td>
             </tr>
             <tr>
-                <td>Jenkins-构建地址(old)</td>
-                <td><a target="_blank" href="$jenkinsAddress/job/$jobName/job/$branchName">Jenkins-old-url</a></td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">Jenkins-构建地址(old)</td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a target="_blank" href="$jenkinsAddress/job/$jobName/job/$branchName">Jenkins-old-url</a></td>
             </tr>
             <tr>
-                <td>Git地址</td>
-                <td><a href="$gitAddress">项目git地址</a></td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">Git地址</td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="$gitAddress">项目git地址</a></td>
             </tr>
             <tr>
-                <td>服务的K8s管理地址</td>
-                <td><a href="$k8sWebAddress">k8s-url</a></td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">服务的K8s管理地址</td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="$k8sWebAddress">k8s-url</a></td>
             </tr>
             <tr>
-                <td>sonar检查结果</td>
-                <td><a href="$sonarAddress">sonar-url</a></td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">sonar检查结果</td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="$sonarAddress">sonar-url</a></td>
             </tr>
             <tr>
-                <td>发布平台地址</td>
-                <td><a href="http://app-deploy-platform.dm-ai.cn/#/deployment-management">adp-url</a></td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">发布平台地址</td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="http://app-deploy-platform.dm-ai.cn/#/deployment-management">adp-url</a></td>
             </tr>
         </tbody>
     </table>
