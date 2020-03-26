@@ -81,7 +81,7 @@ class Conf implements Serializable{
     }
 
     public def getK8sWebAddress() {
-        def k8sWebAddress =  String.format('''http://%s.k8s.dm-ai.cn/#!/pod?namespace=%s''', this.getAttr('deployEnv'), this.getAttr('namespace'))
+        def k8sWebAddress =  String.format('''http://%s.k8s.dm-ai.cn/#/service/%s/%s?namespace=%s''', this.getAttr('deployEnv'), this.getAttr('namespace'), this.getAttr('jobName'), this.getAttr('namespace'))
         if (this.getAttr('deployEnv') == 'prd') {
             return k8sWebAddress.replaceAll('http://prd.', 'http://')
         }
