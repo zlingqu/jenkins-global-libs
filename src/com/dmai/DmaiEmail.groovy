@@ -130,28 +130,85 @@ class DmaiEmail {
     }
 
     private String emailBody(String buildResult) {
-        def text = '''构建信息:
-构建项目：$appName
-$buildEnvInfo
-其他服务调用当前服务地址：http://$appName
-重要->服务之间的访问：服务之间访问请使用服务名,前端使用域名，非前端的测试开发域名用于日常开发调试，请coder注意。
-Jenkins-blue-构建地址： $jenkinsAddress/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline
-Jenkins-old-构建地址：  $jenkinsAddress/job/$jobName/job/$branchName
-Git地址：$gitAddress
-K8s管理页面地址：$k8sWebAddress
-$useSvcInfo
-sonar检查结果：$sonarAddress
-发布平台地址：$adpUrlApp
+        def text = '''
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>y</title>
-  </head>
-  <body>
-    <div id="app">1111111111111</div>
-    <a href="http://wwww">ww11</a>
-  </body>
+    <!-- <meta name="viewport" content="width=device-width,initial-scale=1.0"> -->
+    <!-- <title>y</title> -->
+    <style type="text/css">
+        table.dataintable {
+            margin-top: 15px;
+            border-collapse: collapse;
+            border: 1px solid #aaa;
+            /* width: 100%; */
+            width: 1000px;
+        }
+        tr > td {
+            background: #f4f5f7;
+            height: 35px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 7px;
+            padding-bottom: 7px;
+        }
+        tr > th {
+            height: 35px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h2>构建结果如下：</h2>
+    <table class="dataintable" border="1">
+        <tbody >
+            <tr style="background:#f7f5f4">
+                <th>名称</th>
+                <th>信息</th>
+            </tr>
+            <tr>
+                <td>构建项目</td>
+                <td>$appName</td>
+            </tr>
+            <tr>
+                <td>用户测试地址</td>
+                <td><a target="_blank" href="$buildEnvInfo">$buildEnvInfo</a></td>
+            </tr>
+            <tr>
+                <td>其他服务调用本服务地址</td>
+                <td><a target="_blank" href="http://$appName">http://$appName</a></td>
+            </tr>
+            <tr>
+                <td>Jenkins-构建地址(blue)</td>
+                <td><a target="_blank" href="$jenkinsAddress/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline">Jenkins-blue-url</a></td>
+            </tr>
+            <tr>
+                <td>Jenkins-构建地址(old)</td>
+                <td><a target="_blank" href="$jenkinsAddress/job/$jobName/job/$branchName">Jenkins-old-url</a></td>
+            </tr>
+            <tr>
+                <td>Git地址</td>
+                <td><a href="$gitAddress">项目git地址</a></td>
+            </tr>
+            <tr>
+                <td>服务的K8s管理地址</td>
+                <td><a href="$k8sWebAddress">k8s-url</a></td>
+            </tr>
+            <tr>
+                <td>sonar检查结果</td>
+                <td><a href="$sonarAddress">sonar-url</a></td>
+            </tr>
+            <tr>
+                <td>发布平台地址</td>
+                <td><a href="http://app-deploy-platform.dm-ai.cn/#/deployment-management">adp-url</a></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
 </html>
 '''
         def bind = [
@@ -163,7 +220,7 @@ sonar检查结果：$sonarAddress
                 'buildResult'    : buildResult,
                 'gitAddress'     : this.conf.getAttr('gitAddress'),
                 'k8sWebAddress'  : this.conf.getK8sWebAddress(),
-                'buildEnvInfo'   : this.buildEnvInfo(),
+                'buildEnvInfo'   : this.buildEnvInfo().replaceAll('用户测试验证地址：', ''),
 //                'buildTestInfo'  : this.buildTestInfo(),
                 'useSvcInfo'     : this.useSvcInfo(),
                 'sonarAddress'   : 'http://sonar.ops.dm-ai.cn/dashboard?id=' + this.conf.appName,
