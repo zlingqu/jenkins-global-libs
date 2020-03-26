@@ -142,6 +142,17 @@ K8s管理页面地址：$k8sWebAddress
 $useSvcInfo
 sonar检查结果：$sonarAddress
 发布平台地址：$adpUrlApp
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>y</title>
+  </head>
+  <body>
+    <div id="app">1111111111111</div>
+    <a href="http://wwww">ww11</a>
+  </body>
+</html>
 '''
         def bind = [
                 'appName'        : this.conf.appName,
