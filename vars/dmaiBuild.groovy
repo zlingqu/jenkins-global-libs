@@ -553,7 +553,7 @@ def call(Map map, env) {
                                 withEnv(conf.withEnvList) {
                                     sh 'cd /workspace; dockerize -template src_dir:dest_dir'
                                     sh 'cat /workspace/dest_dir/template.tmpl'
-                                    sh 'cp -rp /workspace/dest_dir/template.tmpl ./'
+                                    sh 'cp -rp /workspace/dest_dir/template.tmpl ./; chmod 777 template.tmpl'
                                 }
                             } catch (e) {
                                 sh "echo ${e}"

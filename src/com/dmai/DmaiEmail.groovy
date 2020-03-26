@@ -15,9 +15,8 @@ class DmaiEmail {
         this.script = script
         this.conf = conf
         this.adpUrl = 'http://service-adp-deploy.dm-ai.cn/api/v1/deployments/change'
-//        this.adpUrl = 'http://service-adp-deploy.devops.dev.dm-ai.cn/api/v1/deployments/change'
         this.jenkinsUrl = 'http://jenkins.ops.dm-ai.cn'
-        this.adpUrlApp = 'http://app-deploy-platform.dm-ai.cn/#/project-management'
+        this.adpUrlApp = 'http://app-deploy-platform.dm-ai.cn/#/deployment-management'
     }
 
     public userSureEmail() {
@@ -89,27 +88,19 @@ class DmaiEmail {
         }
 
         if (buildResult == 'SUCCESS' && this.conf.ifBuild()) {
-            // param
-            postForm = String.format('name=%s&deploy_env=%s&version=%s', this.conf.getAttr('jobName'), this.conf.getAttr('deployEnv'), this.conf.getAttr('jsVersion'))
-
-            URL url = new URL('http://service-adp-build-result.dm-ai.cn/api/v1/result-form')
+            URL url = new URL('http://service-adp-build-result.dm-ai.cn/api/v1/result')
             HttpURLConnection conn = (HttpURLConnection) url.openConnection()
             conn.setRequestMethod("POST")
-            conn.setDoOutput(true)
-            byte[] bypes = postForm.toString().getBytes()
-            conn.getOutputStream().write(bypes)
-            InputStream inStream=conn.getInputStream()
-            return StreamTool.readInputStream(inStream)
-//            conn.setRequestProperty("Content-Type", "application/json")
-//            conn.doOutput = true
-//            def writer = new OutputStreamWriter(conn.outputStream)
-//            writer.write(this.reqResultString())
-//            writer.flush()
-//            writer.close()
-//            conn.connect()
-//            def respText = conn.content.text
-//            println(respText)
-//            return respText
+            conn.setRequestProperty("Content-Type", "application/json")
+            conn.doOutput = true
+            def writer = new OutputStreamWriter(conn.outputStream)
+            writer.write(this.reqResultString())
+            writer.flush()
+            writer.close()
+            conn.connect()
+            def respText = conn.content.text
+            println(respText)
+            return respText
         }
     }
 
@@ -144,13 +135,12 @@ class DmaiEmail {
 $buildEnvInfo
 其他服务调用当前服务地址：http://$appName
 重要->服务之间的访问：服务之间访问请使用服务名,前端使用域名，非前端的测试开发域名用于日常开发调试，请coder注意。
-Jenkins构建地址： $jenkinsAddress/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline
+Jenkins-blue-构建地址： $jenkinsAddress/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline
+Jenkins-old-构建地址：  $jenkinsAddress/job/$jobName/job/$branchName
 Git地址：$gitAddress
 K8s管理页面地址：$k8sWebAddress
 $useSvcInfo
 sonar检查结果：$sonarAddress
-
-特别说明：目前发布平台在建设中，master分支要上线到生产环境，请找运维人员(输密码)，手动上线，避免出现问题，master分支的自动上线已关闭, 自动上线默认失败！
 发布平台地址：$adpUrlApp
 '''
         def bind = [
