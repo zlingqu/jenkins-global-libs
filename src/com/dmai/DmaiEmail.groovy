@@ -151,6 +151,7 @@ class DmaiEmail {
             padding-right: 10px;
             padding-top: 7px;
             padding-bottom: 7px;
+            font-size: 16px;
         }
         tr > th {
             height: 35px;
@@ -159,6 +160,7 @@ class DmaiEmail {
             padding-top: 7px;
             padding-bottom: 7px;
             text-align: left;
+            font-size: 18px;
         }
     </style>
 </head>
