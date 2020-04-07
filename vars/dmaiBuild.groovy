@@ -359,7 +359,7 @@ def call(Map map, env) {
                                 }
                             } catch (e) {
                                 sh "echo ${e}"
-                                conf.failMsg = '拉取指定git的版本或者tag失败，请检查版本或者tag是否正确';
+                                conf.failMsg = '拉取指定git的版本或者tag失败，请检查版本或者tag是否正确，请确保tag是从master分支拉取。';
                                 throw e
                             }
                         }
