@@ -86,6 +86,9 @@ def call(Map map, env) {
 
     // compile
     def defaultCompile = conf.getAttr('compile') ? conf.getAttr('compile') : false
+    if (conf.getAttr('codeLanguage') in ['node', 'nodets']) {
+        defaultCompile = true;
+    }
 
     // https
     def defaultUseHttps = conf.getAttr('https') ? conf.getAttr('https') : false
@@ -395,7 +398,8 @@ def call(Map map, env) {
                 when {
                     allOf {
                         expression { return  conf.ifBuild() };
-                        expression { return conf.getAttr('compile') || conf.getAttr('codeLanguage') in ['node', 'nodets']};
+                        expression { return conf.getAttr('compile') };
+
                     }
                 }
                 steps {
