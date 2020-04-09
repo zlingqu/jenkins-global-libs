@@ -71,6 +71,7 @@ class KubernetesStatusCheck {
         while ( count <= 1200 ) {
             println(1111111111111111)
             def deployInfo = this.getServiceAppStatusV1()
+            println(2222222222222222)
             println(deployInfo)
             if (deployInfo.res == "fail" || (deployInfo.res == "ok" && deployInfo.status == "ok")) {
                 this.conf.setAttr('deployRes', deployInfo.res)
