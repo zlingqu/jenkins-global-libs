@@ -38,7 +38,7 @@ class KubernetesStatusCheck {
     }
 
     private String getServiceAppStatusV1Url() {
-        return String.format('''http://service-k8s-app-status-check-v1.devops.dev.dm-ai.cn/api/v1/pods-status?env=%s&namespace=%s&appName=%s''', this.conf.getAttr('deployEnv'), this.conf.getAttr("namespace"), this.conf.getAttr("jobName"))
+        return String.format('''http://service-k8s-app-status-check-v1.dm-ai.cn/api/v1/pods-status?env=%s&namespace=%s&appName=%s''', this.conf.getAttr('deployEnv'), this.conf.getAttr("namespace"), this.conf.getAttr("jobName"))
     }
 
     private Map getServiceAppStatusV1() {
