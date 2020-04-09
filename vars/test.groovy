@@ -36,7 +36,8 @@
 // 测试post 请求并对请求的结果进行解析
 import groovy.json.JsonSlurper
 private String getServiceAppStatusV1Url() {
-    return String.format('''http://service-k8s-app-status-check-v1.devops.dev.dm-ai.cn/api/v1/pods-status?env=%s&namespace=%s&appName=%s''', 'dev', 'devops', 'jenkins-test')
+//    return String.format('''http://service-k8s-app-status-check-v1.devops.dev.dm-ai.cn/api/v1/pods-status?env=%s&namespace=%s&appName=%s''', 'dev', 'devops', 'jenkins-test')
+    return String.format('''http://service-k8s-app-status-check-v1.devops.dev.dm-ai.cn/api/v1/pods-status?env=dev&namespace=devops&appName=jenkins-test''')
 }
 
 private Map getServiceAppStatusV1() {
@@ -45,26 +46,12 @@ private Map getServiceAppStatusV1() {
     HttpURLConnection conn = (HttpURLConnection) url.openConnection()
     conn.setRequestMethod("GET")
     conn.connect()
-    if (conn.getResponseCode() == 200) {
-        InputStream inputStream=conn.getInputStream();
-        byte[] data=new byte[1024];
-        StringBuffer sb1=new StringBuffer();
-        int length=0;
-        while ((length=inputStream.read(data))!=-1){
-            String s=new String(data, 0,length);
-            sb1.append(s);
-        }
-        message=sb1.toString();
-        inputStream.close();
-    }
+    def respText = conn.content.text
     conn.disconnect()
     def jsonSlurper = new JsonSlurper()
-    def object = jsonSlurper.parseText(message)
+    def object = jsonSlurper.parseText(respText)
     assert object instanceof Map
     return object
 }
 
-def deployInfo = getServiceAppStatusV1()
-
-println(deployInfo.res)
-println(deployInfo.status)
+println(getServiceAppStatusV1().msg)

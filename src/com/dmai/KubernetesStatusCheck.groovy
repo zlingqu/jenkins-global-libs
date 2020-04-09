@@ -42,26 +42,14 @@ class KubernetesStatusCheck {
     }
 
     private Map getServiceAppStatusV1() {
-        String message = "";
         URL url = new URL(this.getServiceAppStatusV1Url())
         HttpURLConnection conn = (HttpURLConnection) url.openConnection()
         conn.setRequestMethod("GET")
         conn.connect()
-        if (conn.getResponseCode() == 200) {
-            InputStream inputStream=conn.getInputStream();
-            byte[] data=new byte[1024];
-            StringBuffer sb1=new StringBuffer();
-            int length=0;
-            while ((length=inputStream.read(data))!=-1){
-                String s=new String(data, 0,length);
-                sb1.append(s);
-            }
-            message=sb1.toString();
-            inputStream.close();
-        }
+        def respText = conn.content.text
         conn.disconnect()
         def jsonSlurper = new JsonSlurper()
-        def object = jsonSlurper.parseText(message)
+        def object = jsonSlurper.parseText(respText)
         assert object instanceof Map
         return object
     }
