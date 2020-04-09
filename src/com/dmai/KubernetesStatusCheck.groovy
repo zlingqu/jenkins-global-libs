@@ -70,6 +70,7 @@ class KubernetesStatusCheck {
         int count = 0
         while ( count <= 1200 ) {
             println(1111111111111111)
+            println(3333333333333333)
             def deployInfo = this.getServiceAppStatusV1()
             println(2222222222222222)
             println(this.getServiceAppStatusV1Url())
