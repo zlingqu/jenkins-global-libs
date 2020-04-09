@@ -663,17 +663,31 @@ def call(Map map, env) {
                         script {
                             try {
                                 sh "echo '检查部署在k8s集群中的服务的pod是否正常运行，等待限时120秒。'"
-                                if (kubernetesStatusCheck.waitKubernetesServerStarted() == true ) {
+                                kubernetesStatusCheck.waitKubernetesServerStartedV1()
+                                if ( conf.getAttr('deployRes' ) == "ok" ) {
                                     sh "echo '部署在k8s集群中的服务已正常运行'"
                                 } else {
-                                    sh "echo '在120秒内，检查k8s集群中服务的pods的状态失败，请手动检查服务部署后的pod状态，构建失败！！'"
-                                    throw "please check service status with admin."
+                                    conf.failMsg = conf.getAttr('deployMsg')
+                                    throw conf.getAttr('deployMsg')
                                 }
                             } catch (e) {
                                 sh "echo ${e}"
                                 conf.failMsg = '部署完成后，检查服务的pod，在k8s中启动是否成功，3分钟内启动不成功即失败，请手动检查k8s的服务的日志和状态。';
                                 throw e
                             }
+//                            try {
+//                                sh "echo '检查部署在k8s集群中的服务的pod是否正常运行，等待限时120秒。'"
+//                                if (kubernetesStatusCheck.waitKubernetesServerStarted() == true ) {
+//                                    sh "echo '部署在k8s集群中的服务已正常运行'"
+//                                } else {
+//                                    sh "echo '在120秒内，检查k8s集群中服务的pods的状态失败，请手动检查服务部署后的pod状态，构建失败！！'"
+//                                    throw "please check service status with admin."
+//                                }
+//                            } catch (e) {
+//                                sh "echo ${e}"
+//                                conf.failMsg = '部署完成后，检查服务的pod，在k8s中启动是否成功，3分钟内启动不成功即失败，请手动检查k8s的服务的日志和状态。';
+//                                throw e
+//                            }
                         }
                     }
                 }

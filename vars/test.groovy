@@ -15,21 +15,54 @@
 //conn.connect()
 //def respText = conn.content.text
 //println(respText == "111")
-println("http://192.168.3.29:8082/eng-team-models/XMC/xmc_models.git".replace("http://", ""))
-println("git@192.168.3.29:eng-team-models/XMC/xmc_models.git".replace("http://", ""))
+//println("http://192.168.3.29:8082/eng-team-models/XMC/xmc_models.git".replace("http://", ""))
+//println("git@192.168.3.29:eng-team-models/XMC/xmc_models.git".replace("http://", ""))
+//
+//// groovy 读取文件, 一次性读取
+////String fileContents = new File('/Users/zuoshenglo/goland-workspace/src/devops-dm-ai/deployment/devops/dev/jenkins-test/deploy.yml').getText('UTF-8')
+////println(fileContents.replaceAll('JENKINS_DEPLOY_IMAGE_ADDRESS', "wocaowuqing"))
+//
+//File file0 = new File('1/Users/zuoshenglo/goland-workspace/src/devops-dm-ai/deployment/devops/dev/jenkins-test/deploy.yml');
+////File file =
+//if(file0.exists()) {
+//    println("bucunzai")
+//}
+//
+//if ('x2.dm-ai.cn'.indexOf('deploy-env')) {
+//    println(1111)
+//}
+//
+//println('x2.dm-ai.cn111111'.indexOf('deploy-env'))
+// 测试post 请求并对请求的结果进行解析
+import groovy.json.JsonSlurper
+testUrl = 'http://service-k8s-app-status-check-v1.devops.dev.dm-ai.cn/api/v1/pods-status?env=dev&namespace=devops&appName=k8s-test-pod-create'
 
-// groovy 读取文件, 一次性读取
-//String fileContents = new File('/Users/zuoshenglo/goland-workspace/src/devops-dm-ai/deployment/devops/dev/jenkins-test/deploy.yml').getText('UTF-8')
-//println(fileContents.replaceAll('JENKINS_DEPLOY_IMAGE_ADDRESS', "wocaowuqing"))
-
-File file0 = new File('1/Users/zuoshenglo/goland-workspace/src/devops-dm-ai/deployment/devops/dev/jenkins-test/deploy.yml');
-//File file =
-if(file0.exists()) {
-    println("bucunzai")
+//private String requestBodyString() {
+////    return String.format('''''')
+////}
+private Map getServiceAppStatus() {
+    String message = "";
+    URL url = new URL(testUrl)
+    HttpURLConnection conn = (HttpURLConnection) url.openConnection()
+    conn.setRequestMethod("GET")
+    conn.connect()
+    if (conn.getResponseCode() == 200) {
+        InputStream inputStream=conn.getInputStream();
+        byte[] data=new byte[1024];
+        StringBuffer sb1=new StringBuffer();
+        int length=0;
+        while ((length=inputStream.read(data))!=-1){
+            String s=new String(data, 0,length);
+            sb1.append(s);
+        }
+        message=sb1.toString();
+        inputStream.close();
+    }
+    conn.disconnect()
+    def jsonSlurper = new JsonSlurper()
+    def object = jsonSlurper.parseText(message)
+    assert object instanceof Map
+    return object
 }
-
-if ('x2.dm-ai.cn'.indexOf('deploy-env')) {
-    println(1111)
-}
-
-println('x2.dm-ai.cn111111'.indexOf('deploy-env'))
+def res = getServiceAppStatus()
+println(res.code)
