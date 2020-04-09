@@ -34,19 +34,19 @@ def call(Map map, env) {
     KubernetesStatusCheck kubernetesStatusCheck = new KubernetesStatusCheck(this, conf)
 
     // default replicas
-    def replicas = String.valueOf( conf.getAttr('replicas') ? conf.getAttr('replicas') : 1)
+    def replicas = String.valueOf(conf.getAttr('replicas') ? conf.getAttr('replicas') : 1)
 
     // default containerPort
-    def containerPort = String.valueOf( conf.getAttr('containerPort') ? conf.getAttr('containerPort') : 80)
+    def containerPort = String.valueOf(conf.getAttr('containerPort') ? conf.getAttr('containerPort') : 80)
 
     // default cpu
     def defaultEnvType = conf.getAttr('envType') ? conf.getAttr('envType') : 'cpu'
 
     // gpu_card_count
-    def defaultGpuLimits = String.valueOf( conf.getAttr('gpuLimits') ? conf.getAttr('gpuLimits') : 0)
+    def defaultGpuLimits = String.valueOf(conf.getAttr('gpuLimits') ? conf.getAttr('gpuLimits') : 0)
 
     // gpu_card_count
-    def defaultGpuMemLimits = String.valueOf( conf.getAttr('gpuMemLimits') ? conf.getAttr('gpuMemLimits') : 0)
+    def defaultGpuMemLimits = String.valueOf(conf.getAttr('gpuMemLimits') ? conf.getAttr('gpuMemLimits') : 0)
 
     // cpuRequests
     def defaultCpuRequests = conf.getAttr('cpuRequests') ? conf.getAttr('cpuRequests') : ''
@@ -67,14 +67,14 @@ def call(Map map, env) {
     if (conf.appName == 'work-attendance' && conf.getAttr('branchName') != 'master') return
 
     //
-    def deployEnv =  Tools.addItemToListHead(['prd', 'dev', 'test', 'stage', 'jenkins', 'mlcloud-dev', 'lexue', 'tuoke', 'not-deploy'], conf.getDeployEnv())
+    def deployEnv = Tools.addItemToListHead(['prd', 'dev', 'test', 'stage', 'jenkins', 'mlcloud-dev', 'lexue', 'tuoke', 'not-deploy'], conf.getDeployEnv())
 
     // default node env
 //    def defaultNodeEnvList = Tools.addItemToListHead(['dev', 'prod', 'test', 'stage', 'jenkins', 'mlcloud-dev', 'lexue', 'tuoke', 'not-deploy'], conf.getDeployEnv() ? conf.getDeployEnv().replaceAll('prd', 'prod') : 'dev')
     def defaultNodeEnvList = Tools.addItemToListHead(['dev', 'prd', 'test', 'stage', 'jenkins', 'mlcloud-dev', 'lexue', 'tuoke', 'not-deploy'], conf.getDeployEnv())
 
     //
-    def topEnvType = Tools.addItemToListHead(['cpu','gpu', 'arm', 'all'], defaultEnvType)
+    def topEnvType = Tools.addItemToListHead(['cpu', 'gpu', 'arm', 'all'], defaultEnvType)
 
     // namespace
     def defaultNamespace = conf.getAttr('namespace') ? conf.getAttr('namespace') : 'test'
@@ -126,7 +126,7 @@ def call(Map map, env) {
     def useService = conf.getAttr('useService') ? conf.getAttr('useService') : false
 
     // k8sKind
-    def defaultK8sKind = conf.getAttr('k8sKind') ? conf.getAttr('k8sKind') :'deployment'
+    def defaultK8sKind = conf.getAttr('k8sKind') ? conf.getAttr('k8sKind') : 'deployment'
     def toK8sKind = Tools.addItemToListHead(['Deployment', 'StatefulSet'], defaultK8sKind)
 
     // make images
@@ -298,7 +298,7 @@ def call(Map map, env) {
             stage('Build-Init') {
                 when {
                     allOf {
-                        expression { return  conf.ifBuild() };
+                        expression { return conf.ifBuild() };
                     }
                 }
                 steps {
@@ -319,7 +319,7 @@ def call(Map map, env) {
 //                        }
                         // set git commit id
 //                        echo env.GIT_COMMIT
-                        if ( env.GIT_COMMIT && conf.getAttr('gitVersion') == 'last' && conf.getAttr('versionControlMode') == 'GitCommitId' ) {
+                        if (env.GIT_COMMIT && conf.getAttr('gitVersion') == 'last' && conf.getAttr('versionControlMode') == 'GitCommitId') {
                             conf.setAttr('gitVersion', env.GIT_COMMIT)
                         }
 
@@ -339,16 +339,18 @@ def call(Map map, env) {
             stage('Specified version') {
                 when {
                     allOf {
-                        expression { return  conf.ifBuild() };
+                        expression { return conf.ifBuild() };
 //                        expression { return  gitVersion != 'last'};
-                        expression { return  (conf.getAttr('versionControlMode') == 'GitCommitId' && gitVersion != 'last') || ( conf.getAttr('versionControlMode') == 'GitTags')};
+                        expression {
+                            return (conf.getAttr('versionControlMode') == 'GitCommitId' && gitVersion != 'last') || (conf.getAttr('versionControlMode') == 'GitTags')
+                        };
                     }
                 }
                 steps {
                     container('docker-compose') {
                         script {
 
-                            if (conf.getAttr('versionControlMode') == 'GitTags' && ! conf.getAttr('gitTag')) {
+                            if (conf.getAttr('versionControlMode') == 'GitTags' && !conf.getAttr('gitTag')) {
                                 throw '请指定tag号!'
                             }
 
@@ -373,8 +375,8 @@ def call(Map map, env) {
             stage('Exec Command') {
                 when {
                     allOf {
-                        expression { return  conf.ifBuild() };
-                        expression { return  conf.getAttr('useCustomImage')};
+                        expression { return conf.ifBuild() };
+                        expression { return conf.getAttr('useCustomImage') };
                     }
                 }
                 steps {
@@ -397,7 +399,7 @@ def call(Map map, env) {
                 // 当项目的全局选项设置为compile == true的时候，才进行部署的操作
                 when {
                     allOf {
-                        expression { return  conf.ifBuild() };
+                        expression { return conf.ifBuild() };
                         expression { return conf.getAttr('compile') };
 
                     }
@@ -420,7 +422,7 @@ def call(Map map, env) {
             stage('Download Config file') {
                 when {
                     allOf {
-                        expression { return  conf.ifBuild() };
+                        expression { return conf.ifBuild() };
                         expression { return conf.getAttr('deploy') };
                     }
                 }
@@ -445,7 +447,7 @@ def call(Map map, env) {
             stage('Download Model') {
                 when {
                     allOf {
-                        expression { return  conf.ifBuild() };
+                        expression { return conf.ifBuild() };
                         expression { return conf.getAttr('useModel') };
                         expression { return conf.getAttr('modelGitAddress') };
                     }
@@ -471,8 +473,8 @@ def call(Map map, env) {
             stage('Make Image') {
                 when {
                     allOf {
-                        expression { return  conf.ifBuild() };
-                        expression { return  conf.getAttr('makeImage')};
+                        expression { return conf.ifBuild() };
+                        expression { return conf.getAttr('makeImage') };
                     }
                 }
                 steps {
@@ -504,8 +506,8 @@ def call(Map map, env) {
             stage('Push Image') {
                 when {
                     allOf {
-                        expression { return  conf.ifBuild() };
-                        expression { return  conf.getAttr('makeImage')}
+                        expression { return conf.ifBuild() };
+                        expression { return conf.getAttr('makeImage') }
                     }
                 }
 //                when { expression { return  conf.getAttr('makeImage')} }
@@ -544,7 +546,7 @@ def call(Map map, env) {
             stage('Create template') {
                 when {
                     allOf {
-                        expression { return  conf.getAttr('buildPlatform') == 'adp' };
+                        expression { return conf.getAttr('buildPlatform') == 'adp' };
                     }
                 }
 
@@ -573,9 +575,9 @@ def call(Map map, env) {
 
                 when {
                     allOf {
-                        expression { return  conf.ifBuild() };
+                        expression { return conf.ifBuild() };
                         expression { return conf.getAttr('deploy') };
-                        expression { return conf.getAttr('deployEnv') != 'test'};
+                        expression { return conf.getAttr('deployEnv') != 'test' };
                         expression { return conf.getAttr('deployEnv') != 'not-deploy' }
                         expression { return !(conf.getAttr('deployEnv') in conf.privateK8sEnv) }
                     }
@@ -613,7 +615,7 @@ def call(Map map, env) {
             stage('Deploy test') {
                 when {
                     allOf {
-                        expression { return  conf.ifBuild() };
+                        expression { return conf.ifBuild() };
                         expression { return conf.getAttr('deploy') };
                         expression { return conf.getAttr('deployEnv') == 'test' };
                     }
@@ -624,33 +626,33 @@ def call(Map map, env) {
 //                        ok "是的，我确认！"
 //                    }
 
-                    steps {
-                        container('kubectl-test') {
-                            script {
-                                try {
-                                    if (conf.getAttr('buildPlatform') != 'adp' || conf.getAttr('customKubernetesDeployTemplate')) {
-                                        deploykubernetes.createIngress()
-                                        deploykubernetes.createConfigMapTest()
-                                        deploykubernetes.deployKubernetes()
-                                    } else {
-                                        deploykubernetes.createConfigMapTest()
-                                        deploykubernetes.deleteOldIngress()
-                                        sh 'kubectl apply -f template.tmpl'
-                                    }
-                                } catch (e) {
-                                    sh "echo ${e}"
-                                    conf.failMsg = '使用kubectl部署服务到k8s-test失败！';
-                                    throw e
+                steps {
+                    container('kubectl-test') {
+                        script {
+                            try {
+                                if (conf.getAttr('buildPlatform') != 'adp' || conf.getAttr('customKubernetesDeployTemplate')) {
+                                    deploykubernetes.createIngress()
+                                    deploykubernetes.createConfigMapTest()
+                                    deploykubernetes.deployKubernetes()
+                                } else {
+                                    deploykubernetes.createConfigMapTest()
+                                    deploykubernetes.deleteOldIngress()
+                                    sh 'kubectl apply -f template.tmpl'
                                 }
+                            } catch (e) {
+                                sh "echo ${e}"
+                                conf.failMsg = '使用kubectl部署服务到k8s-test失败！';
+                                throw e
                             }
                         }
                     }
                 }
+            }
 
             stage('Check service') {
                 when {
                     allOf {
-                        expression { return  conf.ifBuild() };
+                        expression { return conf.ifBuild() };
                         expression { return conf.getAttr('deploy') };
                         expression { return conf.getAttr('checkPodsStatus') }
                         expression { return conf.getAttr('deployEnv') != 'not-deploy' }
@@ -661,19 +663,13 @@ def call(Map map, env) {
                 steps {
                     container('kubectl') {
                         script {
-                            try {
-                                sh "echo '检查部署在k8s集群中的服务的pod是否正常运行，等待限时120秒。'"
-                                kubernetesStatusCheck.waitKubernetesServerStartedV1()
-                                if ( conf.getAttr('deployRes' ) == "ok" ) {
-                                    sh "echo '部署在k8s集群中的服务已正常运行'"
-                                } else {
-                                    conf.failMsg = conf.getAttr('deployMsg')
-                                    throw conf.getAttr('deployMsg')
-                                }
-                            } catch (e) {
-                                sh "echo ${e}"
-                                conf.failMsg = e
-                                throw e
+                            sh "echo '检查部署在k8s集群中的服务的pod是否正常运行，等待限时1200秒。'"
+                            kubernetesStatusCheck.waitKubernetesServerStartedV1()
+                            if (conf.getAttr('deployRes') == "ok") {
+                                sh "echo '部署在k8s集群中的服务已正常运行'"
+                            } else {
+                                conf.failMsg = conf.getAttr('deployMsg')
+                                throw conf.getAttr('deployMsg')
                             }
 //                            try {
 //                                sh "echo '检查部署在k8s集群中的服务的pod是否正常运行，等待限时120秒。'"
@@ -696,7 +692,7 @@ def call(Map map, env) {
             stage('apidoc') {
                 when {
                     allOf {
-                        expression { return  conf.ifBuild() };
+                        expression { return conf.ifBuild() };
                         expression { return conf.getAttr('deployEnv') == 'prd' };
                     }
                 }
@@ -721,12 +717,12 @@ def call(Map map, env) {
             stage('Install nyc') {
                 when {
                     allOf {
-                        expression { return  conf.ifBuild() };
+                        expression { return conf.ifBuild() };
                         expression { return conf.getAttr('deploy') };
                         expression { return conf.getAttr('branchName') == 'dev' };
-                        expression { return  conf.getAttr('codeLanguage') in  ['js', 'node']};
-                        expression { return  conf.getAttr('sonarCheck') };
-                        expression { return  conf.getAttr('deployEnv') != 'test' };
+                        expression { return conf.getAttr('codeLanguage') in ['js', 'node'] };
+                        expression { return conf.getAttr('sonarCheck') };
+                        expression { return conf.getAttr('deployEnv') != 'test' };
                     }
                 }
 //                when { expression { return  conf.getAttr('codeLanguage') in  ['js', 'node'] && conf.getAttr('sonarCheck') && deployEnvironment != 'test'}  }
@@ -753,10 +749,10 @@ def call(Map map, env) {
             stage('sonar-check') {
                 when {
                     allOf {
-                        expression { return  conf.ifBuild() };
+                        expression { return conf.ifBuild() };
                         expression { return conf.getAttr('deploy') };
                         expression { return conf.getAttr('branchName') == 'dev' };
-                        expression { return conf.getAttr('codeLanguage') in  ['js', 'node'] };
+                        expression { return conf.getAttr('codeLanguage') in ['js', 'node'] };
                         expression { return conf.getAttr('sonarCheck') };
                         expression { return conf.getAttr('deployEnv') != 'test' };
                     }
@@ -777,35 +773,35 @@ def call(Map map, env) {
                 }
             }
 
-            }
+        }
 
-            post {
+        post {
 //                always {
 //                    echo "构建完成！"
 //                }
 
-                failure {
-                    script {
-                        dmaiEmail.sendEmail('failure')
+            failure {
+                script {
+                    dmaiEmail.sendEmail('failure')
 //                        dmaiEmail.writeBuildResultToAdp('failure')
-                    }
-                }
-
-                success {
-                    script {
-                        dmaiEmail.sendEmail('success')
-//                        dmaiEmail.writeBuildResultToAdp('success')
-                    }
-                }
-
-                always {
-                    script {
-                        echo currentBuild.result
-                        dmaiEmail.writeBuildResultToAdp(currentBuild.result)
-                        dmaiEmail.writeBuildResultToAdpResult(currentBuild.result)
-                    }
                 }
             }
 
+            success {
+                script {
+                    dmaiEmail.sendEmail('success')
+//                        dmaiEmail.writeBuildResultToAdp('success')
+                }
+            }
+
+            always {
+                script {
+                    echo currentBuild.result
+                    dmaiEmail.writeBuildResultToAdp(currentBuild.result)
+                    dmaiEmail.writeBuildResultToAdpResult(currentBuild.result)
+                }
+            }
         }
+
     }
+}

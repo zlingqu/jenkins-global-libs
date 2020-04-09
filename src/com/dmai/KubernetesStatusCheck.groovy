@@ -57,17 +57,10 @@ class KubernetesStatusCheck {
     public void waitKubernetesServerStartedV1() {
         int count = 0
         while ( count <= 1200 ) {
-            println(1111111111111111)
-            println(3333333333333333)
-            println(this.getServiceAppStatusV1Url())
             def deployInfo = this.getServiceAppStatusV1()
-            println(2222222222222222)
-            println(this.getServiceAppStatusV1Url())
-            println(deployInfo)
             if (deployInfo.res == "fail" || (deployInfo.res == "ok" && deployInfo.status == "ok")) {
                 this.conf.setAttr('deployRes', deployInfo.res)
                 this.conf.setAttr('deployMsg', deployInfo.msg)
-                println(deployInfo.msg)
                 break
             } else if ( deployInfo.res == "ok" && deployInfo.status == "continue"){
                 println(deployInfo.msg)
