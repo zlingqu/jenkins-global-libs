@@ -664,7 +664,14 @@ def call(Map map, env) {
                     container('kubectl') {
                         script {
                             sh "echo '检查部署在k8s集群中的服务的pod是否正常运行，等待限时1200秒。'"
-                            kubernetesStatusCheck.waitKubernetesServerStartedV1()
+                            try {
+                                kubernetesStatusCheck.waitKubernetesServerStartedV1()
+                            } catch (e) {
+                                sh "echo ${e}"
+                                conf.failMsg = e
+                                throw e
+                            }
+
                             if (conf.getAttr('deployRes') == "ok") {
                                 sh "echo '部署在k8s集群中的服务已正常运行'"
                             } else {
