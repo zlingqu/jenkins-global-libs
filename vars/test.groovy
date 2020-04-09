@@ -35,14 +35,13 @@
 //println('x2.dm-ai.cn111111'.indexOf('deploy-env'))
 // 测试post 请求并对请求的结果进行解析
 import groovy.json.JsonSlurper
-testUrl = 'http://service-k8s-app-status-check-v1.devops.dev.dm-ai.cn/api/v1/pods-status?env=dev&namespace=devops&appName=k8s-test-pod-create'
+private String getServiceAppStatusV1Url() {
+    return String.format('''http://service-k8s-app-status-check-v1.devops.dev.dm-ai.cn/api/v1/pods-status?env=%s&namespace=%s&appName=%s''', 'dev', 'devops', 'jenkins-test')
+}
 
-//private String requestBodyString() {
-////    return String.format('''''')
-////}
-private Map getServiceAppStatus() {
+private Map getServiceAppStatusV1() {
     String message = "";
-    URL url = new URL(testUrl)
+    URL url = new URL(this.getServiceAppStatusV1Url())
     HttpURLConnection conn = (HttpURLConnection) url.openConnection()
     conn.setRequestMethod("GET")
     conn.connect()
@@ -64,5 +63,8 @@ private Map getServiceAppStatus() {
     assert object instanceof Map
     return object
 }
-def res = getServiceAppStatus()
-println(res.code)
+
+def deployInfo = getServiceAppStatusV1()
+
+println(deployInfo.res)
+println(deployInfo.status)
