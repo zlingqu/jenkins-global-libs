@@ -263,6 +263,9 @@ def call(Map map, env) {
 
             //JS version
             string(name: 'JS_VERSION', defaultValue: '0.0.0', description: '前端库的版本，用于推流，其他项目不关注')
+
+            // GLOABL_STRING
+            string(name: 'GLOABL_STRING', defaultValue: '', description: '传递的特殊参数字符串')
         }
 
 //        triggers {
