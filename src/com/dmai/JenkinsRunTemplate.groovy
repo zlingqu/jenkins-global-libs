@@ -211,6 +211,12 @@ class JenkinsRunTemplate {
             }
         }
 
+        // GLOABL_STRING
+        if (params.GLOABL_STRING != '') {
+            def tmpStringList = params.GLOABL_STRING.split(":")
+            this.conf.setAttr('if_use_grpc', tmpStringList[0])
+        }
+
     }
 
     public String getJenkinsRunTemplate(String deployMasterPassword, String deployEnvironment, params) {
