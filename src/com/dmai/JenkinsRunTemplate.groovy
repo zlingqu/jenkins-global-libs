@@ -212,6 +212,7 @@ class JenkinsRunTemplate {
         }
 
         // GLOABL_STRING
+        this.conf.setAttr('useGrpc', false)
         if (params.GLOABL_STRING != '') {
             def tmpStringList = params.GLOABL_STRING.split(":")
             this.conf.setAttr('useGrpc', tmpStringList[0])
