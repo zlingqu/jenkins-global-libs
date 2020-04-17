@@ -464,9 +464,7 @@ spec:
 //        throw "dev分支，目前只能部署dev/test/lexue环境，其他的均为异常情况"
 ////        return ''
 //    }
-
-
-
+    
 
     private customImage() {
         if (this.conf.getAttr('useCustomImage')) {
