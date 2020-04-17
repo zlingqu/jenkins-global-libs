@@ -233,6 +233,7 @@ class JenkinsRunTemplate {
         def returnString = this.templateTop() +
                 this.templateDockerCompile() +
                 this.templateDockerKubectl() +
+                this.templateDockerKubectlTest() +
                 this.templateSonarCheck() +
                 this.templateDockersize() +
                 this.customImage() +
@@ -394,7 +395,7 @@ spec:
 //        if (this.conf.getAttr('deploy')) {
             return  String.format('''
   - name: kubectl 
-    image: docker.dm-ai.cn/devops/base-image-kubectl:1.0
+    image: docker.dm-ai.cn/devops/base-image-kubectl:%s-0.04
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
@@ -466,24 +467,24 @@ spec:
 //    }
 
 
-//    private templateDockerKubectlTest() {
-////        if (this.conf.getAttr('test')) {
-//        return '''
-//  - name: kubectl-test
-//    image: docker.dm-ai.cn/devops/base-image-kubectl:test-0.04
-//    imagePullPolicy: IfNotPresent
-//    env: #指定容器中的环境变量
-//    - name: DMAI_PRIVATE_DOCKER_REGISTRY
-//      value: docker.dm-ai.cn
-//    command:
-//    - "sleep"
-//    args:
-//    - "3600"
-//    tty: true
-//'''
-////        }
-////        return ''
-//    }
+    private templateDockerKubectlTest() {
+//        if (this.conf.getAttr('test')) {
+        return '''
+  - name: kubectl-test 
+    image: docker.dm-ai.cn/devops/base-image-kubectl:test-0.04
+    imagePullPolicy: IfNotPresent
+    env: #指定容器中的环境变量
+    - name: DMAI_PRIVATE_DOCKER_REGISTRY
+      value: docker.dm-ai.cn
+    command:
+    - "sleep"
+    args:
+    - "3600"
+    tty: true
+'''
+//        }
+//        return ''
+    }
 
     private customImage() {
         if (this.conf.getAttr('useCustomImage')) {

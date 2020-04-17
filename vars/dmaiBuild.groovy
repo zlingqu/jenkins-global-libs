@@ -630,7 +630,7 @@ def call(Map map, env) {
 //                    }
 
                 steps {
-                    container('kubectl') {
+                    container('kubectl-test') {
                         script {
                             try {
                                 if (conf.getAttr('buildPlatform') != 'adp' || conf.getAttr('customKubernetesDeployTemplate')) {
