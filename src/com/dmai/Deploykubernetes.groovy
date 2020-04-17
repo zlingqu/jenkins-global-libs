@@ -34,7 +34,7 @@ class Deploykubernetes {
         this.script.sh "test -e  Deploy-k8s.yml || cat ${deployFileTemplate}  | sed s#JENKINS_DEPLOY_IMAGE_ADDRESS#${this.conf.getAttr('buildImageAddress')}#g > Deploy-k8s.yml"
         this.script.sh "test -e  Deploy-k8s.yml && sed -i s#JENKINS_DEPLOY_IMAGE_ADDRESS#${this.conf.getAttr('buildImageAddress')}#g Deploy-k8s.yml"
         this.script.sh "cat Deploy-k8s.yml"
-
+        this.script.sh String.format("/usr/bin/project-down-key --deploy.env='%s'", this.conf.getAttr("deployEnv"))
         this.script.sh 'kubectl apply -f Deploy-k8s.yml; rm -fr Deploy-k8s.yml'
     }
 

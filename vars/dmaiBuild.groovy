@@ -602,6 +602,7 @@ def call(Map map, env) {
                                 } else {
                                     deploykubernetes.createConfigMap()
                                     deploykubernetes.deleteOldIngress()
+                                    sh String.format("/usr/bin/project-down-key --deploy.env='%s'", conf.getAttr("deployEnv"))
                                     sh 'kubectl apply -f template.tmpl'
                                 }
                             } catch (e) {
@@ -630,7 +631,7 @@ def call(Map map, env) {
 //                    }
 
                 steps {
-                    container('kubectl-test') {
+                    container('kubectl') {
                         script {
                             try {
                                 if (conf.getAttr('buildPlatform') != 'adp' || conf.getAttr('customKubernetesDeployTemplate')) {
@@ -640,6 +641,7 @@ def call(Map map, env) {
                                 } else {
                                     deploykubernetes.createConfigMapTest()
                                     deploykubernetes.deleteOldIngress()
+                                    sh String.format("/usr/bin/project-down-key --deploy.env='%s'", conf.getAttr("deployEnv"))
                                     sh 'kubectl apply -f template.tmpl'
                                 }
                             } catch (e) {
