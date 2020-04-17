@@ -465,6 +465,7 @@ spec:
 ////        return ''
 //    }
 
+
     private customImage() {
         if (this.conf.getAttr('useCustomImage')) {
             return String.format('''
