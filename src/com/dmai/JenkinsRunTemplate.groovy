@@ -466,24 +466,7 @@ spec:
 //    }
 
 
-//    private templateDockerKubectlTest() {
-////        if (this.conf.getAttr('test')) {
-//        return '''
-//  - name: kubectl-test
-//    image: docker.dm-ai.cn/devops/base-image-kubectl:test-0.04
-//    imagePullPolicy: IfNotPresent
-//    env: #指定容器中的环境变量
-//    - name: DMAI_PRIVATE_DOCKER_REGISTRY
-//      value: docker.dm-ai.cn
-//    command:
-//    - "sleep"
-//    args:
-//    - "3600"
-//    tty: true
-//'''
-////        }
-////        return ''
-//    }
+
 
     private customImage() {
         if (this.conf.getAttr('useCustomImage')) {
