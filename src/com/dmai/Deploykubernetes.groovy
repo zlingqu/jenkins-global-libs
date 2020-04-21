@@ -100,21 +100,20 @@ class Deploykubernetes {
 
     private String  createIngressFile() {
         return String.format('''
-apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
 metadata:
   name: %s
   namespace: %s
-  annotations:
-    kubernetes.io/ingress.class: traefik
 spec:
-  rules:
-  - host: %s
-    http:
-      paths:
-      - backend:
-          serviceName: %s
-          servicePort: 80
+  entryPoints:
+  - web
+  routes:
+  - match: Host(`%s`)
+    kind: Rule
+    services:
+    - name: %s
+      port: 80
 ''',
                 this.conf.appName,
                 this.conf.getAttr('namespace'),
