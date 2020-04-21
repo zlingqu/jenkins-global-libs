@@ -249,7 +249,7 @@ spec:
       imagePullSecrets:
       - name: regsecret
       containers:
-      - name: service-prometheus
+      - name: blackbox-exporter
         image: $dockerRegistryHost/$imageUrlPath:$imageTags
         imagePullPolicy: Always #
         command:
@@ -317,7 +317,7 @@ spec:
       imagePullSecrets:
       - name: regsecret
       containers:
-      - name: service-prometheus
+      - name: prometheus-alertmanager
         image: $dockerRegistryHost/$imageUrlPath:$imageTags
         imagePullPolicy: Always #
         command:
@@ -398,11 +398,11 @@ spec:
         - "--storage.tsdb.path=/data/tsdb"
         resources:
           limits:
-            cpu: 3500m
-            memory: 5000Mi
+            cpu: 2500m
+            memory: 12000Mi
           requests:
             cpu: 2000m
-            memory: 4000Mi
+            memory: 10000Mi
         ports:
         - containerPort: $containerPort
       volumes:
@@ -442,7 +442,3 @@ def simpleTemplate(text, binding) {
     def template = engine.createTemplate(text).make(binding)
     return template.toString()
 }
-
-//def map = [:]
-//map.put('appName','service-prometheus')
-//call(map, [:])
