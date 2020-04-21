@@ -398,10 +398,10 @@ spec:
         - "--storage.tsdb.path=/data/tsdb"
         resources:
           limits:
-            cpu: 2500m
+            cpu: 4500m
             memory: 12000Mi
           requests:
-            cpu: 2000m
+            cpu: 4000m
             memory: 10000Mi
         ports:
         - containerPort: $containerPort
