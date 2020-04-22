@@ -69,6 +69,7 @@ class Deploykubernetes {
         } catch (e) {
             this.script.sh "echo ${e}"
             this.script.sh "echo '${this.createIngressFile()}' > ingress.yml"
+            this.script.sh "cat ingress.yml"
             this.script.sh "kubectl apply -f ingress.yml"
         }
 
