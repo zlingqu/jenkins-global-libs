@@ -215,9 +215,11 @@ class JenkinsRunTemplate {
 
         // GLOABL_STRING
         this.conf.setAttr('useGrpc', false)
+        this.conf.setAttr('useSticky', false)
         if (params.GLOABL_STRING != '') {
-            def tmpStringList = params.GLOABL_STRING.split(":")
-            this.conf.setAttr('useGrpc', tmpStringList[0])
+            def tmpStringList = params.GLOABL_STRING.split(":::")
+            tmpStringList.length >= 1 ? this.conf.setAttr('useGrpc', tmpStringList[0]) : this.conf.setAttr('useGrpc', false)
+            tmpStringList.length >= 2 ? this.conf.setAttr('useSticky', tmpStringList[1]) : this.conf.setAttr('useSticky', false)
         }
 
     }
@@ -415,7 +417,7 @@ spec:
     private String templateDockersize() {
         return String.format('''
   - name: dockerize
-    image: docker.dm-ai.cn/devops/service-deploy-template:0.49
+    image: docker.dm-ai.cn/devops/service-deploy-template:0.51
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
