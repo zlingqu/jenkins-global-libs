@@ -34,24 +34,28 @@
 //
 //println('x2.dm-ai.cn111111'.indexOf('deploy-env'))
 // 测试post 请求并对请求的结果进行解析
-import groovy.json.JsonSlurper
-private String getServiceAppStatusV1Url() {
-//    return String.format('''http://service-k8s-app-status-check-v1.devops.dev.dm-ai.cn/api/v1/pods-status?env=%s&namespace=%s&appName=%s''', 'dev', 'devops', 'jenkins-test')
-    return String.format('''http://service-k8s-app-status-check-v1.devops.dev.dm-ai.cn/api/v1/pods-status?env=dev&namespace=devops&appName=jenkins-test''')
-}
+//import groovy.json.JsonSlurper
+//private String getServiceAppStatusV1Url() {
+////    return String.format('''http://service-k8s-app-status-check-v1.devops.dev.dm-ai.cn/api/v1/pods-status?env=%s&namespace=%s&appName=%s''', 'dev', 'devops', 'jenkins-test')
+//    return String.format('''http://service-k8s-app-status-check-v1.devops.dev.dm-ai.cn/api/v1/pods-status?env=dev&namespace=devops&appName=jenkins-test''')
+//}
+//
+//private Map getServiceAppStatusV1() {
+//    String message = "";
+//    URL url = new URL(this.getServiceAppStatusV1Url())
+//    HttpURLConnection conn = (HttpURLConnection) url.openConnection()
+//    conn.setRequestMethod("GET")
+//    conn.connect()
+//    def respText = conn.content.text
+//    conn.disconnect()
+//    def jsonSlurper = new JsonSlurper()
+//    def object = jsonSlurper.parseText(respText)
+//    assert object instanceof Map
+//    return object
+//}
+//
+//println(getServiceAppStatusV1().msg)
 
-private Map getServiceAppStatusV1() {
-    String message = "";
-    URL url = new URL(this.getServiceAppStatusV1Url())
-    HttpURLConnection conn = (HttpURLConnection) url.openConnection()
-    conn.setRequestMethod("GET")
-    conn.connect()
-    def respText = conn.content.text
-    conn.disconnect()
-    def jsonSlurper = new JsonSlurper()
-    def object = jsonSlurper.parseText(respText)
-    assert object instanceof Map
-    return object
-}
-
-println(getServiceAppStatusV1().msg)
+//////
+def  testList = "1111:111222:333".split(":")
+println(testList.length)
