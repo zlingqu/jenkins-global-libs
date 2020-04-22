@@ -85,7 +85,6 @@ class Deploykubernetes {
 
     public void createConfigMapTest() {
         if (! this.conf.getAttr('useConfigMap')) return
-        if (!this.conf.getAttr('test')) return
 
         try {
             this.script.sh String.format("kubectl apply -f deployment/%s/test/%s/configmap.yml",
