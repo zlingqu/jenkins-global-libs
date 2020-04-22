@@ -15,6 +15,8 @@ class JenkinsRunTemplate {
         // 自定义appName
         if (this.conf.appName in  ['xmc-xc-model-serving', 'tk-engine-image-process']) {
             this.conf.setAppName(params.APP_NAME)
+            this.conf.setAttr('appName', params.APP_NAME).toLowerCase()
+            this.conf.setAttr('jobName', params.APP_NAME).toLowerCase()
             if (this.conf.appName in  ['xmc-xc-model-serving', 'tk-engine-image-process']) {
                 throw "请修改APP_NAME"
             }
