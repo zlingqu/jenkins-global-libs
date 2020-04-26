@@ -574,7 +574,7 @@ spec:
     volumeMounts:
     - name: jenkins-build-path
       mountPath: /data
-      subPath: unity_home/%s/%s
+      subPath: android_home/unity_home/%s/%s
     - name: jenkins-build-path
       mountPath: /root/.cache/unity3d
       subPath: unity_cache/%s/%s
