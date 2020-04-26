@@ -564,6 +564,30 @@ spec:
     tty: true
 ''', this.conf.appName, this.conf.getAttr('deployEnv'), this.conf.appName, this.conf.getAttr('deployEnv'))
 
+            case 'unity': return String.format('''
+  - name: compile
+    image: docker.dm-ai.cn/devops/base-image-unity:0.01
+    imagePullPolicy: IfNotPresent
+    env: #指定容器中的环境变量
+    - name: DMAI_PRIVATE_DOCKER_REGISTRY
+      value: docker.dm-ai.cn
+    volumeMounts:
+    - name: jenkins-build-path
+      mountPath: /data
+      subPath: unity_home/%s/%s
+    - name: jenkins-build-path
+      mountPath: /root/.cache/unity3d
+      subPath: unity_cache/%s/%s
+    - name: jenkins-build-path
+      mountPath: /root/.local/share/unity3d/Unity
+      subPath: unity_share/%s/%s
+    command:
+    - "sleep"
+    args:
+    - "3600"
+    tty: true
+''', this.conf.appName, this.conf.getAttr('branchName'), this.conf.appName, this.conf.getAttr('branchName'), this.conf.appName, this.conf.getAttr('branchName'))
+
             case 'node':
                 return String.format('''
   - name: compile

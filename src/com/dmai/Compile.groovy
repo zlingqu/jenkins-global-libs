@@ -71,6 +71,9 @@ class Compile {
                             "cd /cache && tar cf .gradle-cache.tar .gradle && mv .gradle-cache.tar /android_cache && " +
                             "cd /root && tar cf .gradle-root.tar .gradle && mv .gradle-root.tar /android_cache"
                     return
+                case 'unity':
+                    this.script.sh "bash -x compile.sh"
+                    return
                 case 'golang':
                     this.script.sh "go env -w GOPRIVATE=gitlab.dm-ai.cn;go env -w GO111MODULE=on;export GOPROXY=https://mirrors.aliyun.com/goproxy/;make compile"
                     return
