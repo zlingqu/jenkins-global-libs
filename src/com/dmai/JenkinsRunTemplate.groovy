@@ -216,10 +216,12 @@ class JenkinsRunTemplate {
         // GLOABL_STRING
         this.conf.setAttr('useGrpc', false)
         this.conf.setAttr('useSticky', false)
+        this.conf.setAttr('replicationControllerType', 'Deployment')
         if (params.GLOABL_STRING != '') {
             def tmpStringList = params.GLOABL_STRING.split(":::")
             tmpStringList.length >= 1 ? this.conf.setAttr('useGrpc', tmpStringList[0]) : this.conf.setAttr('useGrpc', false)
             tmpStringList.length >= 2 ? this.conf.setAttr('useSticky', tmpStringList[1]) : this.conf.setAttr('useSticky', false)
+            tmpStringList.length >= 3 ? this.conf.setAttr('replicationControllerType', tmpStringList[2]) : this.conf.setAttr('replicationControllerType', 'Deployment')
         }
 
     }
