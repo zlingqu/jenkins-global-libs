@@ -2142,6 +2142,13 @@ class GlobalConfig implements Serializable {
                     'domain': 'http://prometheus.ops.dm-ai.cn',
                     'kubectlImage': 'devops/base-image-kubectl:0.01',
             ],
+             'prometheus-linux' : [
+                    'nodePort': '30091',
+                    'namespace': 'devops',
+                    'containerPort': '9090',
+                    'domain': 'http://prometheus.ops.dm-ai.cn',
+                    'kubectlImage': 'devops/base-image-kubectl:0.01',
+            ],
             'prometheus-pushgateway': [
                     'servicePort' : '80',
                     'namespace': 'devops',
