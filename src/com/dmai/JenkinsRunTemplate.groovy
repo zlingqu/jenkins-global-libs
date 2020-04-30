@@ -563,12 +563,15 @@ spec:
     - name: jenkins-build-path
       mountPath: /android_cache
       subPath: android_cache/%s/%s
+    - name: jenkins-build-path
+      mountPath: /unity_data
+      subPath: android_home/unity_home/%s/%s
     command:
     - "sleep"
     args:
     - "3600"
     tty: true
-''', this.conf.appName, this.conf.getAttr('deployEnv'), this.conf.appName, this.conf.getAttr('deployEnv'))
+''', this.conf.appName, this.conf.getAttr('deployEnv'), this.conf.appName, this.conf.getAttr('deployEnv'), this.conf.getAttr('unity_app_name'), this.conf.getAttr('deployEnv'))
 
             case 'unity': return String.format('''
   - name: compile
@@ -592,7 +595,7 @@ spec:
     args:
     - "3600"
     tty: true
-''', this.conf.appName, this.conf.getAttr('branchName'), this.conf.appName, this.conf.getAttr('branchName'), this.conf.appName, this.conf.getAttr('branchName'))
+''', this.conf.appName, this.conf.getAttr('deployEnv'), this.conf.appName, this.conf.getAttr('deployEnv'), this.conf.appName, this.conf.getAttr('deployEnv'))
 
             case 'node':
                 return String.format('''
