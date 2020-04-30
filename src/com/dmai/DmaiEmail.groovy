@@ -177,12 +177,12 @@ class DmaiEmail {
                 <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">$appName</td>
             </tr>
             <tr>
-                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">用户测试地址</td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">用户测试地址[公司内部域名]</td>
                 <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a target="_blank" href="$buildEnvInfo">$buildEnvInfo</a></td>
             </tr>
             <tr>
-                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">其他服务调用本服务地址</td>
-                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a target="_blank" href="http://$appName">http://$appName</a></td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">其他服务调用本服务地址[k8s内部域名]</td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a target="_blank" href="http://$appName">http://$appName.$namespace</a></td>
             </tr>
             <tr>
                 <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">Jenkins-构建地址(blue)</td>
@@ -226,7 +226,8 @@ class DmaiEmail {
 //                'buildTestInfo'  : this.buildTestInfo(),
                 'useSvcInfo'     : this.useSvcInfo(),
                 'sonarAddress'   : 'http://sonar.ops.dm-ai.cn/dashboard?id=' + this.conf.appName,
-                'adpUrlApp'      : this.adpUrlApp
+                'adpUrlApp'      : this.adpUrlApp,
+                'namespace'      : this.conf.getAttr('namespace')
         ]
         return Tools.simpleTemplate(text, bind)
     }
