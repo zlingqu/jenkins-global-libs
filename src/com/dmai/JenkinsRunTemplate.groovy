@@ -217,11 +217,15 @@ class JenkinsRunTemplate {
         this.conf.setAttr('useGrpc', false)
         this.conf.setAttr('useSticky', false)
         this.conf.setAttr('replicationControllerType', 'Deployment')
+        this.conf.setAttr('if_add_unity_project', false)
+        this.conf.setAttr('unity_app_name', 'no_unity')
         if (params.GLOABL_STRING != '') {
             def tmpStringList = params.GLOABL_STRING.split(":::")
             tmpStringList.length >= 1 ? this.conf.setAttr('useGrpc', tmpStringList[0]) : this.conf.setAttr('useGrpc', false)
             tmpStringList.length >= 2 ? this.conf.setAttr('useSticky', tmpStringList[1]) : this.conf.setAttr('useSticky', false)
             tmpStringList.length >= 3 ? this.conf.setAttr('replicationControllerType', tmpStringList[2]) : this.conf.setAttr('replicationControllerType', 'Deployment')
+            tmpStringList.length >= 4 ? this.conf.setAttr('if_add_unity_project', tmpStringList[3]) : this.conf.setAttr('if_add_unity_project', false)
+            tmpStringList.length >= 5 ? this.conf.setAttr('unity_app_name', tmpStringList[4]) : this.conf.setAttr('unity_app_name', 'no_unity')
         }
 
     }
@@ -559,12 +563,15 @@ spec:
     - name: jenkins-build-path
       mountPath: /android_cache
       subPath: android_cache/%s/%s
+    - name: jenkins-build-path
+      mountPath: /unity_data
+      subPath: android_home/unity_home/%s/%s
     command:
     - "sleep"
     args:
     - "3600"
     tty: true
-''', this.conf.appName, this.conf.getAttr('deployEnv'), this.conf.appName, this.conf.getAttr('deployEnv'))
+''', this.conf.appName, this.conf.getAttr('deployEnv'), this.conf.appName, this.conf.getAttr('deployEnv'), this.conf.getAttr('unity_app_name'), this.conf.getAttr('deployEnv'))
 
             case 'unity': return String.format('''
   - name: compile
@@ -588,7 +595,7 @@ spec:
     args:
     - "3600"
     tty: true
-''', this.conf.appName, this.conf.getAttr('branchName'), this.conf.appName, this.conf.getAttr('branchName'), this.conf.appName, this.conf.getAttr('branchName'))
+''', this.conf.appName, this.conf.getAttr('deployEnv'), this.conf.appName, this.conf.getAttr('deployEnv'), this.conf.appName, this.conf.getAttr('deployEnv'))
 
             case 'node':
                 return String.format('''
