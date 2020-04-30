@@ -20,7 +20,7 @@ class MakeDockerImage {
             this.script.sh "echo '${this.dockerFileTemplate.getDockerFile()}' > Dockerfile"
         }
 
-        if (conf.getAttr('customDockerfile') && this.conf.getAttr('customDockerfileContent'))
+        if (conf.getAttr('customDockerfile') && ! this.conf.getAttr('ifUseRootDockerfile'))
         {
             this.script.sh "echo '${this.conf.getAttr('customDockerfileContent')}' > Dockerfile"
         }
