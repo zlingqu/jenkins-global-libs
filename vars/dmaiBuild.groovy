@@ -411,7 +411,6 @@ def call(Map map, env) {
                     container('compile') {
                         script {
                             try {
-                                sh 'sleep 3000'
                                 compile.compile()
                             } catch (e) {
                                 sh "echo ${e}"
