@@ -1417,7 +1417,7 @@ class GlobalConfig implements Serializable {
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'sonarCheck'  : true
             ],
-            'tk-backend-learning-report': [
+            'tk-backend-learning-report-bak': [
                     'servicePort' : '80',
                     'namespace': 'xmc-tk',
                     'nodePort' : '',
