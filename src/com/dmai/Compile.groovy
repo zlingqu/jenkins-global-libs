@@ -19,7 +19,7 @@ class Compile {
             if (this.conf.getAttr('customCompileCommand')) {
                 if (this.conf.getAttr('codeLanguage') in ['js', 'nodes']) {
                     this.script.sh "test -e node_modules && rm -fr node_modules ; " +
-                            "test -e /data/cache/node_modules/node_modules.tar && cp -rp /data/cache/node_modules/node_modules.tar ./ ; tar xf node_modules.tar && rm -fr node_modules.tar ; " +
+                            "test -e /data/cache/node_modules/node_modules.tar && cp -rp /data/cache/node_modules/node_modules.tar ./ ; tar xf node_modules.tar && rm -fr node_modules.tar ; " + String.format("export FRONTEND_ENV=%s;", this.conf.getAttr('nodeEnv')) +
                             "${this.conf.getAttr('customCompileCommand')} && tar cf node_modules.tar node_modules ;" +
                             "cp -rp node_modules.tar /data/cache/node_modules && rm -fr node_modules.tar"
                     return
