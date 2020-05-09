@@ -220,6 +220,9 @@ class JenkinsRunTemplate {
         this.conf.setAttr('if_add_unity_project', false)
         this.conf.setAttr('unity_app_name', 'no_unity')
         this.conf.setAttr('ifUseRootDockerfile', false)
+        this.conf.setAttr('ifCompileParam', false)
+        this.conf.setAttr('ifCompileImage', false)
+        this.conf.setAttr('compileImage', '')
         if (params.GLOABL_STRING != '') {
             def tmpStringList = params.GLOABL_STRING.split(":::")
             tmpStringList.length >= 1 ? this.conf.setAttr('useGrpc', tmpStringList[0]) : this.conf.setAttr('useGrpc', false)
@@ -228,6 +231,9 @@ class JenkinsRunTemplate {
             tmpStringList.length >= 4 ? this.conf.setAttr('if_add_unity_project', tmpStringList[3]) : this.conf.setAttr('if_add_unity_project', false)
             tmpStringList.length >= 5 ? this.conf.setAttr('unity_app_name', tmpStringList[4]) : this.conf.setAttr('unity_app_name', 'no_unity')
             tmpStringList.length >= 6 ? this.conf.setAttr('ifUseRootDockerfile', Boolean.parseBoolean(tmpStringList[5])) : this.conf.setAttr('ifUseRootDockerfile', false)
+            tmpStringList.length >= 7 ? this.conf.setAttr('ifCompileParam', Boolean.parseBoolean(tmpStringList[6])) : this.conf.setAttr('ifCompileParam', false)
+            tmpStringList.length >= 8 ? this.conf.setAttr('ifCompileImage', Boolean.parseBoolean(tmpStringList[7])) : this.conf.setAttr('ifCompileImage', false)
+            tmpStringList.length >= 9 ? this.conf.setAttr('compileImage', tmpStringList[8]) : this.conf.setAttr('compileImage', '')
         }
 
     }
@@ -538,7 +544,7 @@ spec:
             case 'js':
                 return String.format('''
   - name: compile
-    image: docker.dm-ai.cn/devops/base-image-compile-frontend:0.03
+    image: %s
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
@@ -549,7 +555,7 @@ spec:
     args:
     - "3600"
     tty: true
-''', this.templateJsCompilevolumeMounts())
+''', this.conf.getAttr('IfCompileImage') ? this.conf.getAttr('compileImage'): 'docker.dm-ai.cn/devops/base-image-compile-frontend:0.03', this.templateJsCompilevolumeMounts())
 
             case 'android': return String.format('''
   - name: compile

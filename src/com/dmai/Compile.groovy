@@ -47,10 +47,14 @@ class Compile {
                             "npm config set registry http://nexus.dm-ai.cn/repository/npm && npm install && tsc && tar cf node_modules.tar node_modules ; cp -rp node_modules.tar /data/cache/node_modules && rm -fr node_modules.tar"
                     return
                 case 'js':
+                    def tmpJsCompileString = 'npm config set registry http://nexus.dm-ai.cn/repository/npm/ && yarn config set registry http://nexus.dm-ai.cn/repository/npm/ && yarn install && yarn run build'
+                    if (this.conf.getAttr('ifCompileParam')) {
+                        tmpJsCompileString = this.conf.getAttr('compileParam')
+                    }
                     this.script.sh String.format("test -e node_modules && rm -fr node_modules ; " +
                             "test -e /data/cache/node_modules/node_modules.tar && cp -rp /data/cache/node_modules/node_modules.tar ./ ; tar xf node_modules.tar && rm -fr node_modules.tar ; " +
-                            "export FRONTEND_ENV=%s;npm config set registry http://nexus.dm-ai.cn/repository/npm/ && yarn config set registry http://nexus.dm-ai.cn/repository/npm/ && yarn install && yarn run build && tar cf node_modules.tar node_modules;" +
-                            "cp -rp node_modules.tar /data/cache/node_modules && rm -fr node_modules.tar", this.conf.getAttr('nodeEnv'))
+                            "export FRONTEND_ENV=%s; %s && tar cf node_modules.tar node_modules;" +
+                            "cp -rp node_modules.tar /data/cache/node_modules && rm -fr node_modules.tar", this.conf.getAttr('nodeEnv'), tmpJsCompileString)
                     return
                 case 'c++':
                     this.script.sh "make"
