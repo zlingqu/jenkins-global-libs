@@ -233,7 +233,7 @@ class JenkinsRunTemplate {
             tmpStringList.length >= 6 ? this.conf.setAttr('ifUseRootDockerfile', Boolean.parseBoolean(tmpStringList[5])) : this.conf.setAttr('ifUseRootDockerfile', false)
             tmpStringList.length >= 7 ? this.conf.setAttr('ifCompileParam', Boolean.parseBoolean(tmpStringList[6])) : this.conf.setAttr('ifCompileParam', false)
             tmpStringList.length >= 8 ? this.conf.setAttr('ifCompileImage', Boolean.parseBoolean(tmpStringList[7])) : this.conf.setAttr('ifCompileImage', false)
-            tmpStringList.length >= 9 ? this.conf.setAttr('compileImage', Boolean.parseBoolean(tmpStringList[8])) : this.conf.setAttr('compileImage', false)
+            tmpStringList.length >= 9 ? this.conf.setAttr('compileImage', tmpStringList[8]) : this.conf.setAttr('compileImage', '')
         }
 
     }
@@ -544,7 +544,7 @@ spec:
             case 'js':
                 return String.format('''
   - name: compile
-    image: docker.dm-ai.cn/devops/base-image-compile-frontend:0.03
+    image: %s
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
@@ -555,7 +555,7 @@ spec:
     args:
     - "3600"
     tty: true
-''', this.templateJsCompilevolumeMounts())
+''', this.conf.getAttr('IfCompileImage') ? this.conf.getAttr('compileImage'): 'docker.dm-ai.cn/devops/base-image-compile-frontend:0.03', this.templateJsCompilevolumeMounts())
 
             case 'android': return String.format('''
   - name: compile
