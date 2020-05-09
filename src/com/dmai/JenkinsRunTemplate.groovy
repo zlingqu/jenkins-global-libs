@@ -555,7 +555,7 @@ spec:
     args:
     - "3600"
     tty: true
-''', Boolean.parseBoolean(this.conf.getAttr('IfCompileImage')) ? this.conf.getAttr('compileImage'): 'docker.dm-ai.cn/devops/base-image-compile-frontend:0.03', this.templateJsCompilevolumeMounts())
+''', this.conf.getAttr('ifCompileImage') ? this.conf.getAttr('compileImage'): 'docker.dm-ai.cn/devops/base-image-compile-frontend:0.03', this.templateJsCompilevolumeMounts())
 
             case 'android': return String.format('''
   - name: compile
