@@ -61,7 +61,7 @@ class KubernetesStatusCheck {
 
     public void waitKubernetesServerStartedV1() {
         int count = 0
-        while (count <= 1200) {
+        while (count <= 600) {
             try {
                 def deployInfo = this.getServiceAppStatusV1()
                 if (deployInfo.res == "fail" || (deployInfo.res == "ok" && deployInfo.status == "ok")) {
@@ -74,14 +74,14 @@ class KubernetesStatusCheck {
                     TimeUnit.SECONDS.sleep(3)
                 }
             } catch (e) {
-                this.conf.setAttr('deployRes', '1200秒内查询k8s的pod的状态，查询过程中查询程序异常')
-                this.conf.setAttr('deployMsg', '1200秒内查询k8s的pod的状态，查询过程中查询程序异常')
+                this.conf.setAttr('deployRes', '600秒内查询k8s的pod的状态，查询过程中查询程序异常')
+                this.conf.setAttr('deployMsg', '600秒内查询k8s的pod的状态，查询过程中查询程序异常')
                 return
             }
         }
 
-        this.conf.setAttr('deployRes', '1200秒内服务未起来，异常，请手动检查日志和服务状态')
-        this.conf.setAttr('deployMsg', '1200秒内服务未起来，异常，请手动检查日志和服务状态')
+        this.conf.setAttr('deployRes', '600秒内服务未起来，异常，请手动检查日志和服务状态')
+        this.conf.setAttr('deployMsg', '600秒内服务未起来，异常，请手动检查日志和服务状态')
 
     }
 
