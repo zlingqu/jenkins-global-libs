@@ -525,7 +525,7 @@ spec:
         if (this.conf.getAttr('codeLanguage') == 'node' && this.conf.getAttr('envType') == 'arm') {
             return String.format('''
   - name: compile
-    image: docker.dm-ai.cn/arm64/node:10.16.3-slim-tx2
+    image: %s
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
@@ -536,7 +536,7 @@ spec:
     args:
     - "3600"
     tty: true
-''', this.templateJsCompilevolumeMounts())
+''', this.conf.getAttr('ifCompileImage') ? this.conf.getAttr('compileImage'): 'docker.dm-ai.cn/arm64/node:10.16.3-slim-tx2', this.templateJsCompilevolumeMounts())
         }
 
 //        if (! this.conf.getAttr('compile')) return ''
@@ -608,7 +608,7 @@ spec:
             case 'node':
                 return String.format('''
   - name: compile
-    image: docker.dm-ai.cn/devops/node:0.0.4
+    image: %s
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
@@ -619,12 +619,12 @@ spec:
     args:
     - "3600"
     tty: true
-''', this.templateJsCompilevolumeMounts())
+''', this.conf.getAttr('ifCompileImage') ? this.conf.getAttr('compileImage'): 'docker.dm-ai.cn/devops/node:0.0.4', this.templateJsCompilevolumeMounts())
 
             case 'nodets':
                 return String.format('''
   - name: compile
-    image: docker.dm-ai.cn/devops/node:0.0.4
+    image: %s
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
@@ -635,7 +635,7 @@ spec:
     args:
     - "3600"
     tty: true
-''', this.templateJsCompilevolumeMounts())
+''', this.conf.getAttr('ifCompileImage') ? this.conf.getAttr('compileImage'): 'docker.dm-ai.cn/devops/node:0.0.4', this.templateJsCompilevolumeMounts())
 
             case 'c++':
                 return '''
@@ -672,7 +672,7 @@ spec:
             case 'golang':
                 return String.format('''
   - name: compile
-    image: docker.dm-ai.cn/devops/base-image-golang-compile:master-2-1e85e1e99bfee20f6f0cc5de5a74ce339100d4bd
+    image: %s
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
@@ -682,7 +682,7 @@ spec:
     args:
     - "3600"
     tty: true
-''')
+''', this.conf.getAttr('ifCompileImage') ? this.conf.getAttr('compileImage'): 'docker.dm-ai.cn/devops/base-image-golang-compile:master-2-1e85e1e99bfee20f6f0cc5de5a74ce339100d4bd')
             default:
                 return ''
         }
