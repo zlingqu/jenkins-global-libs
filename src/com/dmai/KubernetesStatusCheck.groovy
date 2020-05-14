@@ -64,6 +64,7 @@ class KubernetesStatusCheck {
 
     public void waitKubernetesServerStartedV1() {
         int count = 0
+        int searchErr = 0
         while (count <= 900) {
             try {
                 def deployInfo = this.getServiceAppStatusV1()
@@ -77,9 +78,13 @@ class KubernetesStatusCheck {
                     TimeUnit.SECONDS.sleep(3)
                 }
             } catch (e) {
-                this.conf.setAttr('deployRes', '900秒内查询k8s的pod的状态，查询过程中查询程序异常')
-                this.conf.setAttr('deployMsg', '600秒内查询k8s的pod的状态，查询过程中查询程序异常')
-                return
+                searchErr += 1
+                if (searchErr >= 3) {
+                    this.conf.setAttr('deployRes', '900秒内查询k8s的pod的状态，,查询过程中查询程序异常3次，失败')
+                    this.conf.setAttr('deployMsg', '900秒内查询k8s的pod的状态，查询过程中查询程序异常3次，失败')
+                    return
+                }
+                continue
             }
         }
 
