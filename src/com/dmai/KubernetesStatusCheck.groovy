@@ -58,19 +58,19 @@ class KubernetesStatusCheck {
         return object.data
     }
 
-    private String getServiceAppStatusV1Url() {
+    private String getServiceAppStatusV1Url(String imageSha) {
 
-        def gitString = this.conf.getAttr('versionControlMode') == 'GitCommitId' ? this.conf.getAttr('gitVersion') : this.conf.getAttr('gitTag')
+//        def gitString = this.conf.getAttr('versionControlMode') == 'GitCommitId' ? this.conf.getAttr('gitVersion') : this.conf.getAttr('gitTag')
 
-        return String.format('''http://service-k8s-app-status-check-v1.dm-ai.cn/api/v1/pods-status?env=%s&namespace=%s&appName=%s&gitString=%s''',
+        return String.format('''http://service-k8s-app-status-check-v1.dm-ai.cn/api/v1/pods-status?env=%s&namespace=%s&appName=%s&imageSha=%s''',
                 this.conf.getAttr('deployEnv'),
                 this.conf.getAttr("namespace"),
                 this.conf.getAttr("jobName"),
-                gitString)
+                imageSha)
     }
 
     private Map getServiceAppStatusV1(String imageSha) {
-        URL url = new URL(this.getServiceAppStatusV1Url())
+        URL url = new URL(this.getServiceAppStatusV1Url(imageSha))
         HttpURLConnection conn = (HttpURLConnection) url.openConnection()
         conn.setRequestMethod("GET")
         conn.connect()
