@@ -56,6 +56,7 @@ class KubernetesStatusCheck {
         def object = jsonSlurper.parseText(respText)
         assert object instanceof Map
         println(11111111111111111111111111111)
+        println(queryUrl)
         println(object)
         return object.data
     }
