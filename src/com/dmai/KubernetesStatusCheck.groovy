@@ -92,6 +92,9 @@ class KubernetesStatusCheck {
         while (sha2 <= 3) {
             try {
                 imageSha = this.getImageSha256()
+                if (imageSha != "") {
+                    break
+                }
             } catch (e) {
                 sha2 += 1
                 continue
