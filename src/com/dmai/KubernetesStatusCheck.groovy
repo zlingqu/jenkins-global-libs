@@ -98,6 +98,10 @@ class KubernetesStatusCheck {
                 if (imageSha != "") {
                     break
                 }
+                if (imageSha == "") {
+                    sha2 += 1
+                }
+
             } catch (e) {
                 sha2 += 1
                 continue
