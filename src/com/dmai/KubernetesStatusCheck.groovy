@@ -38,6 +38,26 @@ class KubernetesStatusCheck {
         return respText
     }
 
+    private String getImageSha256() {
+        // http://127.0.0.1/api/v1/docker-image-sha256?space=devops&project=service-adp-env&tag=dev-16-70f73be74615f43f9ea8718d7a774faf6c0fd638
+        def queryUrl = String.format('''http://service-operate-docker-harbor.dm-ai.cn/api/v1/docker-image-sha256?space=%s&project=%s&tag=%s''',
+                this.conf.getAttr("namespace"),
+                this.conf.getAttr("jobName"),
+                this.conf.getAttr('buildImageTag')
+        )
+
+        URL url = new URL(queryUrl)
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection()
+        conn.setRequestMethod("GET")
+        conn.connect()
+        def respText = conn.content.text
+        conn.disconnect()
+        def jsonSlurper = new JsonSlurper()
+        def object = jsonSlurper.parseText(respText)
+        assert object instanceof Map
+        return object.data
+    }
+
     private String getServiceAppStatusV1Url() {
 
         def gitString = this.conf.getAttr('versionControlMode') == 'GitCommitId' ? this.conf.getAttr('gitVersion') : this.conf.getAttr('gitTag')
@@ -49,7 +69,7 @@ class KubernetesStatusCheck {
                 gitString)
     }
 
-    private Map getServiceAppStatusV1() {
+    private Map getServiceAppStatusV1(String imageSha) {
         URL url = new URL(this.getServiceAppStatusV1Url())
         HttpURLConnection conn = (HttpURLConnection) url.openConnection()
         conn.setRequestMethod("GET")
@@ -64,10 +84,33 @@ class KubernetesStatusCheck {
 
     public void waitKubernetesServerStartedV1() {
         int count = 0
+        int sha2 = 0
         int searchErr = 0
+        def imageSha = ""
+
+        // 查询 sha
+        while (sha2 <= 3) {
+            try {
+                imageSha = this.getImageSha256()
+            } catch (e) {
+                sha2 += 1
+                continue
+            }
+        }
+
+        //
+        if (imageSha == "") {
+            def msg = "构建错误，构建过程中，查询镜像的sha值失败，此sha值用来检查部署后的服务"
+            this.conf.setAttr('deployRes', msg)
+            this.conf.setAttr('deployMsg', msg)
+
+            return
+        }
+
+
         while (count <= 900) {
             try {
-                def deployInfo = this.getServiceAppStatusV1()
+                def deployInfo = this.getServiceAppStatusV1(imageSha)
                 if (deployInfo.res == "fail" || (deployInfo.res == "ok" && deployInfo.status == "ok")) {
                     this.conf.setAttr('deployRes', deployInfo.res)
                     this.conf.setAttr('deployMsg', deployInfo.msg)

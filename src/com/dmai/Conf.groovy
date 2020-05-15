@@ -64,20 +64,36 @@ class Conf implements Serializable{
         return String.format('''/home/jenkins/workspace/%s_%s''', this.getAttr('jobName'), this.getAttr('branchName'))
     }
 
-    public def getBuildImageAddress() {
+    public def getBuildImageAddressTag() {
         if (this.getAttr('versionControlMode') == 'GitTags') {
-            return String.format('''%s/%s/%s:tag-%s''',
-                    this.dockerRegistryHost ,
-                    this.getAttr('namespace'),
+            return String.format('''tag-%s''',
                     this.appName, this.getAttr('gitTag'))
         }
-       return String.format('''%s/%s/%s:%s-%s-%s''',
-               this.dockerRegistryHost ,
-               this.getAttr('namespace'),
-               this.appName,
-               this.getAttr('branchName'),
-               this.getAttr('buildNumber'),
-               this.getAttr('gitVersion'))
+        return String.format('''%s-%s-%s''',
+                this.getAttr('branchName'),
+                this.getAttr('buildNumber'),
+                this.getAttr('gitVersion'))
+    }
+
+    public def getBuildImageAddress() {
+        return String.format('''%s/%s/%s:''',
+                this.dockerRegistryHost ,
+                this.getAttr('namespace'),
+                this.appName
+        ) + getAttr('buildImageTag')
+//        if (this.getAttr('versionControlMode') == 'GitTags') {
+//            return String.format('''%s/%s/%s:tag-%s''',
+//                    this.dockerRegistryHost ,
+//                    this.getAttr('namespace'),
+//                    this.appName, this.getAttr('gitTag'))
+//        }
+//       return String.format('''%s/%s/%s:%s-%s-%s''',
+//               this.dockerRegistryHost ,
+//               this.getAttr('namespace'),
+//               this.appName,
+//               this.getAttr('branchName'),
+//               this.getAttr('buildNumber'),
+//               this.getAttr('gitVersion'))
     }
 
     public def getK8sWebAddress() {
