@@ -67,12 +67,12 @@ class Conf implements Serializable{
     public def getBuildImageAddressTag() {
         if (this.getAttr('versionControlMode') == 'GitTags') {
             return String.format('''tag-%s''',
-                    this.appName, this.getAttr('gitTag'))
+                    this.appName, this.getAttr('gitTag')) + "-" + this.getAttr('deployEnv')
         }
         return String.format('''%s-%s-%s''',
                 this.getAttr('branchName'),
                 this.getAttr('buildNumber'),
-                this.getAttr('gitVersion'))
+                this.getAttr('gitVersion')) + "-" + this.getAttr('deployEnv')
     }
 
     public def getBuildImageAddress() {
