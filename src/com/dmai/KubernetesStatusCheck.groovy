@@ -40,7 +40,7 @@ class KubernetesStatusCheck {
 
     private String getImageSha256() {
         // http://127.0.0.1/api/v1/docker-image-sha256?space=devops&project=service-adp-env&tag=dev-16-70f73be74615f43f9ea8718d7a774faf6c0fd638
-        def queryUrl = String.format('''http://service-operate-docker-harbor.devops.dev.dm-ai.cn/api/v1/docker-image-sha256?space=%s&project=%s&tag=%s''',
+        def queryUrl = String.format('''http://service-operate-docker-harbor.dm-ai.cn/api/v1/docker-image-sha256?space=%s&project=%s&tag=%s''',
                 this.conf.getAttr("namespace"),
                 this.conf.getAttr("jobName"),
                 this.conf.getAttr('buildImageTag')
