@@ -223,6 +223,7 @@ class JenkinsRunTemplate {
         this.conf.setAttr('ifCompileParam', false)
         this.conf.setAttr('ifCompileImage', false)
         this.conf.setAttr('compileImage', '')
+        this.conf.setAttr('ifUseGbs', false)
         if (params.GLOABL_STRING != '') {
             def tmpStringList = params.GLOABL_STRING.split(":::")
             tmpStringList.length >= 1 ? this.conf.setAttr('useGrpc', tmpStringList[0]) : this.conf.setAttr('useGrpc', false)
@@ -234,6 +235,7 @@ class JenkinsRunTemplate {
             tmpStringList.length >= 7 ? this.conf.setAttr('ifCompileParam', Boolean.parseBoolean(tmpStringList[6])) : this.conf.setAttr('ifCompileParam', false)
             tmpStringList.length >= 8 ? this.conf.setAttr('ifCompileImage', Boolean.parseBoolean(tmpStringList[7])) : this.conf.setAttr('ifCompileImage', false)
             tmpStringList.length >= 9 ? this.conf.setAttr('compileImage', tmpStringList[8]) : this.conf.setAttr('compileImage', '')
+            tmpStringList.length >= 10 ? this.conf.setAttr('ifUseGbs', Boolean.parseBoolean(tmpStringList[9])) : this.conf.setAttr('ifUseGbs', false)
         }
 
     }
