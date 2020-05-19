@@ -1166,37 +1166,6 @@ class GlobalConfig implements Serializable {
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
                     'sonarCheck'  : true
             ],
-            'tk-offline-task': [
-                    'servicePort' : '80',
-                    'namespace': 'xmc-tk',
-                    'nodePort' : '30220',
-                    'containerPort': '3000',
-                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-                    'cpuRequests' : '200m',
-                    'memoryRequests' : '2000Mi',
-                    'replicas' : 1,
-                    'cpuLimits' : '400m',
-                    'memoryLimits' : '3000Mi',
-                    'dev': 'dev', // dev分支部署到测试环境
-                    'test': true, // 是否从dev分支部署到测试环境
-                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
-                    'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc-tk/xmc-offline-task.git',
-                    'stage': false, //是否部署到stage环境
-                    'compile': false, // 是否编译
-                    'deploy': true, // 是否自动化部署
-                    'customDockerfile': true, // 是否使用自定义 dockerfile
-                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
-                    'useConfigMap': true, //是否使用configmap
-                    'configMapName': '.env', //是否使用configmap
-                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
-                    'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
-                    'k8sKind': 'deployment', // 部署的服务的类型
-                    'useStore': true, // 是否使用存储资源。
-                    'storePath' : '/data',
-                    'useService': true, // 是否使用service
-                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
-                    'sonarCheck'  : true
-            ],
             'tk-task-manager': [
                     'servicePort' : '80',
                     'namespace': 'xmc-tk',
@@ -1223,38 +1192,6 @@ class GlobalConfig implements Serializable {
                     'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
                     'k8sKind': 'deployment', // 部署的服务的类型
                     'useStore': true, // 是否使用存储资源
-                    'storePath' : '/data',
-                    'useService': true, // 是否使用service
-                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
-                    'sonarCheck'  : true
-            ],
-            'tk-backend-system-overview': [
-                    'servicePort' : '80',
-                    'namespace': 'xmc-tk',
-                    'nodePort' : '30220',
-                    'containerPort': '3000',
-                    'domain': '', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-                    'cpuRequests' : '50m',
-                    'memoryRequests' : '50Mi',
-                    'replicas' : 1,
-                    'cpuLimits' : '200m',
-                    'memoryLimits' : '200Mi',
-                    'dev': 'dev', // dev分支部署到测试环境
-                    'test': true, // 是否从dev分支部署到测试环境
-                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
-                    'gitAddress': 'https://gitlab.dm-ai.cn/XMC/xmc-tk/xmc-backend-system-overview.git',
-                    'stage': false, //是否部署到stage环境
-                    'compile': false, // 是否编译
-                    'deploy': true, // 是否自动化部署
-                    'customDockerfile': true, // 是否使用自定义 dockerfile
-                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
-                    'useConfigMap': true, //是否使用configmap
-                    'configMapName': '.env', //是否使用configmap
-                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
-                    'codeLanguage' : 'node', // 临时的，默认是【js,node,golang,java,php,python】
-                    'k8sKind': 'deployment', // 部署的服务的类型
-                    'storage': false,  //是否需要挂载存储
-                    'useStore': false, // 是否使用存储资源
                     'storePath' : '/data',
                     'useService': true, // 是否使用service
                     'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
