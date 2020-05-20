@@ -1,6 +1,6 @@
 package com.dmai
 
-class Conf implements Serializable{
+class Conf implements Serializable {
 
     public String appName
     public String dockerRegistryHost
@@ -67,7 +67,7 @@ class Conf implements Serializable{
     public def getBuildImageAddressTag() {
         if (this.getAttr('versionControlMode') == 'GitTags') {
             return String.format('''tag-%s''',
-                    this.appName, this.getAttr('gitTag')) + "-" + this.getAttr('deployEnv')
+                    this.getAttr('gitTag')) + "-" + this.getAttr('deployEnv')
         }
         return String.format('''%s-%s-%s''',
                 this.getAttr('branchName'),
@@ -77,7 +77,7 @@ class Conf implements Serializable{
 
     public def getBuildImageAddress() {
         return String.format('''%s/%s/%s:''',
-                this.dockerRegistryHost ,
+                this.dockerRegistryHost,
                 this.getAttr('namespace'),
                 this.appName
         ) + getAttr('buildImageTag')
@@ -97,7 +97,7 @@ class Conf implements Serializable{
     }
 
     public def getK8sWebAddress() {
-        def k8sWebAddress =  String.format('''http://%s.k8s.dm-ai.cn/#/service/%s/%s?namespace=%s''', this.getAttr('deployEnv'), this.getAttr('namespace'), this.getAttr('jobName'), this.getAttr('namespace'))
+        def k8sWebAddress = String.format('''http://%s.k8s.dm-ai.cn/#/service/%s/%s?namespace=%s''', this.getAttr('deployEnv'), this.getAttr('namespace'), this.getAttr('jobName'), this.getAttr('namespace'))
         if (this.getAttr('deployEnv') == 'prd') {
             return k8sWebAddress.replaceAll('http://prd.', 'http://')
         }
@@ -195,10 +195,10 @@ class Conf implements Serializable{
         this.withEnvList = []
         String printString = ''
         Set<String> key = this.appConf.keySet()
-        for (Iterator<String> it = key.iterator(); it.hasNext();){
+        for (Iterator<String> it = key.iterator(); it.hasNext();) {
             String s = it.next();
             printString += s + " : " + this.appConf.get(s) + "\n"
-            this.withEnvList += ['BUILD_ENV_' + s + '='  + this.appConf.get(s)]
+            this.withEnvList += ['BUILD_ENV_' + s + '=' + this.appConf.get(s)]
 //            this.script.sh "echo ${s} : ${this.appConf.get(s)}"
         }
         return printString
@@ -223,7 +223,7 @@ class Conf implements Serializable{
     }
 
     public def getDeployEnv() {
-        if (this.appName in  [ 'xmc-online-api', 'xmc-body-action','xmc-detection-api', 'xmc-gesture-api', 'xmc-holdobj-api', 'facial-expression-cls' ]) return 'test'
+        if (this.appName in ['xmc-online-api', 'xmc-body-action', 'xmc-detection-api', 'xmc-gesture-api', 'xmc-holdobj-api', 'facial-expression-cls']) return 'test'
         def branchName = this.getAttr('branchName')
         switch (branchName) {
             case 'master':
