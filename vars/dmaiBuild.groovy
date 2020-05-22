@@ -670,7 +670,7 @@ def call(Map map, env) {
                     container('kubectl') {
                         script {
                             sh "echo '检查部署在k8s集群中的服务的pod是否正常运行，等待限时1200秒。'"
-                            sh "sleep 15"
+                            sh "sleep 5"
                             try {
                                 kubernetesStatusCheck.waitKubernetesServerStartedV1()
                             } catch (e) {
