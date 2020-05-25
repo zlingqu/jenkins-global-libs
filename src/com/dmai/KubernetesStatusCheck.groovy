@@ -118,7 +118,7 @@ class KubernetesStatusCheck {
         }
 
 
-        while (count <= 900) {
+        while (count <= 1200) {
             try {
                 def deployInfo = this.getServiceAppStatusV1(imageSha)
                 if (deployInfo.res == "fail" || (deployInfo.res == "ok" && deployInfo.status == "ok")) {
@@ -133,16 +133,16 @@ class KubernetesStatusCheck {
             } catch (e) {
                 searchErr += 1
                 if (searchErr >= 3) {
-                    this.conf.setAttr('deployRes', '900秒内查询k8s的pod的状态，,查询过程中查询程序异常3次，失败')
-                    this.conf.setAttr('deployMsg', '900秒内查询k8s的pod的状态，查询过程中查询程序异常3次，失败')
+                    this.conf.setAttr('deployRes', '1200秒内查询k8s的pod的状态，,查询过程中查询程序异常3次，失败')
+                    this.conf.setAttr('deployMsg', '1200秒内查询k8s的pod的状态，查询过程中查询程序异常3次，失败')
                     return
                 }
                 continue
             }
         }
 
-        this.conf.setAttr('deployRes', '900秒内服务未起来，异常，请手动检查日志和服务状态')
-        this.conf.setAttr('deployMsg', '900秒内服务未起来，异常，请手动检查日志和服务状态')
+        this.conf.setAttr('deployRes', '1200秒内服务未起来，异常，请手动检查日志和服务状态')
+        this.conf.setAttr('deployMsg', '1200秒内服务未起来，异常，请手动检查日志和服务状态')
 
     }
 
