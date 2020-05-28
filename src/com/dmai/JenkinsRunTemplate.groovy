@@ -229,6 +229,7 @@ class JenkinsRunTemplate {
         this.conf.setAttr('ifUseGitManagerModel', false)
         this.conf.setAttr('ifSaveModelBuildComputer', false)
         this.conf.setAttr('modelGitRepository', '')
+        this.conf.setAttr('modelBranch', 'dev')
         if (params.GLOABL_STRING != '') {
             def tmpStringList = params.GLOABL_STRING.split(":::")
             tmpStringList.length >= 1 ? this.conf.setAttr('useGrpc', tmpStringList[0]) : this.conf.setAttr('useGrpc', false)
@@ -246,6 +247,7 @@ class JenkinsRunTemplate {
             tmpStringList.length >= 13 ? this.conf.setAttr('ifUseGitManagerModel', Boolean.parseBoolean(tmpStringList[12])) : this.conf.setAttr('ifUseGitManagerModel', false)
             tmpStringList.length >= 14 ? this.conf.setAttr('ifSaveModelBuildComputer', Boolean.parseBoolean(tmpStringList[13])) : this.conf.setAttr('ifSaveModelBuildComputer', false)
             tmpStringList.length >= 15 ? this.conf.setAttr('modelGitRepository', tmpStringList[14]) : this.conf.setAttr('modelGitRepository', '')
+            tmpStringList.length >= 16 ? this.conf.setAttr('modelBranch', tmpStringList[15]) : this.conf.setAttr('modelBranch', 'dev')
         }
 
     }
