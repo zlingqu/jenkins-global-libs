@@ -224,6 +224,11 @@ class JenkinsRunTemplate {
         this.conf.setAttr('ifCompileImage', false)
         this.conf.setAttr('compileImage', '')
         this.conf.setAttr('ifUseGbs', false)
+        this.conf.setAttr('ifCompileCache', false)
+        this.conf.setAttr('ifUseModel', false)
+        this.conf.setAttr('ifUseGitManagerModel', false)
+        this.conf.setAttr('ifSaveModelBuildComputer', false)
+        this.conf.setAttr('modelGitRepository', '')
         if (params.GLOABL_STRING != '') {
             def tmpStringList = params.GLOABL_STRING.split(":::")
             tmpStringList.length >= 1 ? this.conf.setAttr('useGrpc', tmpStringList[0]) : this.conf.setAttr('useGrpc', false)
@@ -236,6 +241,11 @@ class JenkinsRunTemplate {
             tmpStringList.length >= 8 ? this.conf.setAttr('ifCompileImage', Boolean.parseBoolean(tmpStringList[7])) : this.conf.setAttr('ifCompileImage', false)
             tmpStringList.length >= 9 ? this.conf.setAttr('compileImage', tmpStringList[8]) : this.conf.setAttr('compileImage', '')
             tmpStringList.length >= 10 ? this.conf.setAttr('ifUseGbs', Boolean.parseBoolean(tmpStringList[9])) : this.conf.setAttr('ifUseGbs', false)
+            tmpStringList.length >= 11 ? this.conf.setAttr('ifCompileCache', Boolean.parseBoolean(tmpStringList[10])) : this.conf.setAttr('ifCompileCache', false)
+            tmpStringList.length >= 12 ? this.conf.setAttr('ifUseModel', Boolean.parseBoolean(tmpStringList[11])) : this.conf.setAttr('ifUseModel', false)
+            tmpStringList.length >= 13 ? this.conf.setAttr('ifUseGitManagerModel', Boolean.parseBoolean(tmpStringList[12])) : this.conf.setAttr('ifUseGitManagerModel', false)
+            tmpStringList.length >= 14 ? this.conf.setAttr('ifSaveModelBuildComputer', Boolean.parseBoolean(tmpStringList[13])) : this.conf.setAttr('ifSaveModelBuildComputer', false)
+            tmpStringList.length >= 15 ? this.conf.setAttr('modelGitRepository', tmpStringList[14]) : this.conf.setAttr('modelGitRepository', '')
         }
 
     }
