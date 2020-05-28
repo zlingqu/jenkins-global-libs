@@ -439,17 +439,31 @@ def call(Map map, env) {
                 when {
                     allOf {
                         expression { return conf.ifBuild() };
-                        expression { return conf.getAttr('useModel') };
-                        expression { return conf.getAttr('modelGitAddress') };
+                        anyOf {
+                            expression { return conf.getAttr('useModel') && conf.getAttr('modelGitAddress') };
+                            allOf {
+                                expression { return conf.getAttr('ifUseModel') };
+                                expression { return conf.getAttr('ifUseGitManagerModel') };
+                            }
+                        }
                     }
                 }
                 steps {
                     container('kubectl') {
                         script {
                             try {
-                                withCredentials([usernamePassword(credentialsId: 'dev-admin-model', passwordVariable: 'password', usernameVariable: 'username')]) {
-                                    sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + conf.getAttr("modelGitAddress").replace("https://", 'https://$username:$password@') + ' model'
+                                if ( conf.getAttr('useModel') && conf.getAttr('modelGitAddress') ) {
+                                    withCredentials([usernamePassword(credentialsId: 'dev-admin-model', passwordVariable: 'password', usernameVariable: 'username')]) {
+                                        sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + conf.getAttr("modelGitAddress").replace("https://", 'https://$username:$password@') + ' model'
+                                    }
                                 }
+
+                                if (conf.getAttr('ifUseModel') && conf.getAttr('ifUseGitManagerModel') ) {
+                                    withCredentials([usernamePassword(credentialsId: 'dev-admin-model', passwordVariable: 'password', usernameVariable: 'username')]) {
+                                        sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + conf.getAttr("modelGitRepository").replace("https://", 'https://$username:$password@') + ' model'
+                                    }
+                                }
+
                                 sh 'rm -fr model/.git'
                             } catch (e) {
                                 sh "echo ${e}"
