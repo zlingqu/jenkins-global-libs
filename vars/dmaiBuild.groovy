@@ -307,19 +307,6 @@ def call(Map map, env) {
                 steps {
 
                     script {
-//                        def changeLogSets = currentBuild.changeSets
-//                        for (int i = 0; i < changeLogSets.size(); i++) {
-//                            def entries = changeLogSets[i].items
-//                            for (int j = 0; j < entries.length; j++) {
-//                                def entry = entries[j]
-//                                echo "${entry.commitId} by ${entry.author} on ${new Date(entry.timestamp)}: ${entry.msg}"
-//                                def files = new ArrayList(entry.affectedFiles)
-//                                for (int k = 0; k < files.size(); k++) {
-//                                    def file = files[k]
-//                                    echo "  ${file.editType.name} ${file.path}"
-//                                }
-//                            }
-//                        }
                         // set git commit id
 //                        echo env.GIT_COMMIT
                         if (env.GIT_COMMIT && conf.getAttr('gitVersion') == 'last' && conf.getAttr('versionControlMode') == 'GitCommitId') {
@@ -452,17 +439,32 @@ def call(Map map, env) {
                 when {
                     allOf {
                         expression { return conf.ifBuild() };
-                        expression { return conf.getAttr('useModel') };
-                        expression { return conf.getAttr('modelGitAddress') };
+                        anyOf {
+                            expression { return conf.getAttr('useModel') && conf.getAttr('modelGitAddress') };
+                            allOf {
+                                expression { return conf.getAttr('ifUseModel') };
+                                expression { return conf.getAttr('ifUseGitManagerModel') };
+                            }
+                        }
                     }
                 }
                 steps {
                     container('kubectl') {
                         script {
                             try {
-                                withCredentials([usernamePassword(credentialsId: 'dev-admin-model', passwordVariable: 'password', usernameVariable: 'username')]) {
-                                    sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + conf.getAttr("modelGitAddress").replace("https://", 'https://$username:$password@') + ' model'
+                                if ( conf.getAttr('useModel') && conf.getAttr('modelGitAddress') ) {
+                                    withCredentials([usernamePassword(credentialsId: 'dev-admin-model', passwordVariable: 'password', usernameVariable: 'username')]) {
+                                        sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + conf.getAttr("modelGitAddress").replace("https://", 'https://$username:$password@') + ' model'
+                                    }
                                 }
+
+                                if (conf.getAttr('ifUseModel') && conf.getAttr('ifUseGitManagerModel') ) {
+                                    withCredentials([usernamePassword(credentialsId: 'dev-admin-model', passwordVariable: 'password', usernameVariable: 'username')]) {
+                                        sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + conf.getAttr("modelGitRepository").replace("https://", 'https://$username:$password@') + ' model && ' +
+                                                String.format(''' cd model && git checkout -b %s origin/%s && git checkout %s && cd -''', conf.getAttr('modelBranch'), conf.getAttr('modelBranch'), conf.getAttr('modelBranch'))
+                                    }
+                                }
+
                                 sh 'rm -fr model/.git'
                             } catch (e) {
                                 sh "echo ${e}"
@@ -530,23 +532,7 @@ def call(Map map, env) {
                 }
             }
 
-//            stage('Download Config file') {
-//                when { expression { return conf.getAttr('deploy') } }
-//
-//                steps {
-//                    container('kubectl') {
-//                        script {
-//                            try {
-//                                withCredentials([usernamePassword(credentialsId: 'passwd-zs', passwordVariable: 'password', usernameVariable: 'username')]) {
-//                                    sh 'source /etc/profile; git config --global http.sslVerify false ; git clone https://$username:$password@gitlab.dm-ai.cn/application-engineering/devops/deployment.git'
-//                                }
-//                            } catch (e) {
-//                                sh "echo ${e}"
-//                            }
-//                        }
-//                    }
-//                }
-//            }
+
             stage('Create template') {
                 when {
                     allOf {
@@ -685,19 +671,6 @@ def call(Map map, env) {
                                 conf.failMsg = conf.getAttr('deployMsg')
                                 throw conf.getAttr('deployMsg')
                             }
-//                            try {
-//                                sh "echo '检查部署在k8s集群中的服务的pod是否正常运行，等待限时120秒。'"
-//                                if (kubernetesStatusCheck.waitKubernetesServerStarted() == true ) {
-//                                    sh "echo '部署在k8s集群中的服务已正常运行'"
-//                                } else {
-//                                    sh "echo '在120秒内，检查k8s集群中服务的pods的状态失败，请手动检查服务部署后的pod状态，构建失败！！'"
-//                                    throw "please check service status with admin."
-//                                }
-//                            } catch (e) {
-//                                sh "echo ${e}"
-//                                conf.failMsg = '部署完成后，检查服务的pod，在k8s中启动是否成功，3分钟内启动不成功即失败，请手动检查k8s的服务的日志和状态。';
-//                                throw e
-//                            }
                         }
                     }
                 }
@@ -751,8 +724,6 @@ def call(Map map, env) {
                                 sh 'nyc --reporter=lcov --reporter=text --report-dir=coverage mocha test/**/*.js --exit || echo 0'
                             } catch (e) {
                                 sh "echo ${e}"
-//                                conf.failMsg = '执行sonar检查。安装nyc 失败';
-//                                throw e
                             }
 
                         }
