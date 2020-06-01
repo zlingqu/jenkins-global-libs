@@ -132,9 +132,9 @@ class KubernetesStatusCheck {
                 }
             } catch (e) {
                 searchErr += 1
-                if (searchErr >= 3) {
-                    this.conf.setAttr('deployRes', '1800秒内查询k8s的pod的状态，,查询过程中查询程序异常3次，失败')
-                    this.conf.setAttr('deployMsg', '1800秒内查询k8s的pod的状态，查询过程中查询程序异常3次，失败')
+                if (searchErr >= 6) {
+                    this.conf.setAttr('deployRes', '1800秒内查询k8s的pod的状态，,查询过程中查询程序异常6次，失败, 此为构建网络问题，请手动检查pod状态')
+                    this.conf.setAttr('deployMsg', '1800秒内查询k8s的pod的状态，查询过程中查询程序异常6次，失败，此为构建网络问题，请手动检查pod状态')
                     return
                 }
                 continue
