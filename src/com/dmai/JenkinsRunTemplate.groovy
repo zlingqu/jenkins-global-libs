@@ -445,7 +445,7 @@ spec:
     private String templateDockersize() {
         return String.format('''
   - name: dockerize
-    image: docker.dm-ai.cn/devops/service-deploy-template:0.59
+    image: docker.dm-ai.cn/devops/service-deploy-template:0.60
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
