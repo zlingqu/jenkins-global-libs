@@ -280,7 +280,7 @@ class JenkinsRunTemplate {
     private def templateTop() {
         return '''
 apiVersion: v1
-kind: Pod   
+kind: Pod
 metadata:
   name: jenkinsTemplate
   namespace: devops
