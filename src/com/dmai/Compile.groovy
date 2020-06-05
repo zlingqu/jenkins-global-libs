@@ -39,15 +39,15 @@ class Compile {
                 case 'node':
                     this.script.sh "test -e node_modules && rm -fr node_modules ; " +
                             "test -e /data/cache/node_modules/node_modules.tar && cp -rp /data/cache/node_modules/node_modules.tar ./ ; tar xf node_modules.tar && rm -fr node_modules.tar ; " +
-                            "npm config set registry http://nexus.dm-ai.cn/repository/npm && npm install && tar cf node_modules.tar node_modules ; cp -rp node_modules.tar /data/cache/node_modules && rm -fr node_modules.tar"
+                            "npm config set registry https://npm.dm-ai.cn/repository/npm && npm install && tar cf node_modules.tar node_modules ; cp -rp node_modules.tar /data/cache/node_modules && rm -fr node_modules.tar"
                     return
                 case 'nodets':
                     this.script.sh "test -e node_modules && rm -fr node_modules ; " +
                             "test -e /data/cache/node_modules/node_modules.tar && cp -rp /data/cache/node_modules/node_modules.tar ./ ; tar xf node_modules.tar && rm -fr node_modules.tar ; " +
-                            "npm config set registry http://nexus.dm-ai.cn/repository/npm && npm install && tsc && tar cf node_modules.tar node_modules ; cp -rp node_modules.tar /data/cache/node_modules && rm -fr node_modules.tar"
+                            "npm config set registry https://npm.dm-ai.cn/repository/npm && npm install && tsc && tar cf node_modules.tar node_modules ; cp -rp node_modules.tar /data/cache/node_modules && rm -fr node_modules.tar"
                     return
                 case 'js':
-                    def tmpJsCompileString = 'npm config set registry http://nexus.dm-ai.cn/repository/npm/ && yarn config set registry http://nexus.dm-ai.cn/repository/npm/ && yarn install && yarn run build'
+                    def tmpJsCompileString = 'npm config set registry https://npm.dm-ai.cn/repository/npm/ && yarn config set registry https://npm.dm-ai.cn/repository/npm/ && yarn install && yarn run build'
                     if (this.conf.getAttr('ifCompileParam')) {
                         tmpJsCompileString = this.conf.getAttr('compileParam')
                     }
