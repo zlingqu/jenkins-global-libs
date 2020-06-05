@@ -292,7 +292,7 @@ spec:
   - ip: 192.168.3.221
     hostnames:
     - gitlab.dm-ai.cn
-  - ip: 192.168.3.13
+  - ip: 192.168.3.38
     hostnames:
     - npm.dm-ai.cn
   - ip: 192.168.69.201
