@@ -32,7 +32,7 @@ class MakeDockerImage {
                 this.script.sh String.format('echo "ADD %s %s" >> Dockerfile; echo "RUN rm -fr deployment || pwd" >> Dockerfile', tmpConfigFilePath, this.conf.getAttr('configFilePath'))
             } catch (e) {
                 this.script.sh "echo 在deployment下未找到配置文件，开始在apollo中查找数据，并写入环境变量到dockerdile中！"
-                this.script.sh String.format('/usr/bin/--config_server_url=%s --appId=%s --clusterName="%s" --namespaceName="%s" --Dockerfile=`pwd`/Dockerfile',
+                this.script.sh String.format('/usr/bin/tools-get-apollo-data-write-dockerfile --config_server_url=%s --appId=%s --clusterName="%s" --namespaceName="%s" --Dockerfile=`pwd`/Dockerfile',
                 this.conf.getAttr('apolloConfigAddress'),
                 this.conf.getAttr('jobName'),
                 this.conf.getAttr('apolloClusterName'),
