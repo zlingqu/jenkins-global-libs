@@ -59,5 +59,6 @@
 //////
 //def  testList = "1111:111222:333".split(":")
 //println(testList.length)
-println(System.currentTimeMillis())
-println('我是尼玛11  1222'.replaceAll('[\\u4E00-\\u9FA5| ]+', ''))
+//println(System.currentTimeMillis())
+////println('我是尼玛11  1222'.replaceAll('[\\u4E00-\\u9FA5| ]+', ''))
+
