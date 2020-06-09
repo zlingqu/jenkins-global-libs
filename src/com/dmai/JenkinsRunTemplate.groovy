@@ -251,6 +251,7 @@ class JenkinsRunTemplate {
             tmpStringList.length >= 16 ? this.conf.setAttr('modelBranch', tmpStringList[15]) : this.conf.setAttr('modelBranch', 'dev')
             tmpStringList.length >= 17 ? this.conf.setAttr('deployEnvStatus', tmpStringList[16]) : this.conf.setAttr('deployEnvStatus', 'start')
             tmpStringList.length >= 18 ? this.conf.setAttr('deployEnv', tmpStringList[17]) : this.conf.setAttr('deployEnv', 'dev')
+            tmpStringList.length >= 18 ? this.conf.setAttr('nodeEnv', tmpStringList[17]) : this.conf.setAttr('nodeEnv', 'dev')
         }
 
     }
