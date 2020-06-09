@@ -13,11 +13,11 @@ class JenkinsRunTemplate {
 
     private void setConfInitPara(params) {
         // 自定义appName
-        if (this.conf.appName in  ['xmc-xc-model-serving']) {
+        if (this.conf.appName in ['xmc-xc-model-serving']) {
             this.conf.setAppName(params.APP_NAME)
             this.conf.setAttr('appName', params.APP_NAME).toLowerCase()
             this.conf.setAttr('jobName', params.APP_NAME).toLowerCase()
-            if (this.conf.appName in  ['xmc-xc-model-serving']) {
+            if (this.conf.appName in ['xmc-xc-model-serving']) {
                 throw "请修改APP_NAME"
             }
             this.conf.setUserAttr(new GlobalConfig().globalConfig.get(this.conf.appName))
@@ -108,7 +108,7 @@ class JenkinsRunTemplate {
 
         // set default port
         this.conf.setAttr('containerPort', params.CONTAINER_PORT)
-        if (! this.conf.getAttr('containerPort')) {
+        if (!this.conf.getAttr('containerPort')) {
             this.conf.setAttr('containerPort', '80')
         }
 
@@ -173,7 +173,7 @@ class JenkinsRunTemplate {
         // APOLLO_CONFIG_ADDRESS
         this.conf.setAttr('apolloConfigAddress', "http://" + this.conf.getAttr('apolloEnv') + "-conf.apollo.cc.dm-ai.cn")
 
-         ///////////// 针对特殊情况
+        ///////////// 针对特殊情况
         if (this.conf.getAttr('namespace') in ['xmc2-lexue', 'xmc2-chongwen']) {
             this.conf.setAttr('svcType', 'ClusterIP')
         }
@@ -181,12 +181,12 @@ class JenkinsRunTemplate {
         // 设置全局的默认构建结果为失败
         this.conf.setAttr('buildResult', 'failure')
 
-        if (this.conf.getAttr('useModel') && ! this.conf.getAttr('modelPath') && ! this.conf.getAttr('modelGitAddress')) {
+        if (this.conf.getAttr('useModel') && !this.conf.getAttr('modelPath') && !this.conf.getAttr('modelGitAddress')) {
             this.conf.setAttr('modelPath', 'app/data')
         }
 
         // 特殊设置默认的useEnvFile
-        if (this.conf.getAttr('useConfigMap') && ! this.conf.getAttr('configMapName')) {
+        if (this.conf.getAttr('useConfigMap') && !this.conf.getAttr('configMapName')) {
             this.conf.setAttr('useEnvFile', true)
         }
 
@@ -194,22 +194,22 @@ class JenkinsRunTemplate {
         this.conf.setAttr('jobName', this.conf.getAttr('jobName').toLowerCase())
 
         if (this.conf.getAttr('deployEnv') != 'prd') {
-            this.conf.setAttr('domain', this.conf.getAttr('domain') ? this.conf.getAttr('domain') : this.conf.appName + '.dm-ai.cn' )
+            this.conf.setAttr('domain', this.conf.getAttr('domain') ? this.conf.getAttr('domain') : this.conf.appName + '.dm-ai.cn')
         }
 
         this.conf.setAttr('domain', this.conf.getDomain())
 
         if (this.conf.getAttr('deployEnv') != 'prd' && this.conf.getAttr('buildPlatform') == 'adp') {
-            this.conf.setAttr('domain', this.conf.getAttr('jobName') + "." + this.conf.getAttr('namespace') + "." +  this.conf.getAttr('deployEnv') + '.dm-ai.cn')
+            this.conf.setAttr('domain', this.conf.getAttr('jobName') + "." + this.conf.getAttr('namespace') + "." + this.conf.getAttr('deployEnv') + '.dm-ai.cn')
         }
 
         // domain https
         if (this.conf.getAttr('https')) {
             if (!(this.conf.getAttr('deployEnv') in ['prd', 'dev', 'test'])) {
-                this.conf.setAttr('domain', this.conf.getAttr('jobName') + "-" + this.conf.getAttr('namespace') + "-" +  this.conf.getAttr('deployEnv') + '.dm-ai.cn')
+                this.conf.setAttr('domain', this.conf.getAttr('jobName') + "-" + this.conf.getAttr('namespace') + "-" + this.conf.getAttr('deployEnv') + '.dm-ai.cn')
             }
             if (this.conf.getAttr('deployEnv') in ['dev', 'test']) {
-                this.conf.setAttr('domain', this.conf.getAttr('jobName') + "-" + this.conf.getAttr('namespace') + "." +  this.conf.getAttr('deployEnv') + '.dm-ai.cn')
+                this.conf.setAttr('domain', this.conf.getAttr('jobName') + "-" + this.conf.getAttr('namespace') + "." + this.conf.getAttr('deployEnv') + '.dm-ai.cn')
             }
         }
 
@@ -230,6 +230,7 @@ class JenkinsRunTemplate {
         this.conf.setAttr('ifSaveModelBuildComputer', false)
         this.conf.setAttr('modelGitRepository', '')
         this.conf.setAttr('modelBranch', 'dev')
+        this.conf.setAttr('deployEnvStatus', 'start')
         if (params.GLOABL_STRING != '') {
             def tmpStringList = params.GLOABL_STRING.split(":::")
             tmpStringList.length >= 1 ? this.conf.setAttr('useGrpc', tmpStringList[0]) : this.conf.setAttr('useGrpc', false)
@@ -248,6 +249,9 @@ class JenkinsRunTemplate {
             tmpStringList.length >= 14 ? this.conf.setAttr('ifSaveModelBuildComputer', Boolean.parseBoolean(tmpStringList[13])) : this.conf.setAttr('ifSaveModelBuildComputer', false)
             tmpStringList.length >= 15 ? this.conf.setAttr('modelGitRepository', tmpStringList[14]) : this.conf.setAttr('modelGitRepository', '')
             tmpStringList.length >= 16 ? this.conf.setAttr('modelBranch', tmpStringList[15]) : this.conf.setAttr('modelBranch', 'dev')
+            tmpStringList.length >= 17 ? this.conf.setAttr('deployEnvStatus', tmpStringList[16]) : this.conf.setAttr('deployEnvStatus', 'start')
+            tmpStringList.length >= 18 ? this.conf.setAttr('deployEnv', tmpStringList[17]) : this.conf.setAttr('deployEnv', 'dev')
+            tmpStringList.length >= 18 ? this.conf.setAttr('nodeEnv', tmpStringList[17]) : this.conf.setAttr('nodeEnv', 'dev')
         }
 
     }
@@ -424,7 +428,7 @@ spec:
         if ((this.conf.getAttr('deployEnv') == 'prd' && this.deployMasterPassword != 'dmai2019999') || this.conf.getAttr('deployEnv') == 'default') return ''
 
 //        if (this.conf.getAttr('deploy')) {
-            return  String.format('''
+        return String.format('''
   - name: kubectl 
     image: docker.dm-ai.cn/devops/base-image-kubectl:1.1
     imagePullPolicy: IfNotPresent
@@ -550,7 +554,7 @@ spec:
     args:
     - "3600"
     tty: true
-''', this.conf.getAttr('ifCompileImage') ? this.conf.getAttr('compileImage'): 'docker.dm-ai.cn/arm64/node:10.16.3-slim-tx2', this.templateJsCompilevolumeMounts())
+''', this.conf.getAttr('ifCompileImage') ? this.conf.getAttr('compileImage') : 'docker.dm-ai.cn/arm64/node:10.16.3-slim-tx2', this.templateJsCompilevolumeMounts())
         }
 
 //        if (! this.conf.getAttr('compile')) return ''
@@ -569,7 +573,7 @@ spec:
     args:
     - "3600"
     tty: true
-''', this.conf.getAttr('ifCompileImage') ? this.conf.getAttr('compileImage'): 'docker.dm-ai.cn/devops/base-image-compile-frontend:0.03', this.templateJsCompilevolumeMounts())
+''', this.conf.getAttr('ifCompileImage') ? this.conf.getAttr('compileImage') : 'docker.dm-ai.cn/devops/base-image-compile-frontend:0.03', this.templateJsCompilevolumeMounts())
 
             case 'android': return String.format('''
   - name: compile
@@ -633,7 +637,7 @@ spec:
     args:
     - "3600"
     tty: true
-''', this.conf.getAttr('ifCompileImage') ? this.conf.getAttr('compileImage'): 'docker.dm-ai.cn/devops/node:0.0.4', this.templateJsCompilevolumeMounts())
+''', this.conf.getAttr('ifCompileImage') ? this.conf.getAttr('compileImage') : 'docker.dm-ai.cn/devops/node:0.0.4', this.templateJsCompilevolumeMounts())
 
             case 'nodets':
                 return String.format('''
@@ -649,7 +653,7 @@ spec:
     args:
     - "3600"
     tty: true
-''', this.conf.getAttr('ifCompileImage') ? this.conf.getAttr('compileImage'): 'docker.dm-ai.cn/devops/node:0.0.4', this.templateJsCompilevolumeMounts())
+''', this.conf.getAttr('ifCompileImage') ? this.conf.getAttr('compileImage') : 'docker.dm-ai.cn/devops/node:0.0.4', this.templateJsCompilevolumeMounts())
 
             case 'c++':
                 return '''
@@ -696,7 +700,7 @@ spec:
     args:
     - "3600"
     tty: true
-''', this.conf.getAttr('ifCompileImage') ? this.conf.getAttr('compileImage'): 'docker.dm-ai.cn/devops/base-image-golang-compile:master-2-1e85e1e99bfee20f6f0cc5de5a74ce339100d4bd')
+''', this.conf.getAttr('ifCompileImage') ? this.conf.getAttr('compileImage') : 'docker.dm-ai.cn/devops/base-image-golang-compile:master-2-1e85e1e99bfee20f6f0cc5de5a74ce339100d4bd')
             default:
                 return ''
         }
