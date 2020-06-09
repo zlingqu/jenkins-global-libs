@@ -228,10 +228,17 @@ class JenkinsRunTemplate {
             tmpStringList.length >= 18 ? this.conf.setAttr('nodeEnv', tmpStringList[17]) : this.conf.setAttr('nodeEnv', 'dev')
         }
 
+        def apolloEnvList = ['dev', 'test', 'prd', 'stage']
+
+
         // APOLLO_ENV
         this.conf.setAttr('apolloEnv', this.conf.getAttr('deployEnv'))
         if (this.conf.getAttr('deployEnv') == 'mlcloud-dev') {
             this.conf.setAttr('apolloEnv', 'dev')
+        }
+        if (! (this.conf.getAttr('deployEnv') in apolloEnvList)) {
+            this.conf.setAttr('apolloEnv', 'prd')
+            this.conf.setAttr('nodeEnv', 'prd')
         }
 
         // APOLLO_CONFIG_ADDRESS
