@@ -158,20 +158,13 @@ class JenkinsRunTemplate {
         //BUILD_PLATFORM
         this.conf.setAttr('buildPlatform', params.BUILD_PLATFORM)
 
-        // APOLLO_ENV
-        this.conf.setAttr('apolloEnv', this.conf.getAttr('deployEnv'))
-        if (this.conf.getAttr('deployEnv') == 'mlcloud-dev') {
-            this.conf.setAttr('apolloEnv', 'dev')
-        }
+
 
         // workspace
         this.conf.setAttr('configFilePath', '/app')
         if (this.conf.getAttr('jobName') in ['media-access', 'media-gateway']) {
             this.conf.setAttr('configFilePath', '/src/debug')
         }
-
-        // APOLLO_CONFIG_ADDRESS
-        this.conf.setAttr('apolloConfigAddress', "http://" + this.conf.getAttr('apolloEnv') + "-conf.apollo.cc.dm-ai.cn")
 
         ///////////// 针对特殊情况
         if (this.conf.getAttr('namespace') in ['xmc2-lexue', 'xmc2-chongwen']) {
@@ -193,25 +186,6 @@ class JenkinsRunTemplate {
         this.conf.setAttr('jenkinsJobName', this.conf.getAttr('jobName'))
         this.conf.setAttr('jobName', this.conf.getAttr('jobName').toLowerCase())
 
-        if (this.conf.getAttr('deployEnv') != 'prd') {
-            this.conf.setAttr('domain', this.conf.getAttr('domain') ? this.conf.getAttr('domain') : this.conf.appName + '.dm-ai.cn')
-        }
-
-        this.conf.setAttr('domain', this.conf.getDomain())
-
-        if (this.conf.getAttr('deployEnv') != 'prd' && this.conf.getAttr('buildPlatform') == 'adp') {
-            this.conf.setAttr('domain', this.conf.getAttr('jobName') + "." + this.conf.getAttr('namespace') + "." + this.conf.getAttr('deployEnv') + '.dm-ai.cn')
-        }
-
-        // domain https
-        if (this.conf.getAttr('https')) {
-            if (!(this.conf.getAttr('deployEnv') in ['prd', 'dev', 'test'])) {
-                this.conf.setAttr('domain', this.conf.getAttr('jobName') + "-" + this.conf.getAttr('namespace') + "-" + this.conf.getAttr('deployEnv') + '.dm-ai.cn')
-            }
-            if (this.conf.getAttr('deployEnv') in ['dev', 'test']) {
-                this.conf.setAttr('domain', this.conf.getAttr('jobName') + "-" + this.conf.getAttr('namespace') + "." + this.conf.getAttr('deployEnv') + '.dm-ai.cn')
-            }
-        }
 
         // GLOABL_STRING
         this.conf.setAttr('useGrpc', false)
@@ -252,6 +226,35 @@ class JenkinsRunTemplate {
             tmpStringList.length >= 17 ? this.conf.setAttr('deployEnvStatus', tmpStringList[16]) : this.conf.setAttr('deployEnvStatus', 'start')
             tmpStringList.length >= 18 ? this.conf.setAttr('deployEnv', tmpStringList[17]) : this.conf.setAttr('deployEnv', 'dev')
             tmpStringList.length >= 18 ? this.conf.setAttr('nodeEnv', tmpStringList[17]) : this.conf.setAttr('nodeEnv', 'dev')
+        }
+
+        // APOLLO_ENV
+        this.conf.setAttr('apolloEnv', this.conf.getAttr('deployEnv'))
+        if (this.conf.getAttr('deployEnv') == 'mlcloud-dev') {
+            this.conf.setAttr('apolloEnv', 'dev')
+        }
+
+        // APOLLO_CONFIG_ADDRESS
+        this.conf.setAttr('apolloConfigAddress', "http://" + this.conf.getAttr('apolloEnv') + "-conf.apollo.cc.dm-ai.cn")
+
+        if (this.conf.getAttr('deployEnv') != 'prd') {
+            this.conf.setAttr('domain', this.conf.getAttr('domain') ? this.conf.getAttr('domain') : this.conf.appName + '.dm-ai.cn')
+        }
+
+        this.conf.setAttr('domain', this.conf.getDomain())
+
+        if (this.conf.getAttr('deployEnv') != 'prd' && this.conf.getAttr('buildPlatform') == 'adp') {
+            this.conf.setAttr('domain', this.conf.getAttr('jobName') + "." + this.conf.getAttr('namespace') + "." + this.conf.getAttr('deployEnv') + '.dm-ai.cn')
+        }
+
+        // domain https
+        if (this.conf.getAttr('https')) {
+            if (!(this.conf.getAttr('deployEnv') in ['prd', 'dev', 'test'])) {
+                this.conf.setAttr('domain', this.conf.getAttr('jobName') + "-" + this.conf.getAttr('namespace') + "-" + this.conf.getAttr('deployEnv') + '.dm-ai.cn')
+            }
+            if (this.conf.getAttr('deployEnv') in ['dev', 'test']) {
+                this.conf.setAttr('domain', this.conf.getAttr('jobName') + "-" + this.conf.getAttr('namespace') + "." + this.conf.getAttr('deployEnv') + '.dm-ai.cn')
+            }
         }
 
     }
