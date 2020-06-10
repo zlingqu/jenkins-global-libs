@@ -46,12 +46,18 @@ class MakeDockerImage {
                         this.conf.getAttr('jobName'),
                         this.conf.getAttr('apolloClusterName'),
                         this.conf.getAttr('apolloNamespace'))
+                this.script.sh "echo 'ENV deployEnvStatus offline' >> Dockerfile"
             } catch (e) {
                 this.conf.setAttr('deployRes', '构建离线部署环境的镜像，从apollo拉取数据失败，请检查apollo配置或者网络问题')
                 this.conf.setAttr('deployMsg', '构建离线部署环境的镜像，从apollo拉取数据失败，请检查apollo配置或者网络问题')
                 throw e
             }
         }
+
+        if (this.conf.getAttr('deployEnvStatus') == 'start' ) {
+            this.script.sh "echo 'ENV deployEnvStatus online' >> Dockerfile"
+        }
+
         // ### 需要处理 1。 使用环境变量的。 2. 有些业务是没配置文件的。注意。
 
 
