@@ -633,6 +633,9 @@ def call(Map map, env) {
                         script {
                             try {
                                 sh String.format("/usr/bin/project-down-key --deploy.env='%s'", conf.getAttr("deployEnv"))
+                                if (conf.getAttr('ifUseIstio')) {
+                                    sh String.format("kubectl label ns %s istio-injection=enabled --overwrite", conf.getAttr('namespace'))
+                                }
                                 if (conf.getAttr('buildPlatform') != 'adp' || conf.getAttr('customKubernetesDeployTemplate')) {
                                     deploykubernetes.createIngress()
                                     deploykubernetes.createConfigMapTest()
