@@ -206,6 +206,7 @@ class JenkinsRunTemplate {
         this.conf.setAttr('modelBranch', 'dev')
         this.conf.setAttr('deployEnvStatus', 'start')
         this.conf.setAttr('ifUseIstio', false)
+        this.conf.setAttr('ifUseApolloOfflineEnv', false)
         if (params.GLOABL_STRING != '') {
             def tmpStringList = params.GLOABL_STRING.split(":::")
             tmpStringList.length >= 1 ? this.conf.setAttr('useGrpc', tmpStringList[0]) : this.conf.setAttr('useGrpc', false)
@@ -228,6 +229,7 @@ class JenkinsRunTemplate {
             tmpStringList.length >= 18 ? this.conf.setAttr('deployEnv', tmpStringList[17]) : this.conf.setAttr('deployEnv', 'dev')
             tmpStringList.length >= 18 ? this.conf.setAttr('nodeEnv', tmpStringList[17]) : this.conf.setAttr('nodeEnv', 'dev')
             tmpStringList.length >= 19 ? this.conf.setAttr('ifUseIstio', Boolean.parseBoolean(tmpStringList[18])) : this.conf.setAttr('ifUseIstio', false)
+            tmpStringList.length >= 20 ? this.conf.setAttr('ifUseApolloOfflineEnv', Boolean.parseBoolean(tmpStringList[19])) : this.conf.setAttr('ifUseApolloOfflineEnv', false)
         }
 
         def apolloEnvList = ['dev', 'test', 'prd', 'stage']
