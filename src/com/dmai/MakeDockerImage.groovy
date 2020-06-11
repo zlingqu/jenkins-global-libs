@@ -39,7 +39,7 @@ class MakeDockerImage {
             }
         }
 
-        if (this.conf.getAttr('deployEnvStatus') == 'stop') {
+        if (this.conf.getAttr('deployEnvStatus') == 'stop' && this.conf.getAttr('deployEnv')  != 'not-deploy') {
             try {
                 this.script.sh String.format('/usr/bin/tools-get-apollo-data-write-dockerfile --config_server_url=%s --appId=%s --clusterName="%s" --namespaceName="%s" --Dockerfile=`pwd`/Dockerfile',
                         this.conf.getAttr('apolloConfigAddress'),
