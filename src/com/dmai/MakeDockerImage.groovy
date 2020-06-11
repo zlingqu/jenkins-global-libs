@@ -46,7 +46,7 @@ class MakeDockerImage {
                         this.conf.getAttr('jobName'),
                         this.conf.getAttr('apolloClusterName'),
                         this.conf.getAttr('apolloNamespace'))
-                this.script.sh "echo 'ENV deployEnvStatus offline' >> Dockerfile"
+                this.script.sh "echo 'deployEnvStatus=offline' >> Dockerfile"
             } catch (e) {
                 this.conf.setAttr('deployRes', '构建离线部署环境的镜像，从apollo拉取数据失败，请检查apollo配置或者网络问题')
                 this.conf.setAttr('deployMsg', '构建离线部署环境的镜像，从apollo拉取数据失败，请检查apollo配置或者网络问题')
@@ -77,6 +77,8 @@ class MakeDockerImage {
 
         // 对 xmc2-frontend做特殊处理。
 //        if (this.conf.appName == 'xmc2-frontend') {
+//        this.script.sh "sleep 3000"
+//      docker-compose build --build-arg VUE_APP_SCENE= --build-arg MODEL_VERSION=latest --build-arg FRONTEND_ENV=prd service-docker-build
         this.script.sh String.format('pwd;ls;docker-compose build --build-arg VUE_APP_SCENE=%s --build-arg MODEL_VERSION=%s --build-arg FRONTEND_ENV=%s service-docker-build',
                 this.conf.vueAppScene, this.conf.modelVersion, this.conf.getAttr('nodeEnv')
         )
