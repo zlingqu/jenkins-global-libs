@@ -56,6 +56,7 @@ class MakeDockerImage {
 
         if (this.conf.getAttr('deployEnvStatus') == 'start' ) {
             this.script.sh "echo -e '\nENV deployEnvStatus online' >> Dockerfile"
+            this.script.sh "cat Dockerfile"
         }
 
         // ### 需要处理 1。 使用环境变量的。 2. 有些业务是没配置文件的。注意。
