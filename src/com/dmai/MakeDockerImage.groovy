@@ -48,6 +48,7 @@ class MakeDockerImage {
                         this.conf.getAttr('apolloClusterName'),
                         this.conf.getAttr('apolloNamespace'))
                 this.script.sh "echo 'deployEnvStatus=offline' >> Dockerfile"
+                this.script.sh "cat Dockerfile"
             } catch (e) {
                 this.conf.setAttr('deployRes', '构建离线部署环境的镜像，从apollo拉取数据失败，请检查apollo配置或者网络问题')
                 this.conf.setAttr('deployMsg', '构建离线部署环境的镜像，从apollo拉取数据失败，请检查apollo配置或者网络问题')
