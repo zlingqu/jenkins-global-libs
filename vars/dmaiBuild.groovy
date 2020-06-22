@@ -487,6 +487,7 @@ def call(Map map, env) {
                 when {
                     allOf {
                         expression { return conf.ifBuild() };
+                        expression { return conf.ifMakeImage() };
                         expression { return conf.getAttr('makeImage') };
                     }
                 }
@@ -520,6 +521,7 @@ def call(Map map, env) {
                 when {
                     allOf {
                         expression { return conf.ifBuild() };
+                        expression { return conf.ifMakeImage() };
                         expression { return conf.getAttr('makeImage') }
                     }
                 }
