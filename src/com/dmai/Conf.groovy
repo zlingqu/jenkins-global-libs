@@ -253,4 +253,11 @@ class Conf implements Serializable {
 //        }
 //        return false
     }
+
+    public def ifMakeImage() {
+        if (this.getAttr('codeLanguage') in ['android', 'unity']) {
+            return false
+        }
+        return true
+    }
 }
