@@ -43,7 +43,7 @@ def call(Map map, env) {
                     CGO_ENABLED=0 go build -o ${currentPath}/dmai_node_exporter
                     cd -
                     '''
-                        withCredentials([usernamePassword(credentialsId: 'passwd-zs', passwordVariable: 'password', usernameVariable: 'username')]) {
+                        withCredentials([usernamePassword(credentialsId: 'devops-use', passwordVariable: 'password', usernameVariable: 'username')]) {
                             sh 'git clone https://$username:$password@gitlab.dm-ai.cn/application-engineering/devops/ansible.git'
                         }
                         sh 'cp -rp dmai_node_exporter ansible/roles/prometheus.node_exporter/files/dmai_node_exporter'
