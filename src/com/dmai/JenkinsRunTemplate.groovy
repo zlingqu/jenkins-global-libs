@@ -232,7 +232,7 @@ class JenkinsRunTemplate {
             tmpStringList.length >= 20 ? this.conf.setAttr('ifUseApolloOfflineEnv', Boolean.parseBoolean(tmpStringList[19])) : this.conf.setAttr('ifUseApolloOfflineEnv', false)
         }
 
-        def apolloEnvList = ['dev', 'test', 'prd', 'stage']
+        def apolloEnvList = ['dev', 'test', 'prd', 'stage', 'uat']
 
 
         // APOLLO_ENV
