@@ -242,7 +242,7 @@ class DmaiEmail {
     private String buildEnvInfo() {
         // 兼容新版的域名地址 launcher-management-x2.deploy-env.dm-ai.cn
         if (this.conf.getAttr('domain') ) {
-            if (this.conf.getAttr('https')) {
+            if (this.conf.getAttr('https') || (this.conf.getAttr('https') == false && this.conf.getAttr('stageHttps') == true)) {
                 return  '用户测试验证地址：' + 'https://' + this.conf.getAttr('domain')
             } else {
                 return '用户测试验证地址：' + 'http://' + this.conf.getAttr('domain')
