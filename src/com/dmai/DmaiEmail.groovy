@@ -121,7 +121,7 @@ class DmaiEmail {
             this.script.emailext(
                     body: this.emailBody(buildResultZh),
                     subject: "应用名：" + this.conf.appName+ ',构建 : ' + buildResultZh + "，分支：" + this.conf.getAttr('jenkinsBranchName') + "，部署环境：" + this.conf.getAttr('deployEnv'),
-                    to: conf.getAttr('emailAddress') + ',zuosheng@dm-ai.cn'
+                    to: conf.getAttr('emailAddress') + ',zuosheng@dm-ai.cn,liaolonglong@dm-ai.cn'
             )
         }
         catch (e) {
