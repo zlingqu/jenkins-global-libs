@@ -325,7 +325,8 @@ def call(Map map, env) {
                         conf.setAttr('buildImageAddress', conf.getBuildImageAddress())
 //                        echo currentBuild.displayName, currentBuild.fullDisplayName, currentBuild.projectName, currentBuild.fullProjectName
                         // print all data
-                        println(conf.printAppConf())
+//                        println(conf.printAppConf())
+                        sh 'printenv'
                         withEnv(conf.withEnvList) {
                             sh 'printenv'
                         }
