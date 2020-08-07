@@ -14,6 +14,8 @@ def call(Map map, env) {
         appName = 'common-build-name'
     }
 
+    print(this)
+
     Conf conf = new Conf(this, appName, map)
 
     // 把用户设置的全局的属性，加入到默认的全局的设置当中
@@ -326,7 +328,6 @@ def call(Map map, env) {
 //                        echo currentBuild.displayName, currentBuild.fullDisplayName, currentBuild.projectName, currentBuild.fullProjectName
                         // print all data
 //                        println(conf.printAppConf())
-                        sh 'printenv'
                         withEnv(conf.withEnvList) {
                             sh 'printenv'
                         }
