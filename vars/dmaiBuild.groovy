@@ -522,34 +522,33 @@ def call(Map map, env) {
                     }
                 }
             }
-
-            stage('Deploy') {
-                stage('Create template') {
-                    when {
-                        allOf {
-                            expression { return conf.getAttr('buildPlatform') == 'adp' };
-                        }
+            stage('Create template') {
+                when {
+                    allOf {
+                        expression { return conf.getAttr('buildPlatform') == 'adp' };
                     }
+                }
 
-                    steps {
-                        container('dockerize') {
-                            script {
-                                try {
-                                    println(conf.printAppConf())
-                                    sh 'pwd'
-                                    withEnv(conf.withEnvList) {
-                                        sh 'cd /workspace; dockerize -template src_dir:dest_dir'
-                                        sh 'cat /workspace/dest_dir/template.tmpl'
-                                        sh 'cp -rp /workspace/dest_dir/template.tmpl ./; chmod 777 template.tmpl'
-                                    }
-                                } catch (e) {
-                                    sh "echo ${e}"
+                steps {
+                    container('dockerize') {
+                        script {
+                            try {
+                                println(conf.printAppConf())
+                                sh 'pwd'
+                                withEnv(conf.withEnvList) {
+                                    sh 'cd /workspace; dockerize -template src_dir:dest_dir'
+                                    sh 'cat /workspace/dest_dir/template.tmpl'
+                                    sh 'cp -rp /workspace/dest_dir/template.tmpl ./; chmod 777 template.tmpl'
                                 }
+                            } catch (e) {
+                                sh "echo ${e}"
                             }
                         }
                     }
                 }
+            }
 
+            stage('Deploy') {
                 parallel {
                     stage('Deploy Not Test') {
                         // 当项目的全局选项设置为deploy == true的时候，才进行部署的操作
