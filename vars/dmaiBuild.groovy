@@ -482,7 +482,7 @@ def call(Map map, env) {
                 }
             }
 
-            stage('Make Image') {
+            stage('Make And Push Image') {
                 when {
                     allOf {
                         expression { return conf.ifBuild() };
@@ -511,23 +511,6 @@ def call(Map map, env) {
                                 conf.failMsg = '制作容器镜像失败！';
                                 throw e
                             }
-                        }
-                    }
-                }
-            }
-
-            stage('Push Image') {
-                when {
-                    allOf {
-                        expression { return conf.ifBuild() };
-                        expression { return conf.ifMakeImage() };
-                        expression { return conf.getAttr('makeImage') }
-                    }
-                }
-//                when { expression { return  conf.getAttr('makeImage')} }
-                steps {
-                    container('docker-compose') {
-                        script {
                             try {
                                 makeDockerImage.pushImage()
                             } catch (e) {
@@ -540,121 +523,125 @@ def call(Map map, env) {
                 }
             }
 
-
-            stage('Create template') {
-                when {
-                    allOf {
-                        expression { return conf.getAttr('buildPlatform') == 'adp' };
-                    }
-                }
-
-                steps {
-                    container('dockerize') {
-                        script {
-                            try {
-                                println(conf.printAppConf())
-                                sh 'pwd'
-                                withEnv(conf.withEnvList) {
-                                    sh 'cd /workspace; dockerize -template src_dir:dest_dir'
-                                    sh 'cat /workspace/dest_dir/template.tmpl'
-                                    sh 'cp -rp /workspace/dest_dir/template.tmpl ./; chmod 777 template.tmpl'
-                                }
-                            } catch (e) {
-                                sh "echo ${e}"
-                            }
-                        }
-                    }
-                }
-            }
-
             stage('Deploy') {
-
-                // 当项目的全局选项设置为deploy == true的时候，才进行部署的操作
-
-                when {
-                    allOf {
-                        expression { return conf.ifBuild() };
-                        expression { return conf.getAttr('deploy') };
-                        expression { return conf.getAttr('deployEnv') != 'test' };
-                        expression { return conf.getAttr('deployEnv') != 'not-deploy' }
-                        expression { return conf.getAttr('deployEnvStatus') != 'stop' }
-                        expression { return !(conf.getAttr('deployEnv') in conf.privateK8sEnv) }
-                    }
-                }
-
-                steps {
-                    container('kubectl') {
-                        script {
-
-                            if (conf.getAttr('deployEnv') == 'prd' && deployMasterPassword != 'dmai2019999') {
-                                throw "master分支请运维人员触发！"
-                            }
-                            try {
-                                sh String.format("/usr/bin/project-down-key --deploy.env='%s'", conf.getAttr("deployEnv"))
-                                if (conf.getAttr('ifUseIstio')) {
-                                    sh String.format("kubectl label ns %s istio-injection=enabled --overwrite", conf.getAttr('namespace'))
-                                }
-                                if (conf.getAttr('buildPlatform') != 'adp' || conf.getAttr('customKubernetesDeployTemplate')) {
-                                    echo conf.getAttr('deployEnv')
-                                    deploykubernetes.createIngress()
-                                    deploykubernetes.createConfigMap()
-                                    deploykubernetes.deployKubernetes()
-                                } else {
-                                    deploykubernetes.createConfigMap()
-                                    deploykubernetes.deleteOldIngress()
-                                    sh 'kubectl apply -f template.tmpl'
-                                }
-                            } catch (e) {
-                                sh "echo ${e}"
-                                conf.failMsg = '使用kubectl部署服务到k8s失败！';
-                                throw e
-                            }
+                stage('Create template') {
+                    when {
+                        allOf {
+                            expression { return conf.getAttr('buildPlatform') == 'adp' };
                         }
                     }
 
-                }
-            }
-
-            stage('Deploy test') {
-                when {
-                    allOf {
-                        expression { return conf.ifBuild() };
-                        expression { return conf.getAttr('deploy') };
-                        expression { return conf.getAttr('deployEnv') == 'test' };
+                    steps {
+                        container('dockerize') {
+                            script {
+                                try {
+                                    println(conf.printAppConf())
+                                    sh 'pwd'
+                                    withEnv(conf.withEnvList) {
+                                        sh 'cd /workspace; dockerize -template src_dir:dest_dir'
+                                        sh 'cat /workspace/dest_dir/template.tmpl'
+                                        sh 'cp -rp /workspace/dest_dir/template.tmpl ./; chmod 777 template.tmpl'
+                                    }
+                                } catch (e) {
+                                    sh "echo ${e}"
+                                }
+                            }
+                        }
                     }
                 }
+
+                parallel {
+                    stage('Deploy Not Test') {
+                        // 当项目的全局选项设置为deploy == true的时候，才进行部署的操作
+
+                        when {
+                            allOf {
+                                expression { return conf.ifBuild() };
+                                expression { return conf.getAttr('deploy') };
+                                expression { return conf.getAttr('deployEnv') != 'test' };
+                                expression { return conf.getAttr('deployEnv') != 'not-deploy' }
+                                expression { return conf.getAttr('deployEnvStatus') != 'stop' }
+                                expression { return !(conf.getAttr('deployEnv') in conf.privateK8sEnv) }
+                            }
+                        }
+
+                        steps {
+                            container('kubectl') {
+                                script {
+
+                                    if (conf.getAttr('deployEnv') == 'prd' && deployMasterPassword != 'dmai2019999') {
+                                        throw "master分支请运维人员触发！"
+                                    }
+                                    try {
+                                        sh String.format("/usr/bin/project-down-key --deploy.env='%s'", conf.getAttr("deployEnv"))
+                                        if (conf.getAttr('ifUseIstio')) {
+                                            sh String.format("kubectl label ns %s istio-injection=enabled --overwrite", conf.getAttr('namespace'))
+                                        }
+                                        if (conf.getAttr('buildPlatform') != 'adp' || conf.getAttr('customKubernetesDeployTemplate')) {
+                                            echo conf.getAttr('deployEnv')
+                                            deploykubernetes.createIngress()
+                                            deploykubernetes.createConfigMap()
+                                            deploykubernetes.deployKubernetes()
+                                        } else {
+                                            deploykubernetes.createConfigMap()
+                                            deploykubernetes.deleteOldIngress()
+                                            sh 'kubectl apply -f template.tmpl'
+                                        }
+                                    } catch (e) {
+                                        sh "echo ${e}"
+                                        conf.failMsg = '使用kubectl部署服务到k8s失败！';
+                                        throw e
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+
+                    stage('Deploy test') {
+                        when {
+                            allOf {
+                                expression { return conf.ifBuild() };
+                                expression { return conf.getAttr('deploy') };
+                                expression { return conf.getAttr('deployEnv') == 'test' };
+                            }
+                        }
 
 //                    input {
 //                        message "dev分支已经部署到开发环境，是否继续部署到测试环境？"
 //                        ok "是的，我确认！"
 //                    }
 
-                steps {
-                    container('kubectl') {
-                        script {
-                            try {
-                                sh String.format("/usr/bin/project-down-key --deploy.env='%s'", conf.getAttr("deployEnv"))
-                                if (conf.getAttr('ifUseIstio')) {
-                                    sh String.format("kubectl label ns %s istio-injection=enabled --overwrite", conf.getAttr('namespace'))
+                        steps {
+                            container('kubectl') {
+                                script {
+                                    try {
+                                        sh String.format("/usr/bin/project-down-key --deploy.env='%s'", conf.getAttr("deployEnv"))
+                                        if (conf.getAttr('ifUseIstio')) {
+                                            sh String.format("kubectl label ns %s istio-injection=enabled --overwrite", conf.getAttr('namespace'))
+                                        }
+                                        if (conf.getAttr('buildPlatform') != 'adp' || conf.getAttr('customKubernetesDeployTemplate')) {
+                                            deploykubernetes.createIngress()
+                                            deploykubernetes.createConfigMapTest()
+                                            deploykubernetes.deployKubernetes()
+                                        } else {
+                                            deploykubernetes.createConfigMapTest()
+                                            deploykubernetes.deleteOldIngress()
+                                            sh 'kubectl apply -f template.tmpl'
+                                        }
+                                    } catch (e) {
+                                        sh "echo ${e}"
+                                        conf.failMsg = '使用kubectl部署服务到k8s-test失败！';
+                                        throw e
+                                    }
                                 }
-                                if (conf.getAttr('buildPlatform') != 'adp' || conf.getAttr('customKubernetesDeployTemplate')) {
-                                    deploykubernetes.createIngress()
-                                    deploykubernetes.createConfigMapTest()
-                                    deploykubernetes.deployKubernetes()
-                                } else {
-                                    deploykubernetes.createConfigMapTest()
-                                    deploykubernetes.deleteOldIngress()
-                                    sh 'kubectl apply -f template.tmpl'
-                                }
-                            } catch (e) {
-                                sh "echo ${e}"
-                                conf.failMsg = '使用kubectl部署服务到k8s-test失败！';
-                                throw e
                             }
                         }
                     }
+
                 }
             }
+
 
             stage('Check service') {
                 when {
