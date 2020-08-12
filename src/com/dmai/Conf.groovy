@@ -37,12 +37,7 @@ class Conf implements Serializable {
         // 全局设置中没添加这个项目，需要报错。
         try {
             this.globalConfig = new GlobalConfig().globalConfig
-            if (this.globalConfig.containsKey(appName)) {
-                this.appConf = this.globalConfig.get(appName)
-            } else {
-                this.appConf = new HashMap<String, String>()
-            }
-
+            this.appConf = this.globalConfig.containsKey(appName) ? this.globalConfig.get(appName) : new HashMap<String, String>()
             // set servicePort
             this.appConf.put('servicePort', '80')
         }
@@ -209,6 +204,8 @@ class Conf implements Serializable {
 
     // set user attr
     public def setUserAttr(Map<String, String> userSetMap) {
+        println(this.appConf)
+        println(userSetMap)
         this.appConf.putAll(userSetMap)
     }
 

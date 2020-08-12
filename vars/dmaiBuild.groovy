@@ -6,16 +6,12 @@ def call(Map map, env) {
 //    if (!(env.BRANCH_NAME in ['master', 'dev', 'stage','release'])) return
 
     // 定义定义的全局的配置项目, 兼容Jenkinsfile，没有 appName这行
-    String appName
-    boolean containsKey = map.containsKey('appName');
-    if (containsKey) {
-        appName = map.get('appName')
-    } else {
-        appName = 'common-build-name'
-    }
+    String appName = map.containsKey('appName')?map.get('appName'):'common-build-name'
+
+    println(map)
+    println(env)
 
     Conf conf = new Conf(this, appName, map)
-
     // 把用户设置的全局的属性，加入到默认的全局的设置当中
     conf.setUserAttr(map)
 
