@@ -268,6 +268,12 @@ def call(Map map, env) {
             string(name: 'GLOABL_STRING', defaultValue: '', description: '传递的特殊参数字符串'),
     ])])
 
+    // 转化为可用的环境变量
+    environment {
+        gitVersion = "${params.GIT_VERSION}"
+        deployMasterPassword = "${params.DEPLOY_MASTER_PASSWORD}"
+    }
+
     println('【开始进行构建】')
 
     def label = conf.getAttr('jobName') + '-' + Tools.handleBranchName(conf.getAttr('branchName')) + '-' + conf.getAttr('buildNumber')
@@ -280,25 +286,7 @@ def call(Map map, env) {
             inheritFrom: 'base-template'
     ) {
         node(label) {
-
-//        triggers {
-//            pollSCM('H/30 * * * *')
-//        }
-
-            // 转化为可用的环境变量
-            environment {
-                gitVersion = "${params.GIT_VERSION}"
-                deployMasterPassword = "${params.DEPLOY_MASTER_PASSWORD}"
-            }
-
-            // 设置任务的超时时间为1个小时。
-            options {
-                timeout(time: 1, unit: 'HOURS')
-//            retry(2)
-            }
-
             stages {
-
 
                 stage('Build') {
                     try {
