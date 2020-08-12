@@ -204,8 +204,6 @@ class Conf implements Serializable {
 
     // set user attr
     public def setUserAttr(Map<String, String> userSetMap) {
-        println(this.appConf)
-        println(userSetMap)
         this.appConf.putAll(userSetMap)
     }
 

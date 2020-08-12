@@ -8,9 +8,6 @@ def call(Map map, env) {
     // 定义定义的全局的配置项目, 兼容Jenkinsfile，没有 appName这行
     String appName = map.containsKey('appName') ? map.get('appName') : 'common-build-name'
 
-    println(map)
-    println(env)
-
     Conf conf = new Conf(this, appName, map)
     // 把用户设置的全局的属性，加入到默认的全局的设置当中
     conf.setUserAttr(map)
@@ -25,7 +22,7 @@ def call(Map map, env) {
     MakeDockerImage makeDockerImage = new MakeDockerImage(this, conf)
 
     // 自动生成的k8s，部署文件
-    Deploykubernetes deploykubernetes = new Deploykubernetes(this, conf)
+    Deploykubernetes deployKubernetes = new Deploykubernetes(this, conf)
 
     // 初始化code check 的步骤
     CodeCheck codeCheck = new CodeCheck(this, conf)
@@ -158,7 +155,8 @@ def call(Map map, env) {
     def defaultCheckPodsStatus = true
 
     // 在整个构建之前，先进行参数化的设置
-    properties([parameters([
+    properties(
+            [parameters([
             choice(name: 'DEPLOY_ENV', choices: deployEnv, description: 'dev分支部署的环境，目前支持：prd/dev/test/stage, lexue 针对的是xmc2项目。'),
             choice(name: 'ENV_TYPE', choices: topEnvType, description: 'cpu代表部署cpu服务器，gpu代表gpu服务器，all代表不做限制任意漂流'),
             choice(name: 'GPU_CONTROL_MODE', choices: ['pod', 'mem'], description: 'pod代表以gpu的卡的数量去绑定应用，mem代表以gpu的内存去绑定应用'),
@@ -274,6 +272,7 @@ def call(Map map, env) {
         deployMasterPassword = "${params.DEPLOY_MASTER_PASSWORD}"
     }
 
+    println('conf',conf.printAppConf())
     println('【开始进行构建】')
 
     def label = conf.getAttr('jobName') + '-' + Tools.handleBranchName(conf.getAttr('branchName')) + '-' + conf.getAttr('buildNumber')
@@ -477,12 +476,12 @@ def call(Map map, env) {
                                     }
                                     if (conf.getAttr('buildPlatform') != 'adp' || conf.getAttr('customKubernetesDeployTemplate')) {
                                         echo conf.getAttr('deployEnv')
-                                        deploykubernetes.createIngress()
-                                        deploykubernetes.createConfigMap()
-                                        deploykubernetes.deployKubernetes()
+                                        deployKubernetes.createIngress()
+                                        deployKubernetes.createConfigMap()
+                                        deployKubernetes.deployKubernetes()
                                     } else {
-                                        deploykubernetes.createConfigMap()
-                                        deploykubernetes.deleteOldIngress()
+                                        deployKubernetes.createConfigMap()
+                                        deployKubernetes.deleteOldIngress()
                                         sh 'kubectl apply -f template.tmpl'
                                     }
                                 } catch (e) {
@@ -502,12 +501,12 @@ def call(Map map, env) {
                                         sh String.format("kubectl label ns %s istio-injection=enabled --overwrite", conf.getAttr('namespace'))
                                     }
                                     if (conf.getAttr('buildPlatform') != 'adp' || conf.getAttr('customKubernetesDeployTemplate')) {
-                                        deploykubernetes.createIngress()
-                                        deploykubernetes.createConfigMapTest()
-                                        deploykubernetes.deployKubernetes()
+                                        deployKubernetes.createIngress()
+                                        deployKubernetes.createConfigMapTest()
+                                        deployKubernetes.deployKubernetes()
                                     } else {
-                                        deploykubernetes.createConfigMapTest()
-                                        deploykubernetes.deleteOldIngress()
+                                        deployKubernetes.createConfigMapTest()
+                                        deployKubernetes.deleteOldIngress()
                                         sh 'kubectl apply -f template.tmpl'
                                     }
                                 } catch (e) {
