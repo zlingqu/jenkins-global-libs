@@ -549,9 +549,11 @@ def call(Map map, env) {
             }
 
             stage('Deploy') {
-                allOf {
-                    expression { return conf.ifBuild() };
-                    expression { return conf.getAttr('deploy') };
+                when{
+                    allOf {
+                        expression { return conf.ifBuild() };
+                        expression { return conf.getAttr('deploy') };
+                    }
                 }
 
                 steps {
