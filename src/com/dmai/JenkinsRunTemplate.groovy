@@ -290,9 +290,6 @@ class JenkinsRunTemplate {
 
         def returnString = this.templateTop() +
                 this.templateDockerCompile() +
-                this.templateDockerKubectl() +
-                this.templateDockerCompose() +
-                this.templateDockersize() +
                 this.templateADP() +
                 this.templateSonarCheck() +
                 this.customImage() +
@@ -353,28 +350,6 @@ spec:
 '''
     }
 
-    private String templateDockerCompose() {
-//        if (! this.conf.getAttr('makeImage')) return ''
-        return String.format('''
-  - name: docker-compose
-    image: docker.dm-ai.cn/devops/base-image-docker-compose:%s0.1.5
-    imagePullPolicy: IfNotPresent
-    env:
-    - name: VUE_APP_SCENE
-      value: %s
-    - name: DMAI_PRIVATE_DOCKER_REGISTRY
-      value: docker.dm-ai.cn  
-    volumeMounts:
-    - name: sock
-      mountPath: /var/run/docker.sock
-%s
-    command:
-    - "sleep"
-    args:
-    - "3600"
-    tty: true
-''', this.conf.getAttr('envType') == 'arm' ? 'arm' : '', this.conf.vueAppScene, this.useModelPath())
-    }
 
     private String useModelPath() {
         if (this.conf.getAttr('useModel') && this.conf.getAttr('modelPath')) {
@@ -399,41 +374,6 @@ spec:
 ''')
     }
 
-//    private String templateJsCompileVolumes() {
-//        if (this.conf.getAttr('makeImage') && this.conf.getAttr('codeLanguage') in ['js', 'node']) {
-//            return String.format('''
-//  - name: jenkins-build-path
-//    persistentVolumeClaim:
-//      claimName: jenkins-pvc
-//''',this.conf.getAttr('namespace'), this.conf.appName)
-//        }
-//        return ''
-//    }
-
-//    private String templateJavaCompileVolumes() {
-//        if ( this.conf.getAttr('compile') && this.conf.getAttr('codeLanguage') == 'java') {
-//            return String.format('''
-//%s
-//  - name: jenkins-build-path
-//    persistentVolumeClaim:
-//      claimName: jenkins-pvc
-//''', this.conf.getAttr('makeImage') ? '' : '  volumes:', this.conf.getAttr('namespace'), this.conf.appName)
-//        }
-//        return ''
-//    }
-
-//    private String templateAndroidCompileVolumes() {
-//        if (this.conf.getAttr('compile') && this.conf.getAttr('codeLanguage') == 'android') {
-//            return String.format('''
-//%s
-//  - name: jenkins-build-path
-//    persistentVolumeClaim:
-//      claimName: jenkins-pvc
-//''', this.conf.getAttr('makeImage') ? '' : '  volumes:')
-//        }
-//        return ''
-//    }
-
     private String templateJsCompilevolumeMounts() {
 //        if (this.conf.getAttr('makeImage') && this.conf.getAttr('codeLanguage') in ['js', 'node']) {
         if (this.conf.getAttr('codeLanguage') in ['js', 'node', 'nodets']) {
@@ -445,44 +385,6 @@ spec:
 ''', this.conf.appName, this.conf.getAttr('branchName'))
         }
         return ''
-    }
-
-    private String templateDockerKubectl() {
-        if ((this.conf.getAttr('deployEnv') == 'prd' && this.deployMasterPassword != 'dmai2019999') || this.conf.getAttr('deployEnv') == 'default') return ''
-
-//        if (this.conf.getAttr('deploy')) {
-        return String.format('''
-  - name: kubectl 
-    image: docker.dm-ai.cn/devops/base-image-kubectl:1.1
-    imagePullPolicy: IfNotPresent
-    env: #指定容器中的环境变量
-    - name: DMAI_PRIVATE_DOCKER_REGISTRY
-      value: docker.dm-ai.cn
-    command:
-    - "sleep"
-    args:
-    - "3600"
-    tty: true
-''', this.conf.getAttr('deployEnv'))
-//        } else {
-//            return ''
-//        }
-    }
-
-    private String templateDockersize() {
-        return String.format('''
-  - name: dockerize
-    image: docker.dm-ai.cn/devops/service-deploy-template:0.68
-    imagePullPolicy: IfNotPresent
-    env: #指定容器中的环境变量
-    - name: DMAI_PRIVATE_DOCKER_REGISTRY
-      value: docker.dm-ai.cn
-    command:
-    - "sleep"
-    args:
-    - "3600"
-    tty: true
-''')
     }
 
     private String templateADP() {

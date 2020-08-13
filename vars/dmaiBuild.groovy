@@ -337,31 +337,6 @@ def call(Map map, env) {
 
                 parallel{
 
-                    stage('apidoc') {
-                        when {
-                            allOf {
-                                expression { return conf.ifBuild() };
-                                expression { return conf.getAttr('deployEnv') == 'prd' };
-                            }
-                        }
-
-                        steps {
-                            container('adp') {
-                                script {
-                                    try {
-                                        sh 'git clone https://gitlab.dm-ai.cn/MSF/java/dm-api-doc.git /tmp/dm-api-doc'
-                                        sh 'cd /tmp/dm-api-doc && timeout -t 60 sh -x apidoc.sh ' + conf.jenkinsWorkPath()
-                                    } catch (e) {
-                                        sh "echo ${e}"
-//                                conf.failMsg = '执行apidoc步骤失败';
-                                        // send email to liaolonglong
-                                    }
-
-                                }
-                            }
-                        }
-                    }
-
                     stage('Install nyc') {
                         when {
                             allOf {
@@ -419,36 +394,48 @@ def call(Map map, env) {
                         }
                     }
 
-                    stage('Specified version') {
+                    stage('Specified Version And apidoc') {
                         when {
                             allOf {
                                 expression { return conf.ifBuild() };
-                                expression {
-                                    return (conf.getAttr('versionControlMode') == 'GitCommitId' && gitVersion != 'last') || (conf.getAttr('versionControlMode') == 'GitTags')
-                                };
+
                             }
                         }
                         steps {
                             container('adp') {
                                 script {
-
-                                    if (conf.getAttr('versionControlMode') == 'GitTags' && !conf.getAttr('gitTag')) {
-                                        throw '请指定tag号!'
-                                    }
-
-                                    try {
-                                        withCredentials([usernamePassword(credentialsId: 'devops-use-new', passwordVariable: 'password', usernameVariable: 'username')]) {
-                                            if (conf.getAttr('versionControlMode') == 'GitTags') {
-                                                sh "source /etc/profile; git config --global http.sslVerify false ; git checkout master ; git fetch ;git checkout ${conf.getAttr('gitTag')}"
-                                            } else {
-                                                sh 'source /etc/profile; git config --global http.sslVerify false ; git reset --hard "${gitVersion}"'
-                                            }
+                                    if (conf.getAttr('deployEnv') == 'prd') {
+                                        // apidoc
+                                        try {
+                                            sh 'git clone https://gitlab.dm-ai.cn/MSF/java/dm-api-doc.git /tmp/dm-api-doc'
+                                            sh 'cd /tmp/dm-api-doc && timeout -t 60 sh -x apidoc.sh ' + conf.jenkinsWorkPath()
+                                        } catch (e) {
+                                            sh "echo ${e}"
+//                                conf.failMsg = '执行apidoc步骤失败';
+                                            // send email to liaolonglong
                                         }
-                                    } catch (e) {
-                                        sh "echo ${e}"
-                                        conf.failMsg = '拉取指定git的版本或者tag失败，请检查版本或者tag是否正确，请确保tag是从master分支拉取。';
-                                        throw e
                                     }
+
+                                    if ((conf.getAttr('versionControlMode') == 'GitCommitId' && gitVersion != 'last') || (conf.getAttr('versionControlMode') == 'GitTags')){
+                                        if (conf.getAttr('versionControlMode') == 'GitTags' && !conf.getAttr('gitTag')) {
+                                            throw '请指定tag号!'
+                                        }
+
+                                        try {
+                                            withCredentials([usernamePassword(credentialsId: 'devops-use-new', passwordVariable: 'password', usernameVariable: 'username')]) {
+                                                if (conf.getAttr('versionControlMode') == 'GitTags') {
+                                                    sh "source /etc/profile; git config --global http.sslVerify false ; git checkout master ; git fetch ;git checkout ${conf.getAttr('gitTag')}"
+                                                } else {
+                                                    sh 'source /etc/profile; git config --global http.sslVerify false ; git reset --hard "${gitVersion}"'
+                                                }
+                                            }
+                                        } catch (e) {
+                                            sh "echo ${e}"
+                                            conf.failMsg = '拉取指定git的版本或者tag失败，请检查版本或者tag是否正确，请确保tag是从master分支拉取。';
+                                            throw e
+                                        }
+                                    }
+
                                 }
                             }
                         }
@@ -573,70 +560,47 @@ def call(Map map, env) {
             }
 
             stage('Build Image,Deploy Init'){
-                parallel{
+                steps {
+                    container('adp') {
+                        script {
 
-                    stage('Create template') {
-                        when {
-                            allOf {
-                                expression { return conf.getAttr('buildPlatform') == 'adp' };
-                            }
-                        }
-
-                        steps {
-                            container('adp') {
-                                script {
-                                    try {
-                                        println(conf.printAppConf())
-                                        sh 'pwd'
-                                        withEnv(conf.withEnvList) {
-                                            sh 'cd /workspace; dockerize -template src_dir:dest_dir'
-                                            sh 'cat /workspace/dest_dir/template.tmpl'
-                                            sh 'cp -rp /workspace/dest_dir/template.tmpl ./; chmod 777 template.tmpl'
-                                        }
-                                    } catch (e) {
-                                        sh "echo ${e}"
+                            if (conf.getAttr('buildPlatform') == 'adp') {
+                                // adp 自动生成模板
+                                try {
+                                    println(conf.printAppConf())
+                                    sh 'pwd'
+                                    withEnv(conf.withEnvList) {
+                                        sh 'cd /workspace; dockerize -template src_dir:dest_dir'
+                                        sh 'cat /workspace/dest_dir/template.tmpl'
+                                        sh 'cp -rp /workspace/dest_dir/template.tmpl ./; chmod 777 template.tmpl'
                                     }
+                                } catch (e) {
+                                    sh "echo ${e}"
                                 }
                             }
-                        }
-                    }
 
-                    stage('Make And Push Image') {
-                        when {
-                            allOf {
-                                expression { return conf.ifBuild() };
-                                expression { return conf.ifMakeImage() };
-                                expression { return conf.getAttr('makeImage') };
-                            }
-                        }
-                        steps {
-                            container('adp') {
-                                script {
-                                    try {
-                                        withEnv(conf.withEnvList) {
-                                            sh 'dockerize -template nginx.conf:nginx.conf || echo 0'
-                                        }
-                                    } catch (e) {
-                                        sh "echo ${e}"
+                            if (conf.ifBuild() && conf.ifMakeImage() && conf.getAttr('makeImage')) {
+                                try {
+                                    withEnv(conf.withEnvList) {
+                                        sh 'dockerize -template nginx.conf:nginx.conf || echo 0'
                                     }
+                                } catch (e) {
+                                    sh "echo ${e}"
                                 }
-                            }
-                            container('adp') {
-                                script {
-                                    try {
-                                        makeDockerImage.makeImage()
-                                    } catch (e) {
-                                        sh "echo ${e}"
-                                        conf.failMsg = '制作容器镜像失败！';
-                                        throw e
-                                    }
-                                    try {
-                                        makeDockerImage.pushImage()
-                                    } catch (e) {
-                                        sh "echo ${e}"
-                                        conf.failMsg = '推送镜像到镜像仓库失败！';
-                                        throw e
-                                    }
+
+                                try {
+                                    makeDockerImage.makeImage()
+                                } catch (e) {
+                                    sh "echo ${e}"
+                                    conf.failMsg = '制作容器镜像失败！';
+                                    throw e
+                                }
+                                try {
+                                    makeDockerImage.pushImage()
+                                } catch (e) {
+                                    sh "echo ${e}"
+                                    conf.failMsg = '推送镜像到镜像仓库失败！';
+                                    throw e
                                 }
                             }
                         }
