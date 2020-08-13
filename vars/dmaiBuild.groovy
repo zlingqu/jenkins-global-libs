@@ -603,10 +603,7 @@ def call(Map map, env) {
                             }
 
                             // 服务检查
-                            isCheckService = isCheckService && conf.getAttr('deployEnv') != 'not-deploy'
-                                    && conf.getAttr('checkPodsStatus')
-                                    && conf.getAttr('deployEnvStatus') != 'stop'
-                                    && !(conf.getAttr('deployEnv') in conf.privateK8sEnv)
+                            isCheckService = isCheckService && conf.getAttr('deployEnv') != 'not-deploy' && conf.getAttr('checkPodsStatus') && conf.getAttr('deployEnvStatus') != 'stop' && !(conf.getAttr('deployEnv') in conf.privateK8sEnv)
 
                             if (isCheckService) {
                                 sh "echo '检查部署在k8s集群中的服务的pod是否正常运行，等待限时1200秒。'"
