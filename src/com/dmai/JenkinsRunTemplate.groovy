@@ -291,11 +291,11 @@ class JenkinsRunTemplate {
         def returnString = this.templateTop() +
                 this.templateDockerCompile() +
                 this.templateDockerKubectl() +
-                this.templateSonarCheck() +
+                this.templateDockerCompose() +
                 this.templateDockersize() +
                 this.templateADP() +
+                this.templateSonarCheck() +
                 this.customImage() +
-                this.templateDockerCompose() +
 //                this.templateJsCompileVolumes() +
 //                this.templateJavaCompileVolumes() +
 //                this.templateAndroidCompileVolumes() +
@@ -490,15 +490,21 @@ spec:
   - name: adp
     image: docker.dm-ai.cn/devops/base-image-adp:0.1.0
     imagePullPolicy: IfNotPresent
-    env: #指定容器中的环境变量
+    env:
+    - name: VUE_APP_SCENE
+      value: %s
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
-      value: docker.dm-ai.cn
+      value: docker.dm-ai.cn  
+    volumeMounts:
+    - name: sock
+      mountPath: /var/run/docker.sock
+%s
     command:
     - "sleep"
     args:
     - "3600"
     tty: true
-''')
+''', this.conf.getAttr('envType') == 'arm' ? 'arm' : '', this.conf.vueAppScene, this.useModelPath())
     }
 
     private String templateSonarCheck() {
