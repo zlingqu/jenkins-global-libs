@@ -333,7 +333,7 @@ def call(Map map, env) {
                 }
             }
 
-            stage('Code Review'){
+            stage('Code Review，Compile Init'){
 
                 parallel{
 
@@ -457,9 +457,6 @@ def call(Map map, env) {
                 }
             }
 
-
-
-
             stage('Compile') {
 
                 // 当项目的全局选项设置为compile == true的时候，才进行部署的操作
@@ -575,7 +572,7 @@ def call(Map map, env) {
 
             }
 
-            stage('Build Image,Init Deploy'){
+            stage('Build Image,Deploy Init'){
                 parallel{
 
                     stage('Create template') {
@@ -646,11 +643,6 @@ def call(Map map, env) {
                     }
                 }
             }
-
-
-
-
-
 
             stage('Deploy') {
                 when{
