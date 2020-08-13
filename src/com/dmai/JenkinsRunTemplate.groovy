@@ -293,6 +293,7 @@ class JenkinsRunTemplate {
                 this.templateDockerKubectl() +
                 this.templateSonarCheck() +
                 this.templateDockersize() +
+                this.templateADP() +
                 this.customImage() +
                 this.templateDockerCompose() +
 //                this.templateJsCompileVolumes() +
@@ -472,6 +473,22 @@ spec:
         return String.format('''
   - name: dockerize
     image: docker.dm-ai.cn/devops/service-deploy-template:0.68
+    imagePullPolicy: IfNotPresent
+    env: #指定容器中的环境变量
+    - name: DMAI_PRIVATE_DOCKER_REGISTRY
+      value: docker.dm-ai.cn
+    command:
+    - "sleep"
+    args:
+    - "3600"
+    tty: true
+''')
+    }
+
+    private String templateADP() {
+        return String.format('''
+  - name: adp
+    image: docker.dm-ai.cn/devops/base-image-adp:0.1.0
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY

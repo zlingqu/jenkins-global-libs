@@ -346,7 +346,7 @@ def call(Map map, env) {
                         }
 
                         steps {
-                            container('docker-compose') {
+                            container('adp') {
                                 script {
                                     try {
                                         sh 'git clone https://gitlab.dm-ai.cn/MSF/java/dm-api-doc.git /tmp/dm-api-doc'
@@ -429,7 +429,7 @@ def call(Map map, env) {
                             }
                         }
                         steps {
-                            container('docker-compose') {
+                            container('adp') {
                                 script {
 
                                     if (conf.getAttr('versionControlMode') == 'GitTags' && !conf.getAttr('gitTag')) {
@@ -514,7 +514,7 @@ def call(Map map, env) {
                         }
 //                when { expression { return conf.getAttr('deploy') } }
                         steps {
-                            container('kubectl') {
+                            container('adp') {
                                 script {
                                     try {
                                         withCredentials([usernamePassword(credentialsId: 'devops-use-new', passwordVariable: 'password', usernameVariable: 'username')]) {
@@ -541,7 +541,7 @@ def call(Map map, env) {
                             }
                         }
                         steps {
-                            container('kubectl') {
+                            container('adp') {
                                 script {
                                     try {
                                         if (conf.getAttr('useModel') && conf.getAttr('modelGitAddress')) {
@@ -583,7 +583,7 @@ def call(Map map, env) {
                         }
 
                         steps {
-                            container('dockerize') {
+                            container('adp') {
                                 script {
                                     try {
                                         println(conf.printAppConf())
@@ -610,7 +610,7 @@ def call(Map map, env) {
                             }
                         }
                         steps {
-                            container('dockerize') {
+                            container('adp') {
                                 script {
                                     try {
                                         withEnv(conf.withEnvList) {
@@ -621,7 +621,7 @@ def call(Map map, env) {
                                     }
                                 }
                             }
-                            container('docker-compose') {
+                            container('adp') {
                                 script {
                                     try {
                                         makeDockerImage.makeImage()
@@ -653,7 +653,7 @@ def call(Map map, env) {
                 }
 
                 steps {
-                    container('kubectl') {
+                    container('adp') {
                         script {
 
                             if (conf.getAttr('deployEnv') == 'prd' && deployMasterPassword != 'dmai2019999') {
@@ -741,14 +741,12 @@ def call(Map map, env) {
             failure {
                 script {
                     dmaiEmail.sendEmail('failure')
-//                        dmaiEmail.writeBuildResultToAdp('failure')
                 }
             }
 
             success {
                 script {
                     dmaiEmail.sendEmail('success')
-//                        dmaiEmail.writeBuildResultToAdp('success')
                 }
             }
 
