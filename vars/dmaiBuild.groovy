@@ -575,71 +575,82 @@ def call(Map map, env) {
 
             }
 
-            stage('Make And Push Image') {
-                when {
-                    allOf {
-                        expression { return conf.ifBuild() };
-                        expression { return conf.ifMakeImage() };
-                        expression { return conf.getAttr('makeImage') };
-                    }
-                }
-                steps {
-                    container('dockerize') {
-                        script {
-                            try {
-                                withEnv(conf.withEnvList) {
-                                    sh 'dockerize -template nginx.conf:nginx.conf || echo 0'
-                                }
-                            } catch (e) {
-                                sh "echo ${e}"
-                            }
-                        }
-                    }
-                    container('docker-compose') {
-                        script {
-                            try {
-                                makeDockerImage.makeImage()
-                            } catch (e) {
-                                sh "echo ${e}"
-                                conf.failMsg = '制作容器镜像失败！';
-                                throw e
-                            }
-                            try {
-                                makeDockerImage.pushImage()
-                            } catch (e) {
-                                sh "echo ${e}"
-                                conf.failMsg = '推送镜像到镜像仓库失败！';
-                                throw e
-                            }
-                        }
-                    }
-                }
-            }
-            stage('Create template') {
-                when {
-                    allOf {
-                        expression { return conf.getAttr('buildPlatform') == 'adp' };
-                    }
-                }
+            stage('Build Image,Init Deploy'){
+                parallel{
 
-                steps {
-                    container('dockerize') {
-                        script {
-                            try {
-                                println(conf.printAppConf())
-                                sh 'pwd'
-                                withEnv(conf.withEnvList) {
-                                    sh 'cd /workspace; dockerize -template src_dir:dest_dir'
-                                    sh 'cat /workspace/dest_dir/template.tmpl'
-                                    sh 'cp -rp /workspace/dest_dir/template.tmpl ./; chmod 777 template.tmpl'
+                    stage('Create template') {
+                        when {
+                            allOf {
+                                expression { return conf.getAttr('buildPlatform') == 'adp' };
+                            }
+                        }
+
+                        steps {
+                            container('dockerize') {
+                                script {
+                                    try {
+                                        println(conf.printAppConf())
+                                        sh 'pwd'
+                                        withEnv(conf.withEnvList) {
+                                            sh 'cd /workspace; dockerize -template src_dir:dest_dir'
+                                            sh 'cat /workspace/dest_dir/template.tmpl'
+                                            sh 'cp -rp /workspace/dest_dir/template.tmpl ./; chmod 777 template.tmpl'
+                                        }
+                                    } catch (e) {
+                                        sh "echo ${e}"
+                                    }
                                 }
-                            } catch (e) {
-                                sh "echo ${e}"
+                            }
+                        }
+                    }
+
+                    stage('Make And Push Image') {
+                        when {
+                            allOf {
+                                expression { return conf.ifBuild() };
+                                expression { return conf.ifMakeImage() };
+                                expression { return conf.getAttr('makeImage') };
+                            }
+                        }
+                        steps {
+                            container('dockerize') {
+                                script {
+                                    try {
+                                        withEnv(conf.withEnvList) {
+                                            sh 'dockerize -template nginx.conf:nginx.conf || echo 0'
+                                        }
+                                    } catch (e) {
+                                        sh "echo ${e}"
+                                    }
+                                }
+                            }
+                            container('docker-compose') {
+                                script {
+                                    try {
+                                        makeDockerImage.makeImage()
+                                    } catch (e) {
+                                        sh "echo ${e}"
+                                        conf.failMsg = '制作容器镜像失败！';
+                                        throw e
+                                    }
+                                    try {
+                                        makeDockerImage.pushImage()
+                                    } catch (e) {
+                                        sh "echo ${e}"
+                                        conf.failMsg = '推送镜像到镜像仓库失败！';
+                                        throw e
+                                    }
+                                }
                             }
                         }
                     }
                 }
             }
+
+
+
+
+
 
             stage('Deploy') {
                 when{
