@@ -563,7 +563,7 @@ def call(Map map, env) {
                     container('adp') {
                         script {
 
-                            if (conf.getAttr('buildPlatform') == 'adp' && this.conf.getAttr('codeLanguage') != 'android') {
+                            if (conf.getAttr('buildPlatform') == 'adp' && conf.getAttr('codeLanguage') != 'android') {
                                 // adp 自动生成模板
                                 try {
                                     sh 'pwd'
