@@ -10,7 +10,7 @@ def call(Map map, env) {
     boolean containsKey = map.containsKey('appName');
     if (containsKey) {
         appName = map.get('appName')
-    } else{
+    } else {
         appName = 'common-build-name'
     }
 
@@ -333,62 +333,113 @@ def call(Map map, env) {
                 }
             }
 
+            stage('Code Review，Compile Init'){
 
-            stage('Specified version') {
-                when {
-                    allOf {
-                        expression { return conf.ifBuild() };
-//                        expression { return  gitVersion != 'last'};
-                        expression {
-                            return (conf.getAttr('versionControlMode') == 'GitCommitId' && gitVersion != 'last') || (conf.getAttr('versionControlMode') == 'GitTags')
-                        };
-                    }
-                }
-                steps {
-                    container('docker-compose') {
-                        script {
+                parallel{
 
-                            if (conf.getAttr('versionControlMode') == 'GitTags' && !conf.getAttr('gitTag')) {
-                                throw '请指定tag号!'
+                    stage('Install nyc') {
+                        when {
+                            allOf {
+                                expression { return conf.ifBuild() };
+                                expression { return conf.getAttr('deploy') };
+                                expression { return conf.getAttr('branchName') == 'dev' };
+                                expression { return conf.getAttr('codeLanguage') in ['js', 'node'] };
+                                expression { return conf.getAttr('sonarCheck') };
+                                expression { return conf.getAttr('deployEnv') != 'test' };
                             }
+                        }
+//                when { expression { return  conf.getAttr('codeLanguage') in  ['js', 'node'] && conf.getAttr('sonarCheck') && deployEnvironment != 'test'}  }
+                        steps {
+                            container('compile') {
+                                script {
+                                    try {
+                                        sh 'npm config set registry http://nexus.dm-ai.cn/repository/npm/ &&  yarn config set registry http://nexus.dm-ai.cn/repository/npm/  && yarn install || echo 0'
+                                        sh 'npm i -g nyc || echo 0'
+                                        sh 'npm i -g mocha || echo 0'
+                                        sh 'rm -fr deployment || echo 0'
+                                        sh 'nyc --reporter=lcov --reporter=text --report-dir=coverage mocha test/**/*.js --exit || echo 0'
+                                    } catch (e) {
+                                        sh "echo ${e}"
+                                    }
 
-                            try {
-                                withCredentials([usernamePassword(credentialsId: 'devops-use-new', passwordVariable: 'password', usernameVariable: 'username')]) {
-                                    if (conf.getAttr('versionControlMode') == 'GitTags') {
-                                        sh "source /etc/profile; git config --global http.sslVerify false ; git checkout master ; git fetch ;git checkout ${conf.getAttr('gitTag')}"
-                                    } else {
-                                        sh 'source /etc/profile; git config --global http.sslVerify false ; git reset --hard "${gitVersion}"'
+                                }
+                            }
+                        }
+                    }
+
+                    stage('sonar-check') {
+                        when {
+                            allOf {
+                                expression { return conf.ifBuild() };
+                                expression { return conf.getAttr('deploy') };
+                                expression { return conf.getAttr('branchName') == 'dev' };
+                                expression { return conf.getAttr('codeLanguage') in ['js', 'node'] };
+                                expression { return conf.getAttr('sonarCheck') };
+                                expression { return conf.getAttr('deployEnv') != 'test' };
+                            }
+                        }
+//                when { expression { return  conf.getAttr('branchName') == 'dev' && conf.getAttr('codeLanguage') in  ['js', 'node'] && conf.getAttr('sonarCheck') && deployEnvironment != 'test' }}
+                        steps {
+                            container('sonar-check') {
+                                script {
+                                    try {
+                                        codeCheck.sonarCheck()
+                                    } catch (e) {
+                                        sh "echo ${e}"
+//                                conf.failMsg = '执行sonar检查失败';
+//                                throw e
                                     }
                                 }
-                            } catch (e) {
-                                sh "echo ${e}"
-                                conf.failMsg = '拉取指定git的版本或者tag失败，请检查版本或者tag是否正确，请确保tag是从master分支拉取。';
-                                throw e
                             }
                         }
                     }
-                }
-            }
 
-            stage('Exec Command') {
-                when {
-                    allOf {
-                        expression { return conf.ifBuild() };
-                        expression { return conf.getAttr('useCustomImage') };
-                    }
-                }
-                steps {
-                    container('custom-image') {
-                        script {
-                            try {
-                                sh conf.getAttr('execCommand')
-                            } catch (e) {
-                                sh "echo ${e}"
-                                conf.failMsg = '自定义镜像执行命令失败，执行命令为：' + conf.getAttr('execCommand');
-                                throw e
+                    stage('Specified Version And apidoc') {
+                        when {
+                            allOf {
+                                expression { return conf.ifBuild() };
+                            }
+                        }
+                        steps {
+                            container('adp') {
+                                script {
+                                    if (conf.getAttr('deployEnv') == 'prd') {
+                                        // apidoc
+                                        try {
+                                            sh 'git clone https://gitlab.dm-ai.cn/MSF/java/dm-api-doc.git /tmp/dm-api-doc'
+                                            sh 'cd /tmp/dm-api-doc && timeout -t 60 sh -x apidoc.sh ' + conf.jenkinsWorkPath()
+                                        } catch (e) {
+                                            sh "echo ${e}"
+//                                conf.failMsg = '执行apidoc步骤失败';
+                                            // send email to liaolonglong
+                                        }
+                                    }
+
+                                    if ((conf.getAttr('versionControlMode') == 'GitCommitId' && gitVersion != 'last') || (conf.getAttr('versionControlMode') == 'GitTags')){
+                                        if (conf.getAttr('versionControlMode') == 'GitTags' && !conf.getAttr('gitTag')) {
+                                            throw '请指定tag号!'
+                                        }
+
+                                        try {
+                                            withCredentials([usernamePassword(credentialsId: 'devops-use-new', passwordVariable: 'password', usernameVariable: 'username')]) {
+                                                if (conf.getAttr('versionControlMode') == 'GitTags') {
+                                                    sh "source /etc/profile; git config --global http.sslVerify false ; git checkout master ; git fetch ;git checkout ${conf.getAttr('gitTag')}"
+                                                } else {
+                                                    sh 'source /etc/profile; git config --global http.sslVerify false ; git reset --hard "${gitVersion}"'
+                                                }
+                                            }
+                                        } catch (e) {
+                                            sh "echo ${e}"
+                                            conf.failMsg = '拉取指定git的版本或者tag失败，请检查版本或者tag是否正确，请确保tag是从master分支拉取。';
+                                            throw e
+                                        }
+                                    }
+
+                                }
                             }
                         }
                     }
+
                 }
             }
 
@@ -398,377 +449,234 @@ def call(Map map, env) {
                 when {
                     allOf {
                         expression { return conf.ifBuild() };
-                        expression { return conf.getAttr('compile') };
-
                     }
                 }
-                steps {
-                    container('compile') {
-                        script {
-                            try {
-                                compile.compile()
-                            } catch (e) {
-                                sh "echo ${e}"
-                                conf.failMsg = '编译失败！';
-                                throw e
-                            }
-                        }
-                    }
-                }
-            }
-
-            stage('Download Config file') {
-                when {
-                    allOf {
-                        expression { return conf.ifBuild() };
-                        expression { return conf.getAttr('deploy') };
-                    }
-                }
-//                when { expression { return conf.getAttr('deploy') } }
-                steps {
-                    container('kubectl') {
-                        script {
-                            try {
-                                withCredentials([usernamePassword(credentialsId: 'devops-use-new', passwordVariable: 'password', usernameVariable: 'username')]) {
-                                    sh 'source /etc/profile; git config --global http.sslVerify false ; git clone --depth=1 https://$username:$password@gitlab.dm-ai.cn/application-engineering/devops/deployment.git'
-                                }
-                            } catch (e) {
-                                sh "echo ${e}"
-                                conf.failMsg = '下载deployment配置文件失败！';
-                                throw e
-                            }
-                        }
-                    }
-                }
-            }
-
-            stage('Download Model') {
-                when {
-                    allOf {
-                        expression { return conf.ifBuild() };
-                        anyOf {
-                            expression { return conf.getAttr('useModel') && conf.getAttr('modelGitAddress') };
+                parallel{
+                    stage('Custom Compile') {
+                        when {
                             allOf {
-                                expression { return conf.getAttr('ifUseModel') };
-                                expression { return conf.getAttr('ifUseGitManagerModel') };
+                                expression { return conf.getAttr('useCustomImage') };
                             }
                         }
-                    }
-                }
-                steps {
-                    container('kubectl') {
-                        script {
-                            try {
-                                if ( conf.getAttr('useModel') && conf.getAttr('modelGitAddress') ) {
-                                    withCredentials([usernamePassword(credentialsId: 'dev-admin-model', passwordVariable: 'password', usernameVariable: 'username')]) {
-                                        sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + conf.getAttr("modelGitAddress").replace("https://", 'https://$username:$password@') + ' model'
+                        steps {
+                            container('custom-image') {
+                                script {
+                                    try {
+                                        sh conf.getAttr('execCommand')
+                                    } catch (e) {
+                                        sh "echo ${e}"
+                                        conf.failMsg = '自定义镜像执行命令失败，执行命令为：' + conf.getAttr('execCommand');
+                                        throw e
                                     }
                                 }
+                            }
+                        }
+                    }
 
-                                if (conf.getAttr('ifUseModel') && conf.getAttr('ifUseGitManagerModel') ) {
-                                    withCredentials([usernamePassword(credentialsId: 'dev-admin-model', passwordVariable: 'password', usernameVariable: 'username')]) {
-                                        sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + conf.getAttr("modelGitRepository").replace("https://", 'https://$username:$password@') + ' model && ' +
-                                                (conf.getAttr('modelBranch') != 'master' ?  String.format(''' cd model && git checkout -b %s origin/%s && git checkout %s && cd -''', conf.getAttr('modelBranch'), conf.getAttr('modelBranch'), conf.getAttr('modelBranch')) : 'echo master')
+                    stage('General Compile') {
+                        when {
+                            expression { return conf.getAttr('compile') };
+                        }
+                        steps {
+                            container('compile') {
+                                script {
+                                    try {
+                                        compile.compile()
+                                    } catch (e) {
+                                        sh "echo ${e}"
+                                        conf.failMsg = '编译失败！';
+                                        throw e
                                     }
                                 }
-
-                                sh 'rm -fr model/.git'
-                            } catch (e) {
-                                sh "echo ${e}"
-                                conf.failMsg = '从gitlab下载模型文件失败！';
-                                throw e;
-                            }
-                        }
-                    }
-                }
-            }
-
-            stage('Make Image') {
-                when {
-                    allOf {
-                        expression { return conf.ifBuild() };
-                        expression { return conf.ifMakeImage() };
-                        expression { return conf.getAttr('makeImage') };
-                    }
-                }
-                steps {
-                    container('dockerize') {
-                        script {
-                            try {
-                                withEnv(conf.withEnvList) {
-                                    sh 'dockerize -template nginx.conf:nginx.conf || echo 0'
-                                }
-                            } catch (e) {
-                                sh "echo ${e}"
-                            }
-                        }
-                    }
-                    container('docker-compose') {
-                        script {
-                            try {
-                                makeDockerImage.makeImage()
-                            } catch (e) {
-                                sh "echo ${e}"
-                                conf.failMsg = '制作容器镜像失败！';
-                                throw e
-                            }
-                        }
-                    }
-                }
-            }
-
-            stage('Push Image') {
-                when {
-                    allOf {
-                        expression { return conf.ifBuild() };
-                        expression { return conf.ifMakeImage() };
-                        expression { return conf.getAttr('makeImage') }
-                    }
-                }
-//                when { expression { return  conf.getAttr('makeImage')} }
-                steps {
-                    container('docker-compose') {
-                        script {
-                            try {
-                                makeDockerImage.pushImage()
-                            } catch (e) {
-                                sh "echo ${e}"
-                                conf.failMsg = '推送镜像到镜像仓库失败！';
-                                throw e
-                            }
-                        }
-                    }
-                }
-            }
-
-
-            stage('Create template') {
-                when {
-                    allOf {
-                        expression { return conf.getAttr('buildPlatform') == 'adp' };
-                    }
-                }
-
-                steps {
-                    container('dockerize') {
-                        script {
-                            try {
-                                println(conf.printAppConf())
-                                sh 'pwd'
-                                withEnv(conf.withEnvList) {
-                                    sh 'cd /workspace; dockerize -template src_dir:dest_dir'
-                                    sh 'cat /workspace/dest_dir/template.tmpl'
-                                    sh 'cp -rp /workspace/dest_dir/template.tmpl ./; chmod 777 template.tmpl'
-                                }
-                            } catch (e) {
-                                sh "echo ${e}"
-                            }
-                        }
-                    }
-                }
-            }
-
-            stage('Deploy') {
-
-                // 当项目的全局选项设置为deploy == true的时候，才进行部署的操作
-
-                when {
-                    allOf {
-                        expression { return conf.ifBuild() };
-                        expression { return conf.getAttr('deploy') };
-                        expression { return conf.getAttr('deployEnv') != 'test' };
-                        expression { return conf.getAttr('deployEnv') != 'not-deploy' }
-                        expression { return conf.getAttr('deployEnvStatus') != 'stop' }
-                        expression { return !(conf.getAttr('deployEnv') in conf.privateK8sEnv) }
-                    }
-                }
-
-                steps {
-                    container('kubectl') {
-                        script {
-
-                            if (conf.getAttr('deployEnv') == 'prd' && deployMasterPassword != 'dmai2019999') {
-                                throw "master分支请运维人员触发！"
-                            }
-                            try {
-                                sh String.format("/usr/bin/project-down-key --deploy.env='%s'", conf.getAttr("deployEnv"))
-                                if (conf.getAttr('ifUseIstio')) {
-                                    sh String.format("kubectl label ns %s istio-injection=enabled --overwrite", conf.getAttr('namespace'))
-                                }
-                                if (conf.getAttr('buildPlatform') != 'adp' || conf.getAttr('customKubernetesDeployTemplate')) {
-                                    echo conf.getAttr('deployEnv')
-                                    deploykubernetes.createIngress()
-                                    deploykubernetes.createConfigMap()
-                                    deploykubernetes.deployKubernetes()
-                                } else {
-                                    deploykubernetes.createConfigMap()
-                                    deploykubernetes.deleteOldIngress()
-                                    sh 'kubectl apply -f template.tmpl'
-                                }
-                            } catch (e) {
-                                sh "echo ${e}"
-                                conf.failMsg = '使用kubectl部署服务到k8s失败！';
-                                throw e
                             }
                         }
                     }
 
-                }
-            }
-
-            stage('Deploy test') {
-                when {
-                    allOf {
-                        expression { return conf.ifBuild() };
-                        expression { return conf.getAttr('deploy') };
-                        expression { return conf.getAttr('deployEnv') == 'test' };
-                    }
-                }
-
-//                    input {
-//                        message "dev分支已经部署到开发环境，是否继续部署到测试环境？"
-//                        ok "是的，我确认！"
-//                    }
-
-                steps {
-                    container('kubectl') {
-                        script {
-                            try {
-                                sh String.format("/usr/bin/project-down-key --deploy.env='%s'", conf.getAttr("deployEnv"))
-                                if (conf.getAttr('ifUseIstio')) {
-                                    sh String.format("kubectl label ns %s istio-injection=enabled --overwrite", conf.getAttr('namespace'))
-                                }
-                                if (conf.getAttr('buildPlatform') != 'adp' || conf.getAttr('customKubernetesDeployTemplate')) {
-                                    deploykubernetes.createIngress()
-                                    deploykubernetes.createConfigMapTest()
-                                    deploykubernetes.deployKubernetes()
-                                } else {
-                                    deploykubernetes.createConfigMapTest()
-                                    deploykubernetes.deleteOldIngress()
-                                    sh 'kubectl apply -f template.tmpl'
-                                }
-                            } catch (e) {
-                                sh "echo ${e}"
-                                conf.failMsg = '使用kubectl部署服务到k8s-test失败！';
-                                throw e
+                    stage('Download Config file') {
+                        when {
+                            allOf {
+                                expression { return conf.getAttr('deploy') };
                             }
                         }
-                    }
-                }
-            }
-
-            stage('Check service') {
-                when {
-                    allOf {
-                        expression { return conf.ifBuild() };
-                        expression { return conf.getAttr('deploy') };
-                        expression { return conf.getAttr('checkPodsStatus') }
-                        expression { return conf.getAttr('deployEnv') != 'not-deploy' }
-                        expression { return conf.getAttr('deployEnvStatus') != 'stop' }
-                        expression { return !(conf.getAttr('deployEnv') in conf.privateK8sEnv) }
-                    }
-                }
 //                when { expression { return conf.getAttr('deploy') } }
-                steps {
-                    container('kubectl') {
-                        script {
-                            sh "echo '检查部署在k8s集群中的服务的pod是否正常运行，等待限时1200秒。'"
-                            sh "sleep 10"
-                            try {
-                                kubernetesStatusCheck.waitKubernetesServerStartedV1()
-                            } catch (e) {
-                                sh "echo ${e}"
-                                conf.failMsg = e
-                                throw e
-                            }
-
-                            if (conf.getAttr('deployRes') == "ok") {
-                                sh "echo '部署在k8s集群中的服务已正常运行'"
-                            } else {
-                                conf.failMsg = conf.getAttr('deployMsg')
-                                throw conf.getAttr('deployMsg')
+                        steps {
+                            container('adp') {
+                                script {
+                                    try {
+                                        withCredentials([usernamePassword(credentialsId: 'devops-use-new', passwordVariable: 'password', usernameVariable: 'username')]) {
+                                            sh 'source /etc/profile; git config --global http.sslVerify false ; git clone --depth=1 https://$username:$password@gitlab.dm-ai.cn/application-engineering/devops/deployment.git'
+                                        }
+                                    } catch (e) {
+                                        sh "echo ${e}"
+                                        conf.failMsg = '下载deployment配置文件失败！';
+                                        throw e
+                                    }
+                                }
                             }
                         }
                     }
-                }
-            }
 
-            stage('apidoc') {
-                when {
-                    allOf {
-                        expression { return conf.ifBuild() };
-                        expression { return conf.getAttr('deployEnv') == 'prd' };
-                    }
-                }
-
-                steps {
-                    container('docker-compose') {
-                        script {
-                            try {
-                                sh 'git clone https://gitlab.dm-ai.cn/MSF/java/dm-api-doc.git /tmp/dm-api-doc'
-                                sh 'cd /tmp/dm-api-doc && timeout -t 60 sh -x apidoc.sh ' + conf.jenkinsWorkPath()
-                            } catch (e) {
-                                sh "echo ${e}"
-//                                conf.failMsg = '执行apidoc步骤失败';
-                                // send email to liaolonglong
+                    stage('Download Model') {
+                        when {
+                            anyOf {
+                                expression { return conf.getAttr('useModel') && conf.getAttr('modelGitAddress') };
+                                allOf {
+                                    expression { return conf.getAttr('ifUseModel') };
+                                    expression { return conf.getAttr('ifUseGitManagerModel') };
+                                }
                             }
+                        }
+                        steps {
+                            container('adp') {
+                                script {
+                                    try {
+                                        if (conf.getAttr('useModel') && conf.getAttr('modelGitAddress')) {
+                                            withCredentials([usernamePassword(credentialsId: 'dev-admin-model', passwordVariable: 'password', usernameVariable: 'username')]) {
+                                                sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + conf.getAttr("modelGitAddress").replace("https://", 'https://$username:$password@') + ' model'
+                                            }
+                                        }
 
+                                        if (conf.getAttr('ifUseModel') && conf.getAttr('ifUseGitManagerModel')) {
+                                            withCredentials([usernamePassword(credentialsId: 'dev-admin-model', passwordVariable: 'password', usernameVariable: 'username')]) {
+                                                sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + conf.getAttr("modelGitRepository").replace("https://", 'https://$username:$password@') + ' model && ' +
+                                                        (conf.getAttr('modelBranch') != 'master' ? String.format(''' cd model && git checkout -b %s origin/%s && git checkout %s && cd -''', conf.getAttr('modelBranch'), conf.getAttr('modelBranch'), conf.getAttr('modelBranch')) : 'echo master')
+                                            }
+                                        }
+
+                                        sh 'rm -fr model/.git'
+                                    } catch (e) {
+                                        sh "echo ${e}"
+                                        conf.failMsg = '从gitlab下载模型文件失败！';
+                                        throw e;
+                                    }
+                                }
+                            }
                         }
                     }
+
                 }
+
             }
 
-            stage('Install nyc') {
-                when {
-                    allOf {
-                        expression { return conf.ifBuild() };
-                        expression { return conf.getAttr('deploy') };
-                        expression { return conf.getAttr('branchName') == 'dev' };
-                        expression { return conf.getAttr('codeLanguage') in ['js', 'node'] };
-                        expression { return conf.getAttr('sonarCheck') };
-                        expression { return conf.getAttr('deployEnv') != 'test' };
-                    }
-                }
-//                when { expression { return  conf.getAttr('codeLanguage') in  ['js', 'node'] && conf.getAttr('sonarCheck') && deployEnvironment != 'test'}  }
+            stage('Build Image,Deploy'){
                 steps {
-                    container('compile') {
+                    container('adp') {
                         script {
-                            try {
-                                sh 'npm config set registry http://nexus.dm-ai.cn/repository/npm/ &&  yarn config set registry http://nexus.dm-ai.cn/repository/npm/  && yarn install || echo 0'
-                                sh 'npm i -g nyc || echo 0'
-                                sh 'npm i -g mocha || echo 0'
-                                sh 'rm -fr deployment || echo 0'
-                                sh 'nyc --reporter=lcov --reporter=text --report-dir=coverage mocha test/**/*.js --exit || echo 0'
-                            } catch (e) {
-                                sh "echo ${e}"
+
+                            if (conf.getAttr('buildPlatform') == 'adp' && conf.getAttr('codeLanguage') != 'android') {
+                                // adp 自动生成模板
+                                try {
+                                    sh 'pwd'
+                                    withEnv(conf.withEnvList) {
+                                        sh 'cd /workspace; dockerize -template src_dir:dest_dir'
+                                        sh 'cat /workspace/dest_dir/template.tmpl'
+                                        sh 'cp -rp /workspace/dest_dir/template.tmpl ./; chmod 777 template.tmpl'
+                                    }
+                                } catch (e) {
+                                    sh "echo ${e}"
+                                }
                             }
 
-                        }
-                    }
-                }
-            }
+                            if (conf.ifBuild()) {
+                                if (conf.ifMakeImage() && conf.getAttr('makeImage')) {
+                                    try {
+                                        withEnv(conf.withEnvList) {
+                                            sh 'dockerize -template nginx.conf:nginx.conf || echo 0'
+                                        }
+                                    } catch (e) {
+                                        sh "echo ${e}"
+                                    }
 
-            stage('sonar-check') {
-                when {
-                    allOf {
-                        expression { return conf.ifBuild() };
-                        expression { return conf.getAttr('deploy') };
-                        expression { return conf.getAttr('branchName') == 'dev' };
-                        expression { return conf.getAttr('codeLanguage') in ['js', 'node'] };
-                        expression { return conf.getAttr('sonarCheck') };
-                        expression { return conf.getAttr('deployEnv') != 'test' };
-                    }
-                }
-//                when { expression { return  conf.getAttr('branchName') == 'dev' && conf.getAttr('codeLanguage') in  ['js', 'node'] && conf.getAttr('sonarCheck') && deployEnvironment != 'test' }}
-                steps {
-                    container('sonar-check') {
-                        script {
-                            try {
-                                codeCheck.sonarCheck()
-                            } catch (e) {
-                                sh "echo ${e}"
-//                                conf.failMsg = '执行sonar检查失败';
-//                                throw e
+                                    try {
+                                        makeDockerImage.makeImage()
+                                    } catch (e) {
+                                        sh "echo ${e}"
+                                        conf.failMsg = '制作容器镜像失败！';
+                                        throw e
+                                    }
+
+                                    try {
+                                        makeDockerImage.pushImage()
+                                    } catch (e) {
+                                        sh "echo ${e}"
+                                        conf.failMsg = '推送镜像到镜像仓库失败！';
+                                        throw e
+                                    }
+                                }
+
+                                if (conf.getAttr('deploy')) {
+
+
+                                    if (conf.getAttr('deployEnv') == 'prd' && deployMasterPassword != 'dmai2019999') {
+                                        throw "master分支请运维人员触发！"
+                                    }
+
+                                    boolean isCheckService = false
+
+                                    try {
+                                        sh String.format("/usr/bin/project-down-key --deploy.env='%s'", conf.getAttr("deployEnv"))
+                                        if (conf.getAttr('ifUseIstio')) {
+                                            sh String.format("kubectl label ns %s istio-injection=enabled --overwrite", conf.getAttr('namespace'))
+                                        }
+
+                                        // 发布到测试环境的条件
+                                        boolean isTest = conf.getAttr('deployEnv') == 'test'
+                                        // 其它非测试环境的发布条件  条件不能换行
+                                        boolean isNotTest = !isTest && conf.getAttr('deployEnv') != 'not-deploy' && conf.getAttr('deployEnvStatus') != 'stop' && !(conf.getAttr('deployEnv') in conf.privateK8sEnv)
+
+                                        if (conf.getAttr('buildPlatform') != 'adp' || conf.getAttr('customKubernetesDeployTemplate')) {
+                                            deploykubernetes.createIngress()
+
+                                            if (isTest) {
+                                                deploykubernetes.createConfigMapTest()
+                                            } else if (isNotTest) {
+                                                deploykubernetes.createConfigMap()
+                                            }
+
+                                            deploykubernetes.deployKubernetes()
+                                        } else {
+
+                                            if (isTest) {
+                                                deploykubernetes.createConfigMapTest()
+                                            } else if (isNotTest) {
+                                                deploykubernetes.createConfigMap()
+                                            }
+
+                                            deploykubernetes.deleteOldIngress()
+                                            sh 'kubectl apply -f template.tmpl'
+                                        }
+
+                                        isCheckService = true
+
+                                    } catch (e) {
+                                        sh "echo ${e}"
+                                        conf.failMsg = '使用kubectl部署服务到k8s失败！';
+                                        throw e
+                                    }
+
+                                    // 服务检查 条件不能换行
+                                    isCheckService = isCheckService && conf.getAttr('deployEnv') != 'not-deploy' && conf.getAttr('checkPodsStatus') && conf.getAttr('deployEnvStatus') != 'stop' && !(conf.getAttr('deployEnv') in conf.privateK8sEnv)
+
+                                    if (isCheckService) {
+                                        sh "echo '检查部署在k8s集群中的服务的pod是否正常运行，等待限时1200秒。'"
+                                        sh "sleep 10"
+                                        try {
+                                            kubernetesStatusCheck.waitKubernetesServerStartedV1()
+                                        } catch (e) {
+                                            sh "echo ${e}"
+                                            conf.failMsg = e
+                                            throw e
+                                        }
+
+                                        if (conf.getAttr('deployRes') == "ok") {
+                                            sh "echo '部署在k8s集群中的服务已正常运行'"
+                                        } else {
+                                            conf.failMsg = conf.getAttr('deployMsg')
+                                            throw conf.getAttr('deployMsg')
+                                        }
+                                    }
+                                }
+
                             }
                         }
                     }
@@ -778,21 +686,16 @@ def call(Map map, env) {
         }
 
         post {
-//                always {
-//                    echo "构建完成！"
-//                }
 
             failure {
                 script {
                     dmaiEmail.sendEmail('failure')
-//                        dmaiEmail.writeBuildResultToAdp('failure')
                 }
             }
 
             success {
                 script {
                     dmaiEmail.sendEmail('success')
-//                        dmaiEmail.writeBuildResultToAdp('success')
                 }
             }
 
