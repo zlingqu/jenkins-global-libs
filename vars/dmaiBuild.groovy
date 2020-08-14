@@ -607,8 +607,15 @@ def call(Map map, env) {
                                 if (conf.getAttr('deploy')) {
 
 
-                                    if (conf.getAttr('deployEnv') == 'prd' && deployMasterPassword != 'dmai2019999') {
-                                        throw "master分支请运维人员触发！"
+                                    // 发布到测试环境的条件
+                                    boolean isTest = conf.getAttr('deployEnv') == 'test'
+                                    // 其它非测试环境的发布条件  条件不能换行
+                                    boolean isNotTest = !isTest && conf.getAttr('deployEnv') != 'not-deploy' && conf.getAttr('deployEnvStatus') != 'stop' && !(conf.getAttr('deployEnv') in conf.privateK8sEnv)
+
+                                    if (isNotTest) {
+                                        if (conf.getAttr('deployEnv') == 'prd' && deployMasterPassword != 'dmai2019999') {
+                                            throw "master分支请运维人员触发！"
+                                        }
                                     }
 
                                     boolean isCheckService = false
@@ -618,11 +625,6 @@ def call(Map map, env) {
                                         if (conf.getAttr('ifUseIstio')) {
                                             sh String.format("kubectl label ns %s istio-injection=enabled --overwrite", conf.getAttr('namespace'))
                                         }
-
-                                        // 发布到测试环境的条件
-                                        boolean isTest = conf.getAttr('deployEnv') == 'test'
-                                        // 其它非测试环境的发布条件  条件不能换行
-                                        boolean isNotTest = !isTest && conf.getAttr('deployEnv') != 'not-deploy' && conf.getAttr('deployEnvStatus') != 'stop' && !(conf.getAttr('deployEnv') in conf.privateK8sEnv)
 
                                         if (conf.getAttr('buildPlatform') != 'adp' || conf.getAttr('customKubernetesDeployTemplate')) {
                                             deploykubernetes.createIngress()
