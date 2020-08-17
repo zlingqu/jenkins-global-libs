@@ -390,7 +390,7 @@ spec:
     private String templateADP() {
         return String.format('''
   - name: adp
-    image: docker.dm-ai.cn/devops/base-image-adp:0.1.3
+    image: docker.dm-ai.cn/devops/base-image-adp:%s
     imagePullPolicy: IfNotPresent
     env:
     - name: VUE_APP_SCENE
@@ -406,7 +406,7 @@ spec:
     args:
     - "3600"
     tty: true
-''', this.conf.getAttr('envType') == 'arm' ? 'arm' : '', this.conf.vueAppScene, this.useModelPath())
+''', this.conf.getAttr('envType') == 'arm' ? 'arm' : '0.1.3', this.conf.vueAppScene, this.useModelPath())
     }
 
     private String templateSonarCheck() {
