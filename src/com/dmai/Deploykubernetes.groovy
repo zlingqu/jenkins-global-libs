@@ -38,7 +38,7 @@ class Deploykubernetes {
         this.script.sh 'kubectl apply -f Deploy-k8s.yml; rm -fr Deploy-k8s.yml'
     }
 
-    static String kubectlDeployment(String format) {
+    public String kubectlDeployment(String format) {
         return "kubectl apply -f https://gitlab.dm-ai.cn/application-engineering/devops/deployment/raw/" + this.conf.getAttr("branchName") + "/" + format + "?private_token=zXswJbwzgd3Smarcd4pD"
     }
 
