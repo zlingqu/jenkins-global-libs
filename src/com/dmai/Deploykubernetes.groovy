@@ -30,8 +30,14 @@ class Deploykubernetes {
 
         // 如果 Deploy-k8s.yml 还不存在，说明，当前代码目录下没有文件，用deplayment下面的文件
 
-        def deployFileTemplate = String.format(kubectlDeployment("%s/%s/%s/Deploy-k8s.yml"), this.conf.getAttr('namespace'), this.conf.getAttr('deployEnv'), this.conf.appName)
-        this.script.sh "test -e  Deploy-k8s.yml || cat ${deployFileTemplate}  | sed s#JENKINS_DEPLOY_IMAGE_ADDRESS#${this.conf.getAttr('buildImageAddress')}#g > Deploy-k8s.yml"
+        def deployK8eUrl = String.format("https://gitlab.dm-ai.cn/application-engineering/devops/deployment/raw/" + this.conf.getAttr("branchName") + "/%s/%s/%s/Deploy-k8s.yml",
+                this.conf.getAttr('namespace'),
+                this.conf.getAttr('deployEnv'),
+                this.conf.appName)
+        def deploymentDeployK8sFile="deployment-Deploy-k8s.yml"
+        this.script.sh "wget -o ${deploymentDeployK8sFile} ${deployK8eUrl}"
+
+        this.script.sh "test -e  Deploy-k8s.yml || cat ${deploymentDeployK8sFile}  | sed s#JENKINS_DEPLOY_IMAGE_ADDRESS#${this.conf.getAttr('buildImageAddress')}#g > Deploy-k8s.yml"
         this.script.sh "test -e  Deploy-k8s.yml && sed -i s#JENKINS_DEPLOY_IMAGE_ADDRESS#${this.conf.getAttr('buildImageAddress')}#g Deploy-k8s.yml"
         this.script.sh "cat Deploy-k8s.yml"
         this.script.sh String.format("/usr/bin/project-down-key --deploy.env='%s'", this.conf.getAttr("deployEnv"))
@@ -39,7 +45,7 @@ class Deploykubernetes {
     }
 
     public String kubectlDeployment(String format) {
-        return "kubectl apply -f https://gitlab.dm-ai.cn/application-engineering/devops/deployment/raw/" + this.conf.getAttr("branchName") + "/" + format + "?private_token=zXswJbwzgd3Smarcd4pD"
+        return "kubectl apply -f https://gitlab.dm-ai.cn/application-engineering/devops/deployment/raw/${this.conf.getAttr("branchName")}/" + format + "?private_token=zXswJbwzgd3Smarcd4pD"
     }
 
     public void createConfigMap(isTest) {
