@@ -39,7 +39,7 @@ class Deploykubernetes {
     }
 
     static String kubectlDeployment(String format) {
-        return "kubectl apply -f https://gitlab.dm-ai.cn/application-engineering/devops/deployment/raw/${conf.getAttr("branchName")}/" + format + "?private_token=zXswJbwzgd3Smarcd4pD"
+        return "kubectl apply -f https://gitlab.dm-ai.cn/application-engineering/devops/deployment/raw/" + this.conf.getAttr("branchName") + "/" + format + "?private_token=zXswJbwzgd3Smarcd4pD"
     }
 
     public void createConfigMap(isTest) {
