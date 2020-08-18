@@ -492,30 +492,6 @@ def call(Map map, env) {
                         }
                     }
 
-                    stage('Download Config file') {
-                        when {
-                            allOf {
-                                expression { return conf.getAttr('deploy') };
-                            }
-                        }
-//                when { expression { return conf.getAttr('deploy') } }
-                        steps {
-                            container('adp') {
-                                script {
-                                    try {
-                                        withCredentials([usernamePassword(credentialsId: 'devops-use-new', passwordVariable: 'password', usernameVariable: 'username')]) {
-                                            sh 'source /etc/profile; git config --global http.sslVerify false ; git clone --depth=1 https://$username:$password@gitlab.dm-ai.cn/application-engineering/devops/deployment.git'
-                                        }
-                                    } catch (e) {
-                                        sh "echo ${e}"
-                                        conf.failMsg = '下载deployment配置文件失败！';
-                                        throw e
-                                    }
-                                }
-                            }
-                        }
-                    }
-
                     stage('Download Model') {
                         when {
                             anyOf {
@@ -630,18 +606,18 @@ def call(Map map, env) {
                                             deploykubernetes.createIngress()
 
                                             if (isTest) {
-                                                deploykubernetes.createConfigMapTest()
+                                                deploykubernetes.createConfigMap(true)
                                             } else if (isNotTest) {
-                                                deploykubernetes.createConfigMap()
+                                                deploykubernetes.createConfigMap(false)
                                             }
 
                                             deploykubernetes.deployKubernetes()
                                         } else {
 
                                             if (isTest) {
-                                                deploykubernetes.createConfigMapTest()
+                                                deploykubernetes.createConfigMap(true)
                                             } else if (isNotTest) {
-                                                deploykubernetes.createConfigMap()
+                                                deploykubernetes.createConfigMap(false)
                                             }
 
                                             deploykubernetes.deleteOldIngress()
