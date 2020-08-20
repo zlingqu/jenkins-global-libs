@@ -333,9 +333,9 @@ def call(Map map, env) {
                 }
             }
 
-            stage('Code Review，Compile Init'){
+            stage('Code Review，Compile Init') {
 
-                parallel{
+                parallel {
 
                     stage('Install nyc') {
                         when {
@@ -415,7 +415,7 @@ def call(Map map, env) {
                                         }
                                     }
 
-                                    if ((conf.getAttr('versionControlMode') == 'GitCommitId' && gitVersion != 'last') || (conf.getAttr('versionControlMode') == 'GitTags')){
+                                    if ((conf.getAttr('versionControlMode') == 'GitCommitId' && gitVersion != 'last') || (conf.getAttr('versionControlMode') == 'GitTags')) {
                                         if (conf.getAttr('versionControlMode') == 'GitTags' && !conf.getAttr('gitTag')) {
                                             throw '请指定tag号!'
                                         }
@@ -451,7 +451,7 @@ def call(Map map, env) {
                         expression { return conf.ifBuild() };
                     }
                 }
-                parallel{
+                parallel {
                     stage('Custom Compile') {
                         when {
                             allOf {
@@ -534,7 +534,7 @@ def call(Map map, env) {
 
             }
 
-            stage('Build Image,Deploy'){
+            stage('Build Image,Deploy') {
                 steps {
                     container('adp') {
                         script {
@@ -581,7 +581,7 @@ def call(Map map, env) {
                                 }
 
                                 // 传音环境服务只构建项目不部署
-                                if (conf.getAttr('deploy') && !conf.getAttr('deployEnv') in ['chuanyin']) {
+                                if (conf.getAttr('deploy') && !(conf.getAttr('deployEnv') in ['chuanyin'])) {
 
 
                                     // 发布到测试环境的条件
