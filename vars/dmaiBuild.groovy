@@ -580,7 +580,8 @@ def call(Map map, env) {
                                     }
                                 }
 
-                                if (conf.getAttr('deploy')) {
+                                // 传音环境服务只构建项目不部署
+                                if (conf.getAttr('deploy') && !conf.getAttr('deployEnv') in ['chuanyin']) {
 
 
                                     // 发布到测试环境的条件
@@ -633,8 +634,7 @@ def call(Map map, env) {
                                     }
 
                                     // 服务检查 条件不能换行
-                                    // 传音环境服务只构建项目不部署
-                                    isCheckService = isCheckService && !(conf.getAttr('deployEnv') in ['not-deploy','chuanyin']) && conf.getAttr('checkPodsStatus') && conf.getAttr('deployEnvStatus') != 'stop' && !(conf.getAttr('deployEnv') in conf.privateK8sEnv)
+                                    isCheckService = isCheckService && conf.getAttr('deployEnv') != 'not-deploy' && conf.getAttr('checkPodsStatus') && conf.getAttr('deployEnvStatus') != 'stop' && !(conf.getAttr('deployEnv') in conf.privateK8sEnv)
 
                                     if (isCheckService) {
                                         sh "echo '检查部署在k8s集群中的服务的pod是否正常运行，等待限时1200秒。'"
