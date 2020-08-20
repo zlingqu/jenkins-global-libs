@@ -633,6 +633,7 @@ def call(Map map, env) {
                                     }
 
                                     // 服务检查 条件不能换行
+                                    // 传音环境服务只构建项目不部署
                                     isCheckService = isCheckService && !(conf.getAttr('deployEnv') in ['not-deploy','chuanyin']) && conf.getAttr('checkPodsStatus') && conf.getAttr('deployEnvStatus') != 'stop' && !(conf.getAttr('deployEnv') in conf.privateK8sEnv)
 
                                     if (isCheckService) {
