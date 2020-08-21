@@ -306,11 +306,6 @@ def call(Map map, env) {
 
 
             stage('Build-Init') {
-                when {
-                    allOf {
-                        expression { return conf.ifBuild() };
-                    }
-                }
                 steps {
 
                     script {
