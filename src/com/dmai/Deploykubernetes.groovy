@@ -34,8 +34,12 @@ class Deploykubernetes {
                 this.conf.getAttr('namespace'),
                 this.conf.getAttr('deployEnv'),
                 this.conf.appName)
-        def deploymentDeployK8sFile="deployment-Deploy-k8s.yml"
-        this.script.sh "wget -o ${deploymentDeployK8sFile} ${deployK8eUrl}"
+        def deploymentDeployK8sFile = "deployment-Deploy-k8s.yml"
+        try {
+            this.script.sh "wget -o ${deploymentDeployK8sFile} ${deployK8eUrl}"
+        } catch (e) {
+            this.script.sh "${e}"
+        }
 
         this.script.sh "test -e  Deploy-k8s.yml || cat ${deploymentDeployK8sFile}  | sed s#JENKINS_DEPLOY_IMAGE_ADDRESS#${this.conf.getAttr('buildImageAddress')}#g > Deploy-k8s.yml"
         this.script.sh "test -e  Deploy-k8s.yml && sed -i s#JENKINS_DEPLOY_IMAGE_ADDRESS#${this.conf.getAttr('buildImageAddress')}#g Deploy-k8s.yml"
