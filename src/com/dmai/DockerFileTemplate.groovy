@@ -61,7 +61,7 @@ ENV TZ=Asia/Shanghai
 WORKDIR /app
 ADD ./deploy /app
 EXPOSE 3000
-CMD ["bash", "./start.sh"]
+CMD ["sh", "./start.sh"]
 '''
     }
 
