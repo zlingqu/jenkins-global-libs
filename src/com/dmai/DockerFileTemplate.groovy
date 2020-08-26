@@ -56,7 +56,7 @@ CMD '/src/run.sh'
 
     private  String getJavaDockerfiel() {
         return '''
-FROM docker.dm-ai.cn/devops/base-image-java8:0.1.3
+FROM docker.dm-ai.cn/devops/base-image-java8:server-jre-8u261
 ENV TZ=Asia/Shanghai
 WORKDIR /app
 ADD ./deploy /app
