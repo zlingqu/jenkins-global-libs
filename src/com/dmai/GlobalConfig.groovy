@@ -1410,95 +1410,6 @@ class GlobalConfig implements Serializable {
                     'domain': 'http://prometheus.ops.dm-ai.cn',
                     'kubectlImage': 'devops/base-image-kubectl:0.01',
             ],
-            'prometheus-pushgateway': [
-                    'servicePort' : '80',
-                    'namespace': 'devops',
-                    'nodePort' : '30991',
-                    'containerPort': '9091',
-                    'domain': 'prom.dm-ai.cn',
-                    'dev': 'dev', // dev分支部署到开发环境
-                    'test': true, // 是否从dev分支部署到测试环境
-                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
-                    'gitAddress': 'https://gitlab.dm-ai.cn/application-engineering/devops/pushgateway.git',
-                    'kubectlImage': 'devops/base-image-kubectl:0.01',
-                    'compile': false, // 是否编译
-                    'deploy': true, // 是否自动化部署
-                    'customDockerfile': true, // 是否使用自定义 dockerfile
-                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
-                    'useConfigMap': false, //是否使用configmap
-                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
-                    'codeLanguage' : 'golang', // 临时的，默认是【js,node,golang,java,php,python】
-                    'k8sKind': 'deployment', // 部署的服务的类型
-                    'useStore': false, // 是否使用存储资源。
-                    'useService': true, // 是否使用service
-                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
-            ],
-            'service-push-exporter-data': [
-                    'servicePort' : '80',
-                    'namespace': 'devops',
-//                    'nodePort' : '30991',
-                    'containerPort': '8080',
-//                    'domain': 'prom.dm-ai.cn',
-                    'dev': 'dev', // dev分支部署到开发环境
-                    'test': true, // 是否从dev分支部署到测试环境
-                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
-                    'gitAddress': 'https://gitlab.dm-ai.cn/application-engineering/devops/service-push-exporter-data.git',
-                    'compile': true, // 是否编译
-                    'deploy': false, // 是否自动化部署
-                    'customDockerfile': true, // 是否使用自定义 dockerfile
-                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
-                    'useConfigMap': false, //是否使用configmap
-                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
-                    'codeLanguage' : 'golang', // 临时的，默认是【js,node,golang,java,php,python】
-                    'k8sKind': 'deployment', // 部署的服务的类型
-                    'useStore': false, // 是否使用存储资源。
-                    'useService': true, // 是否使用service
-                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
-            ],
-//            'service-k8s-app-status-check': [
-//                    'servicePort' : '80',
-//                    'namespace': 'devops',
-////                    'nodePort' : '30991',
-//                    'containerPort': '8080',
-//                    'domain': 'service-k8s-app-status-check.dm-ai.cn',
-//                    'dev': 'dev', // dev分支部署到开发环境
-//                    'test': true, // 是否从dev分支部署到测试环境
-//                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
-//                    'gitAddress': 'https://gitlab.dm-ai.cn/application-engineering/devops/service-k8s-app-status-check.git',
-//                    'compile': false, // 是否编译
-//                    'deploy': true, // 是否自动化部署
-//                    'customDockerfile': true, // 是否使用自定义 dockerfile
-//                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
-//                    'useConfigMap': false, //是否使用configmap
-//                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
-//                    'codeLanguage' : 'golang', // 临时的，默认是【js,node,golang,java,php,python】
-//                    'k8sKind': 'deployment', // 部署的服务的类型
-//                    'useStore': false, // 是否使用存储资源。
-//                    'useService': true, // 是否使用service
-//                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
-//            ],
-            'service-k8s-nodes-status-check': [
-                    'servicePort' : '80',
-                    'namespace': 'devops',
-//                    'nodePort' : '30991',
-                    'containerPort': '8080',
-//                    'domain': 'service-k8s-app-status-check.dm-ai.cn',
-                    'dev': 'dev', // dev分支部署到开发环境
-                    'test': true, // 是否从dev分支部署到测试环境
-                    'master': 'prd', // 如果参数master 不等于prd，整个构建就失败，---
-                    'gitAddress': 'https://gitlab.dm-ai.cn/application-engineering/devops/service-k8s-nodes-status-check.git',
-                    'compile': false, // 是否编译
-                    'deploy': true, // 是否自动化部署
-                    'customDockerfile': true, // 是否使用自定义 dockerfile
-                    'customKubernetesDeployTemplate' : false, // 是否使用用户自定义的k8s部署文件，默认文件名为：Deploy-k8s.yml
-                    'useConfigMap': false, //是否使用configmap
-                    'svcType' : 'ClusterIP', // ['ClusterIP', 'NodePort', 'None']
-                    'codeLanguage' : 'golang', // 临时的，默认是【js,node,golang,java,php,python】
-                    'k8sKind': 'deployment', // 部署的服务的类型
-                    'useStore': false, // 是否使用存储资源。
-                    'useService': false, // 是否使用service
-                    'makeImage'   : true, // 是否进行镜像的构造，打镜像，push镜像
-            ],
             'xmc2-test-deploy': [
                     'servicePort' : '80',
                     'nodePort': '31500',
@@ -2566,7 +2477,7 @@ class GlobalConfig implements Serializable {
                     'servicePort' : '80',
                     'namespace': 'devops',
                     'containerPort': '80',
-                    'domain': 'app-deploy-platform.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
+                    'domain': 'adp.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
                     'cpuRequests' : '350m',
                     'memoryRequests' : '400Mi',
                     'cpuLimits' : '400m',
@@ -2679,9 +2590,6 @@ class GlobalConfig implements Serializable {
                     'namespace': 'mis',
                     'nodePort': '30101',
                     'containerPort': '5000',
-//                    'domain': 'app-deploy-platform.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-//                    'cpuRequests' : '200m',
-//                    'memoryRequests' : '400Mi',
                     'cpuLimits' : '300m',
                     'memoryLimits' : '1000Mi',
                     'dev': 'dev', // dev分支部署到开发环境
@@ -2707,10 +2615,6 @@ class GlobalConfig implements Serializable {
                     'namespace': 'x2-ta',
                     'nodePort': '30244',
                     'containerPort': '8080',
-//                    'domain': 'app-deploy-platform.dm-ai.cn', // domain为空，或者没有这条属性，则邮件不发送域名，否则给用户发送域名地址。
-//                    'cpuRequests' : '200m',
-//                    'memoryRequests' : '400Mi',
-//                    'cpuLimits' : '500m',
                     'cpuRequests': '1000m',
                     'memoryRequests': '2000Mi',
                     'cpuLimits': '2000m',

@@ -24,7 +24,6 @@ class Conf implements Serializable {
         this.appName = appName
         this.dockerRegistryHost = 'docker.dm-ai.cn'
         this.jenkinsAddress = 'http://jenkins.ops.dm-ai.cn'
-        // this.kubernetesStatusCheckHttpAddress = 'http://service-k8s-app-status-check.dm-ai.cn/api/v1/app_status_check'
         this.kubernetesStatusCheckHttpAddress = 'http://adp-api.dm-ai.cn/api/v1/app_status_check'
         this.checkKubernetesServiceStatusSleepTimes = 180 // 120 SECONDS
         this.userSetMap = userSetMap
