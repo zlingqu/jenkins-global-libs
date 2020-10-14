@@ -408,6 +408,7 @@ spec:
             return String.format('''
   - name: jiagu
     image: docker.dm-ai.cn/devops/android-jiagu:0.1.0
+    imagePullPolicy: Always
     env:
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
       value: docker.dm-ai.cn
