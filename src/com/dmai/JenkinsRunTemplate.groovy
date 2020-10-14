@@ -407,8 +407,8 @@ spec:
         if (this.conf.getAttr('codeLanguage') == 'unity' || this.conf.getAttr('codeLanguage') == 'android') {
             return String.format('''
   - name: jiagu
-    image: docker.dm-ai.cn/devops/android-jiagu:0.1.0
-    imagePullPolicy: Always
+    image: docker.dm-ai.cn/devops/android-jiagu:0.1.1
+    imagePullPolicy: IfNotPresent
     env:
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
       value: docker.dm-ai.cn
@@ -544,7 +544,7 @@ spec:
 
             case 'unity': return String.format('''
   - name: compile
-    image: docker.dm-ai.cn/devops/base-image-unity:0.1.0
+    image: docker.dm-ai.cn/devops/base-image-unity:0.1.1
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
