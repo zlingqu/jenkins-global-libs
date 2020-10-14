@@ -5,10 +5,12 @@ import com.tool.Tools
 class JenkinsRunTemplate {
     private Conf conf
     private String deployMasterPassword
+    private String adpDate
 
     JenkinsRunTemplate(Conf conf) {
         this.conf = conf
         this.deployMasterPassword = ''
+        this.adpDate = new Date().format("yyyyMMdd-HHmmss")
     }
 
     private void setConfInitPara(params) {
@@ -159,7 +161,6 @@ class JenkinsRunTemplate {
         this.conf.setAttr('buildPlatform', params.BUILD_PLATFORM)
 
 
-
         // workspace
         this.conf.setAttr('configFilePath', '/app')
         if (this.conf.getAttr('jobName') in ['media-access', 'media-gateway']) {
@@ -238,7 +239,7 @@ class JenkinsRunTemplate {
         // APOLLO_ENV
         this.conf.setAttr('apolloEnv', this.conf.getAttr('deployEnv'))
 
-        if (! (this.conf.getAttr('deployEnv') in apolloEnvList)) {
+        if (!(this.conf.getAttr('deployEnv') in apolloEnvList)) {
             this.conf.setAttr('apolloEnv', 'prd')
             this.conf.setAttr('nodeEnv', 'prd')
         }
@@ -283,19 +284,12 @@ class JenkinsRunTemplate {
         this.conf.setAttr('deployEnv', deployEnvironment)
         this.setConfInitPara(params)
 
-//        set branchName , jobName, buildNumber
-//        this.conf.setAttr('branchName', currentBuild.projectName)
-//        this.conf.setAttr('jobName', currentBuild.fullProjectName.split("/")[0])
-//        this.conf.setAttr('buildNumber', currentBuild.displayName.replaceAll("#", ""))
-
         def returnString = this.templateTop() +
                 this.templateDockerCompile() +
                 this.templateADP() +
+                this.templateJiagu() +
                 this.templateSonarCheck() +
                 this.customImage() +
-//                this.templateJsCompileVolumes() +
-//                this.templateJavaCompileVolumes() +
-//                this.templateAndroidCompileVolumes() +
                 this.defaultVolumes() +
                 this.nodeSelect()
         return returnString
@@ -409,6 +403,32 @@ spec:
 ''', this.conf.getAttr('envType') == 'arm' ? '-arm' : '', this.conf.vueAppScene, this.useModelPath())
     }
 
+    private String templateJiagu() {
+        if (this.conf.getAttr('codeLanguage') == 'unity' || this.conf.getAttr('codeLanguage') == 'android') {
+            return String.format('''
+  - name: jiagu
+    image: docker.dm-ai.cn/devops/android-jiagu:0.1.2
+    imagePullPolicy: IfNotPresent
+    env:
+    - name: DMAI_PRIVATE_DOCKER_REGISTRY
+      value: docker.dm-ai.cn
+    - name: ADP_DATE
+      value: %s
+    volumeMounts:
+    - name: jenkins-build-path
+      mountPath: /data
+      subPath: android_home/unity_home/%s/%s
+    command:
+    - "sleep"
+    args:
+    - "3600"
+    tty: true
+''', this.adpDate, this.conf.appName, this.conf.getAttr('deployEnv'))
+        }
+        return ""
+    }
+
+
     private String templateSonarCheck() {
         return String.format('''
   - name: sonar-check
@@ -424,30 +444,6 @@ spec:
     tty: true
 ''')
     }
-
-//    设置不同的分支部署到不同的环境
-//    private String getKubectlBranch(){
-//        if (this.conf.getAttr('branchName') == 'stage') return 'stage'
-//        if (this.conf.appName in  [ 'xmc-online-api', 'xmc-detection-api', 'xmc-gesture-api', 'xmc-holdobj-api', 'facial-expression-cls' ]) return 'test'
-//        if (this.conf.getAttr('branchName') == 'master' ) {
-//            if (this.conf.getAttr('master') == 'prd' && this.deployMasterPassword == 'dmai2019999') {
-//                return 'master'
-//            } else {
-//                return ''
-//            }
-//        }
-
-//        switch (this.conf.getAttr('dev')){
-//            case 'dev'  : return 'dev'
-//            case 'test' : return 'test'
-//            case 'lexue' : return 'lexue'
-////            case 'master': return 'master'
-//        }
-//
-//        throw "dev分支，目前只能部署dev/test/lexue环境，其他的均为异常情况"
-////        return ''
-//    }
-
 
     private customImage() {
         if (this.conf.getAttr('useCustomImage')) {
@@ -548,11 +544,13 @@ spec:
 
             case 'unity': return String.format('''
   - name: compile
-    image: docker.dm-ai.cn/devops/base-image-unity:0.01
+    image: docker.dm-ai.cn/devops/base-image-unity:0.1.1
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
       value: docker.dm-ai.cn
+    - name: ADP_DATE
+      value: %s
     volumeMounts:
     - name: jenkins-build-path
       mountPath: /data
@@ -568,7 +566,7 @@ spec:
     args:
     - "3600"
     tty: true
-''', this.conf.appName, this.conf.getAttr('deployEnv'), this.conf.appName, this.conf.getAttr('deployEnv'), this.conf.appName, this.conf.getAttr('deployEnv'))
+''', this.adpDate, this.conf.appName, this.conf.getAttr('deployEnv'), this.conf.appName, this.conf.getAttr('deployEnv'), this.conf.appName, this.conf.getAttr('deployEnv'))
 
             case 'node':
                 return String.format('''
@@ -653,4 +651,6 @@ spec:
         }
     }
 }
+
+
 
