@@ -545,7 +545,7 @@ def call(Map map, env) {
                             container('jiagu') {
                                 script {
                                     try {
-                                        sh "/opt/jiagu.sh"
+                                        sh "echo jiagu && sh -x /opt/jiagu.sh"
                                     } catch (e) {
                                         sh "echo ${e}"
                                         conf.failMsg = '编译失败！';
@@ -560,7 +560,7 @@ def call(Map map, env) {
                             container('adp') {
                                 script {
 
-                                    if (conf.getAttr('buildPlatform') == 'adp' && conf.getAttr('codeLanguage') != 'android') {
+                                    if (conf.getAttr('buildPlatform') == 'adp' && conf.getAttr('codeLanguage') != 'android' && conf.getAttr('codeLanguage') != 'unity') {
                                         // adp 自动生成模板
                                         try {
                                             sh 'pwd'
