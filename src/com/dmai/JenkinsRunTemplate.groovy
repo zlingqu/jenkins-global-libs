@@ -287,10 +287,10 @@ class JenkinsRunTemplate {
         def returnString = this.templateTop() +
                 this.templateDockerCompile() +
                 this.templateADP() +
+                this.templateJiagu() +
                 this.templateSonarCheck() +
                 this.customImage() +
                 this.defaultVolumes() +
-                this.jiagu() +
                 this.nodeSelect()
         return returnString
     }
@@ -403,7 +403,7 @@ spec:
 ''', this.conf.getAttr('envType') == 'arm' ? '-arm' : '', this.conf.vueAppScene, this.useModelPath())
     }
 
-    private String jiagu() {
+    private String templateJiagu() {
         if (this.conf.getAttr('codeLanguage') == 'unity' || this.conf.getAttr('codeLanguage') == 'android') {
             return String.format('''
   - name: jiagu
