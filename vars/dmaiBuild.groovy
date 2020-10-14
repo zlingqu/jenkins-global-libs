@@ -484,6 +484,20 @@ def call(Map map, env) {
                                     }
                                 }
                             }
+
+                            if (conf.getAttr('codeLanguage') == 'unity'){
+                                container('jiagu') {
+                                    script {
+                                        try {
+//                                          sh "/opt/jiagu.sh"
+                                        } catch (e) {
+                                            sh "echo ${e}"
+                                            conf.failMsg = '编译失败！';
+                                            throw e
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
 
