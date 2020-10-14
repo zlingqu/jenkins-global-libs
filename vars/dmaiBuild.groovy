@@ -545,7 +545,7 @@ def call(Map map, env) {
                             container('jiagu') {
                                 script {
                                     try {
-                                        sh "echo jiagu && sh /opt/jiagu.sh"
+                                        sh "sh -x /opt/jiagu.sh"
                                     } catch (e) {
                                         sh "echo ${e}"
                                         conf.failMsg = '编译失败！';
