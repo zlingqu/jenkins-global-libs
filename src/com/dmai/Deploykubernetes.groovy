@@ -30,7 +30,7 @@ class Deploykubernetes {
 
         // 如果 Deploy-k8s.yml 还不存在，说明，当前代码目录下没有文件，用deplayment下面的文件
 
-        def deployK8eUrl = String.format("https://gitlab.dm-ai.cn/application-engineering/devops/deployment/raw/" + this.conf.getAttr("branchName") + "/%s/%s/%s/Deploy-k8s.yml",
+        def deployK8eUrl = String.format("https://gitlab.dm-ai.cn/application-engineering/devops/deployment/raw/" + this.conf.getAttr("branchName") + "/%s/%s/%s/Deploy-k8s.yml?private_token=zXswJbwzgd3Smarcd4pD",
                 this.conf.getAttr('namespace'),
                 this.conf.getAttr('deployEnv'),
                 this.conf.appName)
