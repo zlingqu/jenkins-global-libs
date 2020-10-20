@@ -272,10 +272,10 @@ class JenkinsRunTemplate {
         }
 
 //        // set stage https
-        if (this.conf.getAttr('https') && this.conf.getAttr('deployEnv') == 'stage') {
-            this.conf.setAttr('https', false)
-            this.conf.setAttr('stageHttps', true)
-        }
+        // if (this.conf.getAttr('https') && this.conf.getAttr('deployEnv') == 'stage') {
+        //     this.conf.setAttr('https', false)
+        //     this.conf.setAttr('stageHttps', true)
+        // }
 
     }
 
