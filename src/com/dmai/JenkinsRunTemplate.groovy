@@ -263,10 +263,10 @@ class JenkinsRunTemplate {
 
         // domain https
         if (this.conf.getAttr('https')) {
-            if (!(this.conf.getAttr('deployEnv') in ['prd', 'dev', 'test'])) {
+            if (!(this.conf.getAttr('deployEnv') in ['prd', 'dev', 'test','stage'])) {
                 this.conf.setAttr('domain', this.conf.getAttr('jobName') + "-" + this.conf.getAttr('namespace') + "-" + this.conf.getAttr('deployEnv') + '.dm-ai.cn')
             }
-            if (this.conf.getAttr('deployEnv') in ['dev', 'test']) {
+            if (this.conf.getAttr('deployEnv') in ['dev', 'test','stage']) {
                 this.conf.setAttr('domain', this.conf.getAttr('jobName') + "-" + this.conf.getAttr('namespace') + "." + this.conf.getAttr('deployEnv') + '.dm-ai.cn')
             }
         }
