@@ -534,7 +534,7 @@ def call(Map map, env) {
             stage('Build Image,Deploy') {
                 parallel {
                     // unity需要 TODO 整合android加固流程
-                    stage('jiagu'){
+                    stage('app-jiagu'){
                         when {
                             anyOf {
                                 expression { return conf.getAttr('codeLanguage') == 'unity' };
