@@ -73,7 +73,10 @@ class KubernetesStatusCheck {
     }
 
     private Map getServiceAppStatusV1(String imageSha) {
-        URL url = new URL(this.getServiceAppStatusV1Url(imageSha))
+        def url0 = this.getServiceAppStatusV1Url(imageSha)
+        this.script.sh "echo 状态检查地址：" + url0
+        URL url = new URL(url0)
+
         HttpURLConnection conn = (HttpURLConnection) url.openConnection()
         conn.setRequestMethod("GET")
         conn.connect()
