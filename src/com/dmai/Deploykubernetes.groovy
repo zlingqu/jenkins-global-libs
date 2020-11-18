@@ -34,21 +34,20 @@ class Deploykubernetes {
                         this.conf.getAttr('namespace'),
                         this.conf.getAttr('deployEnv'),
                         this.conf.appName)
-                def deploymentDeployK8sFile = "deployment-Deploy-k8s.yml"
+                def deploymentDeployK8sFile = "Deploy-k8s.yml"
                 try {
                     this.script.sh "wget -o ${deploymentDeployK8sFile} ${deployK8eUrl}"
                 } catch (e) {
                     this.script.sh "${e}"
                 }
+                this.script.sh "test -e  Deploy-k8s.yml || cat ${deploymentDeployK8sFile}  | sed s#JENKINS_DEPLOY_IMAGE_ADDRESS#${this.conf.getAttr('buildImageAddress')}#g > Deploy-k8s.yml"
+                this.script.sh "test -e  Deploy-k8s.yml && sed -i s#JENKINS_DEPLOY_IMAGE_ADDRESS#${this.conf.getAttr('buildImageAddress')}#g Deploy-k8s.yml"
+                this.script.sh "cat Deploy-k8s.yml"
 
             }
             
         }
 
-        
-        this.script.sh "test -e  Deploy-k8s.yml || cat ${deploymentDeployK8sFile}  | sed s#JENKINS_DEPLOY_IMAGE_ADDRESS#${this.conf.getAttr('buildImageAddress')}#g > Deploy-k8s.yml"
-        this.script.sh "test -e  Deploy-k8s.yml && sed -i s#JENKINS_DEPLOY_IMAGE_ADDRESS#${this.conf.getAttr('buildImageAddress')}#g Deploy-k8s.yml"
-        this.script.sh "cat Deploy-k8s.yml"
         this.script.sh String.format("mkdir -p ~/.kube && wget http://adp-api.dm-ai.cn/api/v1/get-k8s-key-file?env='%s' -O ~/.kube/config", this.conf.getAttr("deployEnv"))
         this.script.sh 'kubectl apply -f Deploy-k8s.yml; rm -fr Deploy-k8s.yml'
     }
