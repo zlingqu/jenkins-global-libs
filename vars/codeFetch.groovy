@@ -74,7 +74,7 @@ def call(Map map, env) {
                     emailext (
                             body: email.faildBody(jobName),
                             subject: 'Jenkins build faild info',
-                            to: 'zuosheng@dm-ai.cn'
+                            to: 'liaolonglong@dm-ai.cn'
                     )
                 }
             }
@@ -86,7 +86,7 @@ def call(Map map, env) {
                     emailext (
                             body: email.showEnv(env, 'success'),
                             subject: 'Jenkins build success info',
-                            to: 'zuosheng@dm-ai.cn'
+                            to: 'liaolonglong@dm-ai.cn'
                     )
                 }
             }

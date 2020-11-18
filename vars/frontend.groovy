@@ -50,7 +50,7 @@ def call(Map map, env) {
                     emailext (
                             body: showEnv(env, 'success'),
                             subject: 'Jenkins build faild info',
-                            to: 'zuosheng@dm-ai.cn'
+                            to: 'liaolonglong@dm-ai.cn'
                     )
                 }
             }
@@ -60,75 +60,12 @@ def call(Map map, env) {
                     emailext (
                             body: showEnv(env, 'success'),
                             subject: 'Jenkins build success info',
-                            to: 'zuosheng@dm-ai.cn'
+                            to: 'liaolonglong@dm-ai.cn'
                     )
                 }
             }
         }
 
-//        stages {
-//            stage('Compile') {
-//                steps {
-//                    container('yarn-compile') {
-//                        sh '''
-//                    chmod -R 777 `pwd`
-//                    npm config set registry=http://nexus.dm-ai.cn/repository/npm/
-//                    npm install
-//                    npm config set registry=http://nexus.dm-ai.cn/repository/npm/
-//                    npm run build
-//                    '''
-//                    }
-//                }
-//            }
-//
-//            stage('Make image') {
-//                steps {
-//                    container('docker-compose') {
-//                        sh 'docker-compose build'
-//                        sh 'docker-compose push'
-//                    }
-//                }
-//            }
-//
-//            stage('Deploy') {
-//                steps {
-//                    kubernetesDeploy configs: 'Deploy-k8s.yml', kubeConfig: [path: ''], kubeconfigId: 'k8s-deploy-test', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
-//
-//                }
-//            }
-//
-//        }
-
-//        post {
-//            always {
-//                echo "over!!"
-//            }
-//
-//            failure {
-//                echo "fail"
-//                script {
-//                    def jobName = env.JOB_NAME.split("/")[0]
-//                    echo jobName
-//                    emailext (
-//                            body: faildBody(jobName),
-//                            subject: 'Jenkins build faild info',
-//                            to: 'zuosheng@dm-ai.cn'
-//                    )
-//                }
-//            }
-//
-//            success {
-//                script {
-//                    def jobName = env.JOB_NAME.split("/")[0]
-//                    echo jobName
-//                    emailext (
-//                            body: showEnv(env, 'success'),
-//                            subject: 'Jenkins build success info',
-//                            to: 'qinyadong@dm-ai.cn'
-//                    )
-//                }
-//            }
-//        }
     }
 }
 
