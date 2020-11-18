@@ -75,19 +75,19 @@ class Deploykubernetes {
     public void createIngress() {
         if (this.conf.getAttr('domain') == '' || !this.conf.getAttr('domain')) return
 
-        try {
-            this.script.sh String.format(kubectlDeployment("%s/%s/%s/ingress.yml"),
-                    this.conf.getAttr('namespace'),
-//                    this.conf.getAttr('branchName') in ['master', 'dev'] ? this.conf.getAttr(this.conf.getAttr('branchName')) : this.conf.getAttr('branchName'),
-                    this.conf.getAttr('deployEnv'),
-                    this.conf.appName
-            )
-        } catch (e) {
+//         try {
+//             this.script.sh String.format(kubectlDeployment("%s/%s/%s/ingress.yml"),
+//                     this.conf.getAttr('namespace'),
+// //                    this.conf.getAttr('branchName') in ['master', 'dev'] ? this.conf.getAttr(this.conf.getAttr('branchName')) : this.conf.getAttr('branchName'),
+//                     this.conf.getAttr('deployEnv'),
+//                     this.conf.appName
+//             )
+//         } catch (e) {
             this.script.sh "echo ${e}"
             this.script.sh "echo '${this.createIngressFile()}' > ingress.yml"
             this.script.sh "cat ingress.yml"
             this.script.sh "kubectl apply -f ingress.yml"
-        }
+        // }
 
 
         return
