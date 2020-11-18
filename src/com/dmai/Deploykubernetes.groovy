@@ -24,23 +24,28 @@ class Deploykubernetes {
         }
 
         //
-        if (this.conf.getAttr('customKubernetesDeployTemplate') && this.conf.getAttr('autoDeployContent')) {
-            this.script.sh "echo '${this.conf.getAttr('autoDeployContent')}' > Deploy-k8s.yml"
+        if (this.conf.getAttr('customKubernetesDeployTemplate')) {
+            if(this.conf.getAttr('autoDeployContent')){
+                this.script.sh "echo '${this.conf.getAttr('autoDeployContent')}' > Deploy-k8s.yml"
+            } else {
+                // 如果 Deploy-k8s.yml 还不存在，说明，当前代码目录下没有文件，用deplayment下面的文件
+
+                def deployK8eUrl = String.format("https://gitlab.dm-ai.cn/application-engineering/devops/deployment/raw/" + this.conf.getAttr("branchName") + "/%s/%s/%s/Deploy-k8s.yml?private_token=zXswJbwzgd3Smarcd4pD",
+                        this.conf.getAttr('namespace'),
+                        this.conf.getAttr('deployEnv'),
+                        this.conf.appName)
+                def deploymentDeployK8sFile = "deployment-Deploy-k8s.yml"
+                try {
+                    this.script.sh "wget -o ${deploymentDeployK8sFile} ${deployK8eUrl}"
+                } catch (e) {
+                    this.script.sh "${e}"
+                }
+
+            }
+            
         }
 
-        // 如果 Deploy-k8s.yml 还不存在，说明，当前代码目录下没有文件，用deplayment下面的文件
-
-        def deployK8eUrl = String.format("https://gitlab.dm-ai.cn/application-engineering/devops/deployment/raw/" + this.conf.getAttr("branchName") + "/%s/%s/%s/Deploy-k8s.yml?private_token=zXswJbwzgd3Smarcd4pD",
-                this.conf.getAttr('namespace'),
-                this.conf.getAttr('deployEnv'),
-                this.conf.appName)
-        def deploymentDeployK8sFile = "deployment-Deploy-k8s.yml"
-        try {
-            this.script.sh "wget -o ${deploymentDeployK8sFile} ${deployK8eUrl}"
-        } catch (e) {
-            this.script.sh "${e}"
-        }
-
+        
         this.script.sh "test -e  Deploy-k8s.yml || cat ${deploymentDeployK8sFile}  | sed s#JENKINS_DEPLOY_IMAGE_ADDRESS#${this.conf.getAttr('buildImageAddress')}#g > Deploy-k8s.yml"
         this.script.sh "test -e  Deploy-k8s.yml && sed -i s#JENKINS_DEPLOY_IMAGE_ADDRESS#${this.conf.getAttr('buildImageAddress')}#g Deploy-k8s.yml"
         this.script.sh "cat Deploy-k8s.yml"
