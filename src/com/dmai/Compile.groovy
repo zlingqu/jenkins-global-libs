@@ -5,12 +5,12 @@ class Compile {
     protected final def script
     private final Conf conf
 
-    Compile( script, Conf conf ){
+    Compile(script, Conf conf) {
         this.script = script
         this.conf = conf
     }
 
-    public void compile(){
+    public void compile() {
         if (this.conf.getAttr('jobName') in ['ta-resource-service']) return
         if (this.conf.getAttr('compile')) {
             // wocao
@@ -79,7 +79,11 @@ class Compile {
                             "cd /root && tar cf .gradle-root.tar .gradle && mv .gradle-root.tar /android_cache"
                     return
                 case 'unity':
-                    this.script.sh "test -e compile.sh && chmod +x ci/* && bash -x compile.sh && echo success; test ! -e compile.sh && bash /opt/compile.sh && echo success;"
+                    try {
+                        this.script.sh "test -e compile.sh && chmod +x ci/* && bash -x compile.sh && echo success || echo failure; test ! -e compile.sh && bash /opt/compile.sh && echo success || echo failure;"
+                    } catch (e) {
+                        this.script.sh "echo ${e}"
+                    }
                     return
                 case 'golang':
                     this.script.sh "go env -w GOPRIVATE=gitlab.dm-ai.cn;go env -w GO111MODULE=on;export GOPROXY=https://mirrors.aliyun.com/goproxy/;make compile"
