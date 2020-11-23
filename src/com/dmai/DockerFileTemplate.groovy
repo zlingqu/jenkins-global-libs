@@ -1,4 +1,5 @@
 package com.dmai
+
 import com.tool.Tools
 
 class DockerFileTemplate {
@@ -146,4 +147,5 @@ services:
 
         return Tools.simpleTemplate(text, binding)
     }
+
 }

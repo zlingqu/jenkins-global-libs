@@ -1,41 +1,42 @@
 package com.dmai
+
 import com.tool.Tools
 
 class KubernetesDeployTemplate {
 
-    private Conf conf
+  private Conf conf
 
-    KubernetesDeployTemplate(Conf conf) {
-        this.conf = conf
+  KubernetesDeployTemplate(Conf conf) {
+    this.conf = conf
+  }
+
+  public String getKubernetesDeployTemplate() {
+    return this.getSvcTemplate() + this.getDeploymentTemplate()
+  }
+
+  private String getSvcTemplate() {
+    if (!this.conf.getAttr('useService')) return ''
+
+    def svcType = conf.getAttr('svcType')
+    if (this.conf.getAttr('deployEnv') == 'prd') {
+      svcType = 'ClusterIP'
     }
 
-    public String getKubernetesDeployTemplate() {
-        return this.getSvcTemplate() + this.getDeploymentTemplate()
-    }
-
-    private String getSvcTemplate() {
-        if (!this.conf.getAttr('useService')) return ''
-
-        def svcType = conf.getAttr('svcType')
-        if (this.conf.getAttr('deployEnv') == 'prd') {
-            svcType = 'ClusterIP'
-        }
-
-        switch (svcType) {
+    switch (svcType) {
             case 'ClusterIP':
-                return this.svcTemplateClusterIP()
+        return this.svcTemplateClusterIP()
             case 'NodePort':
-                return this.svcTemplateNodePort()
+        return this.svcTemplateNodePort()
             case 'None':
-                return ''
+        return ''
             default:
                 return this.svcTemplateClusterIP()
-        }
     }
+  }
 
-    private String getDeploymentTemplate() {
-        if ( this.conf.getAttr('k8sKind') != 'deployment' ) return ''
-        def text = '''
+  private String getDeploymentTemplate() {
+    if ( this.conf.getAttr('k8sKind') != 'deployment' ) return ''
+    def text = '''
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -90,7 +91,7 @@ $volumeMounts
 $resources
 $volumes
 '''
-        def bind = [
+    def bind = [
                 'appName'               : this.conf.appName,
                 'namespace'             : this.conf.getAttr('namespace'),
                 'dockerRegistryHost'    : conf.dockerRegistryHost,
@@ -104,7 +105,7 @@ $volumes
                 'volumeMounts'          : this.getVolumeMounts(),
                 'volumes'               : this.getVolumes(),
                 'replicas'              : this.conf.getAttr('replicas') ? this.conf.getAttr('replicas') : 1,
-                'command'               : this.conf.getAttr('command') ? this.conf.getAttr('command'): '',
+                'command' : this.conf.getAttr('command') ? this.conf.getAttr('command') : '',
                 'getContainerPort'      : this.getContainerPort(),
                 'resources'             : this.resourcesTemplate(),
                 'envFrom'               : this.getEnvFrom(),
@@ -113,13 +114,13 @@ $volumes
                 'apollo_url'            : this.conf.getAttr('deployEnv').toLowerCase(),
                 'imageAddress'          : this.conf.getAttr('buildImageAddress')
         ]
-        return Tools.simpleTemplate(text, bind)
-    }
+    return Tools.simpleTemplate(text, bind)
+  }
 
-    private String getTolerations() {
-        // tmp
-        if (this.conf.appName in  ['xmc-online-api', 'xmc-body-action','xmc-detection-api', 'xmc-gesture-api', 'xmc-holdobj-api', 'facial-expression-cls']) {
-            return '''
+  private String getTolerations() {
+    // tmp
+    if (this.conf.appName in  ['xmc-online-api', 'xmc-body-action', 'xmc-detection-api', 'xmc-gesture-api', 'xmc-holdobj-api', 'facial-expression-cls']) {
+      return '''
       nodeSelector:
         tools: zhengwenyong
       tolerations:
@@ -132,20 +133,20 @@ $volumes
         value: "zhengwenyong"
         effect: "NoSchedule"
 '''
-        }
-        //
-        if (this.conf.getAttr('envType') == 'all') {
-            return '''
+    }
+    //
+    if (this.conf.getAttr('envType') == 'all') {
+      return '''
       tolerations:
       - key: "hardware"
         operator: "Equal"
         value: "gpu"
         effect: "NoSchedule"
 '''
-        }
-        //
-        if (this.conf.getAttr('envType') == 'gpu') {
-            return '''
+    }
+    //
+    if (this.conf.getAttr('envType') == 'gpu') {
+      return '''
       nodeSelector:
         gpu: enable
       tolerations:
@@ -154,109 +155,108 @@ $volumes
         value: "gpu"
         effect: "NoSchedule"
 '''
-        }
+    }
 
-        if (this.conf.getAttr('deployEnv') == 'lexue' && this.conf.appName in ['vod-service', 'storage-service'])  {
-            return '''
+    if (this.conf.getAttr('deployEnv') == 'lexue' && this.conf.appName in ['vod-service', 'storage-service'])  {
+      return '''
       nodeSelector:
         env: storage
 '''
-        }
-        return ''
     }
+    return ''
+  }
 
-    // 根据用户的设置来选择是否，使用批量的环境变量的注入方式：
-    private String getEnvFrom() {
-        if (this.conf.getAttr('useEnvFile') && this.conf.getAttr('useConfigMap')) {
-            return String.format('''
+  // 根据用户的设置来选择是否，使用批量的环境变量的注入方式：
+  private String getEnvFrom() {
+    if (this.conf.getAttr('useEnvFile') && this.conf.getAttr('useConfigMap')) {
+      return String.format('''
         envFrom:
         - configMapRef:
             name: %s
 ''', this.conf.appName)
-        }
-        return ''
     }
+    return ''
+  }
 
-
-    // 根据用户的设置，来生成yaml中，是否对资源限制的模版文件。
-    private String resourcesTemplate() {
-        def returnString = ''
-        def topString = '''
+  // 根据用户的设置，来生成yaml中，是否对资源限制的模版文件。
+  private String resourcesTemplate() {
+    def returnString = ''
+    def topString = '''
         resources:
 '''
-        for (attr in ['cpuRequests', 'memoryRequests', 'cpuLimits', 'memoryLimits', 'gpuLimits']){
-            if (this.conf.getAttr(attr) && this.conf.getAttr(attr) != '') {
-                returnString += topString
-                break
-            }
-        }
+    for (attr in ['cpuRequests', 'memoryRequests', 'cpuLimits', 'memoryLimits', 'gpuLimits']) {
+      if (this.conf.getAttr(attr) && this.conf.getAttr(attr) != '') {
+        returnString += topString
+        break
+      }
+    }
 
-        for (requestAttr in ['cpuRequests', 'memoryRequests']) {
-            if (this.conf.getAttr(requestAttr) && this.conf.getAttr(requestAttr) != '') {
-                returnString += '''
+    for (requestAttr in ['cpuRequests', 'memoryRequests']) {
+      if (this.conf.getAttr(requestAttr) && this.conf.getAttr(requestAttr) != '') {
+        returnString += '''
           requests:
 '''
-                break
-            }
-        }
+        break
+      }
+    }
 
-        if (this.conf.getAttr('cpuRequests') && this.conf.getAttr('cpuRequests') != '') {
-            returnString += String.format('''
+    if (this.conf.getAttr('cpuRequests') && this.conf.getAttr('cpuRequests') != '') {
+      returnString += String.format('''
             cpu: %s
 ''', this.conf.getAttr('cpuRequests'))
-        }
+    }
 
-        if (this.conf.getAttr('memoryRequests') && this.conf.getAttr('memoryRequests') != '') {
-            returnString += String.format('''
+    if (this.conf.getAttr('memoryRequests') && this.conf.getAttr('memoryRequests') != '') {
+      returnString += String.format('''
             memory: %s
 ''', this.conf.getAttr('memoryRequests'))
-        }
+    }
 
-        for (limitsAttr in ['cpuLimits', 'memoryLimits', 'gpuLimits']) {
-            if (this.conf.getAttr(limitsAttr) && this.conf.getAttr(limitsAttr) != '') {
-                returnString += '''
+    for (limitsAttr in ['cpuLimits', 'memoryLimits', 'gpuLimits']) {
+      if (this.conf.getAttr(limitsAttr) && this.conf.getAttr(limitsAttr) != '') {
+        returnString += '''
           limits:
 '''
-                break
-            }
-        }
+        break
+      }
+    }
 
-        if (this.conf.getAttr('cpuLimits') && this.conf.getAttr('cpuLimits') != '') {
-            returnString += String.format('''
+    if (this.conf.getAttr('cpuLimits') && this.conf.getAttr('cpuLimits') != '') {
+      returnString += String.format('''
             cpu: %s
 ''', this.conf.getAttr('cpuLimits'))
-        }
+    }
 
-        if (this.conf.getAttr('memoryLimits') && this.conf.getAttr('memoryLimits') != '') {
-            returnString += String.format('''
+    if (this.conf.getAttr('memoryLimits') && this.conf.getAttr('memoryLimits') != '') {
+      returnString += String.format('''
             memory: %s
 ''', this.conf.getAttr('memoryLimits'))
-        }
+    }
 
-        if (this.conf.getAttr('gpuLimits') &&  this.conf.getAttr('envType') == 'gpu'){
-            returnString += String.format('''
+    if (this.conf.getAttr('gpuLimits') &&  this.conf.getAttr('envType') == 'gpu') {
+      returnString += String.format('''
             nvidia.com/gpu: %s
 ''', this.conf.getAttr('gpuLimits'))
-        }
-
-        returnString
     }
 
-    private String getContainerPort() {
-        def returnString = ''
-        if (this.conf.getAttr('tcpPort')) {
-            for (int i in this.conf.getAttr('tcpPort')[0]..this.conf.getAttr('tcpPort')[1]) {
-                returnString += String.format('''
+    returnString
+  }
+
+  private String getContainerPort() {
+    def returnString = ''
+    if (this.conf.getAttr('tcpPort')) {
+      for (int i in this.conf.getAttr('tcpPort')[0]..this.conf.getAttr('tcpPort')[1]) {
+        returnString += String.format('''
         - containerPort: %s
 ''', i)
-            }
-        }
-
-        return returnString
+      }
     }
 
-    private String svcTemplateNodePort() {
-        def text = '''
+    return returnString
+  }
+
+  private String svcTemplateNodePort() {
+    def text = '''
 ---
 apiVersion: v1
 kind: Service
@@ -271,12 +271,12 @@ spec:
     targetPort: $containerPort
     nodePort: $nodePort
     name: http
-$getTcpSvc    
+$getTcpSvc
   selector:
     app: $appName
   type: NodePort
 '''
-        def bind = [
+    def bind = [
                 'appName' : this.conf.appName,
                 'namespace' : this.conf.getAttr('namespace'),
                 'containerPort' : this.conf.getAttr('containerPort'),
@@ -285,27 +285,27 @@ $getTcpSvc
                 'servicePort': this.conf.getAttr('servicePort')
         ]
 
-        return Tools.simpleTemplate(text, bind)
-    }
+    return Tools.simpleTemplate(text, bind)
+  }
 
-    private String getTcpSvc() {
-        def returnString = ''
-        if (this.conf.getAttr('tcpPort')) {
-            for (int i in this.conf.getAttr('tcpPort')[0]..this.conf.getAttr('tcpPort')[1]) {
-                returnString += String.format('''
+  private String getTcpSvc() {
+    def returnString = ''
+    if (this.conf.getAttr('tcpPort')) {
+      for (int i in this.conf.getAttr('tcpPort')[0]..this.conf.getAttr('tcpPort')[1]) {
+        returnString += String.format('''
   - port: %s
     protocol: TCP
     targetPort: %s
     nodePort: %s
     name: %s-%s
 ''', i, i, i, this.conf.appName, i)
-            }
-        }
-        return returnString
+      }
     }
+    return returnString
+  }
 
-    private String svcTemplateClusterIP() {
-        def text = '''
+  private String svcTemplateClusterIP() {
+    def text = '''
 ---
 apiVersion: v1
 kind: Service
@@ -323,49 +323,48 @@ spec:
     app: $appName
   type: ClusterIP
 '''
-        def bind = [
+    def bind = [
                 'appName' : this.conf.appName,
                 'namespace' : this.conf.getAttr('namespace'),
                 'containerPort' : this.conf.getAttr('containerPort'),
                 'servicePort'   : this.conf.getAttr('servicePort'),
         ]
 
-        return Tools.simpleTemplate(text, bind)
-    }
+    return Tools.simpleTemplate(text, bind)
+  }
 
-    private String getVolumeMounts() {
-        return this.getVolumeMountsString()
-//        switch (this.conf.getAttr('codeLanguage')) {
-//            case 'node':
-//                return this.getVolumeMountsString()
-//            case 'python':
-//                return this.getVolumeMountsString()
-//            case 'c++':
-//                return this.getVolumeMountsString()
-//            default:
-//                return ''
-//        }
-    }
+  private String getVolumeMounts() {
+    return this.getVolumeMountsString()
+  //        switch (this.conf.getAttr('codeLanguage')) {
+  //            case 'node':
+  //                return this.getVolumeMountsString()
+  //            case 'python':
+  //                return this.getVolumeMountsString()
+  //            case 'c++':
+  //                return this.getVolumeMountsString()
+  //            default:
+  //                return ''
+  //        }
+  }
 
-    private String getVolumes() {
-        return this.getVolumesString()
-//        switch (conf.getAttr('codeLanguage')) {
-//            case 'node':
-//                return this.getVolumesString()
-//            case 'python':
-//                return this.getVolumesString()
-//            case 'c++':
-//                return this.getVolumesString()
-//            default:
-//                return ''
-//        }
-    }
+  private String getVolumes() {
+    return this.getVolumesString()
+  //        switch (conf.getAttr('codeLanguage')) {
+  //            case 'node':
+  //                return this.getVolumesString()
+  //            case 'python':
+  //                return this.getVolumesString()
+  //            case 'c++':
+  //                return this.getVolumesString()
+  //            default:
+  //                return ''
+  //        }
+  }
 
-
-    private String getVolumesString() {
-        if (this.conf.appName in ['media-gateway', 'media-access']) {
-            if (this.conf.getAttr('deployEnv') == 'lexue') {
-                return String.format('''
+  private String getVolumesString() {
+    if (this.conf.appName in ['media-gateway', 'media-access']) {
+      if (this.conf.getAttr('deployEnv') == 'lexue') {
+        return String.format('''
       volumes:
       - name: config
         configMap:
@@ -383,8 +382,8 @@ spec:
         hostPath:
           path: /data/%s
 ''', this.conf.appName, this.conf.appName, this.conf.getAttr('namespace'))
-            }
-            return String.format('''
+      }
+      return String.format('''
       volumes:
       - name: config
         configMap:
@@ -402,43 +401,43 @@ spec:
         persistentVolumeClaim:
           claimName: mypvc
 ''', this.conf.appName, this.conf.appName)
-        }
+    }
 
-//        非特殊情况下
-        def returnString = '''
+    //        非特殊情况下
+    def returnString = '''
       volumes:
 '''
-        if (this.conf.getAttr('useConfigMap')) {
-            returnString += String.format('''
+    if (this.conf.getAttr('useConfigMap')) {
+      returnString += String.format('''
       - name: %s
         configMap:
           name: %s
 ''', this.conf.appName, this.conf.appName)
-        }
+    }
 
-        if (this.conf.getAttr('useStore')) {
-//
-            if (this.conf.getAttr('deployEnv') == 'lexue') {
-                returnString += String.format('''
+    if (this.conf.getAttr('useStore')) {
+      //
+      if (this.conf.getAttr('deployEnv') == 'lexue') {
+        returnString += String.format('''
       - name: data
         hostPath:
           path: /data/%s
 ''', this.conf.getAttr('namespace'))
-                return  returnString
-            }
-//
-            returnString += String.format('''
+        return  returnString
+      }
+      //
+      returnString += String.format('''
       - name: data
         persistentVolumeClaim:
           claimName: mypvc
 ''')
-        }
-        return  returnString
     }
+    return  returnString
+  }
 
-    private String getVolumeMountsString() {
-        if (this.conf.appName in ['media-gateway', 'media-access']) {
-            return '''
+  private String getVolumeMountsString() {
+    if (this.conf.appName in ['media-gateway', 'media-access']) {
+      return '''
         volumeMounts:
         - name: config
           mountPath: /src/debug/config.json
@@ -449,28 +448,29 @@ spec:
         - name: data
           mountPath: /data
 '''
-        }
+    }
 
-        if (this.conf.getAttr('configMapName') in [null, '', false] && this.conf.getAttr('useStore') in [null, '', false]) return ''
+    if (this.conf.getAttr('configMapName') in [null, '', false] && this.conf.getAttr('useStore') in [null, '', false]) return ''
 
-//        非特殊情况下：
-        def returnString = '''
+    //        非特殊情况下：
+    def returnString = '''
         volumeMounts:
 '''
-        if (this.conf.getAttr('useConfigMap') && this.conf.getAttr('configMapName')) {
-            returnString += String.format('''
+    if (this.conf.getAttr('useConfigMap') && this.conf.getAttr('configMapName')) {
+      returnString += String.format('''
         - name: %s
           mountPath: /app/%s
           subPath: %s
 ''', this.conf.appName, this.conf.getAttr('configMapName'), this.conf.getAttr('configMapName'))
-        }
+    }
 
-        if (this.conf.getAttr('useStore')) {
-            returnString += String.format('''
+    if (this.conf.getAttr('useStore')) {
+      returnString += String.format('''
         - name: data
           mountPath: %s
 ''', this.conf.getAttr('storePath') ? this.conf.getAttr('storePath') : '/data')
-        }
-        return returnString
     }
+    return returnString
+  }
+
 }

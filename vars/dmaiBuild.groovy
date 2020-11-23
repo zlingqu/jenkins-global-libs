@@ -7,7 +7,7 @@ def call(Map map, env) {
 
     // 定义定义的全局的配置项目, 兼容Jenkinsfile，没有 appName这行
     String appName
-    boolean containsKey = map.containsKey('appName');
+    boolean containsKey = map.containsKey('appName'); //containsKey是否包含某个key
     if (containsKey) {
         appName = map.get('appName')
     } else {
@@ -174,11 +174,12 @@ def call(Map map, env) {
 
 //            string(name: 'VERSION_CONTROL_MODE', defaultValue: 'GitCommitId', description: '构建的时候的版本控制方式，GitCommitId和GitTags，默认GitCommitId')
             choice(name: 'VERSION_CONTROL_MODE', choices: ['GitCommitId', 'GitTags'], description: '构建的时候的版本控制方式，GitCommitId和GitTags，默认GitCommitId')
-            string(name: 'GIT_TAG', defaultValue: '', description: 'git的tag版本')
-            string(name: 'APOLLO_CLUSTER_NAME', defaultValue: 'default', description: 'git的tag版本')
-            string(name: 'APOLLO_NAMESPACE', defaultValue: 'application', description: 'git的tag版本')
             string(name: 'GIT_VERSION', defaultValue: 'last', description: 'git的commit 版本号，git log 查看。')
-            string(name: 'BRANCH_NAME', defaultValue: branchName, description: '分支名')
+            string(name: 'GIT_TAG', defaultValue: '', description: 'git的tag版本')
+            string(name: 'APOLLO_CLUSTER_NAME', defaultValue: 'default', description: 'apollo配置中心中的集群名字，默认是default')
+            string(name: 'APOLLO_NAMESPACE', defaultValue: 'application', description: 'apollo配置中心中的空间名，默认是application')
+            
+            string(name: 'BRANCH_NAME', defaultValue: branchName, description: '代码分支名')
 
             choice(name: 'VUE_APP_SCENE', choices: ['school', 'agency'], description: 'xmc2-frontend项目使用，其他不关注')
             choice(name: 'NODE_ENV', choices: defaultNodeEnvList, description: '前端专用，其他不关注')
@@ -334,7 +335,7 @@ def call(Map map, env) {
 
                     stage('Install nyc') {
                         when {
-                            allOf {
+                            allOf { //所有的条件都满足
                                 expression { return conf.ifBuild() };
                                 expression { return conf.getAttr('deploy') };
                                 expression { return conf.getAttr('branchName') == 'dev' };

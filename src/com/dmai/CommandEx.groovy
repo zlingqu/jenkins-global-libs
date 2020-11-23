@@ -1,6 +1,7 @@
 package com.dmai
 
 class CommandEx {
+
     protected final def script
 
     CommandEx(script) {
@@ -9,4 +10,5 @@ class CommandEx {
 
     public void makeImage() {
     }
+
 }
