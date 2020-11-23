@@ -1,4 +1,5 @@
 package com.dmai
+
 import com.tool.Tools
 import java.net.URLEncoder
 import java.util.concurrent.TimeUnit
@@ -56,7 +57,6 @@ class DmaiEmail {
     }
 
     public writeBuildResultToAdp(String buildResult) {
-
         if (buildResult == 'SUCCESS') {
             this.conf.setAttr('buildResult', 'success')
         }
@@ -64,13 +64,13 @@ class DmaiEmail {
         // 测试等待5秒后发送是否可以取到真实的值。
         TimeUnit.SECONDS.sleep(5)
 
-        def jenkinsUrl = String.format('''%s/blue/organizations/jenkins/%s/detail/%s/%s/pipeline''', this.jenkinsUrl, this.conf.getAttr('jobName'), URLEncoder.encode(this.conf.getAttr('jenkinsBranchName'), "UTF-8"), this.conf.getAttr('buildNumber'))
+        def jenkinsUrl = String.format('''%s/blue/organizations/jenkins/%s/detail/%s/%s/pipeline''', this.jenkinsUrl, this.conf.getAttr('jobName'), URLEncoder.encode(this.conf.getAttr('jenkinsBranchName'), 'UTF-8'), this.conf.getAttr('buildNumber'))
         def status =  this.conf.getAttr('buildResult') == 'success' ? 'online' : 'failed'
 
         URL url = new URL(this.adpUrl)
         HttpURLConnection conn = (HttpURLConnection) url.openConnection()
-        conn.setRequestMethod("POST")
-        conn.setRequestProperty("Content-Type", "application/json")
+        conn.setRequestMethod('POST')
+        conn.setRequestProperty('Content-Type', 'application/json')
         conn.doOutput = true
         def writer = new OutputStreamWriter(conn.outputStream)
         writer.write(this.requestBodyString(jenkinsUrl, status))
@@ -90,8 +90,8 @@ class DmaiEmail {
         if (buildResult == 'SUCCESS' && this.conf.ifBuild()) {
             URL url = new URL('http://adp-api.dm-ai.cn/api/v1/result')
             HttpURLConnection conn = (HttpURLConnection) url.openConnection()
-            conn.setRequestMethod("POST")
-            conn.setRequestProperty("Content-Type", "application/json")
+            conn.setRequestMethod('POST')
+            conn.setRequestProperty('Content-Type', 'application/json')
             conn.doOutput = true
             def writer = new OutputStreamWriter(conn.outputStream)
             writer.write(this.reqResultString())
@@ -112,7 +112,6 @@ class DmaiEmail {
             return
         }
 
-
 //        this.writeBuildResultToAdp(buildResult)
 
         // 构建结果的中文提示：
@@ -120,7 +119,7 @@ class DmaiEmail {
         try {
             this.script.emailext(
                     body: this.emailBody(buildResultZh),
-                    subject: "应用名：" + this.conf.appName+ ',构建 : ' + buildResultZh + "，分支：" + this.conf.getAttr('jenkinsBranchName') + "，部署环境：" + this.conf.getAttr('deployEnv'),
+                    subject: '应用名：' + this.conf.appName + ',构建 : ' + buildResultZh + '，分支：' + this.conf.getAttr('jenkinsBranchName') + '，部署环境：' + this.conf.getAttr('deployEnv'),
                     to: conf.getAttr('emailAddress') + ',quzhongling@dm-ai.cn,liaolonglong@dm-ai.cn'
             )
         }
@@ -217,13 +216,13 @@ class DmaiEmail {
                 'appName'        : this.conf.appName,
                 'jenkinsAddress' : this.conf.jenkinsAddress,
                 'jobName'        : this.conf.getAttr('jenkinsJobName'),
-                'branchName'     : URLEncoder.encode(this.conf.getAttr('jenkinsBranchName'), "UTF-8"),
+                'branchName'     : URLEncoder.encode(this.conf.getAttr('jenkinsBranchName'), 'UTF-8'),
                 'buildNumber'    : this.conf.getAttr('buildNumber'),
                 'buildResult'    : buildResult,
                 'gitAddress'     : this.conf.getAttr('gitAddress'),
                 'k8sWebAddress'  : this.conf.getK8sWebAddress(),
                 'buildEnvInfo'   : this.buildEnvInfo().replaceAll('用户测试验证地址：', ''),
-//                'buildTestInfo'  : this.buildTestInfo(),
+                //                'buildTestInfo'  : this.buildTestInfo(),
                 'useSvcInfo'     : this.useSvcInfo(),
                 'sonarAddress'   : 'http://sonar.ops.dm-ai.cn/dashboard?id=' + this.conf.appName,
                 'adpUrlApp'      : this.adpUrlApp,
@@ -255,4 +254,5 @@ class DmaiEmail {
 
         return ''
     }
+
 }

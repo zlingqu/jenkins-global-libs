@@ -1,6 +1,6 @@
 package com.tool
 
-class Test implements Serializable{
+class Test implements Serializable {
 
     Test() {
     }
@@ -9,7 +9,8 @@ class Test implements Serializable{
         Set<String> key = printMap.keySet()
         for (Iterator<String> it = key.iterator(); it.hasNext();) {
             String s = it.next()
-            System.out.println(s+":"+printMap.get(s))
+            System.out.println(s + ':' + printMap.get(s))
         }
     }
+
 }

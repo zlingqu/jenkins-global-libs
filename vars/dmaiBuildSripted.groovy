@@ -70,7 +70,7 @@ def call(Map map, env) {
     def deployEnv = Tools.addItemToListHead(['prd', 'dev', 'test', 'stage', 'jenkins', 'mlcloud-dev', 'lexue', 'tuoke', 'not-deploy'], conf.getDeployEnv())
 
     // default node env
-//    def defaultNodeEnvList = Tools.addItemToListHead(['dev', 'prod', 'test', 'stage', 'jenkins', 'mlcloud-dev', 'lexue', 'tuoke', 'not-deploy'], conf.getDeployEnv() ? conf.getDeployEnv().replaceAll('prd', 'prod') : 'dev')
+    //    def defaultNodeEnvList = Tools.addItemToListHead(['dev', 'prod', 'test', 'stage', 'jenkins', 'mlcloud-dev', 'lexue', 'tuoke', 'not-deploy'], conf.getDeployEnv() ? conf.getDeployEnv().replaceAll('prd', 'prod') : 'dev')
     def defaultNodeEnvList = Tools.addItemToListHead(['dev', 'prd', 'test', 'stage', 'jenkins', 'mlcloud-dev', 'lexue', 'tuoke', 'not-deploy'], conf.getDeployEnv())
 
     //
@@ -87,7 +87,7 @@ def call(Map map, env) {
     // compile
     def defaultCompile = conf.getAttr('compile') ? conf.getAttr('compile') : false
     if (conf.getAttr('codeLanguage') in ['node', 'nodets']) {
-        defaultCompile = true;
+        defaultCompile = true
     }
 
     // https
@@ -98,7 +98,6 @@ def call(Map map, env) {
 
     // deploy
     def defaultDeploy = conf.getAttr('deploy') ? conf.getAttr('deploy') : false
-
 
     // code language
     def defaultCodeLanguage = conf.getAttr('codeLanguage') ? conf.getAttr('codeLanguage') : ''
@@ -163,13 +162,14 @@ def call(Map map, env) {
                     string(name: 'GPU_CARD_COUNT', defaultValue: defaultGpuLimits, description: '使用gpu卡的时候，在k8s集群中，一个pods使用的gpu卡的限制。'),
                     string(name: 'GPU_MEM_COUNT', defaultValue: defaultGpuMemLimits, description: '使用gpu卡的时候，在k8s集群中，一个pods使用的gpu卡的内存的限制。'),
 
-//            string(name: 'VERSION_CONTROL_MODE', defaultValue: 'GitCommitId', description: '构建的时候的版本控制方式，GitCommitId和GitTags，默认GitCommitId')
+                    //            string(name: 'VERSION_CONTROL_MODE', defaultValue: 'GitCommitId', description: '构建的时候的版本控制方式，GitCommitId和GitTags，默认GitCommitId')
                     choice(name: 'VERSION_CONTROL_MODE', choices: ['GitCommitId', 'GitTags'], description: '构建的时候的版本控制方式，GitCommitId和GitTags，默认GitCommitId'),
-                    string(name: 'GIT_TAG', defaultValue: '', description: 'git的tag版本'),
-                    string(name: 'APOLLO_CLUSTER_NAME', defaultValue: 'default', description: 'git的tag版本'),
-                    string(name: 'APOLLO_NAMESPACE', defaultValue: 'application', description: 'git的tag版本'),
                     string(name: 'GIT_VERSION', defaultValue: 'last', description: 'git的commit 版本号，git log 查看。'),
-                    string(name: 'BRANCH_NAME', defaultValue: branchName, description: '分支名'),
+                    string(name: 'GIT_TAG', defaultValue: '', description: 'git的tag版本'),
+                    string(name: 'APOLLO_CLUSTER_NAME', defaultValue: 'default', description: 'apollo配置中心中的集群名字，默认是default'),
+                    string(name: 'APOLLO_NAMESPACE', defaultValue: 'application', description: 'apollo配置中心中的空间名，默认是application'),
+
+                    string(name: 'BRANCH_NAME', defaultValue: branchName, description: '代码分支名'),
 
                     choice(name: 'VUE_APP_SCENE', choices: ['school', 'agency'], description: 'xmc2-frontend项目使用，其他不关注'),
                     choice(name: 'NODE_ENV', choices: defaultNodeEnvList, description: '前端专用，其他不关注'),
@@ -295,7 +295,7 @@ def call(Map map, env) {
                         // set build image
                         conf.setAttr('buildImageTag', conf.getBuildImageAddressTag())
                         conf.setAttr('buildImageAddress', conf.getBuildImageAddress())
-//                        echo currentBuild.displayName, currentBuild.fullDisplayName, currentBuild.projectName, currentBuild.fullProjectName
+                        //                        echo currentBuild.displayName, currentBuild.fullDisplayName, currentBuild.projectName, currentBuild.fullProjectName
                         withEnv(conf.withEnvList) {
                             sh 'printenv'
                         }
@@ -316,7 +316,7 @@ def call(Map map, env) {
                                 }
                             } catch (e) {
                                 sh "echo ${e}"
-                                conf.failMsg = '拉取指定git的版本或者tag失败，请检查版本或者tag是否正确，请确保tag是从master分支拉取。';
+                                conf.failMsg = '拉取指定git的版本或者tag失败，请检查版本或者tag是否正确，请确保tag是从master分支拉取。'
                                 throw e
                             }
                         }
@@ -329,7 +329,7 @@ def call(Map map, env) {
                                         sh conf.getAttr('execCommand')
                                     } catch (e) {
                                         sh "echo ${e}"
-                                        conf.failMsg = '自定义镜像执行命令失败，执行命令为：' + conf.getAttr('execCommand');
+                                        conf.failMsg = '自定义镜像执行命令失败，执行命令为：' + conf.getAttr('execCommand')
                                         throw e
                                     }
                                 }
@@ -344,7 +344,7 @@ def call(Map map, env) {
                                         compile.compile()
                                     } catch (e) {
                                         sh "echo ${e}"
-                                        conf.failMsg = '编译失败！';
+                                        conf.failMsg = '编译失败！'
                                         throw e
                                     }
                                 }
@@ -361,13 +361,12 @@ def call(Map map, env) {
                                         }
                                     } catch (e) {
                                         sh "echo ${e}"
-                                        conf.failMsg = '下载deployment配置文件失败！';
+                                        conf.failMsg = '下载deployment配置文件失败！'
                                         throw e
                                     }
                                 }
                             }
                         }
-
 
                         // Download Model
                         if (conf.getAttr('ifUseModel') || conf.getAttr('ifUseGitManagerModel') || (conf.getAttr('useModel') && conf.getAttr('modelGitAddress'))) {
@@ -376,13 +375,13 @@ def call(Map map, env) {
                                     try {
                                         if (conf.getAttr('useModel') && conf.getAttr('modelGitAddress')) {
                                             withCredentials([usernamePassword(credentialsId: 'dev-admin-model', passwordVariable: 'password', usernameVariable: 'username')]) {
-                                                sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + conf.getAttr("modelGitAddress").replace("https://", 'https://$username:$password@') + ' model'
+                                                sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + conf.getAttr('modelGitAddress').replace('https://', 'https://$username:$password@') + ' model'
                                             }
                                         }
 
                                         if (conf.getAttr('ifUseModel') && conf.getAttr('ifUseGitManagerModel')) {
                                             withCredentials([usernamePassword(credentialsId: 'dev-admin-model', passwordVariable: 'password', usernameVariable: 'username')]) {
-                                                sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + conf.getAttr("modelGitRepository").replace("https://", 'https://$username:$password@') + ' model && ' +
+                                                sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + conf.getAttr('modelGitRepository').replace('https://', 'https://$username:$password@') + ' model && ' +
                                                         (conf.getAttr('modelBranch') != 'master' ? String.format(''' cd model && git checkout -b %s origin/%s && git checkout %s && cd -''', conf.getAttr('modelBranch'), conf.getAttr('modelBranch'), conf.getAttr('modelBranch')) : 'echo master')
                                             }
                                         }
@@ -390,13 +389,12 @@ def call(Map map, env) {
                                         sh 'rm -fr model/.git'
                                     } catch (e) {
                                         sh "echo ${e}"
-                                        conf.failMsg = '从gitlab下载模型文件失败！';
-                                        throw e;
+                                        conf.failMsg = '从gitlab下载模型文件失败！'
+                                        throw e
                                     }
                                 }
                             }
                         }
-
 
                         // Make Image
                         if (conf.ifMakeImage() && conf.getAttr('makeImage')) {
@@ -418,25 +416,22 @@ def call(Map map, env) {
                                         makeDockerImage.pushImage()
                                     } catch (e) {
                                         sh "echo ${e}"
-                                        conf.failMsg = '制作容器镜像失败！';
+                                        conf.failMsg = '制作容器镜像失败！'
                                         throw e
                                     }
                                 }
                             }
                         }
-
                     }
                 } catch (e) {
                     //失败执行
                     println e
-
                 } finally {
-                    // 总是执行
+                // 总是执行
                 }
             }
 
             stage('Deploy') {
-
                 if (conf.getAttr('buildPlatform') == 'adp') {
                     container('dockerize') {
                         script {
@@ -463,14 +458,13 @@ def call(Map map, env) {
                             && !(conf.getAttr('deployEnv') in conf.privateK8sEnv)) {
                         container('kubectl') {
                             script {
-
                                 if (conf.getAttr('deployEnv') == 'prd' && deployMasterPassword != 'dmai2019999') {
-                                    throw "master分支请运维人员触发！"
+                                    throw 'master分支请运维人员触发！'
                                 }
                                 try {
-                                    sh String.format("mkdir -p ~/.kube && wget http://adp-api.dm-ai.cn/api/v1/get-k8s-key-file?env='%s' -O ~/.kube/config", conf.getAttr("deployEnv"))
+                                    sh String.format("mkdir -p ~/.kube && wget http://adp-api.dm-ai.cn/api/v1/get-k8s-key-file?env='%s' -O ~/.kube/config", conf.getAttr('deployEnv'))
                                     if (conf.getAttr('ifUseIstio')) {
-                                        sh String.format("kubectl label ns %s istio-injection=enabled --overwrite", conf.getAttr('namespace'))
+                                        sh String.format('kubectl label ns %s istio-injection=enabled --overwrite', conf.getAttr('namespace'))
                                     }
                                     if (conf.getAttr('buildPlatform') != 'adp' || conf.getAttr('customKubernetesDeployTemplate')) {
                                         echo conf.getAttr('deployEnv')
@@ -484,7 +478,7 @@ def call(Map map, env) {
                                     }
                                 } catch (e) {
                                     sh "echo ${e}"
-                                    conf.failMsg = '使用kubectl部署服务到k8s失败！';
+                                    conf.failMsg = '使用kubectl部署服务到k8s失败！'
                                     throw e
                                 }
                             }
@@ -494,9 +488,9 @@ def call(Map map, env) {
                         container('kubectl') {
                             script {
                                 try {
-                                    sh String.format("mkdir -p ~/.kube && wget http://adp-api.dm-ai.cn/api/v1/get-k8s-key-file?env='%s' -O ~/.kube/config", conf.getAttr("deployEnv"))
+                                    sh String.format("mkdir -p ~/.kube && wget http://adp-api.dm-ai.cn/api/v1/get-k8s-key-file?env='%s' -O ~/.kube/config", conf.getAttr('deployEnv'))
                                     if (conf.getAttr('ifUseIstio')) {
-                                        sh String.format("kubectl label ns %s istio-injection=enabled --overwrite", conf.getAttr('namespace'))
+                                        sh String.format('kubectl label ns %s istio-injection=enabled --overwrite', conf.getAttr('namespace'))
                                     }
                                     if (conf.getAttr('buildPlatform') != 'adp' || conf.getAttr('customKubernetesDeployTemplate')) {
                                         deployKubernetes.createIngress()
@@ -509,12 +503,12 @@ def call(Map map, env) {
                                     }
                                 } catch (e) {
                                     sh "echo ${e}"
-                                    conf.failMsg = '使用kubectl部署服务到k8s-test失败！';
+                                    conf.failMsg = '使用kubectl部署服务到k8s-test失败！'
                                     throw e
                                 }
                             }
                         }
-                    }
+                            }
 
                     // Check service
                     if (conf.getAttr('checkPodsStatus')
@@ -524,7 +518,7 @@ def call(Map map, env) {
                         container('kubectl') {
                             script {
                                 sh "echo '检查部署在k8s集群中的服务的pod是否正常运行，等待限时1200秒。'"
-                                sh "sleep 10"
+                                sh 'sleep 10'
                                 try {
                                     kubernetesStatusCheck.waitKubernetesServerStartedV1()
                                 } catch (e) {
@@ -533,7 +527,7 @@ def call(Map map, env) {
                                     throw e
                                 }
 
-                                if (conf.getAttr('deployRes') == "ok") {
+                                if (conf.getAttr('deployRes') == 'ok') {
                                     sh "echo '部署在k8s集群中的服务已正常运行'"
                                 } else {
                                     conf.failMsg = conf.getAttr('deployMsg')
@@ -541,11 +535,9 @@ def call(Map map, env) {
                                 }
                             }
                         }
-                    }
+                            }
                 }
-
             }
-
 
             stage('apidoc') {
                 if (conf.getAttr('deployEnv') == 'prd') {
@@ -556,10 +548,9 @@ def call(Map map, env) {
                                 sh 'cd /tmp/dm-api-doc && timeout -t 60 sh -x apidoc.sh ' + conf.jenkinsWorkPath()
                             } catch (e) {
                                 sh "echo ${e}"
-//                                conf.failMsg = '执行apidoc步骤失败';
-                                // send email to liaolonglong
+                            //                                conf.failMsg = '执行apidoc步骤失败';
+                            // send email to liaolonglong
                             }
-
                         }
                     }
                 }
@@ -585,7 +576,6 @@ def call(Map map, env) {
                             } catch (e) {
                                 sh "echo ${e}"
                             }
-
                         }
                     }
 
@@ -595,14 +585,13 @@ def call(Map map, env) {
                                 codeCheck.sonarCheck()
                             } catch (e) {
                                 sh "echo ${e}"
-//                                conf.failMsg = '执行sonar检查失败';
-//                                throw e
+                            //                                conf.failMsg = '执行sonar检查失败';
+                            //                                throw e
                             }
                         }
                     }
                 }
             }
-
         }
     }
 }

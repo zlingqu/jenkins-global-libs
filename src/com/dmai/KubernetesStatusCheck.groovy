@@ -15,19 +15,19 @@ class KubernetesStatusCheck {
 
     private String requestBodyString() {
         return String.format('''
-{ 
-"kubernetes_env": "%s", 
-"kubernetes_pods_name": "%s", 
+{
+"kubernetes_env": "%s",
+"kubernetes_pods_name": "%s",
 "namespace": "%s"
 }
-''', this.conf.getAttr('deployEnv'), this.conf.appName, this.conf.getAttr("namespace"))
+''', this.conf.getAttr('deployEnv'), this.conf.appName, this.conf.getAttr('namespace'))
     }
 
     private String getServiceAppStatus() {
         URL url = new URL(this.conf.kubernetesStatusCheckHttpAddress)
         HttpURLConnection conn = (HttpURLConnection) url.openConnection()
-        conn.setRequestMethod("POST")
-        conn.setRequestProperty("Content-Type", "application/json")
+        conn.setRequestMethod('POST')
+        conn.setRequestProperty('Content-Type', 'application/json')
         conn.doOutput = true
         def writer = new OutputStreamWriter(conn.outputStream)
         writer.write(this.requestBodyString())
@@ -41,14 +41,14 @@ class KubernetesStatusCheck {
     private String getImageSha256() {
         // http://127.0.0.1/api/v1/docker-image-sha256?space=devops&project=service-adp-env&tag=dev-16-70f73be74615f43f9ea8718d7a774faf6c0fd638
         def queryUrl = String.format('''http://adp-api.dm-ai.cn/api/v1/docker-image-sha256?space=%s&project=%s&tag=%s''',
-                this.conf.getAttr("namespace"),
-                this.conf.getAttr("jobName"),
+                this.conf.getAttr('namespace'),
+                this.conf.getAttr('jobName'),
                 this.conf.getAttr('buildImageTag')
         )
 
         URL url = new URL(queryUrl)
         HttpURLConnection conn = (HttpURLConnection) url.openConnection()
-        conn.setRequestMethod("GET")
+        conn.setRequestMethod('GET')
         conn.connect()
         def respText = conn.content.text
         conn.disconnect()
@@ -62,13 +62,12 @@ class KubernetesStatusCheck {
     }
 
     private String getServiceAppStatusV1Url(String imageSha) {
-
 //        def gitString = this.conf.getAttr('versionControlMode') == 'GitCommitId' ? this.conf.getAttr('gitVersion') : this.conf.getAttr('gitTag')
 
         return String.format('''http://adp-api.dm-ai.cn/api/v1/pods-status?env=%s&namespace=%s&appName=%s&imageSha=%s''',
                 this.conf.getAttr('deployEnv'),
-                this.conf.getAttr("namespace"),
-                this.conf.getAttr("jobName"),
+                this.conf.getAttr('namespace'),
+                this.conf.getAttr('jobName'),
                 imageSha)
     }
 
@@ -76,7 +75,7 @@ class KubernetesStatusCheck {
         URL url = new URL(this.getServiceAppStatusV1Url(imageSha))
 
         HttpURLConnection conn = (HttpURLConnection) url.openConnection()
-        conn.setRequestMethod("GET")
+        conn.setRequestMethod('GET')
         conn.connect()
         def respText = conn.content.text
         conn.disconnect()
@@ -90,19 +89,18 @@ class KubernetesStatusCheck {
         int count = 0
         int sha2 = 0
         int searchErr = 0
-        def imageSha = ""
+        def imageSha = ''
 
         // 查询 sha
         while (sha2 <= 3) {
             try {
                 imageSha = this.getImageSha256()
-                if (imageSha != "") {
+                if (imageSha != '') {
                     break
                 }
-                if (imageSha == "") {
+                if (imageSha == '') {
                     sha2 += 1
                 }
-
             } catch (e) {
                 sha2 += 1
                 continue
@@ -110,23 +108,22 @@ class KubernetesStatusCheck {
         }
 
         //
-        if (imageSha == "") {
-            def msg = "构建错误，构建过程中，查询镜像的sha值失败，此sha值用来检查部署后的服务"
+        if (imageSha == '') {
+            def msg = '构建错误，构建过程中，查询镜像的sha值失败，此sha值用来检查部署后的服务'
             this.conf.setAttr('deployRes', msg)
             this.conf.setAttr('deployMsg', msg)
 
             return
         }
 
-
         while (count <= 1800) {
             try {
                 def deployInfo = this.getServiceAppStatusV1(imageSha)
-                if (deployInfo.res == "fail" || (deployInfo.res == "ok" && deployInfo.status == "ok")) {
+                if (deployInfo.res == 'fail' || (deployInfo.res == 'ok' && deployInfo.status == 'ok')) {
                     this.conf.setAttr('deployRes', deployInfo.res)
                     this.conf.setAttr('deployMsg', deployInfo.msg)
                     return
-                } else if (deployInfo.res == "ok" && deployInfo.status == "continue") {
+                } else if (deployInfo.res == 'ok' && deployInfo.status == 'continue') {
                     println(deployInfo.msg)
                     count += 3
                     TimeUnit.SECONDS.sleep(3)
@@ -144,13 +141,12 @@ class KubernetesStatusCheck {
 
         this.conf.setAttr('deployRes', '1800秒内服务未起来，异常，请手动检查日志和服务状态')
         this.conf.setAttr('deployMsg', '1800秒内服务未起来，异常，请手动检查日志和服务状态')
-
     }
 
     public boolean waitKubernetesServerStarted() {
         int count = 0
         while (count <= this.conf.checkKubernetesServiceStatusSleepTimes) {
-            if (this.getServiceAppStatus() == "true") {
+            if (this.getServiceAppStatus() == 'true') {
                 return true
             } else {
                 count += 5
@@ -159,4 +155,5 @@ class KubernetesStatusCheck {
         }
         return false
     }
+
 }
