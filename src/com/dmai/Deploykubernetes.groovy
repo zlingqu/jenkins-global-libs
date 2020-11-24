@@ -58,10 +58,12 @@ class Deploykubernetes {
 
         // 老版的使用configmap的形式挂载文件
         try {
-            this.script.sh String.format(kubectlDeployment('%s/%s/%s/configmap.yml'),
+            this.script.sh String.format(kubectlDeployment('master/%s/%s/%s/configmap.yml'),
+            // raw/master/xmc2-lexue/dev/engine-image-process/configmap.yml
                     this.conf.getAttr('namespace'),
                     //                    this.conf.getAttr('branchName') in ['master', 'dev'] ? this.conf.getAttr(this.conf.getAttr('branchName')) : this.conf.getAttr('branchName'),
-                    isTest ? 'test' : this.conf.getAttr('deployEnv'),
+                    // isTest ? 'test' : this.conf.getAttr('deployEnv'),
+                    this.conf.getAttr('deployEnv'),
                     this.conf.appName
             )
         } catch (e) {
