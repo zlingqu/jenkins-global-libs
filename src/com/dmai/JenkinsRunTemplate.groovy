@@ -249,11 +249,11 @@ class JenkinsRunTemplate {
     // APOLLO_CONFIG_ADDRESS
     this.conf.setAttr('apolloConfigAddress', 'http://' + this.conf.getAttr('apolloEnv') + '-conf.apollo.cc.dm-ai.cn')
 
-    if (this.conf.getAttr('deployEnv') != 'prd') {
-      this.conf.setAttr('domain', this.conf.getAttr('domain') ? this.conf.getAttr('domain') : this.conf.appName + '.dm-ai.cn')
-    }
+    // if (this.conf.getAttr('deployEnv') != 'prd') {
+    //   this.conf.setAttr('domain', this.conf.getAttr('domain') ? this.conf.getAttr('domain') : this.conf.appName + '.dm-ai.cn')
+    // }
 
-    this.conf.setAttr('domain', this.conf.getDomain())
+    // this.conf.setAttr('domain', this.conf.getDomain())
 
     if (this.conf.getAttr('deployEnv') != 'prd' && this.conf.getAttr('buildPlatform') == 'adp') {
       this.conf.setAttr('domain', this.conf.getAttr('jobName') + '.' + this.conf.getAttr('namespace') + '.' + this.conf.getAttr('deployEnv') + '.dm-ai.cn')
@@ -268,12 +268,11 @@ class JenkinsRunTemplate {
         this.conf.setAttr('domain', this.conf.getAttr('jobName') + '-' + this.conf.getAttr('namespace') + '.' + this.conf.getAttr('deployEnv') + '.dm-ai.cn')
       }
     }
+    
+    if (this.conf.getAttr('deployEnv') in this.conf.externalK8sEnv) { //如果是外部环境，不创建域名，因为外部的ingres规则和dmai的traefik不兼容
+            this.conf.setAttr('domain', '')
+    }
 
-  //        // set stage https
-  // if (this.conf.getAttr('https') && this.conf.getAttr('deployEnv') == 'stage') {
-  //     this.conf.setAttr('https', false)
-  //     this.conf.setAttr('stageHttps', true)
-  // }
   }
 
   public String getJenkinsRunTemplate(String deployMasterPassword, String deployEnvironment, params) {
@@ -379,7 +378,7 @@ spec:
   private String templateADP() {
     return String.format('''
   - name: adp
-    image: docker.dm-ai.cn/devops/base-image-adp:0.2.3%s
+    image: docker.dm-ai.cn/devops/base-image-adp:0.2.4%s
     imagePullPolicy: IfNotPresent
     env:
     - name: VUE_APP_SCENE
