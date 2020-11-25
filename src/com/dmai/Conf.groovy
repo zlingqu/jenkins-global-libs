@@ -76,7 +76,7 @@ class Conf implements Serializable {
 
     public def getBuildImageAddress() {
         String dockerRegistryHost = ''
-        if (this.getAttr('deployEnv') in this.externalK8sEnv){ //如果是外部环境，就是用外部的域名
+        if (this.getAttr('deployEnv') in this.externalK8sEnv) { //如果是外部环境，就是用外部的域名
             dockerRegistryHost = this.dockerRegistryHostExternal
         } else {
             dockerRegistryHost = this.dockerRegistryHostInternal
@@ -87,19 +87,6 @@ class Conf implements Serializable {
                 this.getAttr('namespace'),
                 this.appName
             ) + getAttr('buildImageTag')
-//        if (this.getAttr('versionControlMode') == 'GitTags') {
-//            return String.format('''%s/%s/%s:tag-%s''',
-//                    this.dockerRegistryHost ,
-//                    this.getAttr('namespace'),
-//                    this.appName, this.getAttr('gitTag'))
-//        }
-//       return String.format('''%s/%s/%s:%s-%s-%s''',
-//               this.dockerRegistryHost ,
-//               this.getAttr('namespace'),
-//               this.appName,
-//               this.getAttr('branchName'),
-//               this.getAttr('buildNumber'),
-//               this.getAttr('gitVersion'))
     }
 
     public def getK8sWebAddress() {
@@ -141,31 +128,31 @@ class Conf implements Serializable {
         }
     }
 
-    public def getDomain() {
-        String cfgDomain = this.getAttr('domain')
-        String userRequestAddress = ''
-        if (this.getAttr('deployEnv') in this.externalK8sEnv) { //如果是外部环境，不创建域名，因为外部的ingres规则和dmai的traefik不兼容
-            cfgDomain = ''
-        }
-        // String deployEnv = this.getAttr('deployEnv')
-        if (cfgDomain) {
-            if (cfgDomain.indexOf('deploy-env') != -1) {
-                if (this.getAttr('deployEnv') == 'prd') {
-                    userRequestAddress = cfgDomain.replaceAll('deploy-env.', '')
-                } else {
-                    userRequestAddress = cfgDomain.replaceAll('deploy-env', this.getAttr('namespace') + '.' + deployEnv)
-                }
-            } else {
-                if (this.getAttr('deployEnv') == 'prd') {
-                    userRequestAddress = cfgDomain
-                } else {
-//                    userRequestAddress = deployEnv + '.' + cfgDomain
-                    userRequestAddress = cfgDomain.replaceAll('dm-ai.cn', this.getAttr('namespace') + '.' + deployEnv + '.' + 'dm-ai.cn')
-                }
-            }
-        }
-        return userRequestAddress
-    }
+//     public def getDomain() {
+//         String cfgDomain = this.getAttr('domain')
+//         String userRequestAddress = ''
+//         if (this.getAttr('deployEnv') in this.externalK8sEnv) { //如果是外部环境，不创建域名，因为外部的ingres规则和dmai的traefik不兼容
+//             cfgDomain = ''
+//         }
+//         // String deployEnv = this.getAttr('deployEnv')
+//         if (cfgDomain) {
+//             if (cfgDomain.indexOf('deploy-env') != -1) {
+//                 if (this.getAttr('deployEnv') == 'prd') {
+//                     userRequestAddress = cfgDomain.replaceAll('deploy-env.', '')
+//                 } else {
+//                     userRequestAddress = cfgDomain.replaceAll('deploy-env', this.getAttr('namespace') + '.' + deployEnv)
+//                 }
+//             } else {
+//                 if (this.getAttr('deployEnv') == 'prd') {
+//                     userRequestAddress = cfgDomain
+//                 } else {
+// //                    userRequestAddress = deployEnv + '.' + cfgDomain
+//                     userRequestAddress = cfgDomain.replaceAll('dm-ai.cn', this.getAttr('namespace') + '.' + deployEnv + '.' + 'dm-ai.cn')
+//                 }
+//             }
+//         }
+//         return userRequestAddress
+//     }
 
     public String getAppUrl() {
         switch (this.getAttr('svcType')) {
