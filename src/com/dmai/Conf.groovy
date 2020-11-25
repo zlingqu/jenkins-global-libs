@@ -77,7 +77,7 @@ class Conf implements Serializable {
     public def getBuildImageAddress() {
         String dockerRegistryHost = ''
         if (this.getAttr('deployEnv') in this.externalK8aEnv){ //如果是外部环境，就是用外部的域名
-            ockerRegistryHost = this.dockerRegistryHostExternal
+            dockerRegistryHost = this.dockerRegistryHostExternal
         } else {
             dockerRegistryHost = this.dockerRegistryHostInternal
         }
