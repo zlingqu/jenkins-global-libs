@@ -144,10 +144,10 @@ class Conf implements Serializable {
     public def getDomain() {
         String cfgDomain = this.getAttr('domain')
         String userRequestAddress = ''
-        if (this.getAttr('deployEnv') in this.externalK8aEnv){ //如果是外部环境，不创建域名，因为外部的ingres规则和dmai的traefik不兼容
-            return userRequestAddress
+        if (this.getAttr('deployEnv') in this.externalK8aEnv) { //如果是外部环境，不创建域名，因为外部的ingres规则和dmai的traefik不兼容
+            cfgDomain = ''
         }
-        String deployEnv = this.getAttr('deployEnv')
+        // String deployEnv = this.getAttr('deployEnv')
         if (cfgDomain) {
             if (cfgDomain.indexOf('deploy-env') != -1) {
                 if (this.getAttr('deployEnv') == 'prd') {
