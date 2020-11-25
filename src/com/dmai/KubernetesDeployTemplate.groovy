@@ -94,7 +94,8 @@ $volumes
     def bind = [
                 'appName'               : this.conf.appName,
                 'namespace'             : this.conf.getAttr('namespace'),
-                'dockerRegistryHost'    : conf.dockerRegistryHost,
+                'dockerRegistryHostInternal'    : conf.dockerRegistryHostInternal,
+                'dockerRegistryHostExternal'    : conf.dockerRegistryHostExternal,
                 'branchName'            : conf.getAttr('branchName'),
                 'buildNumber'           : conf.getAttr('buildNumber'),
                 'containerPort'         : this.conf.getAttr('containerPort'),

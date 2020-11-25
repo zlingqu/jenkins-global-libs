@@ -22,7 +22,8 @@ class Conf implements Serializable {
     Conf(script, String appName, Map<String, String> userSetMap) {
         this.script = script
         this.appName = appName
-        this.dockerRegistryHost = 'docker.dm-ai.cn'
+        this.dockerRegistryHostInternal = 'docker.dm-ai.cn'      // 公司内部
+        this.dockerRegistryHostExternal = 'rdac-docker.dm-ai.cn' //公司外部
         this.jenkinsAddress = 'http://jenkins.ops.dm-ai.cn'
         this.kubernetesStatusCheckHttpAddress = 'http://adp-api.dm-ai.cn/api/v1/app_status_check'
         this.checkKubernetesServiceStatusSleepTimes = 180 // 120 SECONDS
@@ -33,6 +34,7 @@ class Conf implements Serializable {
         this.failMsg = ''
         this.withEnvList = []
         this.privateK8sEnv = ['lexue', 'tuoke','xmcvt-prd']
+        this.externalK8aEnv = ['xmcvt-prd'] //外部k8s环境，用于配置不同的docker仓库地址
 
         // 全局设置中没添加这个项目，需要报错。
         try {
@@ -47,9 +49,9 @@ class Conf implements Serializable {
         }
     }
 
-    public def setockerRegistryHost(String dockerRegistryHost) {
-        this.dockerRegistryHost = dockerRegistryHost
-    }
+    // public def setockerRegistryHost(String dockerRegistryHost) {
+    //     this.dockerRegistryHost = dockerRegistryHost
+    // }
 
     public def setReplicas(String replicas) {
         this.appConf.put('replicas', replicas)
@@ -71,11 +73,18 @@ class Conf implements Serializable {
     }
 
     public def getBuildImageAddress() {
+        String dockerRegistryHost = ''
+        if (this.getAttr('deployEnv') in this.externalK8aEnv){ //如果是外部环境，就是用外部的域名
+            ockerRegistryHost = this.dockerRegistryHostExternal
+        } else {
+            dockerRegistryHost = this.dockerRegistryHostInternal
+        }
+
         return String.format('''%s/%s/%s:''',
-                this.dockerRegistryHost,
+                dockerRegistryHost,
                 this.getAttr('namespace'),
                 this.appName
-        ) + getAttr('buildImageTag')
+            ) + getAttr('buildImageTag')
 //        if (this.getAttr('versionControlMode') == 'GitTags') {
 //            return String.format('''%s/%s/%s:tag-%s''',
 //                    this.dockerRegistryHost ,
