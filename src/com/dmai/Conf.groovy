@@ -3,8 +3,7 @@ package com.dmai
 class Conf implements Serializable {
 
     public String appName
-    public String dockerRegistryHostInternal
-    public String dockerRegistryHostExternal
+    public String dockerRegistryHost
     public String jenkinsAddress
     public String vueAppScene
     public String vueAppSchool
@@ -19,7 +18,6 @@ class Conf implements Serializable {
     private Map<String, String> jenkinsEnv
     public withEnvList
     public List<String> privateK8sEnv
-    public List<String> externalK8aEnv
 
     Conf(script, String appName, Map<String, String> userSetMap) {
         this.script = script
