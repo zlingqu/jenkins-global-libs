@@ -1,5 +1,7 @@
 package com.tool
 
+// 更多颜色类型，参考 https://misc.flogisoft.com/bash/tip_colors_and_formatting
+
 def PrintMes(value, color) {
     def colors = ['red'   : "\033[40;31m >>>>>>>>>>>${value}<<<<<<<<<<< \033[0m",
               'blue'  : "\033[47;34m ${value} \033[0m",

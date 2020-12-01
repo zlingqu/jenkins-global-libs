@@ -161,9 +161,9 @@ def call(Map map, env) {
     // if check pods service
     def defaultCheckPodsStatus = false
 
-    // println('【开始进行构建】')
-    def tool = new com.tool.print()
-    tool.PrintMes('【开始进行构建】', 'green')
+    println('【开始进行构建】')
+    // def tool = new com.tool.print()
+    // tool.PrintMes('【开始进行构建】', 'green')
     pipeline {
         // 在整个构建之前，先进行参数化的设置
         parameters {
