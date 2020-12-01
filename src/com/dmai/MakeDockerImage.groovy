@@ -57,7 +57,7 @@ class MakeDockerImage {
         }
 
         if (this.conf.getAttr('deployEnvStatus') == 'start' ) {
-            this.script.sh "echo -e '\nENV deployEnvStatus online' >> Dockerfile"
+            this.script.sh "echo -e '\nENV deployEnvStatus=online' >> Dockerfile"
             this.script.sh 'cat Dockerfile'
         }
 
