@@ -162,7 +162,8 @@ def call(Map map, env) {
     def defaultCheckPodsStatus = false
 
     // println('【开始进行构建】')
-    Tools.printMes('【开始进行构建】', 'green')
+    def tool = new com.dmai.tool.print()
+    tool.printMes('【开始进行构建】', 'green')
     pipeline {
         // 在整个构建之前，先进行参数化的设置
         parameters {
