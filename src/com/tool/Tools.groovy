@@ -32,18 +32,23 @@ class Tools {
     }
 
     public static def addItemToListHead(list, item) {
-        def returnList = []
+        // def returnList = []
         if (item in list) {
-            returnList = list - item
-        } else {
-            returnList = list
+            // returnList = list - item
+            return list
         }
-        returnList = [item] + returnList
-        return returnList
+        // returnList = list
+        return [item] + list
+
+    // returnList = [item] + returnList
+    // return returnList
     }
 
     public static def handleBranchName(branchName) {
         return branchName.replaceAll('/', '-').replaceAll('_', '-').replaceAll('#', '-').replaceAll('@', '-').replaceAll('%', '-').replaceAll('[\\u4E00-\\u9FA5| ]+', '').toLowerCase()
     }
+
+    //格式化输出
+
 
 }

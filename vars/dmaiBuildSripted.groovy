@@ -79,7 +79,7 @@ def call(Map map, env) {
     // namespace
     def defaultNamespace = conf.getAttr('namespace') ? conf.getAttr('namespace') : 'test'
 
-    def topNamespace = Tools.addItemToListHead(['xmc2-lexue', 'xmc2-chongwen'], defaultNamespace)
+    // def topNamespace = Tools.addItemToListHead(['xmc2-lexue', 'xmc2-chongwen'], defaultNamespace)
 
     // git address
     def defaultGitAddress = conf.getAttr('gitAddress') ? conf.getAttr('gitAddress') : ''
