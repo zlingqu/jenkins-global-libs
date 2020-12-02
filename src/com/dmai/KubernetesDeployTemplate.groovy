@@ -144,10 +144,19 @@ $volumes
 '''
     }
     //
-    if (this.conf.getAttr('envType') == 'gpu') {
+    if (! this.conf.getAttr('gpuControlMode') && this.conf.getAttr('envType') == 'gpu') {
       return '''
       nodeSelector:
         gpu: enable
+      tolerations:
+      - operator: Exists
+        effect: NoSchedule
+'''
+    }
+    if ( this.conf.getAttr('gpuControlMode') == 'mem' && this.conf.getAttr('envType') == 'gpu') {
+      return '''
+      nodeSelector:
+        gpushare: enable
       tolerations:
       - operator: Exists
         effect: NoSchedule
