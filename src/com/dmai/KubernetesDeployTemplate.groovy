@@ -236,10 +236,10 @@ $volumes
 ''', this.conf.getAttr('gpuLimits'))
     }
 
-    if (this.conf.getAttr('gpuControlMode') == 'mem' && this.conf.getAttr('GPU_MEM_COUNT') &&  this.conf.getAttr('envType') == 'gpu') {
+    if (this.conf.getAttr('gpuControlMode') == 'mem' && this.conf.getAttr('gpuMemLimits') &&  this.conf.getAttr('envType') == 'gpu') {
       returnString += String.format('''
             aliyun.com/gpu-mem: %s
-''', this.conf.getAttr('GPU_MEM_COUNT'))
+''', this.conf.getAttr('gpuMemLimits'))
     }
 
     returnString
