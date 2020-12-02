@@ -139,10 +139,8 @@ $volumes
     if (this.conf.getAttr('envType') == 'all') {
       return '''
       tolerations:
-      - key: "hardware"
-        operator: "Equal"
-        value: "gpu"
-        effect: "NoSchedule"
+      - operator: Exists
+        effect: NoSchedule
 '''
     }
     //
@@ -151,10 +149,8 @@ $volumes
       nodeSelector:
         gpu: enable
       tolerations:
-      - key: "hardware"
-        operator: "Equal"
-        value: "gpu"
-        effect: "NoSchedule"
+      - operator: Exists
+        effect: NoSchedule
 '''
     }
 
@@ -234,10 +230,16 @@ $volumes
 ''', this.conf.getAttr('memoryLimits'))
     }
 
-    if (this.conf.getAttr('gpuLimits') &&  this.conf.getAttr('envType') == 'gpu') {
+    if (! this.conf.getAttr('gpuControlMode') && (this.conf.getAttr('gpuLimits') &&  this.conf.getAttr('envType') == 'gpu') {
       returnString += String.format('''
             nvidia.com/gpu: %s
 ''', this.conf.getAttr('gpuLimits'))
+    }
+
+    if (this.conf.getAttr('gpuControlMode') == 'mem' && (this.conf.getAttr('GPU_MEM_COUNT') &&  this.conf.getAttr('envType') == 'gpu') {
+      returnString += String.format('''
+            aliyun.com/gpu-mem: %s
+''', this.conf.getAttr('GPU_MEM_COUNT'))
     }
 
     returnString
