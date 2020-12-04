@@ -47,7 +47,7 @@ class Compile {
                             "npm config set registry http://nexus.dm-ai.cn/repository/npm && npm install && tsc && tar cf node_modules.tar node_modules ; cp -rp node_modules.tar /data/cache/node_modules && rm -fr node_modules.tar"
                     return
                 case 'js':
-                    def tmpJsCompileString = 'npm config set registry http://nexus.dm-ai.cn/repository/npm/ && yarn config set registry http://nexus.dm-ai.cn/repository/npm/ && yarn install && yarn run build'
+                    def tmpJsCompileString = 'npm config set registry http://nexus.dm-ai.cn/repository/npm/ && yarn config set registry http://nexus.dm-ai.cn/repository/npm/ && npm install && yarn run build'
                     if (this.conf.getAttr('ifCompileParam')) {
                         tmpJsCompileString = this.conf.getAttr('compileParam')
                     }
