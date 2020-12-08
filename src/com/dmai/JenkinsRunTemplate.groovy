@@ -378,8 +378,8 @@ spec:
   private String templateADP() {
     return String.format('''
   - name: adp
-    image: docker.dm-ai.cn/devops/base-image-adp:0.2.7%s
     imagePullPolicy: IfNotPresent
+    image: docker.dm-ai.cn/devops/base-image-adp:0.3.2%s
     env:
     - name: VUE_APP_SCENE
       value: %s
