@@ -153,7 +153,7 @@ $volumes
             - matchExpressions:
               - key: gpu
                 operator: Exists
-              matchExpressions:
+            - matchExpressions:
               - key: gpushare
                 operator: Exists
       tolerations:
