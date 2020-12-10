@@ -61,6 +61,7 @@ FROM docker.dm-ai.cn/devops/base-image-java8:server-jre-8u261
 ENV TZ=Asia/Shanghai
 WORKDIR /app
 ADD ./deploy /app
+RUN apk add tzdata
 EXPOSE 3000
 CMD ["sh", "./start.sh"]
 '''
