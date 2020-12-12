@@ -88,7 +88,7 @@ class DmaiEmail {
         }
 
         if (buildResult == 'SUCCESS' && this.conf.ifBuild()) {
-            URL url = new URL('http://adp-api.dm-ai.cn/api/v1/result')
+            URL url = new URL('http://192.168.100.24/api/v1/result')
             HttpURLConnection conn = (HttpURLConnection) url.openConnection()
             conn.setRequestMethod('POST')
             conn.setRequestProperty('Content-Type', 'application/json')
