@@ -35,8 +35,8 @@ class Conf implements Serializable {
         this.modelVersion = ''
         this.failMsg = ''
         this.withEnvList = []
-        this.privateK8sEnv = ['lexue', 'tuoke','xmcvt-prd']
-        this.externalK8sEnv = ['xmcvt-prd'] //外部k8s环境，用于配置不同的docker仓库地址
+        this.privateK8sEnv = ['lexue', 'tk-hw','xmcvt-prd']
+        this.externalK8sEnv = ['xmcvt-prd','tk-hw'] //外部k8s环境，用于配置不同的docker仓库地址
 
         // 全局设置中没添加这个项目，需要报错。
         try {
