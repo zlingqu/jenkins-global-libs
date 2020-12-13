@@ -53,28 +53,33 @@ class DmaiEmail {
             this.conf.setAttr('buildResult', 'success')
         }
 
-        def jenkinsUrl = String.format('''%s/blue/organizations/jenkins/%s/detail/%s/%s/pipeline''', this.jenkinsUrl, this.conf.getAttr('jobName'), URLEncoder.encode(this.conf.getAttr('jenkinsBranchName'), 'UTF-8'), this.conf.getAttr('buildNumber'))
+        def jenkinsUrl = String.format('''%s/blue/organizations/jenkins/%s/detail/%s/%s/pipeline''',
+                this.jenkinsUrl, this.conf.getAttr('jobName'),
+                URLEncoder.encode(this.conf.getAttr('jenkinsBranchName'), 'UTF-8'),
+                this.conf.getAttr('buildNumber'))
+
         def status = this.conf.getAttr('buildResult') == 'success' ? 'online' : 'failed'
 
-        this.send2Api(this.adpUrl,'POST',this.requestBodyString(jenkinsUrl, status))
+        this.send2Api(this.adpUrl, 'POST', this.requestBodyString(jenkinsUrl, status))
 
         if (this.conf.ifBuild()) {
-            this.send2Api(this.adpResultUrl,'POST',this.reqResultString())
+            this.send2Api(this.adpResultUrl, 'POST', this.reqResultString())
         }
     }
 
     private send2Api(String addr, String method, String body) {
-        this.script.sh "echo ${addr} ${body}"
+        this.script.sh "which curl ; echo ${addr} ${body}"
         URL url = new URL(addr)
         HttpURLConnection conn = (HttpURLConnection) url.openConnection()
         conn.setRequestMethod(method)
         conn.setRequestProperty('Content-Type', 'application/json')
         conn.doOutput = true
-        def writer = new OutputStreamWriter(conn.outputStream)
-        writer.write(body)
-        writer.flush()
-        writer.close()
+        conn.doInput = false
+        conn.useCaches = false
+        conn.outputStream.write(body.getBytes("UTF-8"))
+        conn.outputStream.flush()
         conn.connect()
+
         this.script.sh "echo ${conn.content.text}"
     }
 
