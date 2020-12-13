@@ -40,22 +40,12 @@ class DmaiEmail {
     }
 
     private String requestBodyString(String token, String status) {
-        return String.format('''
-{
-"token":"%s",
-"status":"%s"
-}
-''', token, status)
+        return String.format('''{"token":"%s","status":"%s"}''', token, status)
     }
 
     private String reqResultString() {
-        return String.format('''
-{
-"name": "%s",
-"deploy_env": "%s",
-"version": "%s"
-}
-''', this.conf.getAttr('jobName'), this.conf.getAttr('deployEnv'), this.conf.getAttr('jsVersion'))
+        return String.format('''{"name": "%s","deploy_env": "%s","version": "%s"}''',
+                this.conf.getAttr('jobName'), this.conf.getAttr('deployEnv'), this.conf.getAttr('jsVersion'))
     }
 
     public writeBuildResultToAdp(String buildResult) {
