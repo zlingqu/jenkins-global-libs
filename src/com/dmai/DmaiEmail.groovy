@@ -9,6 +9,7 @@ class DmaiEmail {
     protected final def script
     private Conf conf
     private String adpUrl
+    private String adpResultUrl
     private String jenkinsUrl
     private String adpUrlApp
 
@@ -16,6 +17,7 @@ class DmaiEmail {
         this.script = script
         this.conf = conf
         this.adpUrl = 'http://adp.dm-ai.cn/api/v1/deployments/change'
+        this.adpResultUrl = 'http://adp.dm-ai.cn/api/v1/result'
         this.jenkinsUrl = 'http://jenkins.ops.dm-ai.cn'
         this.adpUrlApp = 'http://adp.dm-ai.cn/#/deployment-management'
     }
@@ -67,6 +69,8 @@ class DmaiEmail {
         def jenkinsUrl = String.format('''%s/blue/organizations/jenkins/%s/detail/%s/%s/pipeline''', this.jenkinsUrl, this.conf.getAttr('jobName'), URLEncoder.encode(this.conf.getAttr('jenkinsBranchName'), 'UTF-8'), this.conf.getAttr('buildNumber'))
         def status =  this.conf.getAttr('buildResult') == 'success' ? 'online' : 'failed'
 
+        this.script.sh "echo 发送构建结果 ${this.adpUrl}"
+
         URL url = new URL(this.adpUrl)
         HttpURLConnection conn = (HttpURLConnection) url.openConnection()
         conn.setRequestMethod('POST')
@@ -88,7 +92,8 @@ class DmaiEmail {
         }
 
         if (this.conf.ifBuild()) {
-            URL url = new URL('http://adp-api.dm-ai.cn/api/v1/result')
+            this.script.sh "echo 发送构建结果 ${this.adpResultUrl}"
+            URL url = new URL(this.adpResultUrl)
             HttpURLConnection conn = (HttpURLConnection) url.openConnection()
             conn.setRequestMethod('POST')
             conn.setRequestProperty('Content-Type', 'application/json')
