@@ -9,7 +9,6 @@ class DmaiEmail {
     protected final def script
     private Conf conf
     private String adpUrl
-    private String adpResultUrl
     private String jenkinsUrl
     private String adpUrlApp
 
@@ -17,7 +16,6 @@ class DmaiEmail {
         this.script = script
         this.conf = conf
         this.adpUrl = 'http://adp.dm-ai.cn/api/v1/deployments/change'
-        this.adpResultUrl = 'http://adp-api.dm-ai.cn/api/v1/result'
         this.jenkinsUrl = 'http://jenkins.ops.dm-ai.cn'
         this.adpUrlApp = 'http://adp.dm-ai.cn/#/deployment-management'
     }
@@ -40,12 +38,22 @@ class DmaiEmail {
     }
 
     private String requestBodyString(String token, String status) {
-        return String.format('''{"token":"%s","status":"%s"}''', token, status)
+        return String.format('''
+{
+"token":"%s",
+"status":"%s"
+}
+''', token, status)
     }
 
     private String reqResultString() {
-        return String.format('''{"name": "%s","deploy_env": "%s","version": "%s"}''',
-                this.conf.getAttr('jobName'), this.conf.getAttr('deployEnv'), this.conf.getAttr('jsVersion'))
+        return String.format('''
+{
+"name": "%s",
+"deploy_env": "%s",
+"version": "%s"
+}
+''', this.conf.getAttr('jobName'), this.conf.getAttr('deployEnv'), this.conf.getAttr('jsVersion'))
     }
 
     public writeBuildResultToAdp(String buildResult) {
@@ -53,34 +61,47 @@ class DmaiEmail {
             this.conf.setAttr('buildResult', 'success')
         }
 
-        def jenkinsUrl = String.format('''%s/blue/organizations/jenkins/%s/detail/%s/%s/pipeline''',
-                this.jenkinsUrl, this.conf.getAttr('jobName'),
-                URLEncoder.encode(this.conf.getAttr('jenkinsBranchName'), 'UTF-8'),
-                this.conf.getAttr('buildNumber'))
+        // 测试等待5秒后发送是否可以取到真实的值。
+        TimeUnit.SECONDS.sleep(5)
 
-        def status = this.conf.getAttr('buildResult') == 'success' ? 'online' : 'failed'
+        def jenkinsUrl = String.format('''%s/blue/organizations/jenkins/%s/detail/%s/%s/pipeline''', this.jenkinsUrl, this.conf.getAttr('jobName'), URLEncoder.encode(this.conf.getAttr('jenkinsBranchName'), 'UTF-8'), this.conf.getAttr('buildNumber'))
+        def status =  this.conf.getAttr('buildResult') == 'success' ? 'online' : 'failed'
 
-        this.send2Api(this.adpUrl, 'POST', this.requestBodyString(jenkinsUrl, status))
-
-        if (this.conf.ifBuild()) {
-            this.send2Api(this.adpResultUrl, 'POST', this.reqResultString())
-        }
-    }
-
-    private send2Api(String addr, String method, String body) {
-        this.script.sh "which curl ; echo ${addr} ${body}"
-        URL url = new URL(addr)
+        URL url = new URL(this.adpUrl)
         HttpURLConnection conn = (HttpURLConnection) url.openConnection()
-        conn.setRequestMethod(method)
+        conn.setRequestMethod('POST')
         conn.setRequestProperty('Content-Type', 'application/json')
         conn.doOutput = true
-        conn.doInput = false
-        conn.useCaches = false
-        conn.outputStream.write(body.getBytes("UTF-8"))
-        conn.outputStream.flush()
+        def writer = new OutputStreamWriter(conn.outputStream)
+        writer.write(this.requestBodyString(jenkinsUrl, status))
+        writer.flush()
+        writer.close()
         conn.connect()
+        def respText = conn.content.text
+        println(respText)
+        return respText
+    }
 
-        this.script.sh "echo ${conn.content.text}"
+    public writeBuildResultToAdpResult(String buildResult) {
+        if (buildResult == 'SUCCESS') {
+            this.conf.setAttr('buildResult', 'success')
+        }
+
+        if (this.conf.ifBuild()) {
+            URL url = new URL('http://adp-api.dm-ai.cn/api/v1/result')
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection()
+            conn.setRequestMethod('POST')
+            conn.setRequestProperty('Content-Type', 'application/json')
+            conn.doOutput = true
+            def writer = new OutputStreamWriter(conn.outputStream)
+            writer.write(this.reqResultString())
+            writer.flush()
+            writer.close()
+            conn.connect()
+            def respText = conn.content.text
+            println(respText)
+            return respText
+        }
     }
 
     public sendEmail(String buildResult) {
@@ -192,20 +213,20 @@ class DmaiEmail {
 </html>
 '''
         def bind = [
-                'appName'       : this.conf.appName,
-                'jenkinsAddress': this.conf.jenkinsAddress,
-                'jobName'       : this.conf.getAttr('jenkinsJobName'),
-                'branchName'    : URLEncoder.encode(this.conf.getAttr('jenkinsBranchName'), 'UTF-8'),
-                'buildNumber'   : this.conf.getAttr('buildNumber'),
-                'buildResult'   : buildResult,
-                'gitAddress'    : this.conf.getAttr('gitAddress'),
-                'k8sWebAddress' : this.conf.getK8sWebAddress(),
-                'buildEnvInfo'  : this.buildEnvInfo().replaceAll('用户测试验证地址：', ''),
+                'appName'        : this.conf.appName,
+                'jenkinsAddress' : this.conf.jenkinsAddress,
+                'jobName'        : this.conf.getAttr('jenkinsJobName'),
+                'branchName'     : URLEncoder.encode(this.conf.getAttr('jenkinsBranchName'), 'UTF-8'),
+                'buildNumber'    : this.conf.getAttr('buildNumber'),
+                'buildResult'    : buildResult,
+                'gitAddress'     : this.conf.getAttr('gitAddress'),
+                'k8sWebAddress'  : this.conf.getK8sWebAddress(),
+                'buildEnvInfo'   : this.buildEnvInfo().replaceAll('用户测试验证地址：', ''),
                 //                'buildTestInfo'  : this.buildTestInfo(),
-                'useSvcInfo'    : this.useSvcInfo(),
-                'sonarAddress'  : 'http://sonar.ops.dm-ai.cn/dashboard?id=' + this.conf.appName,
-                'adpUrlApp'     : this.adpUrlApp,
-                'namespace'     : this.conf.getAttr('namespace')
+                'useSvcInfo'     : this.useSvcInfo(),
+                'sonarAddress'   : 'http://sonar.ops.dm-ai.cn/dashboard?id=' + this.conf.appName,
+                'adpUrlApp'      : this.adpUrlApp,
+                'namespace'      : this.conf.getAttr('namespace')
         ]
         return Tools.simpleTemplate(text, bind)
     }
@@ -219,9 +240,9 @@ class DmaiEmail {
 
     private String buildEnvInfo() {
         // 兼容新版的域名地址 launcher-management-x2.deploy-env.dm-ai.cn
-        if (this.conf.getAttr('domain')) {
+        if (this.conf.getAttr('domain') ) {
             if (this.conf.getAttr('https') || (this.conf.getAttr('https') == false && this.conf.getAttr('stageHttps') == true)) {
-                return '用户测试验证地址：' + 'https://' + this.conf.getAttr('domain')
+                return  '用户测试验证地址：' + 'https://' + this.conf.getAttr('domain')
             } else {
                 return '用户测试验证地址：' + 'http://' + this.conf.getAttr('domain')
             }
