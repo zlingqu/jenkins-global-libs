@@ -691,7 +691,6 @@ def call(Map map, env) {
                 script {
                     echo currentBuild.result
                     dmaiEmail.writeBuildResultToAdp(currentBuild.result)
-                    dmaiEmail.writeBuildResultToAdpResult(currentBuild.result)
                 }
             }
         }
