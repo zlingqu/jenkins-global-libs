@@ -74,6 +74,7 @@ class DmaiEmail {
     }
 
     private send2Api(String addr, String method, String body) {
+        this.script.sh "echo ${addr} ${body}"
         URL url = new URL(addr)
         HttpURLConnection conn = (HttpURLConnection) url.openConnection()
         conn.setRequestMethod(method)
@@ -84,7 +85,7 @@ class DmaiEmail {
         writer.flush()
         writer.close()
         conn.connect()
-        this.script.sh "echo " + conn.content.text
+        this.script.sh "echo ${conn.content.text}"
     }
 
     public sendEmail(String buildResult) {
