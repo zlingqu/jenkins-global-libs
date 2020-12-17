@@ -349,7 +349,8 @@ def call(Map map, env) {
                             container('compile') {
                                 script {
                                     try {
-                                        sh 'npm config set registry http://nexus.dm-ai.cn/repository/npm/ &&  yarn config set registry http://nexus.dm-ai.cn/repository/npm/  && yarn install || echo 0'
+                                        // sh 'npm config set registry http://nexus.dm-ai.cn/repository/npm/ &&  yarn config set registry http://nexus.dm-ai.cn/repository/npm/  && yarn install || echo 0'
+                                        sh 'npm config set registry https://npm.dm-ai.cn/repository/npm/ && yarn && npm run build || echo '
                                         sh 'npm i -g nyc || echo 0'
                                         sh 'npm i -g mocha || echo 0'
                                         sh 'rm -fr deployment || echo 0'
