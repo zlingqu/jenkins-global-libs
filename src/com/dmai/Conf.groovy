@@ -19,7 +19,7 @@ class Conf implements Serializable {
     private Map<String, String> jenkinsEnv
     public withEnvList
     public List<String> privateK8sEnv
-    public List<String> externalK8sEnv
+    // public List<String> externalK8sEnv
 
     Conf(script, String appName, Map<String, String> userSetMap) {
         this.script = script
@@ -36,7 +36,7 @@ class Conf implements Serializable {
         this.failMsg = ''
         this.withEnvList = []
         this.privateK8sEnv = ['lexue', 'tk-hw','xmcvt-prd']
-        this.externalK8sEnv = ['xmcvt-prd','tk-hw'] //外部k8s环境，用于配置不同的docker仓库地址
+        // this.externalK8sEnv = ['xmcvt-prd','tk-hw'] //外部k8s环境，用于配置不同的docker仓库地址
 
         // 全局设置中没添加这个项目，需要报错。
         try {
@@ -76,7 +76,8 @@ class Conf implements Serializable {
 
     public def getBuildImageAddress() {
         String dockerRegistryHost = ''
-        if (this.getAttr('deployEnv') in this.externalK8sEnv) { //如果是外部环境，就是用外部的域名
+        // if (this.getAttr('deployEnv') in this.externalK8sEnv) { //如果是外部环境，就是用外部的域名
+        if (this.getAttr('deployEnvStatus') == 'stop' ) { //如果是外部离线环境，就是用外部的域名
             dockerRegistryHost = this.dockerRegistryHostExternal
         } else {
             dockerRegistryHost = this.dockerRegistryHostInternal
@@ -128,31 +129,6 @@ class Conf implements Serializable {
         }
     }
 
-//     public def getDomain() {
-//         String cfgDomain = this.getAttr('domain')
-//         String userRequestAddress = ''
-//         if (this.getAttr('deployEnv') in this.externalK8sEnv) { //如果是外部环境，不创建域名，因为外部的ingres规则和dmai的traefik不兼容
-//             cfgDomain = ''
-//         }
-//         // String deployEnv = this.getAttr('deployEnv')
-//         if (cfgDomain) {
-//             if (cfgDomain.indexOf('deploy-env') != -1) {
-//                 if (this.getAttr('deployEnv') == 'prd') {
-//                     userRequestAddress = cfgDomain.replaceAll('deploy-env.', '')
-//                 } else {
-//                     userRequestAddress = cfgDomain.replaceAll('deploy-env', this.getAttr('namespace') + '.' + deployEnv)
-//                 }
-//             } else {
-//                 if (this.getAttr('deployEnv') == 'prd') {
-//                     userRequestAddress = cfgDomain
-//                 } else {
-// //                    userRequestAddress = deployEnv + '.' + cfgDomain
-//                     userRequestAddress = cfgDomain.replaceAll('dm-ai.cn', this.getAttr('namespace') + '.' + deployEnv + '.' + 'dm-ai.cn')
-//                 }
-//             }
-//         }
-//         return userRequestAddress
-//     }
 
     public String getAppUrl() {
         switch (this.getAttr('svcType')) {

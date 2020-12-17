@@ -269,7 +269,8 @@ class JenkinsRunTemplate {
       }
     }
     
-    if (this.conf.getAttr('deployEnv') in this.conf.externalK8sEnv) { //如果是外部环境，不创建域名，因为外部的ingres规则和dmai的traefik不兼容
+    // if (this.conf.getAttr('deployEnv') in this.conf.externalK8sEnv) { //如果是外部环境，不创建域名，因为外部的ingres规则和dmai的traefik不兼容
+    if (this.conf.getAttr('deployEnvStatus') == 'stop') { //如果是外部离线环境，不创建域名，因为外部的ingres规则和dmai的traefik不兼容
             this.conf.setAttr('domain', '')
     }
 
@@ -379,7 +380,7 @@ spec:
     return String.format('''
   - name: adp
     imagePullPolicy: IfNotPresent
-    image: docker.dm-ai.cn/devops/base-image-adp:0.3.5%s
+    image: docker.dm-ai.cn/devops/base-image-adp:0.3.7%s
     env:
     - name: VUE_APP_SCENE
       value: %s

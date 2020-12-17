@@ -49,6 +49,9 @@ def call(Map map, env) {
     // default cpu
     def defaultEnvType = conf.getAttr('envType') ? conf.getAttr('envType') : 'cpu'
 
+    // default env 状态,在线环境和离线环境（公司外部部署）
+    def defaultEnvStatus = conf.getAttr('deployEnvStatus') ? conf.getAttr('deployEnvStatus') : 'start'
+
     // gpu_card_count
     def defaultGpuLimits = String.valueOf(conf.getAttr('gpuLimits') ? conf.getAttr('gpuLimits') : 0)
 
@@ -84,6 +87,8 @@ def call(Map map, env) {
 
     //
     def topEnvType = Tools.addItemToListHead(['cpu', 'gpu', 'arm', 'all'], defaultEnvType)
+
+    def topEnvStatus = Tools.addItemToListHead(['start', 'stop'], defaultEnvStatus)
 
     // namespace
     def defaultNamespace = conf.getAttr('namespace') ? conf.getAttr('namespace') : 'test'
@@ -171,6 +176,7 @@ def call(Map map, env) {
         parameters {
             choice(name: 'DEPLOY_ENV', choices: deployEnv, description: 'dev分支部署的环境，目前支持：prd/dev/test/stage, lexue 针对的是xmc2项目。')
             choice(name: 'ENV_TYPE', choices: topEnvType, description: 'cpu代表部署cpu服务器，gpu代表gpu服务器，all代表不做限制任意漂流')
+            choice(name: 'DEPLOY_ENV_STATUS', choices: topEnvStatus, description: 'start代表在线环境，stop代表离线环境(公司外部部署)')
             choice(name: 'GPU_CONTROL_MODE', choices: ['pod', 'mem'], description: 'pod代表以gpu的卡的数量去绑定应用，mem代表以gpu的内存去绑定应用')
             string(name: 'GPU_CARD_COUNT', defaultValue: defaultGpuLimits, description: '使用gpu卡的时候，在k8s集群中，一个pods使用的gpu卡的限制。')
             string(name: 'GPU_MEM_COUNT', defaultValue: defaultGpuMemLimits, description: '使用gpu卡的时候，在k8s集群中，一个pods使用的gpu卡的内存的限制。')
