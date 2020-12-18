@@ -442,7 +442,7 @@ def call(Map map, env) {
                 }
             }
 
-            stage('Compile') {
+            stage('编译') {
                 // 当项目的全局选项设置为compile == true的时候，才进行部署的操作
                 when {
                     allOf {
@@ -451,7 +451,7 @@ def call(Map map, env) {
                 }
 
                 parallel {
-                    stage('Custom Compile') {
+                    stage('自定义编译') {
                         when {
                             allOf {
                                 expression { return conf.getAttr('useCustomImage') };
@@ -472,7 +472,7 @@ def call(Map map, env) {
                         }
                     }
 
-                    stage('General Compile') {
+                    stage('通用编译') {
                         when {
                             expression { return conf.getAttr('compile') };
                         }
@@ -491,7 +491,7 @@ def call(Map map, env) {
                         }
                     }
 
-                    stage('Download Model') {
+                    stage('下载模型文件') {
                         when {
                             anyOf {
                                 expression { return conf.getAttr('useModel') && conf.getAttr('modelGitAddress') };
@@ -598,19 +598,20 @@ def call(Map map, env) {
                 steps {
                     container('adp') {
                         script {
-                            if (conf.getAttr('buildPlatform') == 'adp' && conf.getAttr('codeLanguage') != 'android' && conf.getAttr('codeLanguage') != 'unity') {
-                                // adp 自动生成模板
-                                try {
-                                    sh 'pwd'
-                                    withEnv(conf.withEnvList) {
-                                        sh 'cd /workspace; dockerize -template src_dir:dest_dir'
-                                        sh 'cat /workspace/dest_dir/template.tmpl'
-                                        sh 'cp -rp /workspace/dest_dir/template.tmpl ./; chmod 777 template.tmpl'
+                            if (conf.getAttr('deploy') && (conf.getAttr('deployEnv') != 'not-deploy')) { //需要部署才生成模板
+                                if (conf.getAttr('buildPlatform') == 'adp' && conf.getAttr('codeLanguage') != 'android' && conf.getAttr('codeLanguage') != 'unity') {
+                                    // adp 自动生成模板
+                                    try {
+                                        withEnv(conf.withEnvList) {
+                                            cd /workspace; dockerize -template src_dir:dest_dir
+                                            cat /workspace/dest_dir/template.tmpl
+                                            cp -rp /workspace/dest_dir/template.tmpl ./; chmod 777 template.tmpl
+                                        }
+                                    } catch (e) {
+                                        sh "echo ${e}"
                                     }
-                                } catch (e) {
-                                    sh "echo ${e}"
-                                }
 
+                                }
                             }
                             // if (conf.getAttr('deploy') && !(conf.getAttr('deployEnv') in ['chuanyin'])) {
                             if (conf.getAttr('deploy') && (conf.getAttr('deployEnv') != 'not-deploy')) {
