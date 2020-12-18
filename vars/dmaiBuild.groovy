@@ -620,7 +620,7 @@ def call(Map map, env) {
                                 // adp 自动生成模板
                                 try {
                                     withEnv(conf.withEnvList) {
-                                    sh 'cd /workspace; dockerize -template src_dir:dest_dir  && cp -rp dest_dir/template.tmpl ./ && cat template.tmpl && chmod 777 template.tmpl'
+                                    sh 'cd /workspace; dockerize -template src_dir:dest_dir  && cp -rp dest_dir/template.tmpl ./ && cat template.tmpl && pwd && ls'
                                     }
                                 } catch (e) {
                                     sh "echo ${e}"
@@ -666,7 +666,7 @@ def call(Map map, env) {
                                     }
 
                                     deploykubernetes.deleteOldIngress()
-                                    sh 'kubectl apply -f template.tmpl'
+                                    sh 'pwd && ls && kubectl apply -f template.tmpl'
                                 }
 
                                 isCheckService = true
