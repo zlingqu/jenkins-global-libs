@@ -682,7 +682,7 @@ def call(Map map, env) {
                 parallel {
                     stages {
                         stage('并行1.1') {
-                            steps{
+                            steps {
                                 container('adp') {
                                     script {
                                         echo "并行2.1"
@@ -694,7 +694,7 @@ def call(Map map, env) {
                     }
                     stages {
                         stage('并行2.1') {
-                            steps{                            
+                            steps {
                                 container('adp') {
                                     script {
                                         echo "并行2.1"
@@ -703,7 +703,7 @@ def call(Map map, env) {
                             }
                         }
                         stage('并行2.2') {
-                            steps{
+                            steps {
                                 container('adp') {
                                     script {
                                         echo "并行2.1"
