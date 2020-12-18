@@ -677,8 +677,18 @@ def call(Map map, env) {
                             }
                         }
                     }
-                    stage('生成k8s部署模板'){}
-                    stage('部署到k8s'){}
+                    stage('生成k8s部署模板') {                
+                        steps {
+                            script {
+                                sh 'pwd'
+                        }
+                    }
+                    stage('部署到k8s'){
+                        teps {
+                            script {
+                                sh 'pwd'
+                        }
+                    }
                 }
             }
         }
