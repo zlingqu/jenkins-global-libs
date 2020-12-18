@@ -671,7 +671,6 @@ def call(Map map, env) {
                                                 }
                                             }
                                         }
-                                        }
                                     }
                                 }
                             }
@@ -679,6 +678,14 @@ def call(Map map, env) {
                     }
                 }
             }
+            stage('制作镜像') {
+                stepts {
+                    script {
+                        echo "制作镜像"
+                    }
+                }
+            }
+        }
 
         post {
             failure {
@@ -702,4 +709,4 @@ def call(Map map, env) {
             }
         }
         }
-    }
+}
