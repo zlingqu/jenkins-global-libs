@@ -532,7 +532,7 @@ def call(Map map, env) {
                 }
             }
 
-            stage('Build、Deploy...) {
+            stage('Build、Deploy...') {
                 parallel {
                     // unity需要 TODO 整合android加固流程
                     stage('android-app-jiagu') {
