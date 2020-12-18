@@ -516,12 +516,14 @@ def call(Map map, env) {
                                     try {
                                         if (conf.getAttr('useModel') && conf.getAttr('modelGitAddress')) {
                                             withCredentials([usernamePassword(credentialsId: 'dev-admin-model', passwordVariable: 'password', usernameVariable: 'username')]) {
+                                                sh 'echo 开始从下载模型'
                                                 sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + conf.getAttr('modelGitAddress').replace('https://', 'https://$username:$password@') + ' model'
                                             }
                                         }
 
                                         if (conf.getAttr('ifUseModel') && conf.getAttr('ifUseGitManagerModel')) {
                                             withCredentials([usernamePassword(credentialsId: 'dev-admin-model', passwordVariable: 'password', usernameVariable: 'username')]) {
+                                                sh '切换分支'
                                                 sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + conf.getAttr('modelGitRepository').replace('https://', 'https://$username:$password@') + ' model && ' +
                                                         (conf.getAttr('modelBranch') != 'master' ? String.format(''' cd model && git checkout -b %s origin/%s && git checkout %s && cd -''', conf.getAttr('modelBranch'), conf.getAttr('modelBranch'), conf.getAttr('modelBranch')) : 'echo master')
                                             }
@@ -680,7 +682,7 @@ def call(Map map, env) {
                             isCheckService = isCheckService && conf.getAttr('deployEnv') != 'not-deploy' && conf.getAttr('checkPodsStatus') && conf.getAttr('deployEnvStatus') != 'stop' && !(conf.getAttr('deployEnv') in conf.privateK8sEnv)
 
                             if (isCheckService) {
-                                sh 'echo 检查 pod是否正常运行，等待限时1200秒'
+                                sh 'echo 检查pod是否正常运行，等待限时1200秒'
                                 sh 'sleep 10'
                                 try {
                                     kubernetesStatusCheck.waitKubernetesServerStartedV1()
