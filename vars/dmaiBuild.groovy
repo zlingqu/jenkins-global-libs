@@ -684,8 +684,8 @@ def call(Map map, env) {
                             }
                         }
                     }
-                    stage('部署到k8s'){
-                        teps {
+                    stage('部署到k8s') {
+                        steps {
                             script {
                                 sh 'pwd'
                             }
