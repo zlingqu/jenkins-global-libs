@@ -416,33 +416,48 @@ def call(Map map, env) {
                             }
                         }
                     }
-                    stage('代码分支切换') {
+                    stage('代码切换到对应的commitID') {
                         when {
                             allOf {
                                 expression { return conf.ifBuild() };
+                                expression { return (conf.getAttr('versionControlMode') == 'GitCommitId' };
+                                expression { return gitVersion != 'last' };
                             }
                         }
                         steps {
                             container('adp') {
                                 script {
-                                    if ((conf.getAttr('versionControlMode') == 'GitCommitId' && gitVersion != 'last') || (conf.getAttr('versionControlMode') == 'GitTags')) {
-                                        if (conf.getAttr('versionControlMode') == 'GitTags' && !conf.getAttr('gitTag')) {
-                                            throw '请指定tag号!'
+                                    try {
+                                        withCredentials([usernamePassword(credentialsId: 'devops-use-new', passwordVariable: 'password', usernameVariable: 'username')]) {
+                                            sh 'source /etc/profile; git config --global http.sslVerify false ; git reset --hard "${gitVersion}"'
                                         }
-
-                                        try {
-                                            withCredentials([usernamePassword(credentialsId: 'devops-use-new', passwordVariable: 'password', usernameVariable: 'username')]) {
-                                                if (conf.getAttr('versionControlMode') == 'GitTags') {
-                                                    sh "source /etc/profile; git config --global http.sslVerify false ; git checkout master ; git fetch ;git checkout ${conf.getAttr('gitTag')}"
-                                                } else {
-                                                    sh 'source /etc/profile; git config --global http.sslVerify false ; git reset --hard "${gitVersion}"'
-                                                }
-                                            }
-                                        } catch (e) {
-                                            sh 'echo ${e}'
-                                            conf.failMsg = '拉取指定git的版本或者tag失败，请检查版本或者tag是否正确，请确保tag是从master分支拉取。'
-                                            throw e
+                                    } catch (e) {
+                                        sh 'echo ${e}'
+                                        conf.failMsg = '拉取指定git的版本或者tag失败，请检查版本或者tag是否正确，请确保tag是从master分支拉取。'
+                                        throw e
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    stage('代码切换到对应的tag') {
+                        when {
+                            allOf {
+                                expression { return conf.ifBuild() };
+                                expression { return (conf.getAttr('versionControlMode') == 'GitTags' };
+                            }
+                        }
+                        steps {
+                            container('adp') {
+                                script {
+                                    try {
+                                        withCredentials([usernamePassword(credentialsId: 'devops-use-new', passwordVariable: 'password', usernameVariable: 'username')]) {
+                                            sh "source /etc/profile; git config --global http.sslVerify false ; git checkout master ; git fetch ;git checkout ${conf.getAttr('gitTag')}"
                                         }
+                                    } catch (e) {
+                                        sh 'echo ${e}'
+                                        conf.failMsg = '拉取指定git的版本或者tag失败，请检查版本或者tag是否正确，请确保tag是从master分支拉取。'
+                                        throw e
                                     }
                                 }
                             }
