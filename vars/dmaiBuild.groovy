@@ -605,8 +605,10 @@ def call(Map map, env) {
             }
             stage('部署服务') {
                 when {
-                    expression { return conf.getAttr('deploy') }; //需要部署才生成模板
-                    expression { return conf.getAttr('deployEnv') != 'not-deploy') };
+                    allOf {
+                        expression { return conf.getAttr('deploy') }; //需要部署才生成模板
+                        expression { return conf.getAttr('deployEnv') != 'not-deploy') };
+                    }
                 }
                 steps {
                     container('adp') {
