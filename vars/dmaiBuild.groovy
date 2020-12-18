@@ -603,7 +603,7 @@ def call(Map map, env) {
                     }
                 }
             }
-            stage('部署服务'+'ddd') {
+            stage('部署服务'.concat('ddd')) {
                 when {
                     allOf {
                         expression { return conf.getAttr('deploy') };
