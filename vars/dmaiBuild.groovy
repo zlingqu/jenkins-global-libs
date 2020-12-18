@@ -620,7 +620,7 @@ def call(Map map, env) {
                                 // adp 自动生成模板
                                 try {
                                     withEnv(conf.withEnvList) {
-                                    sh 'cd /workspace; dockerize -template src_dir:dest_dir && cat dest_dir/template.tmpl && cp -rp dest_dir/template.tmpl .'
+                                    sh 'cd /workspace; dockerize -template src_dir:dest_dir  && cp -rp dest_dir/template.tmpl ./ && cat template.tmpl'
                                     }
                                 } catch (e) {
                                     sh "echo ${e}"
@@ -643,9 +643,9 @@ def call(Map map, env) {
                             boolean isCheckService = false
 
                             try {
-                                sh String.format("mkdir -p ~/.kube && wget http://adp-api.dm-ai.cn/api/v1/get-k8s-key-file?env='%s' -O ~/.kube/config", conf.getAttr('deployEnv'))
+                                String.format("mkdir -p ~/.kube && wget http://adp-api.dm-ai.cn/api/v1/get-k8s-key-file?env='%s' -O ~/.kube/config", conf.getAttr('deployEnv'))
                                 if (conf.getAttr('ifUseIstio')) {
-                                    sh String.format('kubectl label ns %s istio-injection=enabled --overwrite', conf.getAttr('namespace'))
+                                    String.format('kubectl label ns %s istio-injection=enabled --overwrite', conf.getAttr('namespace'))
                                 }
 
                                 if (conf.getAttr('buildPlatform') != 'adp' || conf.getAttr('customKubernetesDeployTemplate')) {
