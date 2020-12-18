@@ -234,7 +234,6 @@ def call(Map map, env) {
             // https
             booleanParam(name: 'IF_USE_HTTPS', defaultValue: defaultUseHttps, description: '是否使用https')
 
-
             // http
             booleanParam(name: 'IF_USE_HTTP', defaultValue: defaultUseHttp, description: '是否使用http')
 
@@ -672,26 +671,30 @@ def call(Map map, env) {
                                                 }
                                             }
                                         }
+                                        }
                                     }
                                 }
                             }
                         }
+                    stage('生成k8s部署模板') {
+                        stage('生成模板') {
+                            steps {
+                                script {
+                                    sh 'echo "生产模板"'
+                                }
+                            }
+                        }
+                        stage('部署') {
+                            steps {
+                                script {
+                                    sh 'echo "部署"'
+                                }
+                            }
+                        }
                     }
-                    stage('生成k8s部署模板') {                
-                        steps {
-                            script {
-                                sh 'echo "生产模板"'
-                            }
-                        }
-                        steps {
-                            script {
-                                sh 'echo "部署"'
-                            }
-                        }
                     }
                 }
             }
-        }
 
         post {
             failure {
@@ -714,5 +717,5 @@ def call(Map map, env) {
                 }
             }
         }
+        }
     }
-}
