@@ -613,8 +613,9 @@ def call(Map map, env) {
                 steps {
                     container('adp') {
                         script {
-                            sh "echo 部署的环境是"
-                            sh 'printenv |grep BUILD_ENV_deployEnv'
+                            withEnv(conf.withEnvList) {
+                                sh "echo 部署的环境是 $BUILD_ENV_deployEnv"
+                            }
                             if (conf.getAttr('buildPlatform') == 'adp' && conf.getAttr('codeLanguage') != 'android' && conf.getAttr('codeLanguage') != 'unity') {
                                 // adp 自动生成模板
                                 try {
