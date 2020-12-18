@@ -531,10 +531,10 @@ def call(Map map, env) {
                 }
             }
 
-                    // stage('Build、Deploy...') {
-                    // parallel {
-                    // unity需要 TODO 整合android加固流程
-                    stage('android-app-jiagu') {
+            // stage('Build、Deploy...') {
+            // parallel {
+            // unity需要 TODO 整合android加固流程
+            stage('android-app-jiagu') {
                         when {
                             anyOf {
                                 expression { return conf.getAttr('codeLanguage') == 'unity' };
@@ -554,8 +554,8 @@ def call(Map map, env) {
                                 }
                             }
                         }
-                    }
-                    stage('build and push image') {
+            }
+            stage('build and push image') {
                         steps {
                             container('adp') {
                                 script {
@@ -677,22 +677,21 @@ def call(Map map, env) {
                             }
                         }
 
-                stage('生成k8s部署模板') {
+            stage('生成k8s部署模板') {
                     steps {
                         script {
                             echo "生产模板"
                         }
                     }
-                }
-                stage('部署') {
+            }
+            stage('部署') {
                     steps {
                         script {
                             echo "部署"
                         }
                     }
-                }
-                // }
-                }
+            }
+        }
         post {
             failure {
                 script {
@@ -714,4 +713,4 @@ def call(Map map, env) {
                 }
             }
         }
-            }
+}
