@@ -614,13 +614,13 @@ def call(Map map, env) {
                     container('adp') {
                         script {
                             withEnv(conf.withEnvList) {
-                                echo "部署的环境是 $BUILD_ENV_deployEnv"
+                                sh 'echo 部署的环境是 $BUILD_ENV_deployEnv'
                             }
                             if (conf.getAttr('buildPlatform') == 'adp' && conf.getAttr('codeLanguage') != 'android' && conf.getAttr('codeLanguage') != 'unity') {
                                 // adp 自动生成模板
                                 try {
                                     withEnv(conf.withEnvList) {
-                                    sh 'cd /workspace; dockerize -template src_dir:dest_dir  && cp -rp dest_dir/template.tmpl ./ && cat template.tmpl'
+                                    sh 'cd /workspace; dockerize -template src_dir:dest_dir  && cat dest_dir/template.tmpl'
                                     }
                                 } catch (e) {
                                     sh "echo ${e}"
@@ -666,7 +666,7 @@ def call(Map map, env) {
                                     }
 
                                     deploykubernetes.deleteOldIngress()
-                                    sh 'kubectl apply -f /workspace/template.tmpl'
+                                    sh 'kubectl apply -f /workspace/dest_dir/template.tmpl'
                                 }
 
                                 isCheckService = true
