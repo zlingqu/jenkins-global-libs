@@ -676,6 +676,11 @@ def call(Map map, env) {
                                 }
                             }
                         }
+                    
+                    
+                    
+                    
+                }
                     stage('生成k8s部署模板') {
                         stage('生成模板') {
                             steps {
@@ -691,7 +696,6 @@ def call(Map map, env) {
                                 }
                             }
                         }
-                    }
                     }
                 }
             }
