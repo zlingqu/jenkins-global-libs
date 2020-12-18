@@ -314,7 +314,7 @@ def call(Map map, env) {
         }
 
         stages {
-            stage('初始化') {
+            stage('初始化1') {
                 steps {
                     script {
                         // set git commit id
@@ -336,9 +336,9 @@ def call(Map map, env) {
                 }
             }
 
-            stage('Code Review，Compile Init') {
+            stage('初始化2') {
                 parallel {
-                    stage('Install nyc') {
+                    stage('下载 nyc，用于代码检查') {
                         when {
                             allOf { //所有的条件都满足
                                 expression { return conf.ifBuild() };
@@ -368,7 +368,7 @@ def call(Map map, env) {
                         }
                     }
 
-                    stage('sonar-check') {
+                    stage('sonar-检查') {
                         when {
                             allOf {
                                 expression { return conf.ifBuild() };
@@ -395,7 +395,28 @@ def call(Map map, env) {
                         }
                     }
 
-                    stage('Specified Version And apidoc') {
+                    stage('apidoc功能支持') {
+                        when {
+                            allOf {
+                                expression { return conf.ifBuild() };
+                                expression { return conf.getAttr('deployEnv') == 'prd' };
+                                expression { return conf.getAttr('codeLanguage') in ['nodejs','java'] };
+                            }
+                        }
+                        steps {
+                            container('adp') {
+                                script {
+                                    try {
+                                        sh 'git clone https://gitlab.dm-ai.cn/MSF/java/dm-api-doc.git /tmp/dm-api-doc'
+                                        sh 'cd /tmp/dm-api-doc && timeout -t 60 sh -x apidoc.sh ' + conf.jenkinsWorkPath()
+                                    } catch (e) {
+                                        sh "echo ${e}"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    stage('代码分支切换') {
                         when {
                             allOf {
                                 expression { return conf.ifBuild() };
@@ -404,18 +425,6 @@ def call(Map map, env) {
                         steps {
                             container('adp') {
                                 script {
-                                    if (conf.getAttr('deployEnv') == 'prd') {
-                                        // apidoc
-                                        try {
-                                            sh 'git clone https://gitlab.dm-ai.cn/MSF/java/dm-api-doc.git /tmp/dm-api-doc'
-                                            sh 'cd /tmp/dm-api-doc && timeout -t 60 sh -x apidoc.sh ' + conf.jenkinsWorkPath()
-                                        } catch (e) {
-                                            sh "echo ${e}"
-                                        //                                conf.failMsg = '执行apidoc步骤失败';
-                                        // send email to liaolonglong
-                                        }
-                                    }
-
                                     if ((conf.getAttr('versionControlMode') == 'GitCommitId' && gitVersion != 'last') || (conf.getAttr('versionControlMode') == 'GitTags')) {
                                         if (conf.getAttr('versionControlMode') == 'GitTags' && !conf.getAttr('gitTag')) {
                                             throw '请指定tag号!'
@@ -594,7 +603,7 @@ def call(Map map, env) {
                     }
                 }
             }
-            stage('生成k8s部署脚本并部署') {
+            stage('部署服务') {
                 steps {
                     container('adp') {
                         script {
