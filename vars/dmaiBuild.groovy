@@ -602,7 +602,7 @@ def call(Map map, env) {
                                         }
 
                                         // if (conf.getAttr('deploy') && !(conf.getAttr('deployEnv') in ['chuanyin'])) {
-                                        if (conf.getAttr('deploy')) {
+                                        if (conf.getAttr('deploy') && (conf.getAttr('deployEnv') != 'not-deploy')) {
                                             // 发布到测试环境的条件
                                             boolean isTest = conf.getAttr('deployEnv') == 'test'
                                             // 其它非测试环境的发布条件  条件不能换行

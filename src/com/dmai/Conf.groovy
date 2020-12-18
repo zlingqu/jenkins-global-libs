@@ -51,9 +51,6 @@ class Conf implements Serializable {
         }
     }
 
-    // public def setockerRegistryHost(String dockerRegistryHost) {
-    //     this.dockerRegistryHost = dockerRegistryHost
-    // }
 
     public def setReplicas(String replicas) {
         this.appConf.put('replicas', replicas)
@@ -171,12 +168,9 @@ class Conf implements Serializable {
             String s = it.next();
             printString += s + " : " + this.appConf.get(s) + "\n"
             this.withEnvList += ['BUILD_ENV_' + s + '=' + this.appConf.get(s)]
-//            this.script.sh "echo ${s} : ${this.appConf.get(s)}"
         }
         return printString
-//        for (i in this.appConf) {
-//            this.script.sh "echo ${this.appConf.get(i)}"
-//        }
+
     }
 
     // set user attr
@@ -218,12 +212,6 @@ class Conf implements Serializable {
         if (this.getAttr('deployEnv') == 'default') return false
 //        if (this.getAttr('buildPlatform') == 'jenkins' &&  !(this.getAttr('branchName') in ['master', 'dev', 'stage','release']))
         return true
-//        if (this.getAttr('gitVersion') != 'update' &&
-//                (this.getAttr('deployPassword') != 'dmai2019999' || this.getAttr('deployEnv') == 'prd')
-//        ) {
-//            return true
-//        }
-//        return false
     }
 
     public def ifMakeImage() {
