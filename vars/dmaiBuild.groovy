@@ -410,7 +410,7 @@ def call(Map map, env) {
                                         sh 'git clone https://gitlab.dm-ai.cn/MSF/java/dm-api-doc.git /tmp/dm-api-doc'
                                         sh 'cd /tmp/dm-api-doc && timeout -t 60 sh -x apidoc.sh ' + conf.jenkinsWorkPath()
                                     } catch (e) {
-                                        sh "echo ${e}"
+                                        sh 'echo ${e}'
                                     }
                                 }
                             }
@@ -439,7 +439,7 @@ def call(Map map, env) {
                                                 }
                                             }
                                         } catch (e) {
-                                            sh "echo ${e}"
+                                            sh 'echo ${e}'
                                             conf.failMsg = '拉取指定git的版本或者tag失败，请检查版本或者tag是否正确，请确保tag是从master分支拉取。'
                                             throw e
                                         }
@@ -472,7 +472,7 @@ def call(Map map, env) {
                                     try {
                                         sh conf.getAttr('execCommand')
                                     } catch (e) {
-                                        sh "echo ${e}"
+                                        sh 'echo ${e}'
                                         conf.failMsg = '自定义镜像执行命令失败，执行命令为：' + conf.getAttr('execCommand')
                                         throw e
                                     }
@@ -556,7 +556,7 @@ def call(Map map, env) {
                                     try {
                                         sh 'sh -x /opt/jiagu.sh'
                                     } catch (e) {
-                                        sh "echo ${e}"
+                                        sh 'echo ${e}'
                                         conf.failMsg = '编译失败！'
                                         throw e
                                     }
@@ -575,13 +575,13 @@ def call(Map map, env) {
                                                     sh 'dockerize -template nginx.conf:nginx.conf || echo 0'
                                                 }
                                             } catch (e) {
-                                                sh "echo ${e}"
+                                                sh 'echo ${e}'
                                             }
 
                                             try {
                                                 makeDockerImage.makeImage()
                                             } catch (e) {
-                                                sh "echo ${e}"
+                                                sh 'echo ${e}'
                                                 conf.failMsg = '制作容器镜像失败！'
                                                 throw e
                                             }
@@ -589,7 +589,7 @@ def call(Map map, env) {
                                             try {
                                                 makeDockerImage.pushImage()
                                             } catch (e) {
-                                                sh "echo ${e}"
+                                                sh 'echo ${e}'
                                                 conf.failMsg = '推送镜像到镜像仓库失败！'
                                                 throw e
                                             }
@@ -680,11 +680,12 @@ def call(Map map, env) {
                             isCheckService = isCheckService && conf.getAttr('deployEnv') != 'not-deploy' && conf.getAttr('checkPodsStatus') && conf.getAttr('deployEnvStatus') != 'stop' && !(conf.getAttr('deployEnv') in conf.privateK8sEnv)
 
                             if (isCheckService) {
-                                sh 'echo 检查部署在k8s集群中的服务的pod是否正常运行，等待限时1200秒 && sleep 10'
+                                sh 'echo 检查 pod是否正常运行，等待限时1200秒'
+                                sh 'sleep 10'
                                 try {
                                     kubernetesStatusCheck.waitKubernetesServerStartedV1()
                                 } catch (e) {
-                                    sh "echo ${e}"
+                                    sh 'echo ${e}'
                                     conf.failMsg = e
                                     throw e
                                 }
