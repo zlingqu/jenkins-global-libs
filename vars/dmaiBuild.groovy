@@ -679,7 +679,7 @@ def call(Map map, env) {
                 }
             }
             stage('制作镜像') {
-                stepts {
+                steps {
                     script {
                         echo "制作镜像"
                     }
