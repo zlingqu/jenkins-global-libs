@@ -606,8 +606,8 @@ def call(Map map, env) {
             stage('部署服务') {
                 when {
                     allOf {
-                        expression { return conf.getAttr('deploy') }; //需要部署才生成模板
-                        expression { return conf.getAttr('deployEnv') != 'not-deploy');
+                        expression { return conf.getAttr('deploy') };
+                        expression { return conf.getAttr('deployEnv') != 'not-deploy') };
                     }
                 }
                 steps {
