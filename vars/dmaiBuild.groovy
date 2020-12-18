@@ -680,21 +680,36 @@ def call(Map map, env) {
             }
             stage('制作镜像') {
                 parallel {
+                    stages {
+                        stage('并行1.1') {
+                            steps{
+                                container('adp') {
+                                    script {
+                                        echo "并行2.1"
+                                    }
+                                }
+                            }
 
-                    stage('并行1.1') {
-                        script {
-                            echo "并行1.1"
                         }
                     }
-
-                    stage('并行2.1') {
-                        script {
-                            echo "并行2.1"
+                    stages {
+                        stage('并行2.1') {
+                            steps{                            
+                                container('adp') {
+                                    script {
+                                        echo "并行2.1"
+                                    }
+                                }
+                            }
                         }
-                    }
-                    stage('并行2.2') {
-                        script {
-                            echo "并行2.2"
+                        stage('并行2.2') {
+                            steps{
+                                container('adp') {
+                                    script {
+                                        echo "并行2.1"
+                                    }
+                                }
+                            }
                         }
                     }
                 }
