@@ -680,14 +680,12 @@ def call(Map map, env) {
                     stage('生成k8s部署模板') {                
                         steps {
                             script {
-                                sh 'pwd'
+                                sh 'echo "生产模板"'
                             }
                         }
-                    }
-                    stage('部署到k8s') {
                         steps {
                             script {
-                                sh 'pwd'
+                                sh 'echo "部署"'
                             }
                         }
                     }
