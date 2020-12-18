@@ -643,9 +643,9 @@ def call(Map map, env) {
                             boolean isCheckService = false
 
                             try {
-                                String.format("mkdir -p ~/.kube && wget http://adp-api.dm-ai.cn/api/v1/get-k8s-key-file?env='%s' -O ~/.kube/config", conf.getAttr('deployEnv'))
+                                sh String.format("mkdir -p ~/.kube && wget http://adp-api.dm-ai.cn/api/v1/get-k8s-key-file?env='%s' -O ~/.kube/config", conf.getAttr('deployEnv'))
                                 if (conf.getAttr('ifUseIstio')) {
-                                    String.format('kubectl label ns %s istio-injection=enabled --overwrite', conf.getAttr('namespace'))
+                                    sh String.format('kubectl label ns %s istio-injection=enabled --overwrite', conf.getAttr('namespace'))
                                 }
 
                                 if (conf.getAttr('buildPlatform') != 'adp' || conf.getAttr('customKubernetesDeployTemplate')) {
