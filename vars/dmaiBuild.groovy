@@ -49,7 +49,7 @@ def call(Map map, env) {
     // default cpu
     def defaultEnvType = conf.getAttr('envType') ? conf.getAttr('envType') : 'cpu'
 
-    // default env 状态,在线环境和离线环境（公司外部部署）
+    // default env 状态,在线环境和离线环境（公司外部
     def defaultEnvStatus = conf.getAttr('deployEnvStatus') ? conf.getAttr('deployEnvStatus') : 'start'
 
     // gpu_card_count
@@ -601,8 +601,8 @@ def call(Map map, env) {
                                             }
                                         }
 
-                                        // 传音环境服务只构建项目不部署
-                                        if (conf.getAttr('deploy') && !(conf.getAttr('deployEnv') in ['chuanyin'])) {
+                                        // if (conf.getAttr('deploy') && !(conf.getAttr('deployEnv') in ['chuanyin'])) {
+                                        if (conf.getAttr('deploy') && (conf.getAttr('deployEnv') != 'not-deploy')) {
                                             // 发布到测试环境的条件
                                             boolean isTest = conf.getAttr('deployEnv') == 'test'
                                             // 其它非测试环境的发布条件  条件不能换行
