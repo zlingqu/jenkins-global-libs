@@ -604,11 +604,11 @@ def call(Map map, env) {
                 }
             }
             stage('部署服务') {
+                when {
+                    expression { return conf.getAttr('deploy') }; //需要部署才生成模板
+                    expression { return conf.getAttr('deployEnv') != 'not-deploy') };
+                }
                 steps {
-                    when {
-                            expression { return conf.getAttr('deploy') }; //需要部署才生成模板
-                            expression { return conf.getAttr('deployEnv') != 'not-deploy') };
-                        }
                     container('adp') {
                         script {
                             if (conf.getAttr('buildPlatform') == 'adp' && conf.getAttr('codeLanguage') != 'android' && conf.getAttr('codeLanguage') != 'unity') {
