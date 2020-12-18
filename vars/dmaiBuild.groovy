@@ -643,9 +643,9 @@ def call(Map map, env) {
                             boolean isCheckService = false
 
                             try {
-                                sh String.format("mkdir -p ~/.kube && wget http://adp-api.dm-ai.cn/api/v1/get-k8s-key-file?env='%s' -O ~/.kube/config", conf.getAttr('deployEnv'))
+                                sh 'String.format("mkdir -p ~/.kube && wget http://adp-api.dm-ai.cn/api/v1/get-k8s-key-file?env='%s' -O ~/.kube/config", conf.getAttr('deployEnv'))'
                                 if (conf.getAttr('ifUseIstio')) {
-                                    sh String.format('kubectl label ns %s istio-injection=enabled --overwrite', conf.getAttr('namespace'))
+                                    sh 'String.format('kubectl label ns %s istio-injection=enabled --overwrite', conf.getAttr('namespace'))'
                                 }
 
                                 if (conf.getAttr('buildPlatform') != 'adp' || conf.getAttr('customKubernetesDeployTemplate')) {
@@ -680,8 +680,7 @@ def call(Map map, env) {
                             isCheckService = isCheckService && conf.getAttr('deployEnv') != 'not-deploy' && conf.getAttr('checkPodsStatus') && conf.getAttr('deployEnvStatus') != 'stop' && !(conf.getAttr('deployEnv') in conf.privateK8sEnv)
 
                             if (isCheckService) {
-                                sh "echo '检查部署在k8s集群中的服务的pod是否正常运行，等待限时1200秒。'"
-                                sh 'sleep 10'
+                                sh 'echo 检查部署在k8s集群中的服务的pod是否正常运行，等待限时1200秒 && sleep 10'
                                 try {
                                     kubernetesStatusCheck.waitKubernetesServerStartedV1()
                                 } catch (e) {
@@ -691,7 +690,7 @@ def call(Map map, env) {
                                 }
 
                                 if (conf.getAttr('deployRes') == 'ok') {
-                                    sh "echo '部署在k8s集群中的服务已正常运行'"
+                                    sh 'echo 部署在k8s集群中的服务已正常运行'
                                 } else {
                                     conf.failMsg = conf.getAttr('deployMsg')
                                     throw conf.getAttr('deployMsg')
