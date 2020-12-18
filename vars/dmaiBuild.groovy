@@ -681,12 +681,14 @@ def call(Map map, env) {
                         steps {
                             script {
                                 sh 'pwd'
+                            }
                         }
                     }
                     stage('部署到k8s'){
                         teps {
                             script {
                                 sh 'pwd'
+                            }
                         }
                     }
                 }
