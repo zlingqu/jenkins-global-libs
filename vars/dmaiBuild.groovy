@@ -531,8 +531,8 @@ def call(Map map, env) {
                 }
             }
 
-            stage('Build、Deploy...') {
-                parallel {
+                    // stage('Build、Deploy...') {
+                    // parallel {
                     // unity需要 TODO 整合android加固流程
                     stage('android-app-jiagu') {
                         when {
@@ -676,29 +676,23 @@ def call(Map map, env) {
                                 }
                             }
                         }
-                    
-                    
-                    
-                    
-                }
+
                 stage('生成k8s部署模板') {
-                            steps {
-                                script {
-                                   echo "生产模板"
-                                }
-                            }
+                    steps {
+                        script {
+                            echo "生产模板"
+                        }
                     }
-                stage('部署') {
-                            steps {
-                                script {
-                                    echo "部署"
-                                }
-                            }
                 }
-                    
-                
-            }
-        }
+                stage('部署') {
+                    steps {
+                        script {
+                            echo "部署"
+                        }
+                    }
+                }
+                // }
+                }
         post {
             failure {
                 script {
@@ -720,4 +714,4 @@ def call(Map map, env) {
                 }
             }
         }
-        
+            }
