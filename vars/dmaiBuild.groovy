@@ -681,25 +681,24 @@ def call(Map map, env) {
                     
                     
                 }
-                    stage('生成k8s部署模板') {
-                        stage('生成模板') {
+                stage('生成k8s部署模板') {
                             steps {
                                 script {
-                                    sh 'echo "生产模板"'
+                                   echo "生产模板"
                                 }
                             }
-                        }
-                        stage('部署') {
-                            steps {
-                                script {
-                                    sh 'echo "部署"'
-                                }
-                            }
-                        }
                     }
+                stage('部署') {
+                            steps {
+                                script {
+                                    echo "部署"
+                                }
+                            }
                 }
+                    
+                
             }
-
+        }
         post {
             failure {
                 script {
@@ -721,5 +720,5 @@ def call(Map map, env) {
                 }
             }
         }
-        }
+        
     }
