@@ -531,10 +531,10 @@ def call(Map map, env) {
                 }
             }
 
-            // stage('Build、Deploy...') {
-            // parallel {
-            // unity需要 TODO 整合android加固流程
-            stage('android-app-jiagu') {
+            stage('Build Image,Deploy') {
+                parallel {
+                    // unity需要 TODO 整合android加固流程
+                    stage('app-jiagu') {
                         when {
                             anyOf {
                                 expression { return conf.getAttr('codeLanguage') == 'unity' };
@@ -554,144 +554,132 @@ def call(Map map, env) {
                                 }
                             }
                         }
-            }
-            stage('build and push image') {
-                steps {
-                    container('adp') {
-                        script {
-                            if (conf.getAttr('buildPlatform') == 'adp' && conf.getAttr('codeLanguage') != 'android' && conf.getAttr('codeLanguage') != 'unity') {
-                                // adp 自动生成模板
-                                try {
-                                    sh 'pwd'
-                                    withEnv(conf.withEnvList) {
-                                        sh 'cd /workspace; dockerize -template src_dir:dest_dir'
-                                        sh 'cat /workspace/dest_dir/template.tmpl'
-                                        sh 'cp -rp /workspace/dest_dir/template.tmpl ./; chmod 777 template.tmpl'
-                                    }
-                                } catch (e) {
-                                    sh "echo ${e}"
-                                }
-                            }
-
-                            if (conf.ifBuild()) {
-                                if (conf.ifMakeImage() && conf.getAttr('makeImage')) {
-                                    try {
-                                        withEnv(conf.withEnvList) {
-                                            sh 'dockerize -template nginx.conf:nginx.conf || echo 0'
-                                        }
-                                    } catch (e) {
-                                        sh "echo ${e}"
-                                    }
-
-                                    try {
-                                        makeDockerImage.makeImage()
-                                    } catch (e) {
-                                        sh "echo ${e}"
-                                        conf.failMsg = '制作容器镜像失败！'
-                                        throw e
-                                    }
-
-                                    try {
-                                        makeDockerImage.pushImage()
-                                    } catch (e) {
-                                        sh "echo ${e}"
-                                        conf.failMsg = '推送镜像到镜像仓库失败！'
-                                        throw e
-                                    }
-                                }
-
-                                // if (conf.getAttr('deploy') && !(conf.getAttr('deployEnv') in ['chuanyin'])) {
-                                if (conf.getAttr('deploy') && (conf.getAttr('deployEnv') != 'not-deploy')) {
-                                    // 发布到测试环境的条件
-                                    boolean isTest = conf.getAttr('deployEnv') == 'test'
-                                    // 其它非测试环境的发布条件  条件不能换行
-                                    boolean isNotTest = !isTest && conf.getAttr('deployEnv') != 'not-deploy' && conf.getAttr('deployEnvStatus') != 'stop' && !(conf.getAttr('deployEnv') in conf.privateK8sEnv)
-
-                                    if (isNotTest) {
-                                        if (conf.getAttr('deployEnv') == 'prd' && deployMasterPassword != 'dmai2019999') {
-                                            throw 'master分支请运维人员触发！'
-                                        }
-                                    }
-
-                                    boolean isCheckService = false
-
-                                    try {
-                                        sh String.format("mkdir -p ~/.kube && wget http://adp-api.dm-ai.cn/api/v1/get-k8s-key-file?env='%s' -O ~/.kube/config", conf.getAttr('deployEnv'))
-                                        if (conf.getAttr('ifUseIstio')) {
-                                            sh String.format('kubectl label ns %s istio-injection=enabled --overwrite', conf.getAttr('namespace'))
-                                        }
-
-                                        if (conf.getAttr('buildPlatform') != 'adp' || conf.getAttr('customKubernetesDeployTemplate')) {
-                                            deploykubernetes.createIngress()
-
-                                            if (isTest) {
-                                                deploykubernetes.createConfigMap(true)
-                                            } else if (isNotTest) {
-                                                deploykubernetes.createConfigMap(false)
-                                            }
-
-                                            deploykubernetes.deployKubernetes()
-                                        } else {
-                                            if (isTest) {
-                                                deploykubernetes.createConfigMap(true)
-                                            } else if (isNotTest) {
-                                                deploykubernetes.createConfigMap(false)
-                                            }
-
-                                            deploykubernetes.deleteOldIngress()
-                                            sh 'kubectl apply -f template.tmpl'
-                                        }
-
-                                        isCheckService = true
-                                    } catch (e) {
-                                        sh "echo ${e}"
-                                        conf.failMsg = '使用kubectl部署服务到k8s失败！'
-                                        throw e
-                                    }
-
-                                    // 服务检查 条件不能换行
-                                    isCheckService = isCheckService && conf.getAttr('deployEnv') != 'not-deploy' && conf.getAttr('checkPodsStatus') && conf.getAttr('deployEnvStatus') != 'stop' && !(conf.getAttr('deployEnv') in conf.privateK8sEnv)
-
-                                    if (isCheckService) {
-                                        sh "echo '检查部署在k8s集群中的服务的pod是否正常运行，等待限时1200秒。'"
-                                        sh 'sleep 10'
+                    }
+                    stage('General') {
+                        steps {
+                            container('adp') {
+                                script {
+                                    if (conf.getAttr('buildPlatform') == 'adp' && conf.getAttr('codeLanguage') != 'android' && conf.getAttr('codeLanguage') != 'unity') {
+                                        // adp 自动生成模板
                                         try {
-                                            kubernetesStatusCheck.waitKubernetesServerStartedV1()
+                                            sh 'pwd'
+                                            withEnv(conf.withEnvList) {
+                                                sh 'cd /workspace; dockerize -template src_dir:dest_dir'
+                                                sh 'cat /workspace/dest_dir/template.tmpl'
+                                                sh 'cp -rp /workspace/dest_dir/template.tmpl ./; chmod 777 template.tmpl'
+                                            }
                                         } catch (e) {
                                             sh "echo ${e}"
-                                            conf.failMsg = e
-                                            throw e
-                                        }
-
-                                        if (conf.getAttr('deployRes') == 'ok') {
-                                            sh "echo '部署在k8s集群中的服务已正常运行'"
-                                        } else {
-                                            conf.failMsg = conf.getAttr('deployMsg')
-                                            throw conf.getAttr('deployMsg')
                                         }
                                     }
-                                }
+
+                                    if (conf.ifBuild()) {
+                                        if (conf.ifMakeImage() && conf.getAttr('makeImage')) {
+                                            try {
+                                                withEnv(conf.withEnvList) {
+                                                    sh 'dockerize -template nginx.conf:nginx.conf || echo 0'
+                                                }
+                                            } catch (e) {
+                                                sh "echo ${e}"
+                                            }
+
+                                            try {
+                                                makeDockerImage.makeImage()
+                                            } catch (e) {
+                                                sh "echo ${e}"
+                                                conf.failMsg = '制作容器镜像失败！'
+                                                throw e
+                                            }
+
+                                            try {
+                                                makeDockerImage.pushImage()
+                                            } catch (e) {
+                                                sh "echo ${e}"
+                                                conf.failMsg = '推送镜像到镜像仓库失败！'
+                                                throw e
+                                            }
+                                        }
+
+                                        // if (conf.getAttr('deploy') && !(conf.getAttr('deployEnv') in ['chuanyin'])) {
+                                        if (conf.getAttr('deploy') && (conf.getAttr('deployEnv') != 'not-deploy')) {
+                                            // 发布到测试环境的条件
+                                            boolean isTest = conf.getAttr('deployEnv') == 'test'
+                                            // 其它非测试环境的发布条件  条件不能换行
+                                            boolean isNotTest = !isTest && conf.getAttr('deployEnv') != 'not-deploy' && conf.getAttr('deployEnvStatus') != 'stop' && !(conf.getAttr('deployEnv') in conf.privateK8sEnv)
+
+                                            if (isNotTest) {
+                                                if (conf.getAttr('deployEnv') == 'prd' && deployMasterPassword != 'dmai2019999') {
+                                                    throw 'master分支请运维人员触发！'
+                                                }
+                                            }
+
+                                            boolean isCheckService = false
+
+                                            try {
+                                                sh String.format("mkdir -p ~/.kube && wget http://adp-api.dm-ai.cn/api/v1/get-k8s-key-file?env='%s' -O ~/.kube/config", conf.getAttr('deployEnv'))
+                                                if (conf.getAttr('ifUseIstio')) {
+                                                    sh String.format('kubectl label ns %s istio-injection=enabled --overwrite', conf.getAttr('namespace'))
+                                                }
+
+                                                if (conf.getAttr('buildPlatform') != 'adp' || conf.getAttr('customKubernetesDeployTemplate')) {
+                                                    deploykubernetes.createIngress()
+
+                                                    if (isTest) {
+                                                        deploykubernetes.createConfigMap(true)
+                                                    } else if (isNotTest) {
+                                                        deploykubernetes.createConfigMap(false)
+                                                    }
+
+                                                    deploykubernetes.deployKubernetes()
+                                                } else {
+                                                    if (isTest) {
+                                                        deploykubernetes.createConfigMap(true)
+                                                    } else if (isNotTest) {
+                                                        deploykubernetes.createConfigMap(false)
+                                                    }
+
+                                                    deploykubernetes.deleteOldIngress()
+                                                    sh 'kubectl apply -f template.tmpl'
+                                                }
+
+                                                isCheckService = true
+                                            } catch (e) {
+                                                sh "echo ${e}"
+                                                conf.failMsg = '使用kubectl部署服务到k8s失败！'
+                                                throw e
+                                            }
+
+                                            // 服务检查 条件不能换行
+                                            isCheckService = isCheckService && conf.getAttr('deployEnv') != 'not-deploy' && conf.getAttr('checkPodsStatus') && conf.getAttr('deployEnvStatus') != 'stop' && !(conf.getAttr('deployEnv') in conf.privateK8sEnv)
+
+                                            if (isCheckService) {
+                                                sh "echo '检查部署在k8s集群中的服务的pod是否正常运行，等待限时1200秒。'"
+                                                sh 'sleep 10'
+                                                try {
+                                                    kubernetesStatusCheck.waitKubernetesServerStartedV1()
+                                                } catch (e) {
+                                                    sh "echo ${e}"
+                                                    conf.failMsg = e
+                                                    throw e
+                                                }
+
+                                                if (conf.getAttr('deployRes') == 'ok') {
+                                                    sh "echo '部署在k8s集群中的服务已正常运行'"
+                                                } else {
+                                                    conf.failMsg = conf.getAttr('deployMsg')
+                                                    throw conf.getAttr('deployMsg')
+                                                }
+                                            }
+                                        }
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
                 }
+            }
 
-            stage('生成k8s部署模板') {
-                steps {
-                    script {
-                        echo "生产模板"
-                    }
-                }
-            }
-            stage('部署') {
-                steps {
-                    script {
-                        echo "部署"
-                    }
-                }
-            }
-            }
         post {
             failure {
                 script {
@@ -713,3 +701,5 @@ def call(Map map, env) {
                 }
             }
         }
+        }
+    }
