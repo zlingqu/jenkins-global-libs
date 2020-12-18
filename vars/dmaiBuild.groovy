@@ -603,7 +603,7 @@ def call(Map map, env) {
                     }
                 }
             }
-            stage('部署服务') {
+            stage('部署服务'+'ddd') {
                 when {
                     allOf {
                         expression { return conf.getAttr('deploy') };
@@ -699,6 +699,11 @@ def call(Map map, env) {
                         // }
                         }
                     }
+                }
+            }
+            stage('任务完成后处理') {
+                steps {
+                    echo '同步构建结果到数据库、发送邮件给用户'
                 }
             }
         }
