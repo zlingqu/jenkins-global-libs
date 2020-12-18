@@ -603,7 +603,7 @@ def call(Map map, env) {
                     }
                 }
             }
-            stage(conf.getAttr('deployEnv')) {
+            stage('部署服务') {
                 when {
                     allOf {
                         expression { return conf.getAttr('deploy') };
@@ -613,6 +613,7 @@ def call(Map map, env) {
                 steps {
                     container('adp') {
                         script {
+                            echo "部署的环境是,$BUILD_ENV_deployEnv"
                             if (conf.getAttr('buildPlatform') == 'adp' && conf.getAttr('codeLanguage') != 'android' && conf.getAttr('codeLanguage') != 'unity') {
                                 // adp 自动生成模板
                                 try {
