@@ -620,7 +620,7 @@ def call(Map map, env) {
                                 // adp 自动生成模板
                                 try {
                                     withEnv(conf.withEnvList) {
-                                    sh 'cd /workspace; dockerize -template src_dir:dest_dir  && cp -rp dest_dir/template.tmpl ./ && cat template.tmpl'
+                                    sh 'cd /workspace; dockerize -template src_dir:dest_dir  && cp -rp dest_dir/template.tmpl ./ && cat template.tmpl && chmod 777 template.tmpl'
                                     }
                                 } catch (e) {
                                     sh "echo ${e}"
