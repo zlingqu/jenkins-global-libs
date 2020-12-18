@@ -607,7 +607,7 @@ def call(Map map, env) {
                 when {
                     allOf {
                         expression { return conf.getAttr('deploy') };
-                        expression { return conf.getAttr('deployEnv') != 'not-deploy') };
+                        expression { return conf.getAttr('deployEnv') != 'not-deploy'};
                     }
                 }
                 steps {
