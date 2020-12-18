@@ -532,10 +532,10 @@ def call(Map map, env) {
                 }
             }
 
-            stage('Build Image,Deploy') {
+            stage('Build、Deploy...) {
                 parallel {
                     // unity需要 TODO 整合android加固流程
-                    stage('app-jiagu') {
+                    stage('android-app-jiagu') {
                         when {
                             anyOf {
                                 expression { return conf.getAttr('codeLanguage') == 'unity' };
@@ -556,7 +556,7 @@ def call(Map map, env) {
                             }
                         }
                     }
-                    stage('General') {
+                    stage('build and push image') {
                         steps {
                             container('adp') {
                                 script {
@@ -677,6 +677,8 @@ def call(Map map, env) {
                             }
                         }
                     }
+                    stage('生成k8s部署模板'){}
+                    stage('部署到k8s'){}
                 }
             }
         }
