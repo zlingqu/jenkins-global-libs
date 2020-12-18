@@ -420,7 +420,7 @@ def call(Map map, env) {
                         when {
                             allOf {
                                 expression { return conf.ifBuild() };
-                                expression { return (conf.getAttr('versionControlMode') == 'GitCommitId' };
+                                expression { return conf.getAttr('versionControlMode') == 'GitCommitId' };
                                 expression { return gitVersion != 'last' };
                             }
                         }
@@ -444,7 +444,7 @@ def call(Map map, env) {
                         when {
                             allOf {
                                 expression { return conf.ifBuild() };
-                                expression { return (conf.getAttr('versionControlMode') == 'GitTags' };
+                                expression { return conf.getAttr('versionControlMode') == 'GitTags' };
                             }
                         }
                         steps {
