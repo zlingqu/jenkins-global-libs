@@ -680,14 +680,14 @@ def call(Map map, env) {
             }
             stage('制作镜像') {
                 parallel {
-                    stages('并行1') {
+                    stages {
                         stage('并行1.1') {
                             script {
-                                echo "并行1"
+                                echo "并行1.1"
                             }
                         }
                     }
-                    stages('并行2') {
+                    stages {
                         stage('并行2.1') {
                             script {
                                 echo "并行2.1"
