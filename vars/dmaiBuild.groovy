@@ -557,7 +557,7 @@ def call(Map map, env) {
                 }
             }
 
-            stage('build') {
+            stage('构建') {
                 parallel {
                     // unity需要 TODO 整合android加固流程
                     stage('安卓app加固') {
@@ -620,7 +620,7 @@ def call(Map map, env) {
                     }
                 }
             }
-            stage('部署服务') {
+            stage('部署') {
                 when {
                     allOf {
                         expression { return conf.getAttr('deploy') };
@@ -719,7 +719,7 @@ def call(Map map, env) {
                     }
                 }
             }
-            stage('任务完成后处理') {
+            stage('后处理') {
                 steps {
                     echo '同步构建结果到数据库、发送邮件给用户'
                 }
