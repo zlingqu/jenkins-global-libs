@@ -441,6 +441,7 @@ def call(Map map, env) {
                             } catch (e) {
                                 sh "echo ${e}"
                             }
+                        }
                     }
                 }
                     
