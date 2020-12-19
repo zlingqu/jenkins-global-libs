@@ -338,62 +338,6 @@ def call(Map map, env) {
 
             stage('初始化2') {
                 parallel {
-                    stage('下载 nyc，用于代码检查') {
-                        when {
-                            allOf { //所有的条件都满足
-                                expression { return conf.ifBuild() };
-                                expression { return conf.getAttr('deploy') };
-                                expression { return conf.getAttr('branchName') == 'dev' };
-                                expression { return conf.getAttr('codeLanguage') in ['js', 'node'] };
-                                expression { return conf.getAttr('sonarCheck') };
-                                expression { return conf.getAttr('deployEnv') != 'test' };
-                            }
-                        }
-                        //                when { expression { return  conf.getAttr('codeLanguage') in  ['js', 'node'] && conf.getAttr('sonarCheck') && deployEnvironment != 'test'}  }
-                        steps {
-                            container('compile') {
-                                script {
-                                    try {
-                                        // sh 'npm config set registry http://nexus.dm-ai.cn/repository/npm/ &&  yarn config set registry http://nexus.dm-ai.cn/repository/npm/  && yarn install || echo 0'
-                                        sh 'npm config set registry https://npm.dm-ai.cn/repository/npm/ && yarn && npm run build || echo '
-                                        sh 'npm i -g nyc || echo 0'
-                                        sh 'npm i -g mocha || echo 0'
-                                        sh 'rm -fr deployment || echo 0'
-                                        sh 'nyc --reporter=lcov --reporter=text --report-dir=coverage mocha test/**/*.js --exit || echo 0'
-                                    } catch (e) {
-                                        sh "echo ${e}"
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    stage('sonar-检查') {
-                        when {
-                            allOf {
-                                expression { return conf.ifBuild() };
-                                expression { return conf.getAttr('deploy') };
-                                expression { return conf.getAttr('branchName') == 'dev' };
-                                expression { return conf.getAttr('codeLanguage') in ['js', 'node'] };
-                                expression { return conf.getAttr('sonarCheck') };
-                                expression { return conf.getAttr('deployEnv') != 'test' };
-                            }
-                        }
-                        //                when { expression { return  conf.getAttr('branchName') == 'dev' && conf.getAttr('codeLanguage') in  ['js', 'node'] && conf.getAttr('sonarCheck') && deployEnvironment != 'test' }}
-                        steps {
-                            container('sonar-check') {
-                                script {
-                                    try {
-                                        codeCheck.sonarCheck()
-                                    } catch (e) {
-                                        sh "echo ${e}"
-                                    //                                conf.failMsg = '执行sonar检查失败';
-                                    //                                throw e
-                                    }
-                                }
-                            }
-                        }
-                    }
 
                     stage('apidoc功能支持') {
                         when {
@@ -464,6 +408,42 @@ def call(Map map, env) {
                         }
                     }
                 }
+            }
+
+            stage('代码检查'){
+                when {
+                    allOf { //所有的条件都满足
+                        expression { return conf.ifBuild() };
+                        expression { return conf.getAttr('deploy') };
+                        expression { return conf.getAttr('branchName') == 'dev' };
+                        expression { return conf.getAttr('codeLanguage') in ['js', 'node'] };
+                        expression { return conf.getAttr('sonarCheck') };
+                        expression { return conf.getAttr('deployEnv') != 'test' };
+                    }
+                }
+                //                when { expression { return  conf.getAttr('codeLanguage') in  ['js', 'node'] && conf.getAttr('sonarCheck') && deployEnvironment != 'test'}  }
+                steps {
+                    container('compile') {
+                        script {
+                            try {
+                                // sh 'npm config set registry http://nexus.dm-ai.cn/repository/npm/ &&  yarn config set registry http://nexus.dm-ai.cn/repository/npm/  && yarn install || echo 0'
+                                sh 'npm config set registry https://npm.dm-ai.cn/repository/npm/ && yarn && npm run build || echo '
+                                sh 'npm i -g nyc || echo 0'
+                                sh 'npm i -g mocha || echo 0'
+                                sh 'rm -fr deployment || echo 0'
+                                sh 'nyc --reporter=lcov --reporter=text --report-dir=coverage mocha test/**/*.js --exit || echo 0'
+                            } catch (e) {
+                                sh "echo ${e}"
+                            }
+
+                            try {
+                                    codeCheck.sonarCheck()
+                            } catch (e) {
+                                sh "echo ${e}"
+                            }
+                    }
+                }
+                    
             }
 
             stage('编译') {
