@@ -338,62 +338,6 @@ def call(Map map, env) {
 
             stage('初始化2') {
                 parallel {
-                    stage('下载 nyc，用于代码检查') {
-                        when {
-                            allOf { //所有的条件都满足
-                                expression { return conf.ifBuild() };
-                                expression { return conf.getAttr('deploy') };
-                                expression { return conf.getAttr('branchName') == 'dev' };
-                                expression { return conf.getAttr('codeLanguage') in ['js', 'node'] };
-                                expression { return conf.getAttr('sonarCheck') };
-                                expression { return conf.getAttr('deployEnv') != 'test' };
-                            }
-                        }
-                        //                when { expression { return  conf.getAttr('codeLanguage') in  ['js', 'node'] && conf.getAttr('sonarCheck') && deployEnvironment != 'test'}  }
-                        steps {
-                            container('compile') {
-                                script {
-                                    try {
-                                        // sh 'npm config set registry http://nexus.dm-ai.cn/repository/npm/ &&  yarn config set registry http://nexus.dm-ai.cn/repository/npm/  && yarn install || echo 0'
-                                        sh 'npm config set registry https://npm.dm-ai.cn/repository/npm/ && yarn && npm run build || echo '
-                                        sh 'npm i -g nyc || echo 0'
-                                        sh 'npm i -g mocha || echo 0'
-                                        sh 'rm -fr deployment || echo 0'
-                                        sh 'nyc --reporter=lcov --reporter=text --report-dir=coverage mocha test/**/*.js --exit || echo 0'
-                                    } catch (e) {
-                                        sh "echo ${e}"
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    stage('sonar-检查') {
-                        when {
-                            allOf {
-                                expression { return conf.ifBuild() };
-                                expression { return conf.getAttr('deploy') };
-                                expression { return conf.getAttr('branchName') == 'dev' };
-                                expression { return conf.getAttr('codeLanguage') in ['js', 'node'] };
-                                expression { return conf.getAttr('sonarCheck') };
-                                expression { return conf.getAttr('deployEnv') != 'test' };
-                            }
-                        }
-                        //                when { expression { return  conf.getAttr('branchName') == 'dev' && conf.getAttr('codeLanguage') in  ['js', 'node'] && conf.getAttr('sonarCheck') && deployEnvironment != 'test' }}
-                        steps {
-                            container('sonar-check') {
-                                script {
-                                    try {
-                                        codeCheck.sonarCheck()
-                                    } catch (e) {
-                                        sh "echo ${e}"
-                                    //                                conf.failMsg = '执行sonar检查失败';
-                                    //                                throw e
-                                    }
-                                }
-                            }
-                        }
-                    }
 
                     stage('apidoc功能支持') {
                         when {
@@ -410,45 +354,97 @@ def call(Map map, env) {
                                         sh 'git clone https://gitlab.dm-ai.cn/MSF/java/dm-api-doc.git /tmp/dm-api-doc'
                                         sh 'cd /tmp/dm-api-doc && timeout -t 60 sh -x apidoc.sh ' + conf.jenkinsWorkPath()
                                     } catch (e) {
-                                        sh "echo ${e}"
+                                        sh 'echo ${e}'
                                     }
                                 }
                             }
                         }
                     }
-                    stage('代码分支切换') {
+                    stage('代码切换到对应的commitID') {
                         when {
                             allOf {
                                 expression { return conf.ifBuild() };
+                                expression { return conf.getAttr('versionControlMode') == 'GitCommitId' };
+                                expression { return gitVersion != 'last' };
                             }
                         }
                         steps {
                             container('adp') {
                                 script {
-                                    if ((conf.getAttr('versionControlMode') == 'GitCommitId' && gitVersion != 'last') || (conf.getAttr('versionControlMode') == 'GitTags')) {
-                                        if (conf.getAttr('versionControlMode') == 'GitTags' && !conf.getAttr('gitTag')) {
-                                            throw '请指定tag号!'
+                                    try {
+                                        withCredentials([usernamePassword(credentialsId: 'devops-use-new', passwordVariable: 'password', usernameVariable: 'username')]) {
+                                            sh 'source /etc/profile; git config --global http.sslVerify false ; git reset --hard "${gitVersion}"'
                                         }
-
-                                        try {
-                                            withCredentials([usernamePassword(credentialsId: 'devops-use-new', passwordVariable: 'password', usernameVariable: 'username')]) {
-                                                if (conf.getAttr('versionControlMode') == 'GitTags') {
-                                                    sh "source /etc/profile; git config --global http.sslVerify false ; git checkout master ; git fetch ;git checkout ${conf.getAttr('gitTag')}"
-                                                } else {
-                                                    sh 'source /etc/profile; git config --global http.sslVerify false ; git reset --hard "${gitVersion}"'
-                                                }
-                                            }
-                                        } catch (e) {
-                                            sh "echo ${e}"
-                                            conf.failMsg = '拉取指定git的版本或者tag失败，请检查版本或者tag是否正确，请确保tag是从master分支拉取。'
-                                            throw e
+                                    } catch (e) {
+                                        sh 'echo ${e}'
+                                        conf.failMsg = '拉取指定git的版本或者tag失败，请检查版本或者tag是否正确，请确保tag是从master分支拉取。'
+                                        throw e
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    stage('代码切换到对应的tag') {
+                        when {
+                            allOf {
+                                expression { return conf.ifBuild() };
+                                expression { return conf.getAttr('versionControlMode') == 'GitTags' };
+                            }
+                        }
+                        steps {
+                            container('adp') {
+                                script {
+                                    try {
+                                        withCredentials([usernamePassword(credentialsId: 'devops-use-new', passwordVariable: 'password', usernameVariable: 'username')]) {
+                                            sh "source /etc/profile; git config --global http.sslVerify false ; git checkout master ; git fetch ;git checkout ${conf.getAttr('gitTag')}"
                                         }
+                                    } catch (e) {
+                                        sh 'echo ${e}'
+                                        conf.failMsg = '拉取指定git的版本或者tag失败，请检查版本或者tag是否正确，请确保tag是从master分支拉取。'
+                                        throw e
                                     }
                                 }
                             }
                         }
                     }
                 }
+            }
+
+            stage('代码检查'){
+                when {
+                    allOf { //所有的条件都满足
+                        expression { return conf.ifBuild() };
+                        expression { return conf.getAttr('deploy') };
+                        expression { return conf.getAttr('branchName') == 'dev' };
+                        expression { return conf.getAttr('codeLanguage') in ['js', 'node'] };
+                        expression { return conf.getAttr('sonarCheck') };
+                        expression { return conf.getAttr('deployEnv') != 'test' };
+                    }
+                }
+                //                when { expression { return  conf.getAttr('codeLanguage') in  ['js', 'node'] && conf.getAttr('sonarCheck') && deployEnvironment != 'test'}  }
+                steps {
+                    container('compile') {
+                        script {
+                            try {
+                                // sh 'npm config set registry http://nexus.dm-ai.cn/repository/npm/ &&  yarn config set registry http://nexus.dm-ai.cn/repository/npm/  && yarn install || echo 0'
+                                sh 'npm config set registry https://npm.dm-ai.cn/repository/npm/ && yarn && npm run build || echo '
+                                sh 'npm i -g nyc || echo 0'
+                                sh 'npm i -g mocha || echo 0'
+                                sh 'rm -fr deployment || echo 0'
+                                sh 'nyc --reporter=lcov --reporter=text --report-dir=coverage mocha test/**/*.js --exit || echo 0'
+                            } catch (e) {
+                                sh "echo ${e}"
+                            }
+
+                            try {
+                                    codeCheck.sonarCheck()
+                            } catch (e) {
+                                sh "echo ${e}"
+                            }
+                        }
+                    }
+                }
+                    
             }
 
             stage('编译') {
@@ -472,7 +468,7 @@ def call(Map map, env) {
                                     try {
                                         sh conf.getAttr('execCommand')
                                     } catch (e) {
-                                        sh "echo ${e}"
+                                        sh 'echo ${e}'
                                         conf.failMsg = '自定义镜像执行命令失败，执行命令为：' + conf.getAttr('execCommand')
                                         throw e
                                     }
@@ -516,12 +512,14 @@ def call(Map map, env) {
                                     try {
                                         if (conf.getAttr('useModel') && conf.getAttr('modelGitAddress')) {
                                             withCredentials([usernamePassword(credentialsId: 'dev-admin-model', passwordVariable: 'password', usernameVariable: 'username')]) {
+                                                sh 'echo 开始从下载模型'
                                                 sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + conf.getAttr('modelGitAddress').replace('https://', 'https://$username:$password@') + ' model'
                                             }
                                         }
 
                                         if (conf.getAttr('ifUseModel') && conf.getAttr('ifUseGitManagerModel')) {
                                             withCredentials([usernamePassword(credentialsId: 'dev-admin-model', passwordVariable: 'password', usernameVariable: 'username')]) {
+                                                sh '切换分支'
                                                 sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + conf.getAttr('modelGitRepository').replace('https://', 'https://$username:$password@') + ' model && ' +
                                                         (conf.getAttr('modelBranch') != 'master' ? String.format(''' cd model && git checkout -b %s origin/%s && git checkout %s && cd -''', conf.getAttr('modelBranch'), conf.getAttr('modelBranch'), conf.getAttr('modelBranch')) : 'echo master')
                                             }
@@ -540,7 +538,7 @@ def call(Map map, env) {
                 }
             }
 
-            stage('build') {
+            stage('构建') {
                 parallel {
                     // unity需要 TODO 整合android加固流程
                     stage('安卓app加固') {
@@ -556,7 +554,7 @@ def call(Map map, env) {
                                     try {
                                         sh 'sh -x /opt/jiagu.sh'
                                     } catch (e) {
-                                        sh "echo ${e}"
+                                        sh 'echo ${e}'
                                         conf.failMsg = '编译失败！'
                                         throw e
                                     }
@@ -575,13 +573,13 @@ def call(Map map, env) {
                                                     sh 'dockerize -template nginx.conf:nginx.conf || echo 0'
                                                 }
                                             } catch (e) {
-                                                sh "echo ${e}"
+                                                sh 'echo ${e}'
                                             }
 
                                             try {
                                                 makeDockerImage.makeImage()
                                             } catch (e) {
-                                                sh "echo ${e}"
+                                                sh 'echo ${e}'
                                                 conf.failMsg = '制作容器镜像失败！'
                                                 throw e
                                             }
@@ -589,7 +587,7 @@ def call(Map map, env) {
                                             try {
                                                 makeDockerImage.pushImage()
                                             } catch (e) {
-                                                sh "echo ${e}"
+                                                sh 'echo ${e}'
                                                 conf.failMsg = '推送镜像到镜像仓库失败！'
                                                 throw e
                                             }
@@ -603,98 +601,108 @@ def call(Map map, env) {
                     }
                 }
             }
-            stage('部署服务') {
+            stage('部署') {
+                when {
+                    allOf {
+                        expression { return conf.getAttr('deploy') };
+                        expression { return conf.getAttr('deployEnv') != 'not-deploy'};
+                    }
+                }
                 steps {
                     container('adp') {
                         script {
-                            if (conf.getAttr('deploy') && (conf.getAttr('deployEnv') != 'not-deploy')) { //需要部署才生成模板
-                                if (conf.getAttr('buildPlatform') == 'adp' && conf.getAttr('codeLanguage') != 'android' && conf.getAttr('codeLanguage') != 'unity') {
-                                    // adp 自动生成模板
-                                    try {
-                                        withEnv(conf.withEnvList) {
-                                            sh 'cd /workspace; dockerize -template src_dir:dest_dir'
-                                            sh 'cat /workspace/dest_dir/template.tmpl'
-                                            sh 'cp -rp /workspace/dest_dir/template.tmpl ./; chmod 777 template.tmpl'
-                                        }
-                                    } catch (e) {
-                                        sh "echo ${e}"
-                                    }
-
-                                }
+                            withEnv(conf.withEnvList) {
+                                sh 'echo 部署的环境是 $BUILD_ENV_deployEnv'
                             }
-                            // if (conf.getAttr('deploy') && !(conf.getAttr('deployEnv') in ['chuanyin'])) {
-                            if (conf.getAttr('deploy') && (conf.getAttr('deployEnv') != 'not-deploy')) {
-                                // 发布到测试环境的条件
-                                boolean isTest = conf.getAttr('deployEnv') == 'test'
-                                // 其它非测试环境的发布条件  条件不能换行
-                                boolean isNotTest = !isTest && conf.getAttr('deployEnv') != 'not-deploy' && conf.getAttr('deployEnvStatus') != 'stop' && !(conf.getAttr('deployEnv') in conf.privateK8sEnv)
-
-                                if (isNotTest) {
-                                    if (conf.getAttr('deployEnv') == 'prd' && deployMasterPassword != 'dmai2019999') {
-                                        throw 'master分支请运维人员触发！'
-                                    }
-                                }
-
-                                boolean isCheckService = false
-
+                            if (conf.getAttr('buildPlatform') == 'adp' && conf.getAttr('codeLanguage') != 'android' && conf.getAttr('codeLanguage') != 'unity') {
+                                // adp 自动生成模板
                                 try {
-                                    sh String.format("mkdir -p ~/.kube && wget http://adp-api.dm-ai.cn/api/v1/get-k8s-key-file?env='%s' -O ~/.kube/config", conf.getAttr('deployEnv'))
-                                    if (conf.getAttr('ifUseIstio')) {
-                                        sh String.format('kubectl label ns %s istio-injection=enabled --overwrite', conf.getAttr('namespace'))
+                                    withEnv(conf.withEnvList) {
+                                    sh 'cd /workspace; dockerize -template src_dir:dest_dir  && cat dest_dir/template.tmpl'
                                     }
-
-                                    if (conf.getAttr('buildPlatform') != 'adp' || conf.getAttr('customKubernetesDeployTemplate')) {
-                                        deploykubernetes.createIngress()
-
-                                        if (isTest) {
-                                            deploykubernetes.createConfigMap(true)
-                                        } else if (isNotTest) {
-                                            deploykubernetes.createConfigMap(false)
-                                        }
-
-                                        deploykubernetes.deployKubernetes()
-                                    } else {
-                                        if (isTest) {
-                                            deploykubernetes.createConfigMap(true)
-                                        } else if (isNotTest) {
-                                            deploykubernetes.createConfigMap(false)
-                                        }
-
-                                        deploykubernetes.deleteOldIngress()
-                                        sh 'kubectl apply -f template.tmpl'
-                                    }
-
-                                    isCheckService = true
                                 } catch (e) {
                                     sh "echo ${e}"
-                                    conf.failMsg = '使用kubectl部署服务到k8s失败！'
+                                }
+
+                            }
+                            // if (conf.getAttr('deploy') && !(conf.getAttr('deployEnv') in ['chuanyin'])) {
+                        // if (conf.getAttr('deploy') && (conf.getAttr('deployEnv') != 'not-deploy')) {
+                            // 发布到测试环境的条件
+                            boolean isTest = conf.getAttr('deployEnv') == 'test'
+                            // 其它非测试环境的发布条件  条件不能换行
+                            boolean isNotTest = !isTest && conf.getAttr('deployEnv') != 'not-deploy' && conf.getAttr('deployEnvStatus') != 'stop' && !(conf.getAttr('deployEnv') in conf.privateK8sEnv)
+
+                            if (isNotTest) {
+                                if (conf.getAttr('deployEnv') == 'prd' && deployMasterPassword != 'dmai2019999') {
+                                    throw 'master分支请运维人员触发！'
+                                }
+                            }
+
+                            boolean isCheckService = false
+
+                            try {
+                                sh String.format("mkdir -p ~/.kube && wget http://adp-api.dm-ai.cn/api/v1/get-k8s-key-file?env='%s' -O ~/.kube/config", conf.getAttr('deployEnv'))
+                                if (conf.getAttr('ifUseIstio')) {
+                                    sh String.format('kubectl label ns %s istio-injection=enabled --overwrite', conf.getAttr('namespace'))
+                                }
+
+                                if (conf.getAttr('buildPlatform') != 'adp' || conf.getAttr('customKubernetesDeployTemplate')) {
+                                    deploykubernetes.createIngress()
+
+                                    if (isTest) {
+                                        deploykubernetes.createConfigMap(true)
+                                    } else if (isNotTest) {
+                                        deploykubernetes.createConfigMap(false)
+                                    }
+
+                                    deploykubernetes.deployKubernetes()
+                                } else {
+                                    if (isTest) {
+                                        deploykubernetes.createConfigMap(true)
+                                    } else if (isNotTest) {
+                                        deploykubernetes.createConfigMap(false)
+                                    }
+
+                                    deploykubernetes.deleteOldIngress()
+                                    sh 'kubectl apply -f /workspace/dest_dir/template.tmpl'
+                                }
+
+                                isCheckService = true
+                            } catch (e) {
+                                sh "echo ${e}"
+                                conf.failMsg = '使用kubectl部署服务到k8s失败！'
+                                throw e
+                            }
+
+                            // 服务检查 条件不能换行
+                            isCheckService = isCheckService && conf.getAttr('deployEnv') != 'not-deploy' && conf.getAttr('checkPodsStatus') && conf.getAttr('deployEnvStatus') != 'stop' && !(conf.getAttr('deployEnv') in conf.privateK8sEnv)
+
+                            if (isCheckService) {
+                                sh 'echo 检查pod是否正常运行，等待限时1200秒'
+                                sh 'sleep 10'
+                                try {
+                                    kubernetesStatusCheck.waitKubernetesServerStartedV1()
+                                } catch (e) {
+                                    sh 'echo ${e}'
+                                    conf.failMsg = e
                                     throw e
                                 }
 
-                                // 服务检查 条件不能换行
-                                isCheckService = isCheckService && conf.getAttr('deployEnv') != 'not-deploy' && conf.getAttr('checkPodsStatus') && conf.getAttr('deployEnvStatus') != 'stop' && !(conf.getAttr('deployEnv') in conf.privateK8sEnv)
-
-                                if (isCheckService) {
-                                    sh "echo '检查部署在k8s集群中的服务的pod是否正常运行，等待限时1200秒。'"
-                                    sh 'sleep 10'
-                                    try {
-                                        kubernetesStatusCheck.waitKubernetesServerStartedV1()
-                                    } catch (e) {
-                                        sh "echo ${e}"
-                                        conf.failMsg = e
-                                        throw e
-                                    }
-
-                                    if (conf.getAttr('deployRes') == 'ok') {
-                                        sh "echo '部署在k8s集群中的服务已正常运行'"
-                                    } else {
-                                        conf.failMsg = conf.getAttr('deployMsg')
-                                        throw conf.getAttr('deployMsg')
-                                    }
+                                if (conf.getAttr('deployRes') == 'ok') {
+                                    sh 'echo 部署在k8s集群中的服务已正常运行'
+                                } else {
+                                    conf.failMsg = conf.getAttr('deployMsg')
+                                    throw conf.getAttr('deployMsg')
                                 }
                             }
+                        // }
                         }
                     }
+                }
+            }
+            stage('后处理') {
+                steps {
+                    echo '同步构建结果到数据库、发送邮件给用户'
                 }
             }
         }
