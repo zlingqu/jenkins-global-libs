@@ -563,37 +563,40 @@ def call(Map map, env) {
                         }
                     }
                     stage('制作并上传镜像') {
+                        when {
+                        allOf {
+                            expression { return conf.ifBuild() };
+                            expression { return conf.getAttr('codeLanguage') != 'android'};
+                            expression { return conf.getAttr('codeLanguage') != 'unity')};
+                            }
+                        }
                         steps {
                             container('adp') {
                                 script {
-                                    if (conf.ifBuild()) {
-                                        if (conf.ifMakeImage() && conf.getAttr('makeImage')) {
-                                            try {
-                                                withEnv(conf.withEnvList) {
-                                                    sh 'dockerize -template nginx.conf:nginx.conf || echo 0'
-                                                }
-                                            } catch (e) {
-                                                sh 'echo ${e}'
+                                    if (conf.ifMakeImage() && conf.getAttr('makeImage')) {
+                                        try {
+                                            withEnv(conf.withEnvList) {
+                                                sh 'dockerize -template nginx.conf:nginx.conf || echo 0'
                                             }
-
-                                            try {
-                                                makeDockerImage.makeImage()
-                                            } catch (e) {
-                                                sh 'echo ${e}'
-                                                conf.failMsg = '制作容器镜像失败！'
-                                                throw e
-                                            }
-
-                                            try {
-                                                makeDockerImage.pushImage()
-                                            } catch (e) {
-                                                sh 'echo ${e}'
-                                                conf.failMsg = '推送镜像到镜像仓库失败！'
-                                                throw e
-                                            }
+                                        } catch (e) {
+                                            sh 'echo ${e}'
                                         }
 
+                                        try {
+                                            makeDockerImage.makeImage()
+                                        } catch (e) {
+                                            sh 'echo ${e}'
+                                            conf.failMsg = '制作容器镜像失败！'
+                                            throw e
+                                        }
 
+                                        try {
+                                            makeDockerImage.pushImage()
+                                        } catch (e) {
+                                            sh 'echo ${e}'
+                                            conf.failMsg = '推送镜像到镜像仓库失败！'
+                                            throw e
+                                        }
                                     }
                                 }
                             }
@@ -605,7 +608,8 @@ def call(Map map, env) {
                 when {
                     allOf {
                         expression { return conf.getAttr('deploy') };
-                        expression { return conf.getAttr('deployEnv') != 'not-deploy'};
+                        expression { return conf.getAttr('codeLanguage') != 'android'};
+                        expression { return conf.getAttr('codeLanguage') != 'unity' };
                     }
                 }
                 steps {
@@ -614,7 +618,7 @@ def call(Map map, env) {
                             withEnv(conf.withEnvList) {
                                 sh 'echo 部署的环境是 $BUILD_ENV_deployEnv'
                             }
-                            if (conf.getAttr('buildPlatform') == 'adp' && conf.getAttr('codeLanguage') != 'android' && conf.getAttr('codeLanguage') != 'unity') {
+                            if (conf.getAttr('buildPlatform') == 'adp')  {
                                 // adp 自动生成模板
                                 try {
                                     withEnv(conf.withEnvList) {
