@@ -567,7 +567,7 @@ def call(Map map, env) {
                         allOf {
                             expression { return conf.ifBuild() };
                             expression { return conf.getAttr('codeLanguage') != 'android'};
-                            expression { return conf.getAttr('codeLanguage') != 'unity')};
+                            expression { return conf.getAttr('codeLanguage') != 'unity' };
                             }
                         }
                         steps {
