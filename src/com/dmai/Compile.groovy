@@ -29,7 +29,7 @@ class Compile {
             }
 
             if (this.conf.appName == "work-attendance") {
-                this.script.sh "mvn package -Dmaven.test.skip=true; \
+                this.script.sh " package -Dmaven.test.skip=true; \
                                     test -e /root/.m2/target && rm -fr /root/.m2/target; \
                                     cp -rp target /root/.m2/; cd /root/.m2/target && mv work-attendance*.jar work-attendance.jar"
                 return
@@ -48,7 +48,7 @@ class Compile {
                     return
                 case 'js':
                     // def tmpJsCompileString = 'npm config set registry http://nexus.dm-ai.cn/repository/npm/ && yarn config set registry http://nexus.dm-ai.cn/repository/npm/ && npm install && yarn run build'
-                    def tmpJsCompileString = 'npm config set registry https://npm.dm-ai.cn/repository/npm/ && yarn && npm run build || echo'
+                    def tmpJsCompileString = 'npm config set registry https://npm.dm-ai.cn/repository/npm/ && npm install && npm run build || echo'
                     if (this.conf.getAttr('ifCompileParam')) {
                         tmpJsCompileString = this.conf.getAttr('compileParam')
                     }
