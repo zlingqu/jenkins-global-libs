@@ -134,7 +134,7 @@ class DmaiEmail {
     }
 
     private String emailBody(String buildResult) {
-        if (conf.getAttr('codeLanguage') == 'android') {
+        if (this.conf.getAttr('codeLanguage') == 'android') {
             def text = '''
 <html>
 <head>
