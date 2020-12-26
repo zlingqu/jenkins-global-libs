@@ -131,9 +131,9 @@ class DmaiEmail {
         }
     }
 
-    public String emailBody(String buildResult) {
+    private String emailBody(String buildResult) {
         if (this.conf.getAttr('codeLanguage') == 'android') {
-            def text = '''
+            text = '''
 <html>
 <head>
     <meta charset="utf-8">
@@ -203,29 +203,13 @@ class DmaiEmail {
                 <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">Android apk制品地址,点击直接下载</td>
                 <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="http://192.168.69.32:8888/files/view/android_home">apk-url</a></td>
             </tr>
-            <tr>
-                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">用户测试地址[公司内部域名]</td>
-                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a target="_blank" href="$buildEnvInfo">$buildEnvInfo</a></td>
-            </tr>
-            <tr>
-                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">其他服务调用本服务地址[k8s内部域名]</td>
-                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">http://$appName.$namespace</td>
-            </tr>
-            <tr>
-                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">服务的K8s管理地址</td>
-                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="$k8sWebAddress">k8s-url</a></td>
-            </tr>
-            <tr>
-                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">sonar检查结果</td>
-                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="$sonarAddress">sonar-url</a></td>
-            </tr>
         </tbody>
     </table>
 </body>
 </html>
 '''
                 } else {
-                def text = '''
+                text = '''
 <html>
 <head>
     <meta charset="utf-8">
