@@ -132,7 +132,7 @@ class DmaiEmail {
     }
 
     private String emailBody(String buildResult) {
-        this.script.sh "曲中岭 ${this.conf.getAttr('codeLanguage')}"
+        sh  'echo 曲中岭 ${this.conf.getAttr('codeLanguage')}'
         if (this.conf.getAttr('codeLanguage') == 'android') {
             text = '''
 <html>
