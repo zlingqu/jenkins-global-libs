@@ -134,6 +134,85 @@ class DmaiEmail {
     }
 
     private String emailBody(String buildResult) {
+        if (conf.getAttr('codeLanguage') == 'android') {
+            def text = '''
+<html>
+<head>
+    <meta charset="utf-8">
+    <!-- <meta name="viewport" content="width=device-width,initial-scale=1.0"> -->
+    <!-- <title>y</title> -->
+    <style type="text/css">
+        table.dataintable {
+            margin-top: 15px;
+            border-collapse: collapse;
+            border: 1px solid #aaa;
+            /* width: 100%; */
+            width: 1000px;
+        }
+        tr > td {
+            background: #f4f5f7;
+            height: 35px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            font-size: 16px;
+        }
+        tr > th {
+            height: 35px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            text-align: left;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h2 style="font-size: 22px; font-weight:bold;">构建结果如下：</h2>
+    <table class="dataintable" border="1">
+        <tbody >
+            <tr style="background:#f7f5f4">
+                <th style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">名称</th>
+                <th style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">信息</th>
+            </tr>
+            <tr>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">构建项目</td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">$appName</td>
+            </tr>
+            <tr>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">Jenkins-构建地址(blue)</td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a target="_blank" href="$jenkinsAddress/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline">Jenkins-blue-url</a></td>
+            </tr>
+            <tr>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">Jenkins-构建地址(old)</td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a target="_blank" href="$jenkinsAddress/job/$jobName/job/$branchName">Jenkins-old-url</a></td>
+            </tr>
+            <tr>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">Git地址</td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="$gitAddress">项目git地址</a></td>
+            </tr>
+            <tr>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">发布平台地址</td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="http://adp.dm-ai.cn/#/deployment-management">adp-url</a></td>
+            </tr>
+            <tr>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">Android apk制品地址,进入查看历史制品</td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="http://192.168.69.32:8888/files/view/android_home">apk-url</a></td>
+            </tr>
+            <tr>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">Android apk制品地址,点击直接下载</td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="http://192.168.69.32:8888/files/view/android_home">apk-url</a></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
+'''
+        } else {
+
+        
         def text = '''
 <html>
 <head>
@@ -210,13 +289,14 @@ class DmaiEmail {
             </tr>
             <tr>
                 <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">发布平台地址</td>
-                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="http://app-deploy-platform.dm-ai.cn/#/deployment-management">adp-url</a></td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="http://adp.dm-ai.cn/#/deployment-management">adp-url</a></td>
             </tr>
         </tbody>
     </table>
 </body>
 </html>
 '''
+        }
         def bind = [
                 'appName'        : this.conf.appName,
                 'jenkinsAddress' : this.conf.jenkinsAddress,
