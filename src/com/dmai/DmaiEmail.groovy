@@ -110,14 +110,12 @@ class DmaiEmail {
     }
 
     public sendEmail(String buildResult) {
-//        this.conf.setAttr('buildResult', buildResult)
 
-        //
         if (!this.conf.ifBuild()) {
             return
         }
 
-//        this.writeBuildResultToAdp(buildResult)
+
 
         // 构建结果的中文提示：
         def buildResultZh = buildResult == 'success' ? '成功' : '失败: ' + conf.failMsg
@@ -133,7 +131,7 @@ class DmaiEmail {
         }
     }
 
-    private String emailBody(String buildResult) {
+    public String emailBody(String buildResult) {
         if (this.conf.getAttr('codeLanguage') == 'android') {
             def text = '''
 <html>
@@ -210,10 +208,8 @@ class DmaiEmail {
 </body>
 </html>
 '''
-        } else {
-
-        
-        def text = '''
+                } else {
+                def text = '''
 <html>
 <head>
     <meta charset="utf-8">
