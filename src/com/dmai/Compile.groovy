@@ -75,6 +75,7 @@ class Compile {
 // android编译镜像无法兼容旧版
 //                             "test -e compile.sh && sh -x compile.sh  " + "${this.conf.getAttr('compileParam')}; " +
 //                             "test ! -e compile.sh && sh -x /opt/compile.sh  " + "${this.conf.getAttr('compileParam')}; " +
+                            "apk add tzdata;" +
                             "sh -x /opt/compile.sh  " + "${this.conf.getAttr('compileParam')}; " +
                             "test -d /cache && cd /cache && tar cf .gradle-cache.tar .gradle && mv .gradle-cache.tar /android_cache;" +
                             "cd /root && tar cf .gradle-root.tar .gradle && mv .gradle-root.tar /android_cache"

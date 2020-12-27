@@ -309,6 +309,7 @@ def call(Map map, env) {
 
         // 设置任务的超时时间为1个小时。
         options {
+            timestamps() //日志会显示时间
             timeout(time: 1, unit: 'HOURS')
         //            retry(2)
         }
@@ -629,8 +630,6 @@ def call(Map map, env) {
                                 }
 
                             }
-                            // if (conf.getAttr('deploy') && !(conf.getAttr('deployEnv') in ['chuanyin'])) {
-                        // if (conf.getAttr('deploy') && (conf.getAttr('deployEnv') != 'not-deploy')) {
                             // 发布到测试环境的条件
                             boolean isTest = conf.getAttr('deployEnv') == 'test'
                             // 其它非测试环境的发布条件  条件不能换行
@@ -699,7 +698,6 @@ def call(Map map, env) {
                                     throw conf.getAttr('deployMsg')
                                 }
                             }
-                        // }
                         }
                     }
                 }
@@ -715,12 +713,14 @@ def call(Map map, env) {
             failure {
                 script {
                     dmaiEmail.sendEmail('failure')
+
                 }
             }
 
             success {
                 script {
                     dmaiEmail.sendEmail('success')
+
                 }
             }
 
@@ -732,5 +732,5 @@ def call(Map map, env) {
                 }
             }
         }
-        }
+    }
 }
