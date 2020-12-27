@@ -630,8 +630,6 @@ def call(Map map, env) {
                                 }
 
                             }
-                            // if (conf.getAttr('deploy') && !(conf.getAttr('deployEnv') in ['chuanyin'])) {
-                        // if (conf.getAttr('deploy') && (conf.getAttr('deployEnv') != 'not-deploy')) {
                             // 发布到测试环境的条件
                             boolean isTest = conf.getAttr('deployEnv') == 'test'
                             // 其它非测试环境的发布条件  条件不能换行
@@ -700,7 +698,6 @@ def call(Map map, env) {
                                     throw conf.getAttr('deployMsg')
                                 }
                             }
-                        // }
                         }
                     }
                 }
@@ -715,12 +712,6 @@ def call(Map map, env) {
         post {
             failure {
                 script {
-                    // if (conf.getAttr('codeLanguage') == 'android') {
-                    //     dmaiEmail.sendEmailAndroid('failure')
-                    // // } else if (conf.getAttr('codeLanguage') != 'android'){
-                    // }else{
-                    //     dmaiEmail.sendEmailCommon('failure')
-                    // }
                     dmaiEmail.sendEmail('failure')
 
                 }
@@ -728,12 +719,6 @@ def call(Map map, env) {
 
             success {
                 script {
-                    // if (conf.getAttr('codeLanguage') == 'android') {
-                    //     dmaiEmail.sendEmailAndroid('success')
-                    // // } else if (conf.getAttr('codeLanguage') != 'android') {
-                    // }else{
-                    //     dmaiEmail.sendEmailCommon('success')
-                    // }
                     dmaiEmail.sendEmail('success')
 
                 }
