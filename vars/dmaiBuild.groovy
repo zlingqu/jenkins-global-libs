@@ -714,23 +714,25 @@ def call(Map map, env) {
 
         post {
             failure {
-                // container('adp') {
-                    script {
-                        // withEnv(conf.withEnvList) {
-                            dmaiEmail.sendEmail('failure')
-                        // }
+                script {
+                    if (conf.getAttr('codeLanguage') != 'android' {
+                        dmaiEmail.sendEmailAndroid('failure')
+                    } else {
+                        dmaiEmail.sendEmailCommon('failure')
                     }
-                // }
+
+                }
             }
 
             success {
-                // container('adp') {
-                    script {
-                        // withEnv(conf.withEnvList) {
-                            dmaiEmail.sendEmail('success')
-                        // }
+                script {
+                    if (conf.getAttr('codeLanguage') != 'android' {
+                        dmaiEmail.sendEmailAndroid('success')
+                    } else {
+                        dmaiEmail.sendEmailCommon('success')
                     }
-                // }
+
+                }
             }
 
             always {
