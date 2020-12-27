@@ -135,7 +135,7 @@ class DmaiEmail {
         if ( this.conf.getAttr('codeLanguage') ) {
             this.script.sh  "echo 曲中岭"
             this.script.sh  "printenv"
-            sh  String.format("echo '%s'",this.conf.getAttr('codeLanguage')
+            sh  String.format("echo '%s'",this.conf.getAttr('codeLanguage'))
         } else {
             this.script.sh  "echo 曲中岭2"
             this.script.sh  "printenv"
