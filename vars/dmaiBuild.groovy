@@ -713,23 +713,23 @@ def call(Map map, env) {
 
         post {
             failure {
-                container('adp') {
+                // container('adp') {
                     script {
-                        withEnv(conf.withEnvList) {
+                        // withEnv(conf.withEnvList) {
                             dmaiEmail.sendEmail('failure')
-                        }
+                        // }
                     }
-                }
+                // }
             }
 
             success {
-                container('adp') {
+                // container('adp') {
                     script {
-                        withEnv(conf.withEnvList) {
+                        // withEnv(conf.withEnvList) {
                             dmaiEmail.sendEmail('success')
-                        }
+                        // }
                     }
-                }
+                // }
             }
 
             always {

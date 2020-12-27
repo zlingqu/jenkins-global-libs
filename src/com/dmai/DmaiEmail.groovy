@@ -137,7 +137,7 @@ class DmaiEmail {
         // println("曲中岭")
         // println(this.conf.getAttr('namespace'))
         // if (this.conf.getAttr('codeLanguage') == 'android') {
-            text = '''
+        def  text = '''
 <html>
 <head>
     <meta charset="utf-8">
