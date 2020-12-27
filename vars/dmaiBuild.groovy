@@ -715,9 +715,9 @@ def call(Map map, env) {
         post {
             failure {
                 script {
-                    if (conf.getAttr('codeLanguage') != 'android') {
+                    if (conf.getAttr('codeLanguage') == 'android') {
                         dmaiEmail.sendEmailAndroid('failure')
-                    } else {
+                    } else if (conf.getAttr('codeLanguage') != 'android'){
                         dmaiEmail.sendEmailCommon('failure')
                     }
 
@@ -726,9 +726,9 @@ def call(Map map, env) {
 
             success {
                 script {
-                    if (conf.getAttr('codeLanguage') != 'android') {
+                    if (conf.getAttr('codeLanguage') == 'android') {
                         dmaiEmail.sendEmailAndroid('success')
-                    } else {
+                    } else if (conf.getAttr('codeLanguage') != 'android') {
                         dmaiEmail.sendEmailCommon('success')
                     }
 
