@@ -715,24 +715,26 @@ def call(Map map, env) {
         post {
             failure {
                 script {
-                    if (conf.getAttr('codeLanguage') == 'android') {
-                        dmaiEmail.sendEmailAndroid('failure')
-                    // } else if (conf.getAttr('codeLanguage') != 'android'){
-                    }else{
-                        dmaiEmail.sendEmailCommon('failure')
-                    }
+                    // if (conf.getAttr('codeLanguage') == 'android') {
+                    //     dmaiEmail.sendEmailAndroid('failure')
+                    // // } else if (conf.getAttr('codeLanguage') != 'android'){
+                    // }else{
+                    //     dmaiEmail.sendEmailCommon('failure')
+                    // }
+                    dmaiEmail.sendEmail('failure')
 
                 }
             }
 
             success {
                 script {
-                    if (conf.getAttr('codeLanguage') == 'android') {
-                        dmaiEmail.sendEmailAndroid('success')
-                    // } else if (conf.getAttr('codeLanguage') != 'android') {
-                    }else{
-                        dmaiEmail.sendEmailCommon('success')
-                    }
+                    // if (conf.getAttr('codeLanguage') == 'android') {
+                    //     dmaiEmail.sendEmailAndroid('success')
+                    // // } else if (conf.getAttr('codeLanguage') != 'android') {
+                    // }else{
+                    //     dmaiEmail.sendEmailCommon('success')
+                    // }
+                    dmaiEmail.sendEmail('success')
 
                 }
             }
