@@ -305,7 +305,7 @@ class DmaiEmail {
                 'useSvcInfo'     : this.useSvcInfo(),
                 'sonarAddress'   : 'http://sonar.ops.dm-ai.cn/dashboard?id=' + this.conf.appName,
                 'adpUrlApp'      : this.adpUrlApp,
-                'namespace'      : this.conf.getAttr('namespace')
+                'namespace'      : this.conf.getAttr('namespace'),
                 'deployEnv'      : this.conf.getAttr('deployEnv')
         ]
         if (conf.getAttr('codeLanguage') == 'android') {
