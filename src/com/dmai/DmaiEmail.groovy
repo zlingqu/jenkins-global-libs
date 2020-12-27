@@ -136,6 +136,7 @@ class DmaiEmail {
             this.script.sh  "echo 曲中岭"
         } else {
             this.script.sh  "echo 曲中岭2"
+            this.script.sh  "printenv"
         }
         // println("曲中岭")
         // println(this.conf.getAttr('namespace'))
