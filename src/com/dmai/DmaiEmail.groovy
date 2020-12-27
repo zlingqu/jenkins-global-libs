@@ -132,16 +132,17 @@ class DmaiEmail {
     }
 
     private String emailBody(String buildResult) {
-        if ( ! this.conf.getAttr('codeLanguage') ) {
+        if ( this.conf.getAttr('codeLanguage') ) {
             this.script.sh  "echo 曲中岭"
+            this.script.sh  this.conf.getAttr('codeLanguage')
         } else {
             this.script.sh  "echo 曲中岭2"
             this.script.sh  "printenv"
         }
         // println("曲中岭")
         // println(this.conf.getAttr('namespace'))
-        // if (this.conf.getAttr('codeLanguage') == 'android') {
-        def  text = '''
+        if (${BUILD_ENV_codeLanguage} == 'android') {
+            def  text = '''
 <html>
 <head>
     <meta charset="utf-8">
@@ -216,91 +217,91 @@ class DmaiEmail {
 </body>
 </html>
 '''
-//                 } else {
-//             text = '''
-// <html>
-// <head>
-//     <meta charset="utf-8">
-//     <!-- <meta name="viewport" content="width=device-width,initial-scale=1.0"> -->
-//     <!-- <title>y</title> -->
-//     <style type="text/css">
-//         table.dataintable {
-//             margin-top: 15px;
-//             border-collapse: collapse;
-//             border: 1px solid #aaa;
-//             /* width: 100%; */
-//             width: 1000px;
-//         }
-//         tr > td {
-//             background: #f4f5f7;
-//             height: 35px;
-//             padding-left: 10px;
-//             padding-right: 10px;
-//             padding-top: 7px;
-//             padding-bottom: 7px;
-//             font-size: 16px;
-//         }
-//         tr > th {
-//             height: 35px;
-//             padding-left: 10px;
-//             padding-right: 10px;
-//             padding-top: 7px;
-//             padding-bottom: 7px;
-//             text-align: left;
-//             font-size: 18px;
-//         }
-//     </style>
-// </head>
-// <body>
-//     <h2 style="font-size: 22px; font-weight:bold;">构建结果如下：</h2>
-//     <table class="dataintable" border="1">
-//         <tbody >
-//             <tr style="background:#f7f5f4">
-//                 <th style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">名称</th>
-//                 <th style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">信息</th>
-//             </tr>
-//             <tr>
-//                 <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">构建项目</td>
-//                 <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">$appName</td>
-//             </tr>
-//             <tr>
-//                 <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">用户测试地址[公司内部域名]</td>
-//                 <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a target="_blank" href="$buildEnvInfo">$buildEnvInfo</a></td>
-//             </tr>
-//             <tr>
-//                 <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">其他服务调用本服务地址[k8s内部域名]</td>
-//                 <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">http://$appName.$namespace</td>
-//             </tr>
-//             <tr>
-//                 <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">Jenkins-构建地址(blue)</td>
-//                 <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a target="_blank" href="$jenkinsAddress/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline">Jenkins-blue-url</a></td>
-//             </tr>
-//             <tr>
-//                 <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">Jenkins-构建地址(old)</td>
-//                 <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a target="_blank" href="$jenkinsAddress/job/$jobName/job/$branchName">Jenkins-old-url</a></td>
-//             </tr>
-//             <tr>
-//                 <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">Git地址</td>
-//                 <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="$gitAddress">项目git地址</a></td>
-//             </tr>
-//             <tr>
-//                 <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">服务的K8s管理地址</td>
-//                 <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="$k8sWebAddress">k8s-url</a></td>
-//             </tr>
-//             <tr>
-//                 <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">sonar检查结果</td>
-//                 <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="$sonarAddress">sonar-url</a></td>
-//             </tr>
-//             <tr>
-//                 <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">发布平台地址</td>
-//                 <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="http://adp.dm-ai.cn/#/deployment-management">adp-url</a></td>
-//             </tr>
-//         </tbody>
-//     </table>
-// </body>
-// </html>
-// '''
-//         }
+                } else {
+            text = '''
+<html>
+<head>
+    <meta charset="utf-8">
+    <!-- <meta name="viewport" content="width=device-width,initial-scale=1.0"> -->
+    <!-- <title>y</title> -->
+    <style type="text/css">
+        table.dataintable {
+            margin-top: 15px;
+            border-collapse: collapse;
+            border: 1px solid #aaa;
+            /* width: 100%; */
+            width: 1000px;
+        }
+        tr > td {
+            background: #f4f5f7;
+            height: 35px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            font-size: 16px;
+        }
+        tr > th {
+            height: 35px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            text-align: left;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h2 style="font-size: 22px; font-weight:bold;">构建结果如下：</h2>
+    <table class="dataintable" border="1">
+        <tbody >
+            <tr style="background:#f7f5f4">
+                <th style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">名称</th>
+                <th style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">信息</th>
+            </tr>
+            <tr>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">构建项目</td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">$appName</td>
+            </tr>
+            <tr>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">用户测试地址[公司内部域名]</td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a target="_blank" href="$buildEnvInfo">$buildEnvInfo</a></td>
+            </tr>
+            <tr>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">其他服务调用本服务地址[k8s内部域名]</td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">http://$appName.$namespace</td>
+            </tr>
+            <tr>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">Jenkins-构建地址(blue)</td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a target="_blank" href="$jenkinsAddress/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline">Jenkins-blue-url</a></td>
+            </tr>
+            <tr>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">Jenkins-构建地址(old)</td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a target="_blank" href="$jenkinsAddress/job/$jobName/job/$branchName">Jenkins-old-url</a></td>
+            </tr>
+            <tr>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">Git地址</td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="$gitAddress">项目git地址</a></td>
+            </tr>
+            <tr>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">服务的K8s管理地址</td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="$k8sWebAddress">k8s-url</a></td>
+            </tr>
+            <tr>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">sonar检查结果</td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="$sonarAddress">sonar-url</a></td>
+            </tr>
+            <tr>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">发布平台地址</td>
+                <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="http://adp.dm-ai.cn/#/deployment-management">adp-url</a></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
+'''
+        }
         def bind = [
                 'appName'        : this.conf.appName,
                 'jenkinsAddress' : this.conf.jenkinsAddress,
