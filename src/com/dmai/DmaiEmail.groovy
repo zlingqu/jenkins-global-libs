@@ -448,7 +448,7 @@ class DmaiEmail {
 </body>
 </html>
 '''
-        }else{
+        }else if (conf.getAttr('codeLanguage') != 'android'){
         def text = '''
 <html>
 <head>
