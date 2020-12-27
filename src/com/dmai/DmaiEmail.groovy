@@ -159,9 +159,15 @@ class DmaiEmail {
 
         // 构建结果的中文提示：
         def buildResultZh = buildResult == 'success' ? '成功' : '失败: ' + conf.failMsg
+        if (conf.getAttr('codeLanguage') == 'android') {
+            def  mailBody = this.emailBodyAndroid(buildResultZh)
+        }else{
+            def  mailBody = this.emailBodyCommon(buildResultZh)
+        }
         try {
             this.script.emailext(
-                    body: this.emailBody(buildResultZh),
+                    // body: this.emailBody(buildResultZh),
+                    body: mailBody,
                     subject: '应用名：' + this.conf.appName + ',构建 : ' + buildResultZh + '，分支：' + this.conf.getAttr('jenkinsBranchName') + '，部署环境：' + this.conf.getAttr('deployEnv'),
                     to: conf.getAttr('emailAddress') + ',quzhongling@dm-ai.cn,liaolonglong@dm-ai.cn'
             )
