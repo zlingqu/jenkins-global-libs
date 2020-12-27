@@ -134,6 +134,7 @@ class DmaiEmail {
     private String emailBody(String buildResult) {
         // def abc = this.conf.getAttr('namespace') == 'android' ? '曲' : '中'
         // this.script.sh  '曲中岭 $abc'
+        println("曲中岭")
         println(this.conf.getAttr('namespace'))
         if (this.conf.getAttr('codeLanguage') == 'android') {
             text = '''
