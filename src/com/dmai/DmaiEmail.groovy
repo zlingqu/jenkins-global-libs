@@ -235,7 +235,6 @@ class DmaiEmail {
 </body>
 </html>
 '''
-        }
         def bind = [
                 'appName'        : this.conf.appName,
                 'jenkinsAddress' : this.conf.jenkinsAddress,
@@ -254,7 +253,7 @@ class DmaiEmail {
         ]
         return Tools.simpleTemplate(text, bind)
     }
-    
+
     private String emailBodyAndroid(String buildResult) {
             def  text = '''
 <html>
