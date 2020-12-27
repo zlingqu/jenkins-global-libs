@@ -134,14 +134,15 @@ class DmaiEmail {
     private String emailBody(String buildResult) {
         if ( this.conf.getAttr('codeLanguage') ) {
             this.script.sh  "echo 曲中岭"
-            this.script.sh  this.conf.getAttr('codeLanguage')
+            // this.script.sh  this.conf.getAttr('codeLanguage')
         } else {
             this.script.sh  "echo 曲中岭2"
             this.script.sh  "printenv"
         }
         // println("曲中岭")
         // println(this.conf.getAttr('namespace'))
-        if (${BUILD_ENV_codeLanguage} == 'android') {
+        // if (${BUILD_ENV_codeLanguage} == 'android') {
+        if ( this.conf.getAttr('codeLanguage') == 'android') {
             def  text = '''
 <html>
 <head>
