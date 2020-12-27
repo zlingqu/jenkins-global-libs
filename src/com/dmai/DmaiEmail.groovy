@@ -132,10 +132,10 @@ class DmaiEmail {
     }
 
     private String emailBody(String buildResult) {
-        if ( !this.conf.getAttr('namespace') ){
-            this.script.sh  '曲中岭'
+        if ( ! this.conf.getAttr('codeLanguage') ) {
+            this.script.sh  "echo 曲中岭"
         } else {
-            this.script.sh  '曲中岭2'
+            this.script.sh  "echo 曲中岭2"
         }
         // println("曲中岭")
         // println(this.conf.getAttr('namespace'))
