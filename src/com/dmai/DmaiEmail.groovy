@@ -307,8 +307,8 @@ class DmaiEmail {
                 'adpUrlApp'      : this.adpUrlApp,
                 'namespace'      : this.conf.getAttr('namespace'),
                 'deployEnv'      : this.conf.getAttr('deployEnv'),
-                'buildNumber'    : $BUILD_NUMBER,
-                'gitCommit'      : $GIT_COMMIT
+                'buildNumber'    : this.conf.getAttr('buildNumber'),
+                'gitCommit'      : this.conf.getAttr('gitVersion')
         ]
         if (conf.getAttr('codeLanguage') == 'android') {
             return Tools.simpleTemplate(textAndroid, bind)
