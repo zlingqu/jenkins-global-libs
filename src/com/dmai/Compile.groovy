@@ -70,7 +70,6 @@ class Compile {
                     return
                 case 'android':
                     this.script.sh "test -e /root/.gradle && rm -fr /root/.gradle; " +
-                            "printenv;" +
                             "test -e /android_cache/.gradle-cache.tar && cp -rp /android_cache/.gradle-cache.tar /cache && rm -fr /cache/.gradle && tar xf /cache/.gradle-cache.tar -C /cache;" +
                             "test -e /android_cache/.gradle-root.tar && cp -rp /android_cache/.gradle-root.tar /root && tar xf /root/.gradle-root.tar -C /root;" +
                             "sh -x /opt/compile.sh  " + "${this.conf.getAttr('compileParam')}; " +

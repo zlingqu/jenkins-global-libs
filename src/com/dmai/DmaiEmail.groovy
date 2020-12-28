@@ -283,7 +283,7 @@ class DmaiEmail {
                         </tr>
                         <tr>
                             <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">Android apk当前构建制品下载</td>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="http://192.168.69.32:8888/files/view/android_home/$appName/$deployEnv/$appName-build${buildNumber}-${gitCommit}.apk">点我直接下载</a></td>
+                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="http://192.168.69.32:8888/files/view/android_home/$appName/$deployEnv/`date "+%Y%m%d"`/$appName-build${buildNumber}-${gitCommit}.apk">点我直接下载</a></td>
                         </tr>
                     </tbody>
                 </table>
