@@ -215,7 +215,7 @@ class DmaiEmail {
             </body>
             </html>
             '''
-        def  textAndroid = '''
+        def textAndroid = '''
             <html>
             <head>
                 <meta charset="utf-8">
@@ -283,7 +283,7 @@ class DmaiEmail {
                         </tr>
                         <tr>
                             <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">Android apk当前构建制品下载</td>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="http://192.168.69.32:8888/files/view/android_home/$appName/$deployEnv/$appName-build$BUILD_NUMBER-$GIT_COMMIT.apk">点我直接下载</a></td>
+                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="http://192.168.69.32:8888/files/view/android_home/$appName/$deployEnv/$appName-build${buildNumber}-${gitCommit}.apk">点我直接下载</a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -306,7 +306,9 @@ class DmaiEmail {
                 'sonarAddress'   : 'http://sonar.ops.dm-ai.cn/dashboard?id=' + this.conf.appName,
                 'adpUrlApp'      : this.adpUrlApp,
                 'namespace'      : this.conf.getAttr('namespace'),
-                'deployEnv'      : this.conf.getAttr('deployEnv')
+                'deployEnv'      : this.conf.getAttr('deployEnv'),
+                'buildNumber'      : this.conf.getAttr('BUILD_NUMBER'),
+                'gitCommit'      : this.conf.getAttr('GIT_COMMIT')
         ]
         if (conf.getAttr('codeLanguage') == 'android') {
             return Tools.simpleTemplate(textAndroid, bind)
