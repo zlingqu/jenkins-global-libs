@@ -139,7 +139,8 @@ class DmaiEmail {
             this.conf.getAttr('buildNumber'),
             this.conf.getAttr('gitVersion')
         )
-        def apkViewUrlQrcode = (this.script.sh String.format("curl ci-test.devops.dev.dm-ai.cn/qrcode?url=$s|base64", apkViewUrl))
+        // def apkViewUrlQrcode = (this.script.sh String.format("curl ci-test.devops.dev.dm-ai.cn/qrcode?url=$s|base64", apkViewUrl))
+        def apkViewUrlQrcode = sh returnStdout: true, script: String.format("curl ci-test.devops.dev.dm-ai.cn/qrcode?url=$s|base64", apkViewUrl)
         def textComman = '''
             <html>
             <head>
