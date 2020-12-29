@@ -3,6 +3,7 @@ package com.dmai
 import com.tool.Tools
 import java.net.URLEncoder
 import java.util.concurrent.TimeUnit
+import java.io.File
 
 class DmaiEmail {
 
