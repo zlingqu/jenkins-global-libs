@@ -327,7 +327,7 @@ class DmaiEmail {
                 'sonarAddress'   : 'http://sonar.ops.dm-ai.cn/dashboard?id=' + this.conf.appName,
                 'adpUrlApp'      : this.adpUrlApp,
                 'namespace'      : this.conf.getAttr('namespace'),
-                'apkViewUrl'     : this.apkViewUrl
+                'apkViewUrl'     : apkViewUrl
         ]
         if (conf.getAttr('codeLanguage') == 'android') {
             return Tools.simpleTemplate(textAndroid, bind)
