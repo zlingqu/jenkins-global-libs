@@ -131,7 +131,7 @@ class DmaiEmail {
 
     private String emailBody(String buildResult) {
         def String apkViewUrl = ''
-        def String apkViewUrlQrcode = ''
+        // def String apkViewUrlQrcode = ''
         apkViewUrl = String.format('''http://192.168.69.32:8888/files/view/android_home/$s/$s/$s/$s-build$s-$s.apk''',
             this.conf.appName,
             this.conf.getAttr('deployEnv'),
