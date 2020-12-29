@@ -131,6 +131,14 @@ class DmaiEmail {
     }
 
     private String emailBody(String buildResult) {
+        def apkViewUrl = String.format('''http://192.168.69.32:8888/files/view/android_home/$s/$s/$s/$s-build$s-$s.apk''',
+            this.conf.appName,
+            this.conf.getAttr('deployEnv'),
+            new Date().format('yyyyMMdd'),
+            this.conf.appName,
+            this.conf.getAttr('buildNumber'),
+            this.conf.getAttr('gitVersion')
+        )
         def textComman = '''
             <html>
             <head>
@@ -293,7 +301,7 @@ class DmaiEmail {
                         </tr>
                         <tr>
                             <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">Android apk当前构建制品下载</td>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="http://192.168.69.32:8888/files/view/android_home/$appName/$deployEnv/${dateYYMMDD}/${appName}-build${buildNumber}-${gitCommit}.apk">点我直接下载</a></td>
+                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="$apkViewUrl">点我直接下载</a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -319,10 +327,7 @@ class DmaiEmail {
                 'sonarAddress'   : 'http://sonar.ops.dm-ai.cn/dashboard?id=' + this.conf.appName,
                 'adpUrlApp'      : this.adpUrlApp,
                 'namespace'      : this.conf.getAttr('namespace'),
-                'deployEnv'      : this.conf.getAttr('deployEnv'),
-                'buildNumber'    : this.conf.getAttr('buildNumber'),
-                'gitCommit'      : this.conf.getAttr('gitVersion'),
-                'dateYYMMDD'     : new Date().format('yyyyMMdd')
+                'apkViewUrl'     : this.apkViewUrl
         ]
         if (conf.getAttr('codeLanguage') == 'android') {
             return Tools.simpleTemplate(textAndroid, bind)
