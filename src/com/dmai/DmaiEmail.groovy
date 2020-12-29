@@ -140,7 +140,8 @@ class DmaiEmail {
             this.conf.getAttr('gitVersion')
         )
         // def apkViewUrlQrcode = (this.script.sh String.format("curl ci-test.devops.dev.dm-ai.cn/qrcode?url=$s|base64", apkViewUrl))
-        def apkViewUrlQrcode = sh returnStdout: true, script: String.format("curl ci-test.devops.dev.dm-ai.cn/qrcode?url=$s|base64", apkViewUrl)
+        // def apkViewUrlQrcode = sh returnStdout: true, script: String.format('''curl ci-test.devops.dev.dm-ai.cn/qrcode?url=$s|base64''', apkViewUrl)
+        def apkViewUrlQrcode = sh(script: "curl ci-test.devops.dev.dm-ai.cn/qrcode?url=www.baidu.com|base64", returnStdout: true).trim()
         def textComman = '''
             <html>
             <head>
@@ -303,7 +304,7 @@ class DmaiEmail {
                         </tr>
                         <tr>
                             <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">Android apk当前构建制品下载</td>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="$apkViewUrl">点我直接下载</a><img src="data:image/png;base64, ${apkViewUrlQrcode}" width="200" height="2000"></td>
+                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="$apkViewUrl">点我直接下载</a><img src="data:image/png;base64, ${apkViewUrlQrcode}" width="200" height="200"></td>
                         </tr>
                     </tbody>
                 </table>
