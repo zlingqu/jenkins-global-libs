@@ -166,8 +166,8 @@ class DmaiEmail {
         def apkViewUrlQrcode = sout.toString().trim()
         // this.script.sh "echo $apkViewUrlQrcode"
         // print apkViewUrlQrcod
-        this.script.sh "echo ${serr.toString().trim()}"
-        this.script.sh "echo ${sout.toString().trim()}"
+        // this.script.sh "echo ${serr.toString().trim()}"
+        // this.script.sh "echo ${sout.toString().trim()}"
 
         def textComman = '''
             <html>
