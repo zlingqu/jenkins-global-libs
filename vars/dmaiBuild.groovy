@@ -720,7 +720,6 @@ def call(Map map, env) {
             success {
                 script {
                     dmaiEmail.sendEmail('success')
-
                 }
             }
 
