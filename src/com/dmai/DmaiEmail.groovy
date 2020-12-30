@@ -130,8 +130,8 @@ class DmaiEmail {
     }
 
     private String emailBody(String buildResult) {
-        // def String apkViewUrl = ''
-        // def String apkViewUrlQrcode = ''
+        def String apkViewUrl = ''
+        def String apkViewUrlQrcode = ''
         apkViewUrl = String.format('''http://192.168.69.32:8888/files/view/android_home/%s/%s/%s/%s-build%s-%s.apk''',
             this.conf.appName,
             this.conf.getAttr('deployEnv'),
@@ -153,7 +153,7 @@ class DmaiEmail {
 
         // this.script.sh "echo $apkViewUrlQrcode"
 
-        apkViewUrlQrcode = sh(script: shellCommandList,returnStdout: true).trim()
+        apkViewUrlQrcode = sh(script: shellCommandList, returnStdout: true).trim()
         def textComman = '''
             <html>
             <head>
