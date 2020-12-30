@@ -161,7 +161,7 @@ class DmaiEmail {
         // apkViewUrlQrcode.waitFor()
         // apkViewUrlQrcode = apkViewUrlQrcode.text
         this.script.sh "echo hello"
-        // this.script.sh "echo $apkViewUrlQrcode"
+        this.script.sh "echo $apkViewUrlQrcode"
         def textComman = '''
             <html>
             <head>
@@ -324,7 +324,7 @@ class DmaiEmail {
                         </tr>
                         <tr>
                             <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">Android apk当前构建制品下载</td>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="$apkViewUrl">点我直接下载</a><img src="data:image/png;base64, ${apkViewUrlQrcode}" width="200" height="200"></td>
+                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="$apkViewUrl">点我直接下载</a><img src="data:image/png;base64, $apkViewUrlQrcode" width="200" height="200"></td>
                         </tr>
                     </tbody>
                 </table>
