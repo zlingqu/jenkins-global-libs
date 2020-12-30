@@ -162,7 +162,7 @@ class DmaiEmail {
         def proc = shellCommandList.execute()
         proc.consumeProcessOutput(sout, serr)
         proc.waitFor()
-        apkViewUrlQrcode = sout.toString().trim()
+        def apkViewUrlQrcode = sout.toString().trim()
         this.script.sh "echo hello"
         print apkViewUrlQrcode
         def textComman = '''
