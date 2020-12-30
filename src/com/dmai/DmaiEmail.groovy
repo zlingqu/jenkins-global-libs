@@ -142,7 +142,7 @@ class DmaiEmail {
         )
         this.script.sh "echo $apkViewUrl"
         def shellCommand = String.format("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s|base64", apkViewUrl)
-        this.script.sh "echo '$shellCommand' > a.sh"
+        this.script.sh "echo '$shellCommand' > a.sh; chmod +x a.sh"
         this.script.sh "cat a.sh"
         // def shellCommand = sprintf("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s", apkViewUrl)
         // def shellCommand = sprintf("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s|base64", apkViewUrl)
@@ -153,15 +153,15 @@ class DmaiEmail {
         // apkViewUrl = apkViewUrlQrcode
         // apkViewUrlQrcode = shellCommand.execute().text.getBytes(UTF_8).encodeBase64().toString()
 
-        this.script.sh "echo $shellCommand"
-        this.script.sh "echo $shellCommandList"
+        // this.script.sh "echo $shellCommand"
+        // this.script.sh "echo $shellCommandList"
 
         // def apkViewUrlQrcode = sh(script: shellCommandList, returnStdout: true).trim()
-        def apkViewUrlQrcode = 'ls'.execute().text
+        def apkViewUrlQrcode = shellCommandList.execute().text
         // apkViewUrlQrcode.waitFor()
         // apkViewUrlQrcode = apkViewUrlQrcode.text
         this.script.sh "echo hello"
-        this.script.sh "echo $apkViewUrlQrcode"
+        // this.script.sh "echo $apkViewUrlQrcode"
         def textComman = '''
             <html>
             <head>
