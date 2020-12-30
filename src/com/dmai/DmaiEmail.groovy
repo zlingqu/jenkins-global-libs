@@ -142,11 +142,11 @@ class DmaiEmail {
         )
 
 
-        def shellCommand = String.format("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s", apkViewUrl)
+        def shellCommand = String.format("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s|base64", apkViewUrl)
 
         // println shellCommand
-        // apkViewUrlQrcode = shellCommand.execute().text.encodeBase64().toString()
-        apkViewUrlQrcode = shellCommand.execute().text.getBytes(UTF_8).encodeBase64().toString()
+        apkViewUrlQrcode = shellCommand.execute().text
+        // apkViewUrlQrcode = shellCommand.execute().text.getBytes(UTF_8).encodeBase64().toString()
 
         println apkViewUrlQrcode
 
