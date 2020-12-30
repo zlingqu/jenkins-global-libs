@@ -132,7 +132,7 @@ class DmaiEmail {
     private String emailBody(String buildResult) {
         // def String apkViewUrl = ''
         // def String apkViewUrlQrcode = ''
-        def apkViewUrl = String.format('''http://192.168.69.32:8888/files/view/android_home/%s/%s/%s/%s-build%s-%s.apk''',
+        def apkViewUrl = String.format('''curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=http://192.168.69.32:8888/files/view/android_home/%s/%s/%s/%s-build%s-%s.apk|base64''',
             this.conf.appName,
             this.conf.getAttr('deployEnv'),
             new Date().format('yyyyMMdd'),
@@ -142,16 +142,16 @@ class DmaiEmail {
         )
 
         
-        
-        def shellCommand = String.format("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s|base64", apkViewUrl)
-        def url = "curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=http://192.168.69.32:8888/files/view/android_home/xmc-nhol-student/dev/20201230/xmc-nhol-student-build178-1d3be5e9730b67d51ce0aedf9e0538de3679fddd.apk|base64"
-        this.script.sh "echo $shellCommand"
+        this.script.sh "ls -l"
+        // def shellCommand = String.format("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s|base64", apkViewUrl)
+        // def url = "curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=http://192.168.69.32:8888/files/view/android_home/xmc-nhol-student/dev/20201230/xmc-nhol-student-build178-1d3be5e9730b67d51ce0aedf9e0538de3679fddd.apk|base64"
+        // this.script.sh "echo $shellCommand"
         // printf url
-        def apkViewUrlQrcode = sh(returnStdout: true, script: 'pwd').trim()
-        this.script.sh "echo $apkViewUrlQrcode"
+        def apkViewUrlQrcode = sh(returnStdout: true, script: apkViewUrl).trim()
+        // this.script.sh "echo $apkViewUrlQrcode"
         // this.script.sh "echo '$shellCommand' >> a.sh; chmod +x a.sh"
         // this.script.sh "cat a.sh"
-        // this.script.sh "ls -l"
+        this.script.sh "ls -l"
         // def shellCommand = sprintf("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s", apkViewUrl)
         // def shellCommand = sprintf("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s|base64", apkViewUrl)
         // def shellCommandList = ["/bin/bash", "-c", "pwd" ]
