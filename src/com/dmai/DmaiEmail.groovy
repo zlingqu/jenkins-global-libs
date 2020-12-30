@@ -143,8 +143,8 @@ class DmaiEmail {
 
         // def shellCommand = String.format("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s|base64", apkViewUrl)
         // def shellCommand = sprintf("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s", apkViewUrl)
-        def shellCommand = String.format("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s|base64", apkViewUrl)
-        def shellCommandList = ["sh", "-c", shellCommand]
+        def shellCommand = String.format("bash -c 'curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s|base64'", apkViewUrl)
+        // def shellCommandList = ["sh", "-c", shellCommand]
         // this.script.sh "echo ${shellCommand}"
         // // println shellCommand
         // apkViewUrlQrcode = (shellCommand+'|base64').execute().text
@@ -153,7 +153,9 @@ class DmaiEmail {
 
         // this.script.sh "echo $apkViewUrlQrcode"
 
-        def apkViewUrlQrcode = sh(script: shellCommandList, returnStdout: true).trim()
+        // def apkViewUrlQrcode = sh(script: shellCommandList, returnStdout: true).trim()
+        def apkViewUrlQrcode = shellCommand.execute().txt
+        apkViewUrlQrcode.waitFor()
         def textComman = '''
             <html>
             <head>
