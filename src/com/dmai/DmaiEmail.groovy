@@ -132,17 +132,19 @@ class DmaiEmail {
     private String emailBody(String buildResult) {
         def String apkViewUrl = ''
         def String apkViewUrlQrcode = ''
-        apkViewUrl = String.format('''http://192.168.69.32:8888/files/view/android_home/%s/%s/%s/%s-build%s-%s.apk''',
-                this.conf.appName,
-                this.conf.getAttr('deployEnv'),
-                new Date().format('yyyyMMdd'),
-                this.conf.appName,
-                this.conf.getAttr('buildNumber'),
-                this.conf.getAttr('gitVersion')
-            )
-            
-        def url = "curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=" + apkViewUrl+ "|base64"
-        apkViewUrlQrcode = this.script.sh(returnStdout: true, script: url).trim()
+        if (this.conf.getAttr('codeLanguage') == 'android') {
+            apkViewUrl = String.format('''http://192.168.69.32:8888/files/view/android_home/%s/%s/%s/%s-build%s-%s.apk''',
+                    this.conf.appName,
+                    this.conf.getAttr('deployEnv'),
+                    new Date().format('yyyyMMdd'),
+                    this.conf.appName,
+                    this.conf.getAttr('buildNumber'),
+                    this.conf.getAttr('gitVersion')
+                )
+                
+            def url = "curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=" + apkViewUrl+ "|base64"
+            apkViewUrlQrcode = this.script.sh(returnStdout: true, script: url).trim()
+        }
         def textComman = '''
             <html>
             <head>
