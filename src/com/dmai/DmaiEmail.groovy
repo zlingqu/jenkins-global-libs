@@ -130,51 +130,8 @@ class DmaiEmail {
     }
 
     private String emailBody(String buildResult) {
-        // def String apkViewUrl = ''
-        // def String apkViewUrlQrcode = ''
-        def apkViewUrl = String.format('''curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=http://192.168.69.32:8888/files/view/android_home/%s/%s/%s/%s-build%s-%s.apk|base64''',
-            this.conf.appName,
-            this.conf.getAttr('deployEnv'),
-            new Date().format('yyyyMMdd'),
-            this.conf.appName,
-            this.conf.getAttr('buildNumber'),
-            this.conf.getAttr('gitVersion')
-        )
-
-        
-        this.script.sh "ls -l"
-        // def shellCommand = String.format("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s|base64", apkViewUrl)
-        // def url = "curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=http://192.168.69.32:8888/files/view/android_home/xmc-nhol-student/dev/20201230/xmc-nhol-student-build178-1d3be5e9730b67d51ce0aedf9e0538de3679fddd.apk|base64"
-        // this.script.sh "echo $shellCommand"
-        // printf url
-        def apkViewUrlQrcode = this.script.sh(returnStdout: true, script: apkViewUrl).trim()
-        // this.script.sh "echo $apkViewUrlQrcode"
-        // this.script.sh "echo '$shellCommand' >> a.sh; chmod +x a.sh"
-        // this.script.sh "cat a.sh"
-        this.script.sh "ls -l"
-        // def shellCommand = sprintf("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s", apkViewUrl)
-        // def shellCommand = sprintf("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s|base64", apkViewUrl)
-        // def shellCommandList = ["/bin/bash", "-c", "pwd" ]
-        // this.script.sh "echo ${shellCommand}"
-        // // println shellCommand
-        // apkViewUrlQrcode = (shellCommand+'|base64').execute().text
-        // apkViewUrl = apkViewUrlQrcode
-        // apkViewUrlQrcode = shellCommand.execute().text.getBytes(UTF_8).encodeBase64().toString()
-
-        // this.script.sh "echo $shellCommand"
-        // this.script.sh "echo $shellCommandList"
-
-        // def apkViewUrlQrcode = sh(script: shellCommandList, returnStdout: true).trim()
-        // def sout = new StringBuffer()
-        // def serr = new StringBuffer()
-        // def proc = shellCommandList.execute()
-        // proc.consumeProcessOutput(sout, serr)
-        // proc.waitFor()
-        // def apkViewUrlQrcode = sout.toString().trim()
-        // this.script.sh "echo $apkViewUrlQrcode"
-        // print apkViewUrlQrcod
-        // this.script.sh "echo ${serr.toString().trim()}"
-        // this.script.sh "echo ${sout.toString().trim()}"
+        def String apkViewUrl = ''
+        def String apkViewUrlQrcode = ''
 
         def textComman = '''
             <html>
@@ -338,7 +295,7 @@ class DmaiEmail {
                         </tr>
                         <tr>
                             <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">Android apk当前构建制品下载</td>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="$apkViewUrl">点我直接下载</a><img src="data:image/png;base64, $apkViewUrlQrcode" width="200" height="200"></td>
+                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="$apkViewUrl">1、点我直接下载</a> 2、扫描二维码下载<img src="data:image/png;base64, $apkViewUrlQrcode" width="200" height="200"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -364,6 +321,16 @@ class DmaiEmail {
                 'apkViewUrlQrcode' :apkViewUrlQrcode
         ]
         if (this.conf.getAttr('codeLanguage') == 'android') {
+            apkViewUrl = String.format('''http://192.168.69.32:8888/files/view/android_home/%s/%s/%s/%s-build%s-%s.apk''',
+                this.conf.appName,
+                this.conf.getAttr('deployEnv'),
+                new Date().format('yyyyMMdd'),
+                this.conf.appName,
+                this.conf.getAttr('buildNumber'),
+                this.conf.getAttr('gitVersion')
+            )
+            def url = String.format("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s|base64",apkViewUrl)
+            apkViewUrlQrcode = this.script.sh(returnStdout: true, script: url).trim()
             return Tools.simpleTemplate(textAndroid, bind)
         }else if (this.conf.getAttr('codeLanguage') != 'android') {
             return Tools.simpleTemplate(textComman, bind)
