@@ -132,19 +132,19 @@ class DmaiEmail {
     private String emailBody(String buildResult) {
         // def String apkViewUrl = ''
         // def String apkViewUrlQrcode = ''
-        // apkViewUrl = String.format('''http://192.168.69.32:8888/files/view/android_home/%s/%s/%s/%s-build%s-%s.apk''',
-        //     this.conf.appName,
-        //     this.conf.getAttr('deployEnv'),
-        //     new Date().format('yyyyMMdd'),
-        //     this.conf.appName,
-        //     this.conf.getAttr('buildNumber'),
-        //     this.conf.getAttr('gitVersion')
-        // )
-
+        apkViewUrl = String.format('''http://192.168.69.32:8888/files/view/android_home/%s/%s/%s/%s-build%s-%s.apk''',
+            this.conf.appName,
+            this.conf.getAttr('deployEnv'),
+            new Date().format('yyyyMMdd'),
+            this.conf.appName,
+            this.conf.getAttr('buildNumber'),
+            this.conf.getAttr('gitVersion')
+        )
 
         // def shellCommand = String.format("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s|base64", apkViewUrl)
         // def shellCommand = sprintf("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s", apkViewUrl)
-        // // def shellCommand = String.format("echo %s|base64", apkViewUrl)
+        shellCommand = String.format("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s|base64", apkViewUrl)
+        shellCommandList = ["sh", "-c", shellCommand]
         // this.script.sh "echo ${shellCommand}"
         // // println shellCommand
         // apkViewUrlQrcode = (shellCommand+'|base64').execute().text
@@ -153,7 +153,7 @@ class DmaiEmail {
 
         // this.script.sh "echo $apkViewUrlQrcode"
 
-        // apkViewUrlQrcode = sh(script: """ curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=${apkViewUrl}|base64""",returnStdout: true).trim()
+        apkViewUrlQrcode = sh(script: shellCommandList,returnStdout: true).trim()
         def textComman = '''
             <html>
             <head>
