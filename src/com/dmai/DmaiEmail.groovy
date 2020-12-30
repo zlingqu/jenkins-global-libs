@@ -131,7 +131,7 @@ class DmaiEmail {
 
     private String emailBody(String buildResult) {
         def String apkViewUrl = ''
-        // def String apkViewUrlQrcode = ''
+        def String apkViewUrlQrcode = ''
         apkViewUrl = String.format('''http://192.168.69.32:8888/files/view/android_home/%s/%s/%s/%s-build%s-%s.apk''',
             this.conf.appName,
             this.conf.getAttr('deployEnv'),
@@ -143,7 +143,7 @@ class DmaiEmail {
 
         // def apkViewUrlQrcode = this.script.sh String.format("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=$s", apkViewUrl)
         // def apkViewUrlQrcode = sh ( script: String.format('''curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=$s''', apkViewUrl), returnStdout: true).trim()
-        shellCommand = String.format("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s|base64", apkViewUrl)
+        // shellCommand = String.format("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s|base64", apkViewUrl)
         // shellCommand.execute()
 
         // if (conf.getAttr('codeLanguage') == 'android') {
@@ -151,12 +151,10 @@ class DmaiEmail {
             // this.script.sh String.format('curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url="$s"|base64 \> apkViewUrlQrcode.txt', apkViewUrl)
             // this.script.sh String.format('echo %s > apkViewUrlQrcode.txt', apkViewUrl)
             // apkViewUrlQrcode = readFile('apkViewUrlQrcode.txt').trim()
-            def proc = 'ls -l'.execute()
-            def b = new StringBuffer()
-            proc.consumeProcessErrorStream(b)
 
-            println proc.text
-            println b.toString()
+
+            println 'ls -l'.execute().text
+            // println b.toString()
         // }
         // def apkViewUrlQrcode = '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'
         def textComman = '''
