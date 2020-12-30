@@ -142,12 +142,12 @@ class DmaiEmail {
         )
         this.script.sh "echo $apkViewUrl"
         def shellCommand = String.format("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s|base64", apkViewUrl)
-        this.script.sh "echo '$shellCommand' > a.sh; chmod +x a.sh"
+        this.script.sh "echo '$shellCommand' >> a.sh; chmod +x a.sh"
         this.script.sh "cat a.sh"
         this.script.sh "ls -l"
         // def shellCommand = sprintf("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s", apkViewUrl)
         // def shellCommand = sprintf("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s|base64", apkViewUrl)
-        def shellCommandList = ["bash", "-c", "./a.sh" ]
+        def shellCommandList = ["bash", "-c", "pwd" ]
         // this.script.sh "echo ${shellCommand}"
         // // println shellCommand
         // apkViewUrlQrcode = (shellCommand+'|base64').execute().text
@@ -164,7 +164,7 @@ class DmaiEmail {
         proc.consumeProcessOutput(sout, serr)
         proc.waitFor()
         def apkViewUrlQrcode = sout.toString().trim()
-        this.script.sh "echo $apkViewUrlQrcode"
+        // this.script.sh "echo $apkViewUrlQrcode"
         // print apkViewUrlQrcod
         this.script.sh "echo ${serr.toString().trim()}"
         this.script.sh "echo ${sout.toString().trim()}"
