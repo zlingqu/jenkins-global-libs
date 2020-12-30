@@ -3,7 +3,7 @@ package com.dmai
 import com.tool.Tools
 import java.net.URLEncoder
 import java.util.concurrent.TimeUnit
-// import java.io.File
+import static java.nio.charset.StandardCharsets.UTF_8
 
 class DmaiEmail {
 
@@ -144,9 +144,9 @@ class DmaiEmail {
 
         def shellCommand = String.format("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s", apkViewUrl)
 
-        println shellCommand
+        // println shellCommand
         // apkViewUrlQrcode = shellCommand.execute().text.encodeBase64().toString()
-        apkViewUrlQrcode = shellCommand.execute().text
+        apkViewUrlQrcode = shellCommand.execute().text.getBytes(UTF_8).encodeBase64().toString()
 
         println apkViewUrlQrcode
 
