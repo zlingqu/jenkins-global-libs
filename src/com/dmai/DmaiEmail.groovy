@@ -148,7 +148,8 @@ class DmaiEmail {
 
         // if (conf.getAttr('codeLanguage') == 'android') {
             // this.script.sh String.format('''curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=$s|base64 > apkViewUrlQrcode.txt''', apkViewUrl)
-        def apkViewUrlQrcode = sh(script: String.format('''curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s|base64''', apkViewUrl), returnStdout: true).trim()
+        // def apkViewUrlQrcode = sh(script: String.format('''curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s|base64''', apkViewUrl), returnStdout: true).trim()
+        def apkViewUrlQrcode = sh(script: "ls -l", returnStdout: true).trim()
             // this.script.sh String.format('curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url="$s"|base64 \> apkViewUrlQrcode.txt', apkViewUrl)
             // this.script.sh String.format('curl -s http://ci-test.devops.dev.dm-ai.cn/qrcode?url=%s | base64 >apkViewUrlQrcode.txt', apkViewUrl)
             // apkViewUrlQrcode = readFile('apkViewUrlQrcode.txt').trim()
