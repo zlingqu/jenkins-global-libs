@@ -329,7 +329,7 @@ class DmaiEmail {
                 this.conf.getAttr('buildNumber'),
                 this.conf.getAttr('gitVersion')
             )
-            def url = String.format('''curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s|base64''', apkViewUrl)
+            def url = "curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=" + apkViewUrl+ "|base64"
             apkViewUrlQrcode = this.script.sh(returnStdout: true, script: url).trim()
             return Tools.simpleTemplate(textAndroid, bind)
         }else if (this.conf.getAttr('codeLanguage') != 'android') {
