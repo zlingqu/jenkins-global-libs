@@ -147,9 +147,10 @@ class DmaiEmail {
 
         // println shellCommand
         apkViewUrlQrcode = shellCommand.execute().text
+        apkViewUrl = apkViewUrlQrcode
         // apkViewUrlQrcode = shellCommand.execute().text.getBytes(UTF_8).encodeBase64().toString()
 
-        println apkViewUrlQrcode
+        this.script.sh "echo $apkViewUrlQrcode"
 
         def textComman = '''
             <html>
