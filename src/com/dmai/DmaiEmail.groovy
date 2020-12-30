@@ -143,16 +143,17 @@ class DmaiEmail {
 
 
         // def shellCommand = String.format("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s|base64", apkViewUrl)
-        def shellCommand = sprintf("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s", apkViewUrl)
-        // def shellCommand = String.format("echo %s|base64", apkViewUrl)
-        this.script.sh "echo ${shellCommand}"
-        // println shellCommand
-        apkViewUrlQrcode = (shellCommand+'|base64').execute().text
-        apkViewUrl = apkViewUrlQrcode
+        // def shellCommand = sprintf("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s", apkViewUrl)
+        // // def shellCommand = String.format("echo %s|base64", apkViewUrl)
+        // this.script.sh "echo ${shellCommand}"
+        // // println shellCommand
+        // apkViewUrlQrcode = (shellCommand+'|base64').execute().text
+        // apkViewUrl = apkViewUrlQrcode
         // apkViewUrlQrcode = shellCommand.execute().text.getBytes(UTF_8).encodeBase64().toString()
 
         // this.script.sh "echo $apkViewUrlQrcode"
 
+        apkViewUrlQrcode = sh(script: """ curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=${apkViewUrl}|base64""",returnStdout: true).trim()
         def textComman = '''
             <html>
             <head>
