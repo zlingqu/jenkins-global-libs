@@ -147,7 +147,7 @@ class DmaiEmail {
         this.script.sh "ls -l"
         // def shellCommand = sprintf("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s", apkViewUrl)
         // def shellCommand = sprintf("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s|base64", apkViewUrl)
-        def shellCommandList = ["bash", "-c", "pwd" ]
+        def shellCommandList = ["/bin/bash", "-c", "pwd" ]
         // this.script.sh "echo ${shellCommand}"
         // // println shellCommand
         // apkViewUrlQrcode = (shellCommand+'|base64').execute().text
