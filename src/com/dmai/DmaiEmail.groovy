@@ -142,8 +142,8 @@ class DmaiEmail {
         )
 
 
-        // def shellCommand = String.format("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s|base64", apkViewUrl)
-        def shellCommand = String.format("echo %s|base64", apkViewUrl)
+        def shellCommand = String.format("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s|base64", apkViewUrl)
+        // def shellCommand = String.format("echo %s|base64", apkViewUrl)
 
         // println shellCommand
         apkViewUrlQrcode = shellCommand.execute().text
