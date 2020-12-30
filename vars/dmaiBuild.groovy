@@ -711,6 +711,15 @@ def call(Map map, env) {
 
         post {
             failure {
+            apkViewUrl = String.format('''http://192.168.69.32:8888/files/view/android_home/%s/%s/%s/%s-build%s-%s.apk''',
+            this.conf.appName,
+            this.conf.getAttr('deployEnv'),
+            new Date().format('yyyyMMdd'),
+            this.conf.appName,
+            this.conf.getAttr('buildNumber'),
+            this.conf.getAttr('gitVersion')
+            )
+            apkViewUrlQrcode = sh(script: """ curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=${apkViewUrl}|base64""",returnStdout: true).trim()
                 script {
                     dmaiEmail.sendEmail('failure')
 
@@ -718,6 +727,15 @@ def call(Map map, env) {
             }
 
             success {
+            apkViewUrl = String.format('''http://192.168.69.32:8888/files/view/android_home/%s/%s/%s/%s-build%s-%s.apk''',
+            this.conf.appName,
+            this.conf.getAttr('deployEnv'),
+            new Date().format('yyyyMMdd'),
+            this.conf.appName,
+            this.conf.getAttr('buildNumber'),
+            this.conf.getAttr('gitVersion')
+            )
+            apkViewUrlQrcode = sh(script: """ curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=${apkViewUrl}|base64""",returnStdout: true).trim()
                 script {
                     dmaiEmail.sendEmail('success')
 
