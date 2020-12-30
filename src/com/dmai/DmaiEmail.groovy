@@ -161,7 +161,7 @@ class DmaiEmail {
         // apkViewUrlQrcode.waitFor()
         // apkViewUrlQrcode = apkViewUrlQrcode.text
         this.script.sh "echo hello"
-        this.script.sh "echo $apkViewUrlQrcode"
+        print apkViewUrlQrcode
         def textComman = '''
             <html>
             <head>
