@@ -144,6 +144,7 @@ class DmaiEmail {
         def shellCommand = String.format("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s|base64", apkViewUrl)
         this.script.sh "echo '$shellCommand' > a.sh; chmod +x a.sh"
         this.script.sh "cat a.sh"
+        this.script.sh "ls -l"
         // def shellCommand = sprintf("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s", apkViewUrl)
         // def shellCommand = sprintf("curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=%s|base64", apkViewUrl)
         def shellCommandList = ["bash", "-c", "./a.sh" ]
