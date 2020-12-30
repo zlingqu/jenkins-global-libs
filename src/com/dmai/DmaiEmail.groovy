@@ -157,9 +157,12 @@ class DmaiEmail {
         // this.script.sh "echo $shellCommandList"
 
         // def apkViewUrlQrcode = sh(script: shellCommandList, returnStdout: true).trim()
-        def apkViewUrlQrcode = shellCommandList.execute().text
-        apkViewUrlQrcode.waitFor()
-        // apkViewUrlQrcode = apkViewUrlQrcode.text
+        def sout = new StringBuffer()
+        def serr = new StringBuffer()
+        def proc = shellCommandList.execute()
+        proc.consumeProcessOutput(sout, serr)
+        proc.waitFor()
+        apkViewUrlQrcode = sout.toString().trim()
         this.script.sh "echo hello"
         print apkViewUrlQrcode
         def textComman = '''
