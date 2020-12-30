@@ -307,7 +307,7 @@ class DmaiEmail {
                         </tr>
                         <tr>
                             <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">Android apk当前构建制品下载</td>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="$apkViewUrl">1、点我直接下载</a> 2、扫描二维码下载<img src="data:image/png;base64, $apkViewUrlQrcode" width="200" height="200"></td>
+                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="$apkViewUrl">1、点我直接下载</a> <br> 2、扫描二维码下载<img src="data:image/png;base64, $apkViewUrlQrcode" width="200" height="200"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -338,7 +338,6 @@ class DmaiEmail {
         }else if (this.conf.getAttr('codeLanguage') != 'android') {
             return Tools.simpleTemplate(textComman, bind)
         }
-    // return Tools.simpleTemplate(text, bind)
     }
 
     private String useSvcInfo() {
