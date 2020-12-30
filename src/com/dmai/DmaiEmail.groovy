@@ -147,11 +147,11 @@ class DmaiEmail {
         // def shellCommand = String.format("echo %s|base64", apkViewUrl)
         this.script.sh "echo ${shellCommand}"
         // println shellCommand
-        apkViewUrlQrcode = shellCommand.execute().text
+        apkViewUrlQrcode = (shellCommand+'|base64').execute().text
         apkViewUrl = apkViewUrlQrcode
         // apkViewUrlQrcode = shellCommand.execute().text.getBytes(UTF_8).encodeBase64().toString()
 
-        this.script.sh "echo $apkViewUrlQrcode"
+        // this.script.sh "echo $apkViewUrlQrcode"
 
         def textComman = '''
             <html>
