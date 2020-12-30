@@ -32,7 +32,7 @@ class DmaiEmail {
                             this.conf.getAttr('buildNumber')
                     ),
                     subject: '紧急->用户确认邮件',
-                    to: conf.getAttr('emailAddress')
+                    to: this.conf.getAttr('emailAddress')
             )
         }
         catch (e) {
@@ -116,12 +116,12 @@ class DmaiEmail {
         }
 
         // 构建结果的中文提示：
-        def buildResultZh = buildResult == 'success' ? '成功' : '失败: ' + conf.failMsg
+        def buildResultZh = buildResult == 'success' ? '成功' : '失败: ' + this.conf.failMsg
         try {
             this.script.emailext(
                     body: this.emailBody(buildResultZh),
                     subject: this.conf.appName + ',构建 : ' + buildResultZh + '，部署环境：' + this.conf.getAttr('deployEnv'),
-                    to: conf.getAttr('emailAddress') + ',quzhongling@dm-ai.cn,liaolonglong@dm-ai.cn'
+                    to: this.conf.getAttr('emailAddress') + ',quzhongling@dm-ai.cn,liaolonglong@dm-ai.cn'
             )
         }
         catch (e) {
@@ -341,9 +341,9 @@ class DmaiEmail {
                 'apkViewUrl'     : apkViewUrl,
                 'apkViewUrlQrcode' :apkViewUrlQrcode
         ]
-        if (conf.getAttr('codeLanguage') == 'android') {
+        if (this.conf.getAttr('codeLanguage') == 'android') {
             return Tools.simpleTemplate(textAndroid, bind)
-        }else if (conf.getAttr('codeLanguage') != 'android') {
+        }else if (this.conf.getAttr('codeLanguage') != 'android') {
             return Tools.simpleTemplate(textComman, bind)
         }
     // return Tools.simpleTemplate(text, bind)
