@@ -3,7 +3,7 @@ package com.dmai
 import com.tool.Tools
 import java.net.URLEncoder
 import java.util.concurrent.TimeUnit
-import static java.nio.charset.StandardCharsets.UTF_8
+// import static java.nio.charset.StandardCharsets.UTF_8
 
 class DmaiEmail {
 
@@ -164,7 +164,8 @@ class DmaiEmail {
         proc.waitFor()
         def apkViewUrlQrcode = sout.toString().trim()
         // this.script.sh "echo hello"
-        // print apkViewUrlQrcode
+        // print apkViewUrlQrcod
+        print serr.toString().trim()
         def textComman = '''
             <html>
             <head>
