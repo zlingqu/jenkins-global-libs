@@ -151,7 +151,7 @@ class DmaiEmail {
             // this.script.sh String.format('curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url="$s"|base64 \> apkViewUrlQrcode.txt', apkViewUrl)
             // this.script.sh String.format('echo %s > apkViewUrlQrcode.txt', apkViewUrl)
             // apkViewUrlQrcode = readFile('apkViewUrlQrcode.txt').trim()
-            def proc = shellCommand.execute()
+            def proc = 'ls -l'.execute()
             def b = new StringBuffer()
             proc.consumeProcessErrorStream(b)
 
