@@ -287,8 +287,7 @@ class JenkinsRunTemplate {
                 this.templateJiagu() +
                 this.templateSonarCheck() +
                 this.customImage() +
-                this.defaultVolumes() +
-                this.nodeSelect()
+                this.defaultVolumes()
     return returnString
   }
 
@@ -328,18 +327,18 @@ spec:
 '''
   }
 
-  private String nodeSelect() {
-    if (this.conf.getAttr('buildEnvType') == 'gpu') {
-      return '''
-  nodeSelector:
-    makeenv: gpu
-'''
-    }
-    return '''
-  nodeSelector:
-    makeenv: cpu
-'''
-  }
+//   private String nodeSelect() {
+//     if (this.conf.getAttr('buildEnvType') == 'gpu') {
+//       return '''
+//   nodeSelector:
+//     makeenv: gpu
+// '''
+//     }
+//     return '''
+//   nodeSelector:
+//     makeenv: cpu
+// '''
+//   }
 
   private String useModelPath() {
     if (this.conf.getAttr('useModel') && this.conf.getAttr('modelPath')) {
