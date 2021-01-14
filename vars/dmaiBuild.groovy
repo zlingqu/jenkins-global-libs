@@ -311,6 +311,7 @@ def call(Map map, env) {
         options {
             timestamps() //日志会显示时间
             timeout(time: 1, unit: 'HOURS')
+            buildDiscarder(logRotator(numToKeepStr: '200')) //保留最近200个构建
         //            retry(2)
         }
 
