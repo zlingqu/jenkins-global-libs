@@ -133,7 +133,7 @@ class DmaiEmail {
         def String apkViewUrl = ''
         def String apkViewUrlQrcode = ''
         if (this.conf.getAttr('codeLanguage') == 'android') {
-            apkViewUrl = String.format('''http://192.168.69.32:8888/files/view/android_home/%s/%s/%s/%s-build%s-%s.apk''',
+            apkViewUrl = String.format('''http://models.jenkins.dm-ai.cn:8888/files/view/android_home/%s/%s/%s/%s-build%s-%s.apk''',
                     this.conf.appName,
                     this.conf.getAttr('deployEnv'),
                     new Date().format('yyyyMMdd'),
@@ -300,7 +300,7 @@ class DmaiEmail {
                         </tr>
                         <tr>
                             <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">Android apk历史制品查看</td>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="http://192.168.69.32:8888/files/view/android_home/$appName">点我查看历时制品</a></td>
+                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="http://models.jenkins.dm-ai.cn:8888/files/view/android_home/$appName">点我查看历时制品</a></td>
                         </tr>
                         <tr>
                             <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">Android apk当前构建制品下载</td>
