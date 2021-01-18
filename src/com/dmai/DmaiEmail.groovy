@@ -160,12 +160,27 @@ class DmaiEmail {
                         border: 1px solid rgb(39, 39, 41);
                         width: 50%;
                     }
+                    td,th {
+                        /* border: 0; */
+                        background: #f4f5f7;
+                        height: 35px;
+                        padding-left: 10px;
+                        padding-right: 10px;
+                        padding-top: 7px;
+                        padding-bottom: 7px;
+                        font-size: 18px;
+                    }
+
+                    th {
+                        background-color: rgb(162, 161, 224);
+                        text-align: center;
+                    }
                 </style>
             </head>
             <body>
                 <h2 style="font-size: 22px; font-weight:bold;">构建结果如下：</h2>
                 <table class="t1" border="1">
-                    <tbody style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">
+                    <tbody style="">
                         <tr style="background-color: rgb(162, 161, 224);">
                             <th style="text-align: center">序号</th>
                             <th>类别</th>
