@@ -155,7 +155,7 @@ class DmaiEmail {
                 <base target="_blank">
                 <!-- base 标签用来覆盖<a>、<img>、<link>、<form>等标签中的某些属性  -->
                 <style type="text/css">
-                    table.t1,td,th {
+                    table.t1 {
                         border-collapse: collapse;
                         border: 1px solid rgb(39, 39, 41);
                     }
