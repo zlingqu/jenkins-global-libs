@@ -227,7 +227,7 @@ class DmaiEmail {
                     </tr>
                     <tr>
                         <td style="text-align: center">7</td>
-                        <td bstyle="height: 35px;padding-inline: 10px;font-size: 18px;">Jenkins-构建地址(old)</td>
+                        <td>Jenkins-构建地址(old)</td>
                         <td> <a href="$jenkinsAddress/job/$jobName/job/$branchName">Jenkins-old-url</a></td>
                     </tr>
                     <tr>
@@ -312,7 +312,7 @@ class DmaiEmail {
                     </tr>
                     <tr>
                         <td style="text-align: center">3</td>
-                        <td bstyle="height: 35px;padding-inline: 10px;font-size: 18px;">Jenkins-构建地址(old)</td>
+                        <td>Jenkins-构建地址(old)</td>
                         <td> <a href="$jenkinsAddress/job/$jobName/job/$branchName">Jenkins-old-url</a></td>
                     </tr>
                     <tr>
