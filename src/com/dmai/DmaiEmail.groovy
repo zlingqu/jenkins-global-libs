@@ -181,7 +181,7 @@ class DmaiEmail {
 
             <body>
                 <h2 style="font-size: 22px; font-weight:bold;">构建结果如下：</h2>
-                <table class="dataintable" border="6">
+                <table>
                     <tr>
                         <th style="text-align: center">序号</th>
                         <th>类别</th>
@@ -278,7 +278,7 @@ class DmaiEmail {
 
             <body>
                 <h2 style="font-size: 22px; font-weight:bold;">构建结果如下：</h2>
-                <table class="dataintable" border="6">
+                <table>
                     <tr>
                         <th style="text-align: center">序号</th>
                         <th>类别</th>
