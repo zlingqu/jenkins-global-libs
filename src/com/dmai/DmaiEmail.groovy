@@ -160,7 +160,7 @@ class DmaiEmail {
                         border: 1px solid rgb(39, 39, 41);
                     }
 
-                    t1.td,t1.th {
+                    tr>td,tr>th {
                         background: #f4f5f7;
                         height: 35px;
                         padding-left: 10px;
@@ -170,7 +170,7 @@ class DmaiEmail {
                         font-size: 18px;
                     }
 
-                    t1.th {
+                    tr>th {
                         background-color: rgb(162, 161, 224);
                         text-align: center;
                     }
@@ -178,7 +178,7 @@ class DmaiEmail {
             </head>
             <body>
                 <h2 style="font-size: 22px; font-weight:bold;">构建结果如下：</h2>
-                <table class="t1">
+                <table class="t1" board="1">
                     <tbody>
                         <tr>
                             <th style="text-align: center">序号</th>
