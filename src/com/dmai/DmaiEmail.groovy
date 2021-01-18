@@ -159,7 +159,7 @@ class DmaiEmail {
             </head>
             <body>
                 <style type="text/css">
-                        table.table,td,th {
+                        table,td,th {
                             border-collapse: collapse;
                             border: 1px solid rgb(39, 39, 41);
                         }
@@ -180,7 +180,7 @@ class DmaiEmail {
                         }
                     </style>
                 <h2 style="font-size: 22px; font-weight:bold;">构建结果如下：</h2>
-                <table class="table" border="1">
+                <table>
                     <tr>
                         <th style="text-align: center">序号</th>
                         <th>类别</th>
