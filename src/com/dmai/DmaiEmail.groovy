@@ -3,6 +3,7 @@ package com.dmai
 import com.tool.Tools
 import java.net.URLEncoder
 import java.util.concurrent.TimeUnit
+
 // import static java.nio.charset.StandardCharsets.UTF_8
 
 class DmaiEmail {
@@ -141,174 +142,191 @@ class DmaiEmail {
                     this.conf.getAttr('buildNumber'),
                     this.conf.getAttr('gitVersion')
                 )
-                
-            def url = "curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=" + apkViewUrl+ "|base64"
+
+            def url = 'curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=' + apkViewUrl + '|base64'
             apkViewUrlQrcode = this.script.sh(returnStdout: true, script: url).trim()
         }
         def textComman = '''
-            <html>
+            <!DOCTYPE html>
+            <html lang="en">
+
             <head>
-                <meta charset="utf-8">
-                <!-- <meta name="viewport" content="width=device-width,initial-scale=1.0"> -->
-                <!-- <title>y</title> -->
+                <meta charset="UTF-8">
+                <base target="_blank">
+                <!-- base 标签用来覆盖<a>、<img>、<link>、<form>等标签中的某些属性  -->
                 <style type="text/css">
-                    table.dataintable {
-                        margin-top: 15px;
+                    table.t1 {
                         border-collapse: collapse;
-                        border: 1px solid #aaa;
-                        /* width: 100%; */
-                        width: 1000px;
+                        border: 1px solid rgb(39, 39, 41);
+                        width: 50%;
                     }
-                    tr > td {
+                    td,th {
                         background: #f4f5f7;
                         height: 35px;
                         padding-left: 10px;
                         padding-right: 10px;
                         padding-top: 7px;
                         padding-bottom: 7px;
-                        font-size: 16px;
-                    }
-                    tr > th {
-                        height: 35px;
-                        padding-left: 10px;
-                        padding-right: 10px;
-                        padding-top: 7px;
-                        padding-bottom: 7px;
-                        text-align: left;
                         font-size: 18px;
+                    }
+
+                    th {
+                        background-color: rgb(162, 161, 224);
+                        text-align: center;
                     }
                 </style>
             </head>
             <body>
                 <h2 style="font-size: 22px; font-weight:bold;">构建结果如下：</h2>
-                <table class="dataintable" border="1">
-                    <tbody >
-                        <tr style="background:#f7f5f4">
-                            <th style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">名称</th>
-                            <th style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">信息</th>
+                <table class="t1" border="1">
+                    <tbody style="">
+                        <tr style="background-color: rgb(162, 161, 224);">
+                            <th style="text-align: center">序号</th>
+                            <th>类别</th>
+                            <th>内容</th>
                         </tr>
                         <tr>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">构建项目</td>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">$appName</td>
+                            <td style="text-align: center">1</td>
+                            <td>构建项目</td>
+                            <td>$appName</td>
                         </tr>
                         <tr>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">k8s外部访问地址</td>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a target="_blank" href="$buildEnvInfo">$buildEnvInfo</a></td>
+                            <td style="text-align: center">2</td>
+                            <td>k8s外部访问地址</td>
+                            <td><a href="$buildEnvInfo">$buildEnvInfo</a></td>
                         </tr>
                         <tr>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">k8s内部访问地址</td>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">http://$appName.$namespace</td>
+                            <td style="text-align: center">3</td>
+                            <td>k8s内部访问地址</td>
+                            <td>http://$appName.$namespace</td>
                         </tr>
                         <tr>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">Jenkins-构建地址(blue)</td>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a target="_blank" href="$jenkinsAddress/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline">Jenkins-blue-url</a></td>
+                            <td style="text-align: center">4</td>
+                            <td>K8s Dashboard查看</td>
+                            <td> <a href="$k8sWebAddress">$k8sWebAddress</a></td>
                         </tr>
                         <tr>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">Jenkins-构建地址(old)</td>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a target="_blank" href="$jenkinsAddress/job/$jobName/job/$branchName">Jenkins-old-url</a></td>
+                            <td style="text-align: center">5</td>
+                            <td>sonar检查结果</td>
+                            <td> <a href="$sonarAddress">$sonarAddress</a> </td>
                         </tr>
                         <tr>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">代码Git地址</td>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="$gitAddress">$gitAddress</a></td>
+                            <td style="text-align: center">6</td>
+                            <td>Jenkins-构建地址(blue)</td>
+                            <td> <a href="$jenkinsAddress/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline">Jenkins-blue-url</a> </td>
                         </tr>
                         <tr>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">代码Git分支</td>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">$branchName</td>
+                            <td style="text-align: center">7</td>
+                            <td>Jenkins-构建地址(old)</td>
+                            <td> <a href="$jenkinsAddress/job/$jobName/job/$branchName">Jenkins-old-url</a></td>
                         </tr>
                         <tr>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">K8s Dashboard查看</td>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="$k8sWebAddress">$k8sWebAddress</a></td>
+                            <td style="text-align: center">8</td>
+                            <td>代码Git地址</td>
+                            <td><a href="$gitAddress">$gitAddress</a></td>
                         </tr>
                         <tr>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">sonar检查结果</td>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="$sonarAddress">$sonarAddress</a></td>
+                            <td style="text-align: center">9</td>
+                            <td>代码Git分支</td>
+                            <td>$branchName</td>
                         </tr>
                         <tr>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">发布平台地址</td>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="http://adp.dm-ai.cn/#/deployment-management">http://adp.dm-ai.cn/#/deployment-management</a></td>
+                            <td style="text-align: center">10</td>
+                            <td>发布平台地址</td>
+                            <td> <a href="http://adp.dm-ai.cn/#/deployment-management">http://adp.dm-ai.cn/#/deployment-management</a></td>
                         </tr>
                     </tbody>
                 </table>
             </body>
+
             </html>
             '''
         def textAndroid = '''
-            <html>
+            <!DOCTYPE html>
+            <html lang="en">
+
             <head>
-                <meta charset="utf-8">
-                <!-- <meta name="viewport" content="width=device-width,initial-scale=1.0"> -->
-                <!-- <title>y</title> -->
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Document</title>
+                <base target="_blank">
+                <!-- base 标签用来覆盖<a>、<img>、<link>、<form>等标签中的某些属性  -->
                 <style type="text/css">
-                    table.dataintable {
-                        margin-top: 15px;
+                    table.t1 {
                         border-collapse: collapse;
-                        border: 1px solid #aaa;
-                        /* width: 100%; */
-                        width: 1000px;
+                        border: 1px solid rgb(39, 39, 41);
+                        width: 50%;
                     }
-                    tr > td {
+                    td,th {
                         background: #f4f5f7;
                         height: 35px;
                         padding-left: 10px;
                         padding-right: 10px;
                         padding-top: 7px;
                         padding-bottom: 7px;
-                        font-size: 16px;
-                    }
-                    tr > th {
-                        height: 35px;
-                        padding-left: 10px;
-                        padding-right: 10px;
-                        padding-top: 7px;
-                        padding-bottom: 7px;
-                        text-align: left;
                         font-size: 18px;
+                    }
+
+                    th {
+                        background-color: rgb(162, 161, 224);
+                        text-align: center;
                     }
                 </style>
             </head>
+
             <body>
                 <h2 style="font-size: 22px; font-weight:bold;">构建结果如下：</h2>
-                <table class="dataintable" border="1">
-                    <tbody >
-                        <tr style="background:#f7f5f4">
-                            <th style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">名称</th>
-                            <th style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">信息</th>
+                <table class="t1" border="1">
+                    <tbody>
+                        <tr>
+                            <th style="text-align: center">序号</th>
+                            <th>类别</th>
+                            <th>内容</th>
                         </tr>
                         <tr>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">构建项目</td>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">$appName</td>
+                            <td style="text-align: center">1</td>
+                            <td>构建项目</td>
+                            <td>$appName</td>
                         </tr>
                         <tr>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">Jenkins-构建地址(blue)</td>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a target="_blank" href="$jenkinsAddress/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline">Jenkins-blue-url</a></td>
+                            <td style="text-align: center">2</td>
+                            <td>Jenkins-构建地址(blue)</td>
+                            <td> <a href="$jenkinsAddress/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline">Jenkins-blue-url</a> </td>
                         </tr>
                         <tr>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">Jenkins-构建地址(old)</td>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a target="_blank" href="$jenkinsAddress/job/$jobName/job/$branchName">Jenkins-old-url</a></td>
+                            <td style="text-align: center">3</td>
+                            <td>Jenkins-构建地址(old)</td>
+                            <td> <a href="$jenkinsAddress/job/$jobName/job/$branchName">Jenkins-old-url</a></td>
                         </tr>
                         <tr>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">代码Git地址</td>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="$gitAddress">$gitAddress</a></td>
+                            <td style="text-align: center">4</td>
+                            <td>代码Git地址</td>
+                            <td><a href="$gitAddress">$gitAddress</a></td>
                         </tr>
                         <tr>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">代码Git分支</td>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">$branchName</td>
+                            <td style="text-align: center">5</td>
+                            <td>代码Git分支</td>
+                            <td>$branchName</td>
                         </tr>
                         <tr>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">发布平台地址</td>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="http://adp.dm-ai.cn/#/deployment-management">adp-url</a></td>
+                            <td style="text-align: center">6</td>
+                            <td>发布平台地址</td>
+                            <td> <a href="http://adp.dm-ai.cn/#/deployment-management">http://adp.dm-ai.cn/#/deployment-management</a></td>
                         </tr>
                         <tr>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">Android apk历史制品查看</td>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="http://models.jenkins.dm-ai.cn:8888/files/view/android_home/$appName">点我查看历时制品</a></td>
+                            <td style="text-align: center">7</td>
+                            <td> Android apk历史制品查看</td>
+                            <td> <a href="http://models.jenkins.dm-ai.cn:8888/files/view/android_home/$appName">点我查看历时制品</a></td>
                         </tr>
                         <tr>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">Android apk当前构建制品下载</td>
-                            <td style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;"><a href="$apkViewUrl">1、点我直接下载</a> <br> 2、扫描二维码下载<img src="data:image/png;base64, $apkViewUrlQrcode" width="200" height="200"></td>
+                            <td style="text-align: center">8</td>
+                            <td> Android apk当前构建制品下载</td>
+                            <td> <a href="$apkViewUrl">1、点我直接下载</a> <br> 2、扫描二维码下载<img src="data:image/png;base64, $apkViewUrlQrcode" width="200" height="200" alt="无法加载二维码"> </td>
                         </tr>
                     </tbody>
                 </table>
             </body>
+
             </html>
             '''
 
@@ -330,7 +348,6 @@ class DmaiEmail {
                 'apkViewUrlQrcode' :apkViewUrlQrcode
         ]
         if (this.conf.getAttr('codeLanguage') == 'android') {
-           
             return Tools.simpleTemplate(textAndroid, bind)
         }else if (this.conf.getAttr('codeLanguage') != 'android') {
             return Tools.simpleTemplate(textComman, bind)
