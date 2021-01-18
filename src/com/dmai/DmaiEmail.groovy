@@ -159,28 +159,13 @@ class DmaiEmail {
                         border-collapse: collapse;
                         border: 1px solid rgb(39, 39, 41);
                     }
-
-                    tr>td,tr>th {
-                        background: #f4f5f7;
-                        height: 35px;
-                        padding-left: 10px;
-                        padding-right: 10px;
-                        padding-top: 7px;
-                        padding-bottom: 7px;
-                        font-size: 18px;
-                    }
-
-                    tr>th {
-                        background-color: rgb(162, 161, 224);
-                        text-align: center;
-                    }
                 </style>
             </head>
             <body>
                 <h2 style="font-size: 22px; font-weight:bold;">构建结果如下：</h2>
-                <table class="t1" board="1">
+                <table class="t1" border="1" style="height: 35px;padding-left: 10px;padding-right: 10px;padding-top: 7px;padding-bottom: 7px;font-size: 18px;">
                     <tbody>
-                        <tr>
+                        <tr style="background-color: rgb(162, 161, 224);">
                             <th style="text-align: center">序号</th>
                             <th>类别</th>
                             <th>内容</th>
