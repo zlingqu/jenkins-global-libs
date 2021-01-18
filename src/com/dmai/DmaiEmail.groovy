@@ -154,17 +154,31 @@ class DmaiEmail {
                 <meta charset="UTF-8">
                 <base target="_blank">
                 <!-- base 标签用来覆盖<a>、<img>、<link>、<form>等标签中的某些属性  -->
-                <style type="text/css"> table.dataintable {
-                        margin-top: 15px;
+                <style type="text/css">
+                    table,td,th {
                         border-collapse: collapse;
-                        border: 1px solid #aaa;
-                        width: 1000px;
-                        }
+                        border: 1px solid rgb(39, 39, 41);
+                    }
+
+                    td,th {
+                        background: #f4f5f7;
+                        height: 35px;
+                        padding-left: 10px;
+                        padding-right: 10px;
+                        padding-top: 7px;
+                        padding-bottom: 7px;
+                        font-size: 18px;
+                    }
+
+                    th {
+                        background-color: rgb(162, 161, 224);
+                        text-align: center;
+                    }
                 </style>
             </head>
             <body>
                 <h2 style="font-size: 22px; font-weight:bold;">构建结果如下：</h2>
-                <table class="dataintable" border="1">
+                <table>
                     <tbody>
                         <tr>
                             <th style="text-align: center">序号</th>
@@ -263,51 +277,53 @@ class DmaiEmail {
             <body>
                 <h2 style="font-size: 22px; font-weight:bold;">构建结果如下：</h2>
                 <table>
-                    <tr>
-                        <th style="text-align: center">序号</th>
-                        <th>类别</th>
-                        <th>内容</th>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center">1</td>
-                        <td>构建项目</td>
-                        <td>$appName</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center">2</td>
-                        <td>Jenkins-构建地址(blue)</td>
-                        <td> <a href="$jenkinsAddress/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline">Jenkins-blue-url</a> </td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center">3</td>
-                        <td>Jenkins-构建地址(old)</td>
-                        <td> <a href="$jenkinsAddress/job/$jobName/job/$branchName">Jenkins-old-url</a></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center">4</td>
-                        <td>代码Git地址</td>
-                        <td><a href="$gitAddress">$gitAddress</a></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center">5</td>
-                        <td>代码Git分支</td>
-                        <td>$branchName</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center">6</td>
-                        <td>发布平台地址</td>
-                        <td> <a href="http://adp.dm-ai.cn/#/deployment-management">adp-url</a></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center">7</td>
-                        <td> Android apk历史制品查看</td>
-                        <td> <a href="http://models.jenkins.dm-ai.cn:8888/files/view/android_home/$appName">点我查看历时制品</a></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center">8</td>
-                        <td> Android apk当前构建制品下载</td>
-                        <td> <a href="$apkViewUrl">1、点我直接下载</a> <br> 2、扫描二维码下载<img src="data:image /png;base64, $apkViewUrlQrcode" width="200" height="200" alt="无法加载二维码"> </td>
-                    </tr>
+                    <tbody>
+                        <tr>
+                            <th style="text-align: center">序号</th>
+                            <th>类别</th>
+                            <th>内容</th>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">1</td>
+                            <td>构建项目</td>
+                            <td>$appName</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">2</td>
+                            <td>Jenkins-构建地址(blue)</td>
+                            <td> <a href="$jenkinsAddress/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline">Jenkins-blue-url</a> </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">3</td>
+                            <td>Jenkins-构建地址(old)</td>
+                            <td> <a href="$jenkinsAddress/job/$jobName/job/$branchName">Jenkins-old-url</a></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">4</td>
+                            <td>代码Git地址</td>
+                            <td><a href="$gitAddress">$gitAddress</a></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">5</td>
+                            <td>代码Git分支</td>
+                            <td>$branchName</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">6</td>
+                            <td>发布平台地址</td>
+                            <td> <a href="http://adp.dm-ai.cn/#/deployment-management">adp-url</a></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">7</td>
+                            <td> Android apk历史制品查看</td>
+                            <td> <a href="http://models.jenkins.dm-ai.cn:8888/files/view/android_home/$appName">点我查看历时制品</a></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">8</td>
+                            <td> Android apk当前构建制品下载</td>
+                            <td> <a href="$apkViewUrl">1、点我直接下载</a> <br> 2、扫描二维码下载<img src="data:image /png;base64, $apkViewUrlQrcode" width="200" height="200" alt="无法加载二维码"> </td>
+                        </tr>
+                    </tbody>
                 </table>
             </body>
 
