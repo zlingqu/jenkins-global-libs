@@ -3,6 +3,7 @@ package com.dmai
 import com.tool.Tools
 import java.net.URLEncoder
 import java.util.concurrent.TimeUnit
+
 // import static java.nio.charset.StandardCharsets.UTF_8
 
 class DmaiEmail {
@@ -141,8 +142,8 @@ class DmaiEmail {
                     this.conf.getAttr('buildNumber'),
                     this.conf.getAttr('gitVersion')
                 )
-                
-            def url = "curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=" + apkViewUrl+ "|base64"
+
+            def url = 'curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=' + apkViewUrl + '|base64'
             apkViewUrlQrcode = this.script.sh(returnStdout: true, script: url).trim()
         }
         def textComman = '''
@@ -151,91 +152,76 @@ class DmaiEmail {
 
             <head>
                 <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Document</title>
                 <base target="_blank">
                 <!-- base 标签用来覆盖<a>、<img>、<link>、<form>等标签中的某些属性  -->
-                
+                <style type="text/css"> table.dataintable {
+                        margin-top: 15px;
+                        border-collapse: collapse;
+                        border: 1px solid #aaa;
+                        width: 1000px;
+                        }
+                </style>
             </head>
             <body>
-                <style type="text/css">
-                        table,td,th {
-                            border-collapse: collapse;
-                            border: 1px solid rgb(39, 39, 41);
-                        }
-
-                        td,th {
-                            background: #f4f5f7;
-                            height: 35px;
-                            padding-left: 10px;
-                            padding-right: 10px;
-                            padding-top: 7px;
-                            padding-bottom: 7px;
-                            font-size: 18px;
-                        }
-
-                        th {
-                            background-color: rgb(162, 161, 224);
-                            text-align: center;
-                        }
-                    </style>
                 <h2 style="font-size: 22px; font-weight:bold;">构建结果如下：</h2>
-                <table>
-                    <tr>
-                        <th style="text-align: center">序号</th>
-                        <th>类别</th>
-                        <th>内容</th>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center">1</td>
-                        <td>构建项目</td>
-                        <td>$appName</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center">2</td>
-                        <td>k8s外部访问地址</td>
-                        <td><a href="$buildEnvInfo">$buildEnvInfo</a></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center">3</td>
-                        <td>k8s内部访问地址</td>
-                        <td>http://$appName.$namespace</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center">4</td>
-                        <td>K8s Dashboard查看</td>
-                        <td> <a href="$k8sWebAddress">$k8sWebAddress</a></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center">5</td>
-                        <td>sonar检查结果</td>
-                        <td> <a href="$sonarAddress">$sonarAddress</a> </td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center">6</td>
-                        <td>Jenkins-构建地址(blue)</td>
-                        <td> <a href="$jenkinsAddress/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline">Jenkins-blue-url</a> </td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center">7</td>
-                        <td>Jenkins-构建地址(old)</td>
-                        <td> <a href="$jenkinsAddress/job/$jobName/job/$branchName">Jenkins-old-url</a></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center">8</td>
-                        <td>代码Git地址</td>
-                        <td><a href="$gitAddress">$gitAddress</a></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center">9</td>
-                        <td>代码Git分支</td>
-                        <td>$branchName</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center">10</td>
-                        <td>发布平台地址</td>
-                        <td> <a href="http://adp.dm-ai.cn/#/deployment-management">adp-url</a></td>
-                    </tr>
+                <table class="dataintable" border="1">
+                    <tbody>
+                        <tr>
+                            <th style="text-align: center">序号</th>
+                            <th>类别</th>
+                            <th>内容</th>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">1</td>
+                            <td>构建项目</td>
+                            <td>$appName</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">2</td>
+                            <td>k8s外部访问地址</td>
+                            <td><a href="$buildEnvInfo">$buildEnvInfo</a></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">3</td>
+                            <td>k8s内部访问地址</td>
+                            <td>http://$appName.$namespace</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">4</td>
+                            <td>K8s Dashboard查看</td>
+                            <td> <a href="$k8sWebAddress">$k8sWebAddress</a></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">5</td>
+                            <td>sonar检查结果</td>
+                            <td> <a href="$sonarAddress">$sonarAddress</a> </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">6</td>
+                            <td>Jenkins-构建地址(blue)</td>
+                            <td> <a href="$jenkinsAddress/blue/organizations/jenkins/$jobName/detail/$branchName/$buildNumber/pipeline">Jenkins-blue-url</a> </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">7</td>
+                            <td>Jenkins-构建地址(old)</td>
+                            <td> <a href="$jenkinsAddress/job/$jobName/job/$branchName">Jenkins-old-url</a></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">8</td>
+                            <td>代码Git地址</td>
+                            <td><a href="$gitAddress">$gitAddress</a></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">9</td>
+                            <td>代码Git分支</td>
+                            <td>$branchName</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">10</td>
+                            <td>发布平台地址</td>
+                            <td> <a href="http://adp.dm-ai.cn/#/deployment-management">adp-url</a></td>
+                        </tr>
+                    </tbody>
                 </table>
             </body>
 
@@ -273,7 +259,6 @@ class DmaiEmail {
                     }
                 </style>
             </head>
-
 
             <body>
                 <h2 style="font-size: 22px; font-weight:bold;">构建结果如下：</h2>
@@ -347,7 +332,6 @@ class DmaiEmail {
                 'apkViewUrlQrcode' :apkViewUrlQrcode
         ]
         if (this.conf.getAttr('codeLanguage') == 'android') {
-           
             return Tools.simpleTemplate(textAndroid, bind)
         }else if (this.conf.getAttr('codeLanguage') != 'android') {
             return Tools.simpleTemplate(textComman, bind)
