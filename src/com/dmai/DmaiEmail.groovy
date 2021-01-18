@@ -155,33 +155,32 @@ class DmaiEmail {
                 <title>Document</title>
                 <base target="_blank">
                 <!-- base 标签用来覆盖<a>、<img>、<link>、<form>等标签中的某些属性  -->
-                <style type="text/css">
-                    table,td,th {
-                        border-collapse: collapse;
-                        border: 1px solid rgb(39, 39, 41);
-                    }
-
-                    td,th {
-                        background: #f4f5f7;
-                        height: 35px;
-                        padding-left: 10px;
-                        padding-right: 10px;
-                        padding-top: 7px;
-                        padding-bottom: 7px;
-                        font-size: 18px;
-                    }
-
-                    th {
-                        background-color: rgb(162, 161, 224);
-                        text-align: center;
-                    }
-                </style>
+                
             </head>
-
-
             <body>
+                <style type="text/css">
+                        table.table,td,th {
+                            border-collapse: collapse;
+                            border: 1px solid rgb(39, 39, 41);
+                        }
+
+                        td,th {
+                            background: #f4f5f7;
+                            height: 35px;
+                            padding-left: 10px;
+                            padding-right: 10px;
+                            padding-top: 7px;
+                            padding-bottom: 7px;
+                            font-size: 18px;
+                        }
+
+                        th {
+                            background-color: rgb(162, 161, 224);
+                            text-align: center;
+                        }
+                    </style>
                 <h2 style="font-size: 22px; font-weight:bold;">构建结果如下：</h2>
-                <table>
+                <table class="table" border="1">
                     <tr>
                         <th style="text-align: center">序号</th>
                         <th>类别</th>
