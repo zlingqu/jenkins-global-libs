@@ -161,7 +161,6 @@ class DmaiEmail {
                         width: 50%;
                     }
                     td,th {
-                        /* border: 0; */
                         background: #f4f5f7;
                         height: 35px;
                         padding-left: 10px;
@@ -234,7 +233,7 @@ class DmaiEmail {
                         <tr>
                             <td style="text-align: center">10</td>
                             <td>发布平台地址</td>
-                            <td> <a href="http://adp.dm-ai.cn/#/deployment-management">adp-url</a></td>
+                            <td> <a href="http://adp.dm-ai.cn/#/deployment-management">http://adp.dm-ai.cn/#/deployment-management</a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -253,11 +252,11 @@ class DmaiEmail {
                 <base target="_blank">
                 <!-- base 标签用来覆盖<a>、<img>、<link>、<form>等标签中的某些属性  -->
                 <style type="text/css">
-                    table.t1,td,th {
+                    table.t1 {
                         border-collapse: collapse;
                         border: 1px solid rgb(39, 39, 41);
+                        width: 50%;
                     }
-
                     td,th {
                         background: #f4f5f7;
                         height: 35px;
@@ -277,7 +276,7 @@ class DmaiEmail {
 
             <body>
                 <h2 style="font-size: 22px; font-weight:bold;">构建结果如下：</h2>
-                <table class="t1" >
+                <table class="t1" border="1">
                     <tbody>
                         <tr>
                             <th style="text-align: center">序号</th>
@@ -312,7 +311,7 @@ class DmaiEmail {
                         <tr>
                             <td style="text-align: center">6</td>
                             <td>发布平台地址</td>
-                            <td> <a href="http://adp.dm-ai.cn/#/deployment-management">adp-url</a></td>
+                            <td> <a href="http://adp.dm-ai.cn/#/deployment-management">http://adp.dm-ai.cn/#/deployment-management</a></td>
                         </tr>
                         <tr>
                             <td style="text-align: center">7</td>
