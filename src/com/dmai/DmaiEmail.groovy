@@ -155,7 +155,7 @@ class DmaiEmail {
                 <base target="_blank">
                 <!-- base 标签用来覆盖<a>、<img>、<link>、<form>等标签中的某些属性  -->
                 <style type="text/css">
-                    table,td,th {
+                    table.t1,td,th {
                         border-collapse: collapse;
                         border: 1px solid rgb(39, 39, 41);
                     }
@@ -178,7 +178,7 @@ class DmaiEmail {
             </head>
             <body>
                 <h2 style="font-size: 22px; font-weight:bold;">构建结果如下：</h2>
-                <table>
+                <table class="t1">
                     <tbody>
                         <tr>
                             <th style="text-align: center">序号</th>
@@ -252,7 +252,7 @@ class DmaiEmail {
                 <base target="_blank">
                 <!-- base 标签用来覆盖<a>、<img>、<link>、<form>等标签中的某些属性  -->
                 <style type="text/css">
-                    table,td,th {
+                    table.t1,td,th {
                         border-collapse: collapse;
                         border: 1px solid rgb(39, 39, 41);
                     }
@@ -276,7 +276,7 @@ class DmaiEmail {
 
             <body>
                 <h2 style="font-size: 22px; font-weight:bold;">构建结果如下：</h2>
-                <table>
+                <table class="t1" >
                     <tbody>
                         <tr>
                             <th style="text-align: center">序号</th>
