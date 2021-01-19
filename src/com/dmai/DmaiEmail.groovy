@@ -321,7 +321,7 @@ class DmaiEmail {
                         <tr>
                             <td style="text-align: center">8</td>
                             <td> Android apk当前构建制品下载</td>
-                            <td> <a href="$apkViewUrl">1、点我直接下载</a> <br> 2、扫描二维码下载<img src="data:image/png;base64, $apkViewUrlQrcode" width="200" height="200" alt="无法加载二维码"> </td>
+                            <td> <a href="$apkViewUrl">1、点我直接下载</a> <br> 2、扫描二维码下载<img style="vertical-align:middle" src="data:image/png;base64, $apkViewUrlQrcode" width="200" height="200" alt="无法加载二维码"> </td>
                         </tr>
                     </tbody>
                 </table>
