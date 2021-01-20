@@ -501,7 +501,7 @@ def call(Map map, env) {
                     stage('下载模型文件') {
                         when {
                             allOf {
-                                expression { return conf.getAttr('ifUseModel') };
+                                expression { return conf.getAttr('ifUseModel') }
                             }
                         }
 
@@ -510,7 +510,7 @@ def call(Map map, env) {
                                 script {
                                     try {
                                         withCredentials([usernamePassword(credentialsId: 'dev-admin-model', passwordVariable: 'password', usernameVariable: 'username')]) {
-                                            sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + conf.getAttr("modelGitAddress").replace("https://", 'https://$username:$password@') + ' model'
+                                            sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + conf.getAttr("modelGitRepository").replace("https://", 'https://$username:$password@') + ' model'
                                         }
                                         sh 'pwd;ls -l;rm -fr model/.git'
                                     } catch (e) {
