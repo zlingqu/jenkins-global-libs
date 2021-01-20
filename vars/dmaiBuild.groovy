@@ -500,39 +500,50 @@ def call(Map map, env) {
 
                     stage('下载模型文件') {
                         when {
-                            anyOf {
-                                expression { return conf.getAttr('useModel') && conf.getAttr('modelGitAddress') };
-                                allOf {
-                                    expression { return conf.getAttr('ifUseModel') };
-                                    expression { return conf.getAttr('ifUseGitManagerModel') };
+                            // anyOf {
+                            //     expression { return conf.getAttr('useModel') && conf.getAttr('modelGitAddress') };
+                            allOf {
+                                expression { return conf.getAttr('ifUseModel') };
+                                expression { return conf.getAttr('ifUseGitManagerModel') };
                                 }
-                            }
+                            // }
                         }
                         steps {
                             container('adp') {
                                 script {
                                     try {
-                                        if (conf.getAttr('useModel') && conf.getAttr('modelGitAddress')) {
-                                            withCredentials([usernamePassword(credentialsId: 'dev-admin-model', passwordVariable: 'password', usernameVariable: 'username')]) {
-                                                sh 'echo 开始从下载模型'
-                                                sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + conf.getAttr('modelGitAddress').replace('https://', 'https://$username:$password@') + ' model'
-                                            }
+                                        withCredentials([usernamePassword(credentialsId: 'dev-admin-model', passwordVariable: 'password', usernameVariable: 'username')]) {
+                                            sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + conf.getAttr("modelGitAddress").replace("https://", 'https://$username:$password@') + ' model'
                                         }
-
-                                        if (conf.getAttr('ifUseModel') && conf.getAttr('ifUseGitManagerModel')) {
-                                            withCredentials([usernamePassword(credentialsId: 'dev-admin-model', passwordVariable: 'password', usernameVariable: 'username')]) {
-                                                sh '切换分支'
-                                                sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + conf.getAttr('modelGitRepository').replace('https://', 'https://$username:$password@') + ' model && ' +
-                                                        (conf.getAttr('modelBranch') != 'master' ? String.format(''' cd model && git checkout -b %s origin/%s && git checkout %s && cd -''', conf.getAttr('modelBranch'), conf.getAttr('modelBranch'), conf.getAttr('modelBranch')) : 'echo master')
-                                            }
-                                        }
-
                                         sh 'rm -fr model/.git'
                                     } catch (e) {
                                         sh "echo ${e}"
-                                        conf.failMsg = '从gitlab下载模型文件失败！'
-                                        throw e
+                                        conf.failMsg = '从gitlab下载模型文件失败！';
+                                        throw e;
                                     }
+
+                                    // try {
+                                    //     if (conf.getAttr('useModel') && conf.getAttr('modelGitAddress')) {
+                                    //         withCredentials([usernamePassword(credentialsId: 'dev-admin-model', passwordVariable: 'password', usernameVariable: 'username')]) {
+                                    //             sh 'echo 开始从下载模型'
+                                    //             sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + conf.getAttr('modelGitAddress').replace('https://', 'https://$username:$password@') + ' model'
+                                    //         }
+                                    //     }
+
+                                    //     if (conf.getAttr('ifUseModel') && conf.getAttr('ifUseGitManagerModel')) {
+                                    //         withCredentials([usernamePassword(credentialsId: 'dev-admin-model', passwordVariable: 'password', usernameVariable: 'username')]) {
+                                    //             sh '切换分支'
+                                    //             sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + conf.getAttr('modelGitRepository').replace('https://', 'https://$username:$password@') + ' model && ' +
+                                    //                     (conf.getAttr('modelBranch') != 'master' ? String.format(''' cd model && git checkout -b %s origin/%s && git checkout %s && cd -''', conf.getAttr('modelBranch'), conf.getAttr('modelBranch'), conf.getAttr('modelBranch')) : 'echo master')
+                                    //         }
+                                    //     }
+
+                                    //     sh 'rm -fr model/.git'
+                                    // } catch (e) {
+                                    //     sh "echo ${e}"
+                                    //     conf.failMsg = '从gitlab下载模型文件失败！'
+                                    //     throw e
+                                    // }
                                 }
                             }
                         }
