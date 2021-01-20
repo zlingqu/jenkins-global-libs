@@ -502,6 +502,8 @@ def call(Map map, env) {
                         when {
                             allOf {
                                 expression { return conf.getAttr('ifUseModel') }
+                                expression { return conf.getAttr('ifUseGitManagerModel')}
+                                expression { return conf.getAttr('modelGitRepository')}
                             }
                         }
 

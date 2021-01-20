@@ -163,10 +163,7 @@ class DmaiEmail {
                     td,th {
                         background: #f4f5f7;
                         height: 35px;
-                        padding-left: 10px;
-                        padding-right: 10px;
-                        padding-top: 7px;
-                        padding-bottom: 7px;
+                        padding: 7px 10px;
                         font-size: 18px;
                     }
 
@@ -260,10 +257,7 @@ class DmaiEmail {
                     td,th {
                         background: #f4f5f7;
                         height: 35px;
-                        padding-left: 10px;
-                        padding-right: 10px;
-                        padding-top: 7px;
-                        padding-bottom: 7px;
+                        padding: 7px 10px;
                         font-size: 18px;
                     }
 
