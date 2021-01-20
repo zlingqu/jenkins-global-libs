@@ -500,14 +500,13 @@ def call(Map map, env) {
 
                     stage('下载模型文件') {
                         when {
-                            // anyOf {
-                            //     expression { return conf.getAttr('useModel') && conf.getAttr('modelGitAddress') };
                             allOf {
-                                expression { return conf.getAttr('ifUseModel') };
-                                expression { return conf.getAttr('ifUseGitManagerModel') };
-                                }
-                            // }
+                                expression { return conf.ifBuild() };
+                                expression { return conf.getAttr('useModel') };
+                                expression { return conf.getAttr('modelGitAddress') };
+                            }
                         }
+
                         steps {
                             container('adp') {
                                 script {
