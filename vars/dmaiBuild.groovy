@@ -148,7 +148,7 @@ def call(Map map, env) {
     def defaultMakeImage = conf.getAttr('makeImage') ? conf.getAttr('makeImage') : false
 
     // 是否使用模型
-    def defaultUseModel = (conf.getAttr('useModel')) ? (conf.getAttr('useModel')) : false
+    def defaultUseModel = (conf.getAttr('ifUseModel')) ? (conf.getAttr('ifUseModel')) : false
 
     // 是否使用configmap注入环境变量
     def defaultUseConfigmap = conf.getAttr('useConfigMap') ? conf.getAttr('useConfigMap') : false
@@ -262,7 +262,7 @@ def call(Map map, env) {
             booleanParam(name: 'IF_MAKE_IMAGE', defaultValue: defaultMakeImage, description: '是否制作镜像')
 
             // defaultUseModel
-            booleanParam(name: 'USE_MODEL', defaultValue: defaultUseModel, description: '是否使用模型文件')
+            booleanParam(name: 'IF_USE_MODEL', defaultValue: defaultUseModel, description: '是否使用模型文件')
 
             //
             booleanParam(name: 'USE_CONFIGMAP', defaultValue: defaultUseConfigmap, description: '是否使用configmap注入环境变量')
@@ -501,8 +501,8 @@ def call(Map map, env) {
                     stage('下载模型文件') {
                         when {
                             allOf {
-                                expression { return conf.getAttr('useModel') };
-                                expression { return conf.getAttr('modelGitAddress') };
+                                expression { return conf.getAttr('ifUseModel') };
+                                // expression { return conf.getAttr('modelGitAddress') };
                             }
                         }
 
