@@ -286,9 +286,6 @@ def call(Map map, env) {
             string(name: 'GLOABL_STRING', defaultValue: '', description: '传递的特殊参数字符串')
         }
 
-//        triggers {
-//            pollSCM('H/30 * * * *')
-//        }
 
         // 转化为可用的环境变量
         environment {
@@ -307,12 +304,11 @@ def call(Map map, env) {
             }
         }
 
-        // 设置任务的超时时间为1个小时。
+        
         options {
             timestamps() //日志会显示时间
-            timeout(time: 1, unit: 'HOURS')
+            timeout(time: 1, unit: 'HOURS') // 设置任务的超时时间为1个小时。
             buildDiscarder(logRotator(numToKeepStr: '200')) //保留最近200个构建
-        //            retry(2)
         }
 
         stages {
@@ -502,6 +498,7 @@ def call(Map map, env) {
                         when {
                             allOf {
                                 expression { return conf.getAttr('useModel') }
+                                expression { return conf.getAttr('ifUseGitManagerModel ') }
                                 expression { return conf.getAttr('modelGitRepository')}
                             }
                         }
