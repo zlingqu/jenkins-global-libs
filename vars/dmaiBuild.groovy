@@ -370,9 +370,9 @@ def call(Map map, env) {
                             container('adp') {
                                 script {
                                     try {
-                                        withCredentials([usernamePassword(credentialsId: 'devops-use-new', passwordVariable: 'password', usernameVariable: 'username')]) {
-                                            sh 'source /etc/profile; git config --global http.sslVerify false ; git reset --hard "${gitVersion}"'
-                                        }
+                                        // withCredentials([usernamePassword(credentialsId: 'devops-use-new', passwordVariable: 'password', usernameVariable: 'username')]) {
+                                        sh 'git config --global http.sslVerify false ; git reset --hard "${gitVersion}"'
+                                        // }
                                     } catch (e) {
                                         sh 'echo ${e}'
                                         conf.failMsg = '拉取指定git的版本或者tag失败，请检查版本或者tag是否正确，请确保tag是从master分支拉取。'
