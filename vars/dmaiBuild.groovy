@@ -370,7 +370,7 @@ def call(Map map, env) {
                             container('adp') {
                                 script {
                                     try {
-                                        withCredentials([usernamePassword(credentialsId: 'devops-use-new', passwordVariable: 'password', usernameVariable: 'username')]) {
+                                        withCredentials([usernamePassword(credentialsId: 'devops-use', passwordVariable: 'password', usernameVariable: 'username')]) {
                                             sh 'source /etc/profile; git config --global http.sslVerify false ; git reset --hard "${gitVersion}"'
                                         }
                                     } catch (e) {
@@ -393,7 +393,7 @@ def call(Map map, env) {
                             container('adp') {
                                 script {
                                     try {
-                                        withCredentials([usernamePassword(credentialsId: 'devops-use-new', passwordVariable: 'password', usernameVariable: 'username')]) {
+                                        withCredentials([usernamePassword(credentialsId: 'devops-use', passwordVariable: 'password', usernameVariable: 'username')]) {
                                             sh "source /etc/profile; git config --global http.sslVerify false ; git checkout master ; git fetch ;git checkout ${conf.getAttr('gitTag')}"
                                         }
                                     } catch (e) {
@@ -507,7 +507,7 @@ def call(Map map, env) {
                             container('adp') {
                                 script {
                                     try {
-                                        withCredentials([usernamePassword(credentialsId: 'dev-admin-model', passwordVariable: 'password', usernameVariable: 'username')]) {
+                                        withCredentials([usernamePassword(credentialsId: 'devops-use', passwordVariable: 'password', usernameVariable: 'username')]) {
                                             sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + conf.getAttr("modelGitRepository").replace("https://", 'https://$username:$password@') + ' model'
                                         }
                                         sh 'pwd;ls -l;rm -fr model/.git'
