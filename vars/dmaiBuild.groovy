@@ -393,9 +393,10 @@ def call(Map map, env) {
                             container('adp') {
                                 script {
                                     try {
-                                        withCredentials([usernamePassword(credentialsId: 'devops-use', passwordVariable: 'password', usernameVariable: 'username')]) {
-                                            sh "source /etc/profile;git config --global http.sslVerify false ; git checkout master ;git fetch ;git checkout ${conf.getAttr('gitTag')}"
-                                        }
+                                        // withCredentials([usernamePassword(credentialsId: 'devops-use', passwordVariable: 'password', usernameVariable: 'username')]) {
+                                            // sh "source /etc/profile;git config --global http.sslVerify false ; git checkout master ;git fetch ;git checkout ${conf.getAttr('gitTag')}"
+                                            sh "git config --global http.sslVerify false ;git fetch ;git checkout ${conf.getAttr('gitTag')}"
+                                        // }
                                     } catch (e) {
                                         sh 'echo ${e}'
                                         conf.failMsg = '拉取指定git的版本或者tag失败，请检查版本或者tag是否正确，请确保tag是从master分支拉取。'
