@@ -394,7 +394,7 @@ def call(Map map, env) {
                                 script {
                                     try {
                                         withCredentials([usernamePassword(credentialsId: 'devops-use', passwordVariable: 'password', usernameVariable: 'username')]) {
-                                            sh "source /etc/profile; git config --global http.sslVerify false ; git checkout master ; git fetch ;git checkout ${conf.getAttr('gitTag')}"
+                                            sh "source /etc/profile; git config --global http.sslVerify false ; git checkout master ;git remote -v; git fetch ;git checkout ${conf.getAttr('gitTag')}"
                                         }
                                     } catch (e) {
                                         sh 'echo ${e}'
