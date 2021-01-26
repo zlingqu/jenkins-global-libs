@@ -364,18 +364,11 @@ def call(Map map, env) {
                         steps {
                             container('adp') {
                                 script {
-                                    try {
-                                        // withCredentials([usernamePassword(credentialsId: 'devops-use-new', passwordVariable: 'password', usernameVariable: 'username')]) {
-                                        if (conf.getAttr('gitVersion') == 'last') {
-                                            conf.setAttr('gitVersion', env.GIT_COMMIT)
-                                            conf.printAppConf()
-                                        }
+                                    if (conf.getAttr('gitVersion') == 'last') {
+                                        conf.setAttr('gitVersion', env.GIT_COMMIT)
+                                        conf.printAppConf()
+                                    } else {
                                         sh 'git config --global http.sslVerify false ; git reset --hard "${gitVersion}"'
-                                        // }
-                                    } catch (e) {
-                                        sh 'echo ${e}'
-                                        conf.failMsg = '拉取指定git的版本失败，请检查git commit id是否正确'
-                                        throw e
                                     }
                                 }
                             }
