@@ -312,21 +312,15 @@ def call(Map map, env) {
         }
 
         stages {
-            stage('初始化1') {
+            stage('打印当前环境变量') {
                 steps {
                     script {
                         // set git commit id
                         //                        echo env.GIT_COMMIT
-                        if (env.GIT_COMMIT && conf.getAttr('gitVersion') == 'last' && conf.getAttr('versionControlMode') == 'GitCommitId') {
-                            conf.setAttr('gitVersion', env.GIT_COMMIT)
-                        }
-
-                        // set build image
-                        conf.setAttr('buildImageTag', conf.getBuildImageAddressTag())
-                        conf.setAttr('buildImageAddress', conf.getBuildImageAddress())
-                        //                        echo currentBuild.displayName, currentBuild.fullDisplayName, currentBuild.projectName, currentBuild.fullProjectName
-                        // print all data
-                        println(conf.printAppConf())
+                        // if (env.GIT_COMMIT && conf.getAttr('gitVersion') == 'last' && conf.getAttr('versionControlMode') == 'GitCommitId') {
+                        //     conf.setAttr('gitVersion', env.GIT_COMMIT)
+                        // }
+                        // println(conf.printAppConf())
                         withEnv(conf.withEnvList) {
                             sh 'printenv'
                         }
@@ -334,7 +328,7 @@ def call(Map map, env) {
                 }
             }
 
-            stage('初始化2') {
+            stage('代码管理') {
                 parallel {
 
                     stage('apidoc功能支持') {
@@ -358,7 +352,7 @@ def call(Map map, env) {
                             }
                         }
                     }
-                    stage('代码切换到对应的commitID') {
+                    stage('git切换到对应的commitID') {
                         when {
                             allOf {
                                 expression { return conf.ifBuild() };
@@ -371,6 +365,7 @@ def call(Map map, env) {
                                 script {
                                     try {
                                         // withCredentials([usernamePassword(credentialsId: 'devops-use-new', passwordVariable: 'password', usernameVariable: 'username')]) {
+                                        conf.setAttr('gitVersion', env.GIT_COMMIT)
                                         sh 'git config --global http.sslVerify false ; git reset --hard "${gitVersion}"'
                                         // }
                                     } catch (e) {
@@ -382,7 +377,7 @@ def call(Map map, env) {
                             }
                         }
                     }
-                    stage('代码切换到对应的tag') {
+                    stage('git切换到对应的tag') {
                         when {
                             allOf {
                                 expression { return conf.ifBuild() };
@@ -559,6 +554,9 @@ def call(Map map, env) {
                         steps {
                             container('adp') {
                                 script {
+                                    conf.setAttr('buildImageTag', conf.getBuildImageAddressTag())
+                                    conf.setAttr('buildImageAddress', conf.getBuildImageAddress())
+
                                     if (conf.ifMakeImage() && conf.getAttr('makeImage')) {
                                         try {
                                             withEnv(conf.withEnvList) {

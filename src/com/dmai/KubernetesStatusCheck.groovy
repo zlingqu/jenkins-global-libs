@@ -62,8 +62,6 @@ class KubernetesStatusCheck {
     }
 
     private String getServiceAppStatusV1Url(String imageSha) {
-//        def gitString = this.conf.getAttr('versionControlMode') == 'GitCommitId' ? this.conf.getAttr('gitVersion') : this.conf.getAttr('gitTag')
-
         return String.format('''http://adp-api.dm-ai.cn/api/v1/pods-status?env=%s&namespace=%s&appName=%s&imageSha=%s''',
                 this.conf.getAttr('deployEnv'),
                 this.conf.getAttr('namespace'),
