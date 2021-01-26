@@ -358,7 +358,7 @@ def call(Map map, env) {
                             allOf {
                                 expression { return conf.ifBuild() };
                                 expression { return conf.getAttr('versionControlMode') == 'GitCommitId' };
-                                expression { return gitVersion != 'last' };
+                                // expression { return gitVersion != 'last' };
                             }
                         }
                         steps {
@@ -366,12 +366,15 @@ def call(Map map, env) {
                                 script {
                                     try {
                                         // withCredentials([usernamePassword(credentialsId: 'devops-use-new', passwordVariable: 'password', usernameVariable: 'username')]) {
-                                        conf.setAttr('gitVersion', env.GIT_COMMIT)
+                                        if (conf.getAttr('gitVersion') == 'last') {
+                                            conf.setAttr('gitVersion', env.GIT_COMMIT)
+                                            conf.printAppConf()
+                                        }
                                         sh 'git config --global http.sslVerify false ; git reset --hard "${gitVersion}"'
                                         // }
                                     } catch (e) {
                                         sh 'echo ${e}'
-                                        conf.failMsg = '拉取指定git的版本或者tag失败，请检查版本或者tag是否正确，请确保tag是从master分支拉取。'
+                                        conf.failMsg = '拉取指定git的版本失败，请检查git commit id是否正确'
                                         throw e
                                     }
                                 }
@@ -395,7 +398,7 @@ def call(Map map, env) {
                                         // }
                                     } catch (e) {
                                         sh 'echo ${e}'
-                                        conf.failMsg = '拉取指定git的版本或者tag失败，请检查版本或者tag是否正确，请确保tag是从master分支拉取。'
+                                        conf.failMsg = '拉取指定git的tag失败，请确认tag是否正确'
                                         throw e
                                     }
                                 }
