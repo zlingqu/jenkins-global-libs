@@ -312,7 +312,7 @@ def call(Map map, env) {
         }
 
         stages {
-            stage('打印当前环境变量') {
+            stage('初始化') {
                 steps {
                     script {
                         // set git commit id
@@ -321,6 +321,7 @@ def call(Map map, env) {
                         //     conf.setAttr('gitVersion', env.GIT_COMMIT)
                         // }
                         // println(conf.printAppConf())
+                        conf.printAppConf()
                         withEnv(conf.withEnvList) {
                             sh 'printenv'
                         }
