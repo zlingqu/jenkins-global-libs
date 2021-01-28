@@ -492,7 +492,7 @@ def call(Map map, env) {
                             allOf {
                                 expression { return conf.getAttr('useModel') }
                                 expression { return conf.getAttr('ifUseGitManagerModel ') }
-                                expression { return conf.getAttr('modelGitRepository')}
+                                expression { conf.getAttr('modelGitRepository') }
                             }
                         }
 
