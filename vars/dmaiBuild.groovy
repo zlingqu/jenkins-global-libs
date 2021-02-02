@@ -587,9 +587,10 @@ def call(Map map, env) {
             stage('部署') {
                 when {
                     allOf {
-                        expression { return conf.getAttr('deploy') };
-                        expression { return conf.getAttr('codeLanguage') != 'android'};
-                        expression { return conf.getAttr('codeLanguage') != 'unity' };
+                        expression { return conf.getAttr('deploy') }
+                        expression { return conf.getAttr('codeLanguage') != 'android'}
+                        expression { return conf.getAttr('codeLanguage') != 'unity' }
+                        expression { return conf.getAttr('deployEnv') != 'not-deploy' }
                     }
                 }
                 steps {
