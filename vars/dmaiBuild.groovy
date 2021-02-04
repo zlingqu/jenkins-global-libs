@@ -315,12 +315,6 @@ def call(Map map, env) {
             stage('初始化') {
                 steps {
                     script {
-                        // set git commit id
-                        //                        echo env.GIT_COMMIT
-                        // if (env.GIT_COMMIT && conf.getAttr('gitVersion') == 'last' && conf.getAttr('versionControlMode') == 'GitCommitId') {
-                        //     conf.setAttr('gitVersion', env.GIT_COMMIT)
-                        // }
-                        // println(conf.printAppConf())
                         conf.printAppConf()
                         withEnv(conf.withEnvList) {
                             sh 'printenv'
@@ -356,8 +350,8 @@ def call(Map map, env) {
                     stage('git切换到对应的commitID') {
                         when {
                             allOf {
-                                expression { return conf.ifBuild() };
-                                expression { return conf.getAttr('versionControlMode') == 'GitCommitId' };
+                                expression { return conf.ifBuild() }
+                                expression { return conf.getAttr('versionControlMode') == 'GitCommitId' }
                                 // expression { return gitVersion != 'last' };
                             }
                         }
@@ -385,10 +379,7 @@ def call(Map map, env) {
                             container('adp') {
                                 script {
                                     try {
-                                        // withCredentials([usernamePassword(credentialsId: 'devops-use', passwordVariable: 'password', usernameVariable: 'username')]) {
-                                            // sh "source /etc/profile;git config --global http.sslVerify false ; git checkout master ;git fetch ;git checkout ${conf.getAttr('gitTag')}"
                                             sh "git config --global http.sslVerify false ;git fetch ;git checkout ${conf.getAttr('gitTag')}"
-                                        // }
                                     } catch (e) {
                                         sh 'echo ${e}'
                                         conf.failMsg = '拉取指定git的tag失败，请确认tag是否正确'
@@ -412,12 +403,10 @@ def call(Map map, env) {
                         expression { return conf.getAttr('deployEnv') != 'test' };
                     }
                 }
-                //                when { expression { return  conf.getAttr('codeLanguage') in  ['js', 'node'] && conf.getAttr('sonarCheck') && deployEnvironment != 'test'}  }
                 steps {
                     container('compile') {
                         script {
                             try {
-                                // sh 'npm config set registry http://nexus.dm-ai.cn/repository/npm/ &&  yarn config set registry http://nexus.dm-ai.cn/repository/npm/  && yarn install || echo 0'
                                 sh 'npm config set registry https://npm.dm-ai.cn/repository/npm/ && npm install && npm run build || echo '
                                 sh 'npm i -g nyc || echo 0'
                                 sh 'npm i -g mocha || echo 0'
@@ -613,7 +602,7 @@ def call(Map map, env) {
                             // 发布到测试环境的条件
                             boolean isTest = conf.getAttr('deployEnv') == 'test'
                             // 其它非测试环境的发布条件  条件不能换行
-                            boolean isNotTest = !isTest && conf.getAttr('deployEnv') != 'not-deploy' && conf.getAttr('deployEnvStatus') != 'stop' && !(conf.getAttr('deployEnv') in conf.privateK8sEnv)
+                            boolean isNotTest = !isTest && conf.getAttr('deployEnv') != 'not-deploy' && conf.getAttr('deployEnvStatus') != 'stop'
 
                             if (isNotTest) {
                                 if (conf.getAttr('deployEnv') == 'prd' && deployMasterPassword != 'dmai2019999') {
@@ -658,7 +647,7 @@ def call(Map map, env) {
                             }
 
                             // 服务检查 条件不能换行
-                            isCheckService = isCheckService && conf.getAttr('deployEnv') != 'not-deploy' && conf.getAttr('checkPodsStatus') && conf.getAttr('deployEnvStatus') != 'stop' && !(conf.getAttr('deployEnv') in conf.privateK8sEnv)
+                            isCheckService = isCheckService && conf.getAttr('deployEnv') != 'not-deploy' && conf.getAttr('checkPodsStatus') && conf.getAttr('deployEnvStatus') != 'stop'
 
                             if (isCheckService) {
                                 sh 'echo 检查pod是否正常运行，等待限时1200秒'

@@ -12,12 +12,10 @@ class CodeCheck {
     // code check for sonar
     public void sonarCheck(){
         try {
-//            this.script.sh  'sleep 1000'
             this.script.sh String.format("/sonar-scanner/bin/sonar-scanner -Dsonar.host.url=http://sonar.ops.dm-ai.cn -Dsonar.login=admin -Dsonar.password=33f5b945a8b5908793b6e -Dsonar.language=%s -Dsonar.projectName=%s -Dsonar.projectVersion=1.0 -Dsonar.sourceEncoding=UTF-8 -Dsonar.projectKey=%s -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info -Dsonar.exclusions=test/**,node_modules/**,coverage/** -Dsonar.sources=./ -Dsonar.projectBaseDir=%s",
             this.getCodeLanguage(),
             this.conf.appName,
             this.conf.appName,
-//            '/home/jenkins/workspace/' + this.conf.appName + '_' + this.conf.getAttr('branchName'))
             './')
         }
         catch (e) {

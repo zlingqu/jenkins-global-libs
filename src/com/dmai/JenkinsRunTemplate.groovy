@@ -245,11 +245,6 @@ class JenkinsRunTemplate {
     // APOLLO_CONFIG_ADDRESS
     this.conf.setAttr('apolloConfigAddress', 'http://' + this.conf.getAttr('apolloEnv') + '-conf.apollo.cc.dm-ai.cn')
 
-    // if (this.conf.getAttr('deployEnv') != 'prd') {
-    //   this.conf.setAttr('domain', this.conf.getAttr('domain') ? this.conf.getAttr('domain') : this.conf.appName + '.dm-ai.cn')
-    // }
-
-    // this.conf.setAttr('domain', this.conf.getDomain())
 
     if (this.conf.getAttr('deployEnv') != 'prd' && this.conf.getAttr('buildPlatform') == 'adp') {
       this.conf.setAttr('domain', this.conf.getAttr('jobName') + '.' + this.conf.getAttr('namespace') + '.' + this.conf.getAttr('deployEnv') + '.dm-ai.cn')
@@ -323,18 +318,6 @@ spec:
 '''
   }
 
-//   private String nodeSelect() {
-//     if (this.conf.getAttr('buildEnvType') == 'gpu') {
-//       return '''
-//   nodeSelector:
-//     makeenv: gpu
-// '''
-//     }
-//     return '''
-//   nodeSelector:
-//     makeenv: cpu
-// '''
-//   }
 
   private String useModelPath() {
     if (this.conf.getAttr('useModel') && this.conf.getAttr('modelPath')) {

@@ -56,24 +56,11 @@ class MakeDockerImage {
             this.script.sh "mkdir -p ${this.conf.getAttr('modelPath')}; cp -rp /models/* ${this.conf.getAttr('modelPath')}"
         }
 
-//        // teshu chuli
-//        if (this.conf.getAttr('buildPlatform') == 'adp' && this.conf.getAttr('compile') && this.conf.getAttr('compileParam') && this.conf.getAttr('codeLanguage') == 'js') {
-//            this.script.sh String.format('pwd;ls;docker-compose build %s service-docker-build', this.conf.getAttr('compileParam')
-//            )
-//            return
-//        }
 
-        // 对 xmc2-frontend做特殊处理。
-        //        if (this.conf.appName == 'xmc2-frontend') {
-        //        this.script.sh "sleep 3000"
-        //      docker-compose build --build-arg VUE_APP_SCENE= --build-arg MODEL_VERSION=latest --build-arg FRONTEND_ENV=prd service-docker-build
         this.script.sh String.format('pwd;ls;docker-compose build --build-arg VUE_APP_SCENE=%s --build-arg MODEL_VERSION=%s --build-arg FRONTEND_ENV=%s service-docker-build',
                 this.conf.vueAppScene, this.conf.modelVersion, this.conf.getAttr('nodeEnv')
         )
-//            return
-//        }
 
-    //        this.script.sh 'docker-compose build'
     }
 
     private void createDockerignore() {
