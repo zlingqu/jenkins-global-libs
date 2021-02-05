@@ -73,7 +73,7 @@ class Conf implements Serializable {
     public def getBuildImageAddress() {
         String dockerRegistryHost = ''
         // if (this.getAttr('deployEnv') in this.externalK8sEnv) { //如果是外部环境，就是用外部的域名
-        if (this.getAttr('deployEnvStatus') == 'stop' && this.getAttr('deployEnv') != 'not-deploy' ) { //如果是外部离线环境，就是用外部的域名
+        if (this.getAttr('deployEnvStatus') == 'stop' && this.getAttr('deployEnv') != 'not-deploy' && this.getAttr('namespace') !='ex-dialogue' ) { //如果是外部离线环境，就是用外部的域名
             dockerRegistryHost = this.dockerRegistryHostExternal
         } else {
             dockerRegistryHost = this.dockerRegistryHostInternal
