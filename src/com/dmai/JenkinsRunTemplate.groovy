@@ -261,7 +261,7 @@ class JenkinsRunTemplate {
     }
     
     // if (this.conf.getAttr('deployEnv') in this.conf.externalK8sEnv) { //如果是外部环境，不创建域名，因为外部的ingres规则和dmai的traefik不兼容
-    if (this.conf.getAttr('deployEnvStatus') == 'stop' && this.config.getAttr('deployEnv') != 'chuanyin' ) { //如果是外部离线环境，不创建域名，因为外部的ingres规则和dmai的traefik不兼容
+    if (this.conf.getAttr('deployEnvStatus') == 'stop' && this.config.getAttr('deployEnv') != 'chuanyin') { //如果是外部离线环境，不创建域名，因为外部的ingres规则和dmai的traefik不兼容
             this.conf.setAttr('domain', '')
     }
 
