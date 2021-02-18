@@ -23,10 +23,6 @@ def call(Map map, env) {
         }
 
         stages {
-            stage('get code') {
-                checkout scm
-            }
-
             stage('编译') {
 
                 steps {
