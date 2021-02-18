@@ -611,14 +611,14 @@ spec:
 ''', this.conf.appName)
             case 'jar':
         return '''
-- name: compile
-  image: docker.dm-ai.cn/devops/base-image-mvn:0.1.2
-  imagePullPolicy: IfNotPresent
-  command:
-  - "sleep"
-  args:
-  - "3600"
-  tty: true
+  - name: compile
+    image: docker.dm-ai.cn/devops/base-image-mvn:0.1.2
+    imagePullPolicy: IfNotPresent
+    command:
+    - "sleep"
+    args:
+    - "3600"
+    tty: true
 '''
             case 'golang':
         return String.format('''
