@@ -282,9 +282,8 @@ class JenkinsRunTemplate {
     return returnString
   }
   public String getJenkinsRunTemplateOnJar() {
-
-    println( this.templateTop())
-    println( this.templateDockerCompile() )
+    // println( this.templateTop())
+    // println( this.templateDockerCompile() )
     return this.templateTop() + this.templateDockerCompile()
   }
 

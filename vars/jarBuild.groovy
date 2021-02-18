@@ -80,9 +80,9 @@ def call(Map map, env) {
                                            type: "${pom.packaging}"]],
                               credentialsId: 'nexus',
                               groupId: "${pom.groupId}",
-                              nexusUrl: 'http://nexus.dm-ai.cn/',
+                              nexusUrl: '192.168.3.13:8081',
                               nexusVersion: 'nexus3',
-                              protocol: 'https',
+                              protocol: 'http',
                               repository: "${pom.groupId}",
                               version: "${pom.version}")
                         }
