@@ -1,7 +1,7 @@
 import com.dmai.*
 import com.tool.Tools
 
-def call(Map map, env) {
+def call() {
     println('【开始进行构建】')
     pipeline {
         agent {
