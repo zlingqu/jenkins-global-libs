@@ -8,7 +8,7 @@ def call() {
             kubernetes {
                 yaml new JenkinsRunTemplate(conf).getJenkinsRunTemplate(params.DEPLOY_MASTER_PASSWORD, params.DEPLOY_ENV, params)
                 cloud 'kubernetes-dev'
-                label conf.getAttr('jobName') + '-' + Tools.handleBranchName(conf.getAttr('branchName')) + '-' + conf.getAttr('buildNumber')
+                // label conf.getAttr('jobName') + '-' + Tools.handleBranchName(conf.getAttr('branchName')) + '-' + conf.getAttr('buildNumber')
                 defaultContainer 'jnlp'
                 namespace 'devops'
                 inheritFrom 'base-template'
