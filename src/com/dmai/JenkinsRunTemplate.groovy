@@ -282,61 +282,61 @@ class JenkinsRunTemplate {
 
   private def templateTop() {
     return '''
-      apiVersion: v1
-      kind: Pod
-      metadata:
-        name: jenkinsTemplate
-        namespace: devops
-      spec:
-        hostAliases:
-        - ip: 192.168.3.140
-          hostnames:
-          - sonar.ops.dm-ai.cn
-        - ip: 192.168.3.221
-          hostnames:
-          - gitlab.dm-ai.cn
-        - ip: 192.168.3.38
-          hostnames:
-          - npm.dm-ai.cn
-        - ip: 192.168.69.201
-          hostnames:
-          - docker.dm-ai.cn
-        - ip: 192.168.3.38
-          hostnames:
-          - pip.dm-ai.cn
-        - ip: 192.168.3.13
-          hostnames:
-          - nexus.dm-ai.cn
-        - ip: 192.168.11.4
-          hostnames:
-          - adp.dm-ai.cn
-        imagePullSecrets:
-        - name: regsecret
-        containers:
-      '''
+apiVersion: v1
+kind: Pod
+metadata:
+  name: jenkinsTemplate
+  namespace: devops
+spec:
+  hostAliases:
+  - ip: 192.168.3.140
+    hostnames:
+    - sonar.ops.dm-ai.cn
+  - ip: 192.168.3.221
+    hostnames:
+    - gitlab.dm-ai.cn
+  - ip: 192.168.3.38
+    hostnames:
+    - npm.dm-ai.cn
+  - ip: 192.168.69.201
+    hostnames:
+    - docker.dm-ai.cn
+  - ip: 192.168.3.38
+    hostnames:
+    - pip.dm-ai.cn
+  - ip: 192.168.3.13
+    hostnames:
+    - nexus.dm-ai.cn
+  - ip: 192.168.11.4
+    hostnames:
+    - adp.dm-ai.cn
+  imagePullSecrets:
+  - name: regsecret
+  containers:
+'''
   }
 
   private String useModelPath() {
     if (this.conf.getAttr('useModel') && this.conf.getAttr('modelPath')) {
       return String.format('''
-      - name: jenkins-build-path
-        mountPath: /models
-        subPath: models/%s/%s/%s
-      ''', this.conf.getAttr('namespace'), this.conf.getAttr('deployEnv'), this.conf.appName)
+- name: jenkins-build-path
+  mountPath: /models
+  subPath: models/%s/%s/%s
+''', this.conf.getAttr('namespace'), this.conf.getAttr('deployEnv'), this.conf.appName)
           }
           return ''
         }
 
-        private String defaultVolumes() {
-          return String.format('''
-        volumes:
-        - name: sock
-          hostPath:
-            path: /var/run/docker.sock
-        - name: jenkins-build-path
-          persistentVolumeClaim:
-            claimName: jenkins-pvc
-      ''')
+    private String defaultVolumes() {
+      return String.format('''
+volumes:
+- name: sock
+  hostPath:
+    path: /var/run/docker.sock
+- name: jenkins-build-path
+  persistentVolumeClaim:
+    claimName: jenkins-pvc
+''')
   }
 
   private String templateJsCompilevolumeMounts() {
@@ -470,132 +470,132 @@ class JenkinsRunTemplate {
 
     //        if (! this.conf.getAttr('compile')) return ''
     switch (this.conf.getAttr('codeLanguage')) {
-            case 'js': return String.format('''
-              - name: compile
-                image: %s
-                imagePullPolicy: IfNotPresent
-                env: #指定容器中的环境变量
-                - name: DMAI_PRIVATE_DOCKER_REGISTRY
-                  value: docker.dm-ai.cn
-                %s
-                command:
-                - "sleep"
-                args:
-                - "3600"
-                tty: true
-                ''', this.conf.getAttr('ifCompileImage') ? this.conf.getAttr('compileImage') : 'docker.dm-ai.cn/devops/base-image-compile-frontend:0.03', this.templateJsCompilevolumeMounts())
+      case 'js': return String.format('''
+        - name: compile
+          image: %s
+          imagePullPolicy: IfNotPresent
+          env: #指定容器中的环境变量
+          - name: DMAI_PRIVATE_DOCKER_REGISTRY
+            value: docker.dm-ai.cn
+          %s
+          command:
+          - "sleep"
+          args:
+          - "3600"
+          tty: true
+          ''', this.conf.getAttr('ifCompileImage') ? this.conf.getAttr('compileImage') : 'docker.dm-ai.cn/devops/base-image-compile-frontend:0.03', this.templateJsCompilevolumeMounts())
 
-            case 'android': return String.format('''
-              - name: compile
-                image: docker.dm-ai.cn/devops/dm-android:0.8.7
-                imagePullPolicy: IfNotPresent
-                env: #指定容器中的环境变量
-                - name: DMAI_PRIVATE_DOCKER_REGISTRY
-                  value: docker.dm-ai.cn
-                volumeMounts:
-                - name: jenkins-build-path
-                  mountPath: /data
-                  subPath: android_home/%s/%s
-                - name: jenkins-build-path
-                  mountPath: /android_cache
-                  subPath: android_cache/%s/%s
-                - name: jenkins-build-path
-                  mountPath: /unity_data
-                  subPath: android_home/unity_home/%s/%s
-                command:
-                - "sleep"
-                args:
-                - "3600"
-                tty: true
-              ''', this.conf.appName, this.conf.getAttr('deployEnv'), this.conf.appName, this.conf.getAttr('deployEnv'), this.conf.getAttr('unity_app_name'), this.conf.getAttr('deployEnv'))
+      case 'android': return String.format('''
+        - name: compile
+          image: docker.dm-ai.cn/devops/dm-android:0.8.7
+          imagePullPolicy: IfNotPresent
+          env: #指定容器中的环境变量
+          - name: DMAI_PRIVATE_DOCKER_REGISTRY
+            value: docker.dm-ai.cn
+          volumeMounts:
+          - name: jenkins-build-path
+            mountPath: /data
+            subPath: android_home/%s/%s
+          - name: jenkins-build-path
+            mountPath: /android_cache
+            subPath: android_cache/%s/%s
+          - name: jenkins-build-path
+            mountPath: /unity_data
+            subPath: android_home/unity_home/%s/%s
+          command:
+          - "sleep"
+          args:
+          - "3600"
+          tty: true
+        ''', this.conf.appName, this.conf.getAttr('deployEnv'), this.conf.appName, this.conf.getAttr('deployEnv'), this.conf.getAttr('unity_app_name'), this.conf.getAttr('deployEnv'))
 
-            case 'unity': return String.format('''
-              - name: compile
-                image: docker.dm-ai.cn/devops/base-image-unity:0.1.1
-                imagePullPolicy: IfNotPresent
-                env: #指定容器中的环境变量
-                - name: DMAI_PRIVATE_DOCKER_REGISTRY
-                  value: docker.dm-ai.cn
-                - name: ADP_DATE
-                  value: %s
-                volumeMounts:
-                - name: jenkins-build-path
-                  mountPath: /data
-                  subPath: android_home/unity_home/%s/%s
-                - name: jenkins-build-path
-                  mountPath: /root/.cache/unity3d
-                  subPath: unity_cache/%s/%s
-                - name: jenkins-build-path
-                  mountPath: /root/.local/share/unity3d/Unity
-                  subPath: unity_share/%s/%s
-                command:
-                - "sleep"
-                args:
-                - "3600"
-                tty: true
-              ''', this.adpDate, this.conf.appName, this.conf.getAttr('deployEnv'), this.conf.appName, this.conf.getAttr('deployEnv'), this.conf.appName, this.conf.getAttr('deployEnv'))
+      case 'unity': return String.format('''
+        - name: compile
+          image: docker.dm-ai.cn/devops/base-image-unity:0.1.1
+          imagePullPolicy: IfNotPresent
+          env: #指定容器中的环境变量
+          - name: DMAI_PRIVATE_DOCKER_REGISTRY
+            value: docker.dm-ai.cn
+          - name: ADP_DATE
+            value: %s
+          volumeMounts:
+          - name: jenkins-build-path
+            mountPath: /data
+            subPath: android_home/unity_home/%s/%s
+          - name: jenkins-build-path
+            mountPath: /root/.cache/unity3d
+            subPath: unity_cache/%s/%s
+          - name: jenkins-build-path
+            mountPath: /root/.local/share/unity3d/Unity
+            subPath: unity_share/%s/%s
+          command:
+          - "sleep"
+          args:
+          - "3600"
+          tty: true
+        ''', this.adpDate, this.conf.appName, this.conf.getAttr('deployEnv'), this.conf.appName, this.conf.getAttr('deployEnv'), this.conf.appName, this.conf.getAttr('deployEnv'))
 
-            case 'node': return String.format('''
-              - name: compile
-                image: %s
-                imagePullPolicy: IfNotPresent
-                env: #指定容器中的环境变量
-                - name: DMAI_PRIVATE_DOCKER_REGISTRY
-                  value: docker.dm-ai.cn
-                %s
-                command:
-                - "sleep"
-                args:
-                - "3600"
-                tty: true
-              ''', this.conf.getAttr('ifCompileImage') ? this.conf.getAttr('compileImage') : 'docker.dm-ai.cn/devops/node:0.0.4', this.templateJsCompilevolumeMounts())
+      case 'node': return String.format('''
+        - name: compile
+          image: %s
+          imagePullPolicy: IfNotPresent
+          env: #指定容器中的环境变量
+          - name: DMAI_PRIVATE_DOCKER_REGISTRY
+            value: docker.dm-ai.cn
+          %s
+          command:
+          - "sleep"
+          args:
+          - "3600"
+          tty: true
+        ''', this.conf.getAttr('ifCompileImage') ? this.conf.getAttr('compileImage') : 'docker.dm-ai.cn/devops/node:0.0.4', this.templateJsCompilevolumeMounts())
 
-            case 'nodets': return String.format('''
-              - name: compile
-                image: %s
-                imagePullPolicy: IfNotPresent
-                env: #指定容器中的环境变量
-                - name: DMAI_PRIVATE_DOCKER_REGISTRY
-                  value: docker.dm-ai.cn
-                %s
-                command:
-                - "sleep"
-                args:
-                - "3600"
-                tty: true
-              ''', this.conf.getAttr('ifCompileImage') ? this.conf.getAttr('compileImage') : 'docker.dm-ai.cn/devops/node:0.0.4', this.templateJsCompilevolumeMounts())
+      case 'nodets': return String.format('''
+        - name: compile
+          image: %s
+          imagePullPolicy: IfNotPresent
+          env: #指定容器中的环境变量
+          - name: DMAI_PRIVATE_DOCKER_REGISTRY
+            value: docker.dm-ai.cn
+          %s
+          command:
+          - "sleep"
+          args:
+          - "3600"
+          tty: true
+        ''', this.conf.getAttr('ifCompileImage') ? this.conf.getAttr('compileImage') : 'docker.dm-ai.cn/devops/node:0.0.4', this.templateJsCompilevolumeMounts())
 
-            case 'c++': return '''
-                - name: compile
-                  image: docker.dm-ai.cn/devops/media-access:r.13
-                  imagePullPolicy: IfNotPresent
-                  env: #指定容器中的环境变量
-                  - name: DMAI_PRIVATE_DOCKER_REGISTRY
-                    value: docker.dm-ai.cn
-                  command:
-                  - "sleep"
-                  args:
-                  - "3600"
-                  tty: true
-              '''
-            case 'java': return String.format('''
-              - name: compile
-                image: docker.dm-ai.cn/devops/base-image-mvn:0.1.2
-                imagePullPolicy: IfNotPresent
-                env: #指定容器中的环境变量
-                - name: DMAI_PRIVATE_DOCKER_REGISTRY
-                  value: docker.dm-ai.cn
-                volumeMounts:
-                - name: jenkins-build-path
-                  mountPath: /root/.m2
-                  subPath: java_home/%s
-                command:
-                - "sleep"
-                args:
-                - "3600"
-                tty: true
-              ''', this.conf.appName)
-            case 'golang': return String.format('''
+      case 'c++': return '''
+          - name: compile
+            image: docker.dm-ai.cn/devops/media-access:r.13
+            imagePullPolicy: IfNotPresent
+            env: #指定容器中的环境变量
+            - name: DMAI_PRIVATE_DOCKER_REGISTRY
+              value: docker.dm-ai.cn
+            command:
+            - "sleep"
+            args:
+            - "3600"
+            tty: true
+        '''
+      case 'java': return String.format('''
+        - name: compile
+          image: docker.dm-ai.cn/devops/base-image-mvn:0.1.2
+          imagePullPolicy: IfNotPresent
+          env: #指定容器中的环境变量
+          - name: DMAI_PRIVATE_DOCKER_REGISTRY
+            value: docker.dm-ai.cn
+          volumeMounts:
+          - name: jenkins-build-path
+            mountPath: /root/.m2
+            subPath: java_home/%s
+          command:
+          - "sleep"
+          args:
+          - "3600"
+          tty: true
+        ''', this.conf.appName)
+      case 'golang': return String.format('''
 - name: compile
   image: %s
   imagePullPolicy: IfNotPresent
