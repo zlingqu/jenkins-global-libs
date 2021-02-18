@@ -18,14 +18,20 @@ def call(Map map, env) {
     // 注入jenkins的环境变量到全局的Conf
     conf.setJenkinsAttrToConf(env, currentBuild)
 
+    def branchName = conf.getAttr('branchName') ? conf.getAttr('branchName') : ''
 
     println('【开始进行构建】')
     pipeline {
+        parameters {
+            string(name: 'BRANCH_NAME', defaultValue: branchName, description: '代码分支名')
+            string(name: 'DEPLOY_MASTER_PASSWORD', defaultValue: 'please-input-password', description: '部署master分支请找运维人员输入密码自动部署')
+            choice(name: 'DEPLOY_ENV', choices: deployEnv, description: '部署的环境，目前支持：prd/dev/test/stage等')
+        }
         agent {
             kubernetes {
                 yaml new JenkinsRunTemplate(conf).getJenkinsRunTemplate(params.DEPLOY_MASTER_PASSWORD, params.DEPLOY_ENV, params)
                 cloud 'kubernetes-dev'
-                // label conf.getAttr('jobName') + '-' + Tools.handleBranchName(conf.getAttr('branchName')) + '-' + conf.getAttr('buildNumber')
+                label Tools.handleBranchName(conf.getAttr('branchName'))
                 defaultContainer 'jnlp'
                 namespace 'devops'
                 inheritFrom 'base-template'
