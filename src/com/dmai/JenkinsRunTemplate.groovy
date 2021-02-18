@@ -364,13 +364,13 @@ volumes:
         volumeMounts:
         - name: sock
           mountPath: /var/run/docker.sock
-    %s
+        %s
         command:
         - "sleep"
         args:
         - "3600"
         tty: true
-    ''', this.conf.getAttr('envType') == 'arm' ? '-arm' : '', this.conf.vueAppScene, this.useModelPath())
+      ''', this.conf.getAttr('envType') == 'arm' ? '-arm' : '', this.conf.vueAppScene, this.useModelPath())
   }
 
   private String templateJiagu() {
