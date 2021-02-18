@@ -37,7 +37,7 @@ def call(Map map, env) {
 
         agent {
             kubernetes {
-                yaml new JenkinsRunTemplate(conf).getJenkinsRunTemplate(params.DEPLOY_MASTER_PASSWORD, params.DEPLOY_ENV, params)
+                yaml new JenkinsRunTemplate(conf).getJenkinsRunTemplateOnJar()
                 cloud 'kubernetes-dev'
                 label Tools.handleBranchName(conf.getAttr('branchName'))
                 defaultContainer 'jnlp'

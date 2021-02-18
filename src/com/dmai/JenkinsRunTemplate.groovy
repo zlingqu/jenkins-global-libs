@@ -281,6 +281,9 @@ class JenkinsRunTemplate {
                 this.defaultVolumes()
     return returnString
   }
+  public String getJenkinsRunTemplateOnJar() {
+    return this.templateTop() + this.templateDockerCompile()
+  }
 
   private def templateTop() {
     return '''
