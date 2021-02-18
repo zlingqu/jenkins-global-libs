@@ -603,8 +603,7 @@ spec:
     - "3600"
     tty: true
 ''', this.conf.appName)
-            case 'jar':
-        return '''
+            case 'jar': return '''
 - name: compile
   image: docker.dm-ai.cn/devops/base-image-mvn:0.1.2
   imagePullPolicy: IfNotPresent
