@@ -19,6 +19,7 @@ def call(Map map, env) {
     conf.setJenkinsAttrToConf(env, currentBuild)
 
     def branchName = conf.getAttr('branchName') ? conf.getAttr('branchName') : ''
+    def deployEnv = Tools.addItemToListHead(['prd', 'dev', 'test', 'stage', 'jenkins', 'mlcloud-dev', 'lexue', 'tuoke', 'not-deploy'], conf.getDeployEnv())
 
     println('【开始进行构建】')
     pipeline {
@@ -27,6 +28,13 @@ def call(Map map, env) {
             string(name: 'DEPLOY_MASTER_PASSWORD', defaultValue: 'please-input-password', description: '部署master分支请找运维人员输入密码自动部署')
             choice(name: 'DEPLOY_ENV', choices: deployEnv, description: '部署的环境，目前支持：prd/dev/test/stage等')
         }
+
+
+        environment {
+            // gitVersion = "${params.GIT_VERSION}"
+            deployMasterPassword = "${params.DEPLOY_MASTER_PASSWORD}"
+        }
+
         agent {
             kubernetes {
                 yaml new JenkinsRunTemplate(conf).getJenkinsRunTemplate(params.DEPLOY_MASTER_PASSWORD, params.DEPLOY_ENV, params)
@@ -44,6 +52,7 @@ def call(Map map, env) {
             timeout(time: 1, unit: 'HOURS') // 设置任务的超时时间为1个小时。
             buildDiscarder(logRotator(numToKeepStr: '200')) //保留最近200个构建
         }
+
 
         stages {
             stage('编译') {
