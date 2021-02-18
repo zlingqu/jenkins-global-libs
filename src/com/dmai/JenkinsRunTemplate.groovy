@@ -490,28 +490,28 @@ spec:
 ''', this.conf.getAttr('ifCompileImage') ? this.conf.getAttr('compileImage') : 'docker.dm-ai.cn/devops/base-image-compile-frontend:0.03', this.templateJsCompilevolumeMounts())
 
             case 'android': return String.format('''
-  - name: compile
-    image: docker.dm-ai.cn/devops/dm-android:0.8.7
-    imagePullPolicy: IfNotPresent
-    env: #指定容器中的环境变量
-    - name: DMAI_PRIVATE_DOCKER_REGISTRY
-      value: docker.dm-ai.cn
-    volumeMounts:
-    - name: jenkins-build-path
-      mountPath: /data
-      subPath: android_home/%s/%s
-    - name: jenkins-build-path
-      mountPath: /android_cache
-      subPath: android_cache/%s/%s
-    - name: jenkins-build-path
-      mountPath: /unity_data
-      subPath: android_home/unity_home/%s/%s
-    command:
-    - "sleep"
-    args:
-    - "3600"
-    tty: true
-''', this.conf.appName, this.conf.getAttr('deployEnv'), this.conf.appName, this.conf.getAttr('deployEnv'), this.conf.getAttr('unity_app_name'), this.conf.getAttr('deployEnv'))
+              - name: compile
+                image: docker.dm-ai.cn/devops/dm-android:0.8.7
+                imagePullPolicy: IfNotPresent
+                env: #指定容器中的环境变量
+                - name: DMAI_PRIVATE_DOCKER_REGISTRY
+                  value: docker.dm-ai.cn
+                volumeMounts:
+                - name: jenkins-build-path
+                  mountPath: /data
+                  subPath: android_home/%s/%s
+                - name: jenkins-build-path
+                  mountPath: /android_cache
+                  subPath: android_cache/%s/%s
+                - name: jenkins-build-path
+                  mountPath: /unity_data
+                  subPath: android_home/unity_home/%s/%s
+                command:
+                - "sleep"
+                args:
+                - "3600"
+                tty: true
+              ''', this.conf.appName, this.conf.getAttr('deployEnv'), this.conf.appName, this.conf.getAttr('deployEnv'), this.conf.getAttr('unity_app_name'), this.conf.getAttr('deployEnv'))
 
             case 'unity': return String.format('''
   - name: compile
