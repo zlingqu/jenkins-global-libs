@@ -596,18 +596,18 @@ class JenkinsRunTemplate {
                 tty: true
               ''', this.conf.appName)
             case 'golang': return String.format('''
-              - name: compile
-                image: %s
-                imagePullPolicy: IfNotPresent
-                env: #指定容器中的环境变量
-                - name: DMAI_PRIVATE_DOCKER_REGISTRY
-                  value: docker.dm-ai.cn
-                command:
-                - "sleep"
-                args:
-                - "3600"
-                tty: true
-              ''', this.conf.getAttr('ifCompileImage') ? this.conf.getAttr('compileImage') : 'docker.dm-ai.cn/devops/base-image-golang-compile:master-2-1e85e1e99bfee20f6f0cc5de5a74ce339100d4bd')
+- name: compile
+  image: %s
+  imagePullPolicy: IfNotPresent
+  env: #指定容器中的环境变量
+  - name: DMAI_PRIVATE_DOCKER_REGISTRY
+    value: docker.dm-ai.cn
+  command:
+  - "sleep"
+  args:
+  - "3600"
+  tty: true
+''', this.conf.getAttr('ifCompileImage') ? this.conf.getAttr('compileImage') : 'docker.dm-ai.cn/devops/base-image-golang-compile:master-2-1e85e1e99bfee20f6f0cc5de5a74ce339100d4bd')
             case 'jar': return '''
               - name: compile
                 image: docker.dm-ai.cn/devops/base-image-mvn:0.1.2
