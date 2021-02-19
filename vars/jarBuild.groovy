@@ -18,28 +18,28 @@ def call(Map map, env) {
     // 注入jenkins的环境变量到全局的Conf
     conf.setJenkinsAttrToConf(env, currentBuild)
 
-    def branchName = conf.getAttr('branchName') ? conf.getAttr('branchName') : ''
-    def deployEnv = Tools.addItemToListHead(['prd', 'dev', 'test', 'stage', 'jenkins', 'mlcloud-dev', 'lexue', 'tuoke', 'not-deploy'], conf.getDeployEnv())
+    // def branchName = conf.getAttr('branchName') ? conf.getAttr('branchName') : ''
+    // def deployEnv = Tools.addItemToListHead(['prd', 'dev', 'test', 'stage', 'jenkins', 'mlcloud-dev', 'lexue', 'tuoke', 'not-deploy'], conf.getDeployEnv())
 
     println('【开始进行构建】')
     pipeline {
-        parameters {
-            string(name: 'BRANCH_NAME', defaultValue: branchName, description: '代码分支名')
-            string(name: 'DEPLOY_MASTER_PASSWORD', defaultValue: 'please-input-password', description: '部署master分支请找运维人员输入密码自动部署')
-            choice(name: 'DEPLOY_ENV', choices: deployEnv, description: '部署的环境，目前支持：prd/dev/test/stage等')
-        }
+        // parameters {
+        //     string(name: 'BRANCH_NAME', defaultValue: branchName, description: '代码分支名')
+        //     string(name: 'DEPLOY_MASTER_PASSWORD', defaultValue: 'please-input-password', description: '部署master分支请找运维人员输入密码自动部署')
+        //     choice(name: 'DEPLOY_ENV', choices: deployEnv, description: '部署的环境，目前支持：prd/dev/test/stage等')
+        // }
 
 
-        environment {
-            // gitVersion = "${params.GIT_VERSION}"
-            deployMasterPassword = "${params.DEPLOY_MASTER_PASSWORD}"
-        }
+        // environment {
+        //     gitVersion = "${params.GIT_VERSION}"
+        //     deployMasterPassword = "${params.DEPLOY_MASTER_PASSWORD}"
+        // }
 
         agent {
             kubernetes {
                 yaml new JenkinsRunTemplate(conf).getJenkinsRunTemplateOnJar()
                 cloud 'kubernetes-dev'
-                label Tools.handleBranchName(conf.getAttr('branchName'))
+                // label Tools.handleBranchName(conf.getAttr('branchName'))
                 defaultContainer 'jnlp'
                 namespace 'devops'
                 inheritFrom 'base-template'
