@@ -55,7 +55,7 @@ def call(Map map, env) {
 
 
         stages {
-            stage('编译') {
+            stage('编译并上传jar包到nexue') {
 
                 steps {
                     container('compile') {
@@ -67,28 +67,6 @@ def call(Map map, env) {
                         }
                     }
                 }
-            }
-
-            stage('push jar') {
-                steps {
-                    container('compile') {
-                        script {
-                            def pom = readMavenPom file: 'pom.xml'
-                            nexusArtifactUploader(artifacts: [[artifactId: "${pom.artifactId}",
-                                           classifier: '',
-                                           file: "./target/${pom.artifactId}-${pom.version}.${pom.packaging}",
-                                           type: "${pom.packaging}"]],
-                              credentialsId: 'nexus',
-                              groupId: "${pom.groupId}",
-                              nexusUrl: '192.168.3.13:8081',
-                              nexusVersion: 'nexus3',
-                              protocol: 'http',
-                              repository: "${pom.groupId}",
-                              version: "${pom.version}")
-                        }
-                    }
-                }
-
             }
         }
     }
