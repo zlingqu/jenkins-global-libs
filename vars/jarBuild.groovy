@@ -40,6 +40,7 @@ def call(Map map, env) {
                 yaml new JenkinsRunTemplate(conf).getJenkinsRunTemplateOnJar()
                 cloud 'kubernetes-dev'
                 // label Tools.handleBranchName(conf.getAttr('branchName'))
+                label 'jar-build'
                 defaultContainer 'jnlp'
                 namespace 'devops'
                 inheritFrom 'base-template'
