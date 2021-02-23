@@ -70,7 +70,7 @@ class Conf implements Serializable {
                 this.getAttr('gitVersion')) + "-" + this.getAttr('deployEnv')
     }
 
-    public def getBuildImageAddress( String host) {
+    public def getBuildImageAddress( docker_registry_host) {
         // String dockerRegistryHost = ''
         // // if (this.getAttr('deployEnv') in this.externalK8sEnv) { //如果是外部环境，就是用外部的harbor仓库
         // if (this.getAttr('deployEnvStatus') == 'stop' && this.getAttr('deployEnv') != 'not-deploy' && this.getAttr('deployEnv') != 'chuanyin' ) { //如果是外部离线环境，就是用外部的域名
@@ -82,7 +82,7 @@ class Conf implements Serializable {
         // }
 
         return String.format('''%s/%s/%s:''',
-                host,
+                docker_registry_host,
                 this.getAttr('namespace'),
                 this.appName
             ) + getAttr('buildImageTag')
