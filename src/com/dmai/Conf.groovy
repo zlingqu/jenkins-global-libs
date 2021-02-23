@@ -3,8 +3,8 @@ package com.dmai
 class Conf implements Serializable {
 
     public String appName
-    public String dockerRegistryHostInternal
-    public String dockerRegistryHostExternal
+    // public String dockerRegistryHostInternal
+    // public String dockerRegistryHostExternal
     public String jenkinsAddress
     public String vueAppScene
     public String vueAppSchool
@@ -24,8 +24,8 @@ class Conf implements Serializable {
     Conf(script, String appName, Map<String, String> userSetMap) {
         this.script = script
         this.appName = appName
-        this.dockerRegistryHostInternal = 'docker.dm-ai.cn'      // 公司内部
-        this.dockerRegistryHostExternal = 'rdac-docker.dm-ai.cn' //公司外部
+        // this.dockerRegistryHostInternal = 'docker.dm-ai.cn'      // 公司内部
+        // this.dockerRegistryHostExternal = 'rdac-docker.dm-ai.cn' //公司外部
         this.jenkinsAddress = 'http://jenkins.ops.dm-ai.cn'
         this.kubernetesStatusCheckHttpAddress = 'http://adp-api.dm-ai.cn/api/v1/app_status_check'
         this.checkKubernetesServiceStatusSleepTimes = 180 // 120 SECONDS
