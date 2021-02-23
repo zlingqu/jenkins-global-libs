@@ -606,9 +606,9 @@ def call(Map map, env) {
                         steps {
                             container('adp') {
                                 script {
-                                    conf.setAttr('buildImageTag', conf.getBuildImageAddressTag())
-                                    conf.setAttr('buildImageAddress', conf.getBuildImageAddress())
-                                    conf.printAppConf()
+                                    // conf.setAttr('buildImageTag', conf.getBuildImageAddressTag())
+                                    // conf.setAttr('buildImageAddress', conf.getBuildImageAddress())
+                                    // conf.printAppConf()
                                     if (conf.ifMakeImage() && conf.getAttr('makeImage')) {
                                         try {
                                             withEnv(conf.withEnvList) {
