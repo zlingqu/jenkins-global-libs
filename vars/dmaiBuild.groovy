@@ -606,17 +606,14 @@ def call(Map map, env) {
                         steps {
                             container('adp') {
                                 script {
-                                    // conf.setAttr('buildImageTag', conf.getBuildImageAddressTag())
-                                    // conf.setAttr('buildImageAddress', conf.getBuildImageAddress())
-                                    // conf.printAppConf()
                                     if (conf.ifMakeImage() && conf.getAttr('makeImage')) {
-                                        try {
-                                            withEnv(conf.withEnvList) {
-                                                sh 'dockerize -template nginx.conf:nginx.conf || echo 0'
-                                            }
-                                        } catch (e) {
-                                            sh 'echo ${e}'
-                                        }
+                                        // try {
+                                        //     withEnv(conf.withEnvList) {
+                                        //         sh 'dockerize -template nginx.conf:nginx.conf || echo 0'
+                                        //     }
+                                        // } catch (e) {
+                                        //     sh 'echo ${e}'
+                                        // }
 
                                         try {
                                             makeDockerImage.makeImage()
