@@ -511,7 +511,7 @@ def call(Map map, env) {
                             allOf {
                                 expression { return conf.ifBuild() }
                                 expression { return conf.getAttr('deployEnvStatus') == 'stop' }
-                                expression { return getAttr('deployEnv') != 'not-deploy' }
+                                expression { return conf.getAttr('deployEnv') != 'not-deploy' }
                                 expression { return conf.getAttr('deployEnv') != 'chuanyin' }
                                 expression { return conf.getAttr('codeLanguage') != 'android'}
                                 expression { return conf.getAttr('codeLanguage') != 'unity' }
