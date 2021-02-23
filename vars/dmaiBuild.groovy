@@ -512,21 +512,21 @@ def call(Map map, env) {
                                 expression { return conf.ifBuild() }
                                 expression { return conf.getAttr('deployEnvStatus') == 'stop' }
                                 expression { return getAttr('deployEnv') != 'not-deploy' }
-                                expression { return this.getAttr('deployEnv') != 'chuanyin' }
+                                expression { return conf.getAttr('deployEnv') != 'chuanyin' }
                                 expression { return conf.getAttr('codeLanguage') != 'android'}
                                 expression { return conf.getAttr('codeLanguage') != 'unity' }
-                                }
+                            }
                         }
-                            steps {
-                                container('adp') {
-                                    script {
-                                        conf.setAttr('buildImageTag', conf.getBuildImageAddressTag())
-                                        conf.setAttr('buildImageAddress', conf.getBuildImageAddress('rdac-docker.dm-ai.cn'))
-                                        conf.printAppConf()
-                                        makeDockerImage.makeDockerComposeYml()
-                                    }
+                        steps {
+                            container('adp') {
+                                script {
+                                    conf.setAttr('buildImageTag', conf.getBuildImageAddressTag())
+                                    conf.setAttr('buildImageAddress', conf.getBuildImageAddress('rdac-docker.dm-ai.cn'))
+                                    conf.printAppConf()
+                                    makeDockerImage.makeDockerComposeYml()
                                 }
                             }
+                        }
                     }
                     stage('阿里云华北3仓库') {
                         when {
@@ -535,18 +535,18 @@ def call(Map map, env) {
                                 expression { return conf.getAttr('deployEnvStatus') == 'stop' }
                                 expression { return conf.getAttr('deployEnv') == 'not-deploy' }
                                 expression { return conf.getAttr('appName') in ['base-dingding-api-gateway','base-dingding-auth-service','base-dingding-message-service','base-dingding-tuoke-live-classroom','base-dingding-frontend'] }
-                                }
+                            }
                         }
-                            steps {
-                                container('adp') {
-                                    script {
-                                        conf.setAttr('buildImageTag', conf.getBuildImageAddressTag())
-                                        conf.setAttr('buildImageAddress', conf.getBuildImageAddress('registry.cn-zhangjiakou.aliyuncs.com'))
-                                        conf.printAppConf()
-                                        makeDockerImage.makeDockerComposeYml()
-                                    }
+                        steps {
+                            container('adp') {
+                                script {
+                                    conf.setAttr('buildImageTag', conf.getBuildImageAddressTag())
+                                    conf.setAttr('buildImageAddress', conf.getBuildImageAddress('registry.cn-zhangjiakou.aliyuncs.com'))
+                                    conf.printAppConf()
+                                    makeDockerImage.makeDockerComposeYml()
                                 }
                             }
+                        }
                     }
                     stage('公司内部仓库') {
                         when {
@@ -555,18 +555,18 @@ def call(Map map, env) {
                                 expression { return conf.getAttr('deployEnvStatus') == 'start'}
                                 expression { return conf.getAttr('codeLanguage') != 'android'}
                                 expression { return conf.getAttr('codeLanguage') != 'unity' }
-                                }
+                            }
                         }
-                            steps {
-                                container('adp') {
-                                    script {
-                                        conf.setAttr('buildImageTag', conf.getBuildImageAddressTag())
-                                        conf.setAttr('buildImageAddress', conf.getBuildImageAddress('docker.dm-ai.cn'))
-                                        conf.printAppConf()
-                                        makeDockerImage.makeDockerComposeYml()
-                                    }
+                        steps {
+                            container('adp') {
+                                script {
+                                    conf.setAttr('buildImageTag', conf.getBuildImageAddressTag())
+                                    conf.setAttr('buildImageAddress', conf.getBuildImageAddress('docker.dm-ai.cn'))
+                                    conf.printAppConf()
+                                    makeDockerImage.makeDockerComposeYml()
                                 }
                             }
+                        }
                     }
                 }
             }
@@ -597,10 +597,10 @@ def call(Map map, env) {
                     }
                     stage('镜像制作、镜像上传') {
                         when {
-                        allOf {
-                            expression { return conf.ifBuild() };
-                            expression { return conf.getAttr('codeLanguage') != 'android'};
-                            expression { return conf.getAttr('codeLanguage') != 'unity' };
+                            allOf {
+                                expression { return conf.ifBuild() };
+                                expression { return conf.getAttr('codeLanguage') != 'android'};
+                                expression { return conf.getAttr('codeLanguage') != 'unity' };
                             }
                         }
                         steps {
