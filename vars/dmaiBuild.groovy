@@ -534,7 +534,7 @@ def call(Map map, env) {
                                 expression { return conf.ifBuild() }
                                 expression { return conf.getAttr('deployEnvStatus') == 'stop' }
                                 expression { return conf.getAttr('deployEnv') == 'not-deploy' }
-                                expression { return conf.getAttr('appName') in ['base-dingding-api-gateway','base-dingding-auth-service','base-dingding-message-service','base-dingding-tuoke-live-classroom','base-dingding-frontend'] }
+                                expression { return conf.getAttr('appName') in ['base-dingding-api-gateway','base-dingding-auth-service','base-dingding-message-service','base-dingding-tuoke-live-classroom','base-dingding-frontend','base-dingding-content-security'] }
                             }
                         }
                         steps {
