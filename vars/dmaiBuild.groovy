@@ -506,7 +506,7 @@ def call(Map map, env) {
 
             stage('切换镜像仓库地址'){
                 parallel {
-                    stage('rdac-docker.dm-ai.cn仓库') {
+                    stage('公司对外rdac仓库') {
                         when {
                             allOf {
                                 expression { return conf.ifBuild() }
@@ -528,15 +528,13 @@ def call(Map map, env) {
                                 }
                             }
                     }
-                    stage('registry.cn-zhangjiakou.aliyuncs.com仓库') {
+                    stage('阿里云华北3仓库') {
                         when {
                             allOf {
                                 expression { return conf.ifBuild() }
-                                // expression { return conf.getAttr('deployEnvStatus') == 'stop' }
+                                expression { return conf.getAttr('deployEnvStatus') == 'stop' }
                                 expression { return conf.getAttr('deployEnv') == 'not-deploy' }
                                 expression { return conf.getAttr('appName') in ['base-dingding-api-gateway','base-dingding-auth-service','base-dingding-message-service','base-dingding-tuoke-live-classroom','base-dingding-frontend'] }
-                                expression { return conf.getAttr('codeLanguage') != 'android'}
-                                expression { return conf.getAttr('codeLanguage') != 'unity' }
                                 }
                         }
                             steps {
@@ -550,10 +548,11 @@ def call(Map map, env) {
                                 }
                             }
                     }
-                    stage('docker.dm-ai.cn仓库') {
+                    stage('公司内部仓库') {
                         when {
                             allOf {
                                 expression { return conf.ifBuild() }
+                                expression { return conf.getAttr('deployEnvStatus') == 'start'}
                                 expression { return conf.getAttr('codeLanguage') != 'android'}
                                 expression { return conf.getAttr('codeLanguage') != 'unity' }
                                 }
