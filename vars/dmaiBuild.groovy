@@ -504,6 +504,71 @@ def call(Map map, env) {
                 }
             }
 
+            stage('切换镜像仓库地址'){
+                parallel {
+                    stage('rdac-docker.dm-ai.cn仓库') {
+                        when {
+                            allOf {
+                                expression { return conf.ifBuild() }
+                                expression { return conf.getAttr('deployEnvStatus') == 'stop' }
+                                expression { return getAttr('deployEnv') != 'not-deploy' }
+                                expression { return this.getAttr('deployEnv') != 'chuanyin' }
+                                expression { return conf.getAttr('codeLanguage') != 'android'}
+                                expression { return conf.getAttr('codeLanguage') != 'unity' }
+                                }
+                        }
+                            steps {
+                                container('adp') {
+                                    script {
+                                        conf.setAttr('buildImageTag', conf.getBuildImageAddressTag())
+                                        conf.setAttr('buildImageAddress', conf.getBuildImageAddress('rdac-docker.dm-ai.cn'))
+                                        conf.printAppConf()
+                                    }
+                                }
+                            }
+                    }
+                    stage('registry.cn-zhangjiakou.aliyuncs.com仓库') {
+                        when {
+                            allOf {
+                                expression { return conf.ifBuild() }
+                                // expression { return conf.getAttr('deployEnvStatus') == 'stop' }
+                                expression { return conf.getAttr('deployEnv') == 'not-deploy' }
+                                expression { return conf.getAttr('appName') in ['base-dingding-api-gateway','base-dingding-auth-service','base-dingding-message-service','base-dingding-tuoke-live-classroom','base-dingding-frontend'] }
+                                expression { return conf.getAttr('codeLanguage') != 'android'}
+                                expression { return conf.getAttr('codeLanguage') != 'unity' }
+                                }
+                        }
+                            steps {
+                                container('adp') {
+                                    script {
+                                        conf.setAttr('buildImageTag', conf.getBuildImageAddressTag())
+                                        conf.setAttr('buildImageAddress', conf.getBuildImageAddress('registry.cn-zhangjiakou.aliyuncs.com'))
+                                        conf.printAppConf()
+                                    }
+                                }
+                            }
+                    }
+                    stage('docker.dm-ai.cn仓库') {
+                        when {
+                            allOf {
+                                expression { return conf.ifBuild() }
+                                expression { return conf.getAttr('codeLanguage') != 'android'}
+                                expression { return conf.getAttr('codeLanguage') != 'unity' }
+                                }
+                        }
+                            steps {
+                                container('adp') {
+                                    script {
+                                        conf.setAttr('buildImageTag', conf.getBuildImageAddressTag())
+                                        conf.setAttr('buildImageAddress', conf.getBuildImageAddress('docker.dm-ai.cn'))
+                                        conf.printAppConf()
+                                    }
+                                }
+                            }
+                    }
+                }
+            }
+
             stage('构建') {
                 parallel {
                     // unity需要 TODO 整合android加固流程
@@ -528,7 +593,7 @@ def call(Map map, env) {
                             }
                         }
                     }
-                    stage('制作并上传镜像') {
+                    stage('镜像制作、镜像上传') {
                         when {
                         allOf {
                             expression { return conf.ifBuild() };
