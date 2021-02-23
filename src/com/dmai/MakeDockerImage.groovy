@@ -12,6 +12,10 @@ class MakeDockerImage {
         this.dockerFileTemplate = new DockerFileTemplate(this.conf)
     }
 
+    public void makeDockerComposeYml() {
+        this.script.sh "echo '${this.dockerFileTemplate.getDockerComposeFile()}' > docker-compose.yml"
+
+    }
     public void makeImage() {
         //创建docker构建的时候的排除文件。
         this.createDockerignore()
@@ -49,7 +53,7 @@ class MakeDockerImage {
 
         // ### 需要处理 1。 使用环境变量的。 2. 有些业务是没配置文件的。注意。
 
-        this.script.sh "echo '${this.dockerFileTemplate.getDockerComposeFile()}' > docker-compose.yml"
+        // this.script.sh "echo '${this.dockerFileTemplate.getDockerComposeFile()}' > docker-compose.yml"
 
         // 在进行构建之前复制需要的模型文件
         if (this.conf.getAttr('useModel') && this.conf.getAttr('modelPath') && !this.conf.getAttr('ifUseGitManagerModel')) {

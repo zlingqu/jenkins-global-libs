@@ -523,6 +523,7 @@ def call(Map map, env) {
                                         conf.setAttr('buildImageTag', conf.getBuildImageAddressTag())
                                         conf.setAttr('buildImageAddress', conf.getBuildImageAddress('rdac-docker.dm-ai.cn'))
                                         conf.printAppConf()
+                                        makeDockerImage.makeDockerComposeYml()
                                     }
                                 }
                             }
@@ -544,6 +545,7 @@ def call(Map map, env) {
                                         conf.setAttr('buildImageTag', conf.getBuildImageAddressTag())
                                         conf.setAttr('buildImageAddress', conf.getBuildImageAddress('registry.cn-zhangjiakou.aliyuncs.com'))
                                         conf.printAppConf()
+                                        makeDockerImage.makeDockerComposeYml()
                                     }
                                 }
                             }
@@ -562,6 +564,7 @@ def call(Map map, env) {
                                         conf.setAttr('buildImageTag', conf.getBuildImageAddressTag())
                                         conf.setAttr('buildImageAddress', conf.getBuildImageAddress('docker.dm-ai.cn'))
                                         conf.printAppConf()
+                                        makeDockerImage.makeDockerComposeYml()
                                     }
                                 }
                             }
