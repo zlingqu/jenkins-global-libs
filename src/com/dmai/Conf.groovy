@@ -75,7 +75,7 @@ class Conf implements Serializable {
         // if (this.getAttr('deployEnv') in this.externalK8sEnv) { //如果是外部环境，就是用外部的harbor仓库
         if (this.getAttr('deployEnvStatus') == 'stop' && this.getAttr('deployEnv') != 'not-deploy' && this.getAttr('deployEnv') != 'chuanyin' ) { //如果是外部离线环境，就是用外部的域名
             dockerRegistryHost = this.dockerRegistryHostExternal
-        } else if ( this.getAttr('deployEnv') == 'not-deploy' && this.getAttr('appName') in ['base-dingding-api-gateway','base-dingding-auth-service'],'base-dingding-message-service','base-dingding-tuoke-live-classroom','base-dingding-frontend'] ) {
+        } else if ( this.getAttr('deployEnv') == 'not-deploy' && this.getAttr('appName') in ['base-dingding-api-gateway','base-dingding-auth-service','base-dingding-message-service','base-dingding-tuoke-live-classroom','base-dingding-frontend'] ) {
             dockerRegistryHost = 'registry.cn-zhangjiakou.aliyuncs.com' //特殊处理,聚石塔部署需要同步镜像到阿里云仓库
         } else {
             dockerRegistryHost = this.dockerRegistryHostInternal
