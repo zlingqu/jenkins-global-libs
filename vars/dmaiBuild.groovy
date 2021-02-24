@@ -550,12 +550,23 @@ def call(Map map, env) {
                     }
                     stage('公司内部仓库') {
                         when {
-                            allOf {
-                                expression { return conf.ifBuild() }
-                                expression { return conf.getAttr('deployEnvStatus') == 'start'}
-                                expression { return conf.getAttr('codeLanguage') != 'android'}
-                                expression { return conf.getAttr('codeLanguage') != 'unity' }
+                            anyOf{
+                                allOf {
+                                    expression { return conf.ifBuild() }
+                                    expression { return conf.getAttr('deployEnvStatus') == 'start'}
+                                    expression { return conf.getAttr('codeLanguage') != 'android'}
+                                    expression { return conf.getAttr('codeLanguage') != 'unity' }
+                                }
+                                allOf {
+                                    expression { return conf.ifBuild() }
+                                    expression { return conf.getAttr('appName') not in ['base-dingding-api-gateway','base-dingding-auth-service','base-dingding-message-service','base-dingding-tuoke-live-classroom','base-dingding-frontend','base-dingding-content-security'] }
+                                    expression { return conf.getAttr('deployEnvStatus') == 'stop'}
+                                    expression { return conf.getAttr('deployEnv') == 'not-deploy' }
+                                    expression { return conf.getAttr('codeLanguage') != 'android'}
+                                    expression { return conf.getAttr('codeLanguage') != 'unity' }
+                                }
                             }
+                            
                         }
                         steps {
                             container('adp') {
