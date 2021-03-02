@@ -143,7 +143,7 @@ class DmaiEmail {
                     this.conf.getAttr('gitVersion')
                 )
 
-            def url = 'curl -s ci-test.devops.dev.dm-ai.cn/qrcode?url=' + apkViewUrl + '|base64'
+            def url = 'curl -s adp-api.dm-ai.cn/api/v1/tools/qrcode?url=' + apkViewUrl + '|base64'
             apkViewUrlQrcode = this.script.sh(returnStdout: true, script: url).trim()
         }
         def textComman = '''
