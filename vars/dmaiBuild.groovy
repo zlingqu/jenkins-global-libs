@@ -180,6 +180,7 @@ def call(Map map, env) {
             choice(name: 'GPU_CONTROL_MODE', choices: ['pod', 'mem'], description: 'pod代表以gpu的卡的数量去绑定应用，mem代表以gpu的内存去绑定应用')
             string(name: 'GPU_CARD_COUNT', defaultValue: defaultGpuLimits, description: '使用gpu卡的时候，在k8s集群中，一个pods使用的gpu卡的限制。')
             string(name: 'GPU_MEM_COUNT', defaultValue: defaultGpuMemLimits, description: '使用gpu卡的时候，在k8s集群中，一个pods使用的gpu卡的内存的限制。')
+            string(name: 'GPU_TYPE', defaultValue: "none", description: 'gpu卡类型选择')
 
             //            string(name: 'VERSION_CONTROL_MODE', defaultValue: 'GitCommitId', description: '构建的时候的版本控制方式，GitCommitId和GitTags，默认GitCommitId')
             choice(name: 'VERSION_CONTROL_MODE', choices: ['GitCommitId', 'GitTags'], description: '构建的时候的版本控制方式，GitCommitId和GitTags，默认GitCommitId')
