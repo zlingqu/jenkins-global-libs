@@ -46,6 +46,9 @@ class JenkinsRunTemplate {
     // set GPU_CARD_COUNT
     this.conf.setAttr('gpuLimits', params.GPU_CARD_COUNT)
 
+    
+    this.conf.setAttr('gpuType', params.GPU_TYPE)
+
     this.conf.setAttr('cpuRequests', params.CPU_REQUEST)
     this.conf.setAttr('memoryRequests', params.MEMORY_REQUEST)
     this.conf.setAttr('cpuLimits', params.CPU_LIMIT)
