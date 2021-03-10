@@ -673,7 +673,7 @@ def call(Map map, env) {
                                 // adp 自动生成模板
                                 try {
                                     withEnv(conf.withEnvList) {
-                                        // sh 'printenv'
+                                        sh 'printenv'
                                         sh 'cd /workspace; dockerize -template src_dir:dest_dir  && cat dest_dir/template.tmpl'
                                     }
                                 } catch (e) {
