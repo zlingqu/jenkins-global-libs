@@ -366,7 +366,7 @@ spec:
     return String.format('''
   - name: adp
     imagePullPolicy: IfNotPresent
-    image: docker.dm-ai.cn/devops/base-image-adp:0.5.3%s
+    image: docker.dm-ai.cn/devops/base-image-adp:0.5.4%s
     env:
     - name: VUE_APP_SCENE
       value: %s
