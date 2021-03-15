@@ -145,8 +145,8 @@ def call(Map map, env) {
     def useService = conf.getAttr('useService') ? conf.getAttr('useService') : false
 
     // k8sKind
-    def defaultK8sKind = conf.getAttr('k8sKind') ? conf.getAttr('k8sKind') : 'deployment'
-    def toK8sKind = Tools.addItemToListHead(['Deployment', 'StatefulSet'], defaultK8sKind)
+    def defaultcontrollerType = conf.getAttr('replicationControllerType') ? conf.getAttr('replicationControllerType') : 'deployment'
+    def controllerType = Tools.addItemToListHead(['Deployment', 'StatefulSet'], defaultcontrollerType)
 
     // make images
     def defaultMakeImage = conf.getAttr('makeImage') ? conf.getAttr('makeImage') : false
@@ -261,8 +261,8 @@ def call(Map map, env) {
             // use service
             booleanParam(name: 'USE_SERVICE', defaultValue: useService, description: '是否使用service')
 
-            // k8s kind
-            choice(name: 'K8S_KIND', choices: toK8sKind, description: 'k8s使用的kind的类型')
+            // k8s ControllerType
+            choice(name: 'replicationControllerType', choices: controllerType, description: 'k8s控制器类型')
 
             // if make images
             booleanParam(name: 'IF_MAKE_IMAGE', defaultValue: defaultMakeImage, description: '是否制作镜像')

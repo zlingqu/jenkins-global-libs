@@ -105,8 +105,8 @@ class JenkinsRunTemplate {
     // set USE_SERVICE
     this.conf.setAttr('useService', params.USE_SERVICE)
 
-    // set K8S_KIND
-    this.conf.setAttr('k8sKind', params.K8S_KIND)
+    // set replicationControllerType
+    this.conf.setAttr('replicationControllerType', params.replicationControllerType)
 
     // set default port
     this.conf.setAttr('containerPort', params.CONTAINER_PORT)
@@ -366,7 +366,7 @@ spec:
     return String.format('''
   - name: adp
     imagePullPolicy: IfNotPresent
-    image: docker.dm-ai.cn/devops/base-image-adp:0.5.8%s
+    image: docker.dm-ai.cn/devops/base-image-adp:0.5.9%s
     env:
     - name: VUE_APP_SCENE
       value: %s
