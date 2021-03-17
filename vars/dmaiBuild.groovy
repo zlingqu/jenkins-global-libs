@@ -141,8 +141,6 @@ def call(Map map, env) {
     def defaultServiceType = conf.getAttr('svcType') ? conf.getAttr('svcType') : 'ClusterIP'
     def toDefaultServiceType = Tools.addItemToListHead(['ClusterIP', 'NodePort', 'None'], defaultServiceType)
 
-    // use service
-    def useService = conf.getAttr('useService') ? conf.getAttr('useService') : false
 
     // k8sKind
     def defaultcontrollerType = conf.getAttr('replicationControllerType') ? conf.getAttr('replicationControllerType') : 'deployment'
@@ -257,9 +255,6 @@ def call(Map map, env) {
 
             // service type
             choice(name: 'SERVICE_TYPE', choices: toDefaultServiceType, description: '项目默认使用的服务的类型')
-
-            // use service
-            booleanParam(name: 'USE_SERVICE', defaultValue: useService, description: '是否使用service')
 
             // k8s ControllerType
             choice(name: 'replicationControllerType', choices: controllerType, description: 'k8s控制器类型')
