@@ -102,9 +102,6 @@ class JenkinsRunTemplate {
     // set SERVICE_TYPE
     this.conf.setAttr('svcType', params.SERVICE_TYPE)
 
-    // set USE_SERVICE
-    this.conf.setAttr('useService', params.USE_SERVICE)
-
     // set replicationControllerType
     this.conf.setAttr('replicationControllerType', params.replicationControllerType)
 

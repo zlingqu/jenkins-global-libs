@@ -15,7 +15,7 @@ class KubernetesDeployTemplate {
   }
 
   private String getSvcTemplate() {
-    if (!this.conf.getAttr('useService')) return ''
+    if (this.conf.getAttr('svcType') == 'None') return ''
 
     def svcType = conf.getAttr('svcType')
     if (this.conf.getAttr('deployEnv') == 'prd') {

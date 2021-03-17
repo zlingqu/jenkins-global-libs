@@ -349,7 +349,7 @@ class DmaiEmail {
     }
 
     private String useSvcInfo() {
-        if (!this.conf.getAttr('useService')) {
+        if (this.conf.getAttr('svcType')=='None') {
             return '此服务未使用service，无外部访问地址！'
         }
         return ''
@@ -365,7 +365,7 @@ class DmaiEmail {
             }
         }
 
-        if (this.conf.getAttr('useService') && this.conf.getAttr('svcType') == 'NodePort') {
+        if (this.conf.getAttr('svcType') != 'None' && this.conf.getAttr('svcType') == 'NodePort') {
             return '用户测试验证地址：' + this.conf.getAppUrl()
         }
 
