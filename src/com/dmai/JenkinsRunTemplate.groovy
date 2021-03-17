@@ -199,7 +199,7 @@ class JenkinsRunTemplate {
     this.conf.setAttr('ifUseGitManagerModel', false)
     this.conf.setAttr('ifSaveModelBuildComputer', false)
     this.conf.setAttr('modelGitRepository', '')
-    this.conf.setAttr('modelBranch', 'dev')
+    // this.conf.setAttr('modelBranch', 'dev')
     this.conf.setAttr('deployEnvStatus', 'start')
     this.conf.setAttr('ifUseIstio', false)
     this.conf.setAttr('ifUseApolloOfflineEnv', false)
@@ -220,12 +220,12 @@ class JenkinsRunTemplate {
       tmpStringList.length >= 13 ? this.conf.setAttr('ifUseGitManagerModel', Boolean.parseBoolean(tmpStringList[12])) : this.conf.setAttr('ifUseGitManagerModel', false)
       tmpStringList.length >= 14 ? this.conf.setAttr('ifSaveModelBuildComputer', Boolean.parseBoolean(tmpStringList[13])) : this.conf.setAttr('ifSaveModelBuildComputer', false)
       tmpStringList.length >= 15 ? this.conf.setAttr('modelGitRepository', tmpStringList[14]) : this.conf.setAttr('modelGitRepository', '')
-      tmpStringList.length >= 16 ? this.conf.setAttr('modelBranch', tmpStringList[15]) : this.conf.setAttr('modelBranch', 'dev')
-      tmpStringList.length >= 17 ? this.conf.setAttr('deployEnvStatus', tmpStringList[16]) : this.conf.setAttr('deployEnvStatus', 'start')
-      tmpStringList.length >= 18 ? this.conf.setAttr('deployEnv', tmpStringList[17]) : this.conf.setAttr('deployEnv', 'dev')
-      tmpStringList.length >= 18 ? this.conf.setAttr('nodeEnv', tmpStringList[17]) : this.conf.setAttr('nodeEnv', 'dev')
-      tmpStringList.length >= 19 ? this.conf.setAttr('ifUseIstio', Boolean.parseBoolean(tmpStringList[18])) : this.conf.setAttr('ifUseIstio', false)
-      tmpStringList.length >= 20 ? this.conf.setAttr('ifUseApolloOfflineEnv', Boolean.parseBoolean(tmpStringList[19])) : this.conf.setAttr('ifUseApolloOfflineEnv', false)
+      // tmpStringList.length >= 16 ? this.conf.setAttr('modelBranch', tmpStringList[15]) : this.conf.setAttr('modelBranch', 'dev')
+      tmpStringList.length >= 16 ? this.conf.setAttr('deployEnvStatus', tmpStringList[15]) : this.conf.setAttr('deployEnvStatus', 'start')
+      tmpStringList.length >= 17 ? this.conf.setAttr('deployEnv', tmpStringList[16]) : this.conf.setAttr('deployEnv', 'dev')
+      tmpStringList.length >= 17 ? this.conf.setAttr('nodeEnv', tmpStringList[16]) : this.conf.setAttr('nodeEnv', 'dev')
+      tmpStringList.length >= 18 ? this.conf.setAttr('ifUseIstio', Boolean.parseBoolean(tmpStringList[17])) : this.conf.setAttr('ifUseIstio', false)
+      tmpStringList.length >= 19 ? this.conf.setAttr('ifUseApolloOfflineEnv', Boolean.parseBoolean(tmpStringList[18])) : this.conf.setAttr('ifUseApolloOfflineEnv', false)
     }
 
     def apolloEnvList = ['dev', 'test', 'prd', 'stage', 'uat']
