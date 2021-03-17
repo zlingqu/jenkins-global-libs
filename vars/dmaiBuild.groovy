@@ -318,7 +318,7 @@ def call(Map map, env) {
                     script {
                         conf.printAppConf()
                         withEnv(conf.withEnvList) {
-                            // sh 'printenv'
+                            sh 'printenv'
                         }
                     }
                 }
