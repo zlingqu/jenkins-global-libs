@@ -203,6 +203,7 @@ class JenkinsRunTemplate {
     this.conf.setAttr('ifUseIstio', false)
     this.conf.setAttr('ifUseApolloOfflineEnv', false)
     this.conf.setAttr('yamlEnv', 'None')
+    this.conf.setAttr('androidFlavor', 'default')
     if (params.GLOABL_STRING != '') {
       def tmpStringList = params.GLOABL_STRING.split(':::')
       tmpStringList.length >= 1 ? this.conf.setAttr('useGrpc', tmpStringList[0]) : this.conf.setAttr('useGrpc', false)
