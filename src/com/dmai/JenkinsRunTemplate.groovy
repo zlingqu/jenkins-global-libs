@@ -226,6 +226,7 @@ class JenkinsRunTemplate {
       tmpStringList.length >= 18 ? this.conf.setAttr('ifUseIstio', Boolean.parseBoolean(tmpStringList[17])) : this.conf.setAttr('ifUseIstio', false)
       tmpStringList.length >= 19 ? this.conf.setAttr('ifUseApolloOfflineEnv', Boolean.parseBoolean(tmpStringList[18])) : this.conf.setAttr('ifUseApolloOfflineEnv', false)
       tmpStringList.length >= 20 ? this.conf.setAttr('yamlEnv', tmpStringList[19]) : this.conf.setAttr('yamlEnv', 'None')
+      tmpStringList.length >= 21 ? this.conf.setAttr('androidFlavor', tmpStringList[20]) : this.conf.setAttr('androidFlavor', 'default')
     }
 
     def apolloEnvList = ['dev', 'test', 'prd', 'stage', 'uat']
