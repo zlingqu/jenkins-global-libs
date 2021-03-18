@@ -466,7 +466,9 @@ def call(Map map, env) {
                             container('compile') {
                                 script {
                                     try {
-                                        compile.compile()
+                                        withEnv(conf.withEnvList){
+                                            compile.compile()
+                                        }
                                     } catch (e) {
                                         sh "echo ${e}"
                                         conf.failMsg = '编译失败！'
