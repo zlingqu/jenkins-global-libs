@@ -498,7 +498,7 @@ spec:
 
             case 'android': return String.format('''
   - name: compile
-    image: docker.dm-ai.cn/devops/dm-android:0.8.18
+    image: docker.dm-ai.cn/devops/dm-android:0.8.19
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
