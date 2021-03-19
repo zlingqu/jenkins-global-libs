@@ -134,13 +134,14 @@ class DmaiEmail {
         def String apkViewUrl = ''
         def String apkViewUrlQrcode = ''
         if (this.conf.getAttr('codeLanguage') == 'android') {
-            apkViewUrl = String.format('''http://models.jenkins.dm-ai.cn:8888/files/view/android_home/%s/%s/%s/%s-build%s-%s.apk''',
+            apkViewUrl = String.format('''http://models.jenkins.dm-ai.cn:8888/files/view/android_home/%s/%s/%s/%s-build-%s-%s@%s.apk''',
                     this.conf.appName,
                     this.conf.getAttr('deployEnv'),
                     new Date().format('yyyyMMdd'),
                     this.conf.appName,
                     this.conf.getAttr('buildNumber'),
-                    this.conf.getAttr('gitVersion')
+                    this.conf.getAttr('gitVersion'),
+                    this.conf.getAttr('androidFlavor')
                 )
 
             def url = 'curl -s adp-api.dm-ai.cn/api/v1/tools/qrcode?url=' + apkViewUrl + '|base64'
