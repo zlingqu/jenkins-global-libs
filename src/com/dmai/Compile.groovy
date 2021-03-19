@@ -10,6 +10,9 @@ class Compile {
         this.conf = conf
     }
 
+    public void compileOfGlang() {
+        this.script.sh "go env -w GOPRIVATE=gitlab.dm-ai.cn;go env -w GO111MODULE=on;export GOPROXY=https://mirrors.aliyun.com/goproxy/;make compile"
+    }
     public void compile() {
         if (this.conf.getAttr('jobName') in ['ta-resource-service']) return
         if (this.conf.getAttr('compile')) {

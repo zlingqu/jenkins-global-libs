@@ -478,6 +478,30 @@ def call(Map map, env) {
                             }
                         }
                     }
+                    stage('Golang编译') {
+                        when {
+                            allof{
+                                expression { return conf.getAttr('compile') };
+                                expression { return conf.getAttr('codeLanguage') == 'golang' };
+                            }
+                            
+                        }
+                        steps {
+                            container('compile') {
+                                script {
+                                    try {
+                                        withEnv(conf.withEnvList){
+                                            compile.compileOfGlang()
+                                        }
+                                    } catch (e) {
+                                        sh "echo ${e}"
+                                        conf.failMsg = '编译失败！'
+                                        throw e
+                                    }
+                                }
+                            }
+                        }
+                    }
 
                     stage('下载模型文件') {
                         when {
