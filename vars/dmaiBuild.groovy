@@ -427,12 +427,41 @@ def call(Map map, env) {
                 }
                     
             }
+            stage('GPU模型文件处理'){
+                parallel {
+                    stage('下载模型文件') {
+                        when {
+                            allOf {
+                                expression { return conf.getAttr('useModel') }
+                                expression { return conf.getAttr('ifUseGitManagerModel') }
+                            }
+                        }
+
+                        steps {
+                            container('adp') {
+                                script {
+                                    try {
+                                        withCredentials([usernamePassword(credentialsId: 'devops-use', passwordVariable: 'password', usernameVariable: 'username')]) {
+                                            sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + conf.getAttr("modelGitRepository").replace("https://", 'https://$username:$password@') + ' model'
+                                        }
+                                        sh 'pwd;ls -l;rm -fr model/.git'
+                                    } catch (e) {
+                                        sh "echo ${e}"
+                                        conf.failMsg = '从gitlab下载模型文件失败！'
+                                        throw e
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
             stage('编译') {
                 // 当项目的全局选项设置为compile == true的时候，才进行部署的操作
                 when {
                     allOf {
-                        expression { return conf.ifBuild() };
+                        expression { return conf.ifBuild() }
                     }
                 }
 
@@ -440,7 +469,7 @@ def call(Map map, env) {
                     stage('自定义编译') {
                         when {
                             allOf {
-                                expression { return conf.getAttr('useCustomImage') };
+                                expression { return conf.getAttr('useCustomImage') }
                             }
                         }
                         steps {
@@ -524,32 +553,6 @@ def call(Map map, env) {
                                     } catch (e) {
                                         sh "echo ${e}"
                                         conf.failMsg = '编译失败！'
-                                        throw e
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    stage('下载模型文件') {
-                        when {
-                            allOf {
-                                expression { return conf.getAttr('useModel') }
-                                expression { return conf.getAttr('ifUseGitManagerModel') }
-                            }
-                        }
-
-                        steps {
-                            container('adp') {
-                                script {
-                                    try {
-                                        withCredentials([usernamePassword(credentialsId: 'devops-use', passwordVariable: 'password', usernameVariable: 'username')]) {
-                                            sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + conf.getAttr("modelGitRepository").replace("https://", 'https://$username:$password@') + ' model'
-                                        }
-                                        sh 'pwd;ls -l;rm -fr model/.git'
-                                    } catch (e) {
-                                        sh "echo ${e}"
-                                        conf.failMsg = '从gitlab下载模型文件失败！'
                                         throw e
                                     }
                                 }
