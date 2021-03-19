@@ -13,6 +13,17 @@ class Compile {
     public void compileOfGlang() {
         this.script.sh "go env -w GOPRIVATE=gitlab.dm-ai.cn;go env -w GO111MODULE=on;export GOPROXY=https://mirrors.aliyun.com/goproxy/;make compile"
     }
+    public void compileOfJava() {
+        if (this.conf.appName in ['work-attendance', 'ta-advanced-stats-server', 'ta-advanced-stats-server2', 'aita-advanced-stats-server']) {
+            this.script.sh "mvn package -Dmaven.test.skip=true"
+            
+        } else {
+        this.script.sh String.format('''mvn dm:package -Ddeploy.env=%s''', this.conf.getAttr('deployEnv'))
+        }
+    }
+
+
+
     public void compile() {
         if (this.conf.getAttr('jobName') in ['ta-resource-service']) return
         if (this.conf.getAttr('compile')) {
@@ -63,14 +74,6 @@ class Compile {
                 case 'c++':
                     this.script.sh "make"
                     return
-                case 'java':
-//                    this.script.sh "mvn package -Dmaven.test.skip=true"
-                    if (this.conf.appName in ['work-attendance', 'ta-advanced-stats-server', 'ta-advanced-stats-server2', 'aita-advanced-stats-server']) {
-                        this.script.sh "mvn package -Dmaven.test.skip=true"
-                        return
-                    }
-                    this.script.sh String.format('''mvn dm:package -Ddeploy.env=%s''', this.conf.getAttr('deployEnv'))
-                    return
                 case 'android':
                     this.script.sh "test -e /root/.gradle && rm -fr /root/.gradle; " +
                             "test -e /android_cache/.gradle-cache.tar && cp -rp /android_cache/.gradle-cache.tar /cache && rm -fr /cache/.gradle && tar xf /cache/.gradle-cache.tar -C /cache;" +
@@ -85,9 +88,6 @@ class Compile {
                     } catch (e) {
                         this.script.sh "echo ${e}"
                     }
-                    return
-                case 'golang':
-                    this.script.sh "go env -w GOPRIVATE=gitlab.dm-ai.cn;go env -w GO111MODULE=on;export GOPROXY=https://mirrors.aliyun.com/goproxy/;make compile"
                     return
             }
         }

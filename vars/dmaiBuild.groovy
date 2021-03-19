@@ -463,6 +463,7 @@ def call(Map map, env) {
                             allOf{
                                 expression { return conf.getAttr('compile') }
                                 expression { return conf.getAttr('codeLanguage') != 'golang' }
+                                expression { return conf.getAttr('codeLanguage') != 'java' }
                             }
                         }
                         steps {
@@ -495,6 +496,30 @@ def call(Map map, env) {
                                     try {
                                         withEnv(conf.withEnvList){
                                             compile.compileOfGlang()
+                                        }
+                                    } catch (e) {
+                                        sh "echo ${e}"
+                                        conf.failMsg = '编译失败！'
+                                        throw e
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    stage('Java编译') {
+                        when {
+                            allOf {
+                                expression { return conf.getAttr('compile') }
+                                expression { return conf.getAttr('codeLanguage') == 'java' }
+                            }
+                            
+                        }
+                        steps {
+                            container('compile') {
+                                script {
+                                    try {
+                                        withEnv(conf.withEnvList){
+                                            compile.compileOfJava()
                                         }
                                     } catch (e) {
                                         sh "echo ${e}"
