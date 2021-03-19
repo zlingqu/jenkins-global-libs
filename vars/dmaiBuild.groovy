@@ -460,7 +460,10 @@ def call(Map map, env) {
 
                     stage('通用编译') {
                         when {
-                            expression { return conf.getAttr('compile') };
+                            allOf{
+                                expression { return conf.getAttr('compile') }
+                                expression { return conf.getAttr('codeLanguage') != 'golang' }
+                            }
                         }
                         steps {
                             container('compile') {
