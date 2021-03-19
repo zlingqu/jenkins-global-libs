@@ -480,7 +480,7 @@ def call(Map map, env) {
                     }
                     stage('Golang编译') {
                         when {
-                            allof{
+                            allof {
                                 expression { return conf.getAttr('compile') };
                                 expression { return conf.getAttr('codeLanguage') == 'golang' };
                             }
