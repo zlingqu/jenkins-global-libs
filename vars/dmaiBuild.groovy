@@ -458,7 +458,7 @@ def call(Map map, env) {
                         when {
                             allOf {
                                 expression { return conf.getAttr('useModel') }
-                                expression { return conf.getAttr('ifUseGitManagerModel') == false}
+                                expression { return !conf.getAttr('ifUseGitManagerModel')}
                             }
                         }
 
@@ -466,7 +466,7 @@ def call(Map map, env) {
                             container('adp') {
                                 script {
                                     try {
-                                        this.script.sh "mkdir -p ${this.conf.getAttr('modelPath')}; cp -rp /models/* ${this.conf.getAttr('modelPath')}"
+                                        this.script.sh "mkdir -p ${conf.getAttr('modelPath')}; cp -rp /models/* ${conf.getAttr('modelPath')}"
                                     } catch (e) {
                                         sh "echo ${e}"
                                         conf.failMsg = '存储中找不到模型文件，请先上传http://models.jenkins.dm-ai.cn/'
