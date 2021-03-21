@@ -433,7 +433,7 @@ def call(Map map, env) {
                         when {
                             allOf {
                                 expression { return conf.getAttr('useModel') }
-                                expression { return !conf.getAttr('ifUseGitManagerModel')}
+                                expression { return conf.getAttr('ifUseGitManagerModel')}
                             }
                         }
 
@@ -458,7 +458,7 @@ def call(Map map, env) {
                         when {
                             allOf {
                                 expression { return conf.getAttr('useModel') }
-                                expression { return !conf.getAttr('ifUseGitManagerModel') }
+                                expression { return conf.getAttr('ifDeploy') }
                             }
                         }
 
