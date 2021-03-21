@@ -458,7 +458,7 @@ def call(Map map, env) {
                         when {
                             allOf {
                                 expression { return conf.getAttr('useModel') }
-                                expression { return !conf.getAttr('ifUseGitManagerModel')}
+                                expression { return conf.getAttr('ifUseGitManagerModel') == false}
                             }
                         }
 
@@ -468,7 +468,7 @@ def call(Map map, env) {
                                     try {
                                         // this.script.sh "mkdir -p ${conf.getAttr('modelPath')}; cp -rp /models/* ${conf.getAttr('modelPath')}"
                                         // this.script.sh "mkdir -p abc"
-                                        sh String.format('mkdir -p %s; cp -rp /models/* %s',conf.getAttr('modelPath'),conf.getAttr('modelPath'))
+                                        sh String.format("mkdir -p %s; cp -rp /models/* %s",conf.getAttr('modelPath'),conf.getAttr('modelPath'))
                                     } catch (e) {
                                         sh "echo ${e}"
                                         conf.failMsg = '存储中找不到模型文件，请先上传http://models.jenkins.dm-ai.cn/'
@@ -482,7 +482,7 @@ def call(Map map, env) {
             }
 
             stage('编译') {
-                // 当项目的全局选项设置为compile == true的时候，才进行部署的操作
+                // 当项目的全局选项设置为compile == true的时候，才进行编译的操作
                 when {
                     allOf {
                         expression { return conf.ifBuild() }
