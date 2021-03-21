@@ -487,20 +487,47 @@ def call(Map map, env) {
                         }
                     }
 
-                    stage('通用编译') {
+                    // stage('通用编译') {
+                    //     when {
+                    //         allOf{
+                    //             expression { return conf.getAttr('compile') }
+                    //             expression { return conf.getAttr('codeLanguage') != 'golang' }
+                    //             expression { return conf.getAttr('codeLanguage') != 'java' }
+                    //             expression { return conf.getAttr('codeLanguage') != 'node' }
+                    //             expression { return conf.getAttr('codeLanguage') != 'c++' }
+                    //             expression { return conf.getAttr('codeLanguage') != 'android' }
+                    //         }
+                    //     }
+                    //     steps {
+                    //         container('compile') {
+                    //             script {
+                    //                 try {
+                    //                     withEnv(conf.withEnvList){
+                    //                         compile.compile()
+                    //                     }
+                    //                 } catch (e) {
+                    //                     sh "echo ${e}"
+                    //                     conf.failMsg = '编译失败！'
+                    //                     throw e
+                    //                 }
+                    //             }
+                    //         }
+                    //     }
+                    // }
+                    stage('Nodejs编译') {
                         when {
-                            allOf{
+                            allOf {
                                 expression { return conf.getAttr('compile') }
-                                expression { return conf.getAttr('codeLanguage') != 'golang' }
-                                expression { return conf.getAttr('codeLanguage') != 'java' }
+                                expression { return conf.getAttr('codeLanguage') == 'node' }
                             }
+                            
                         }
                         steps {
                             container('compile') {
                                 script {
                                     try {
                                         withEnv(conf.withEnvList){
-                                            compile.compile()
+                                            compile.compileOfNodejs()
                                         }
                                     } catch (e) {
                                         sh "echo ${e}"
@@ -511,11 +538,11 @@ def call(Map map, env) {
                             }
                         }
                     }
-                    stage('Golang编译') {
+                    stage('JavaScript编译') {
                         when {
                             allOf {
                                 expression { return conf.getAttr('compile') }
-                                expression { return conf.getAttr('codeLanguage') == 'golang' }
+                                expression { return conf.getAttr('codeLanguage') == 'js' }
                             }
                             
                         }
@@ -524,7 +551,31 @@ def call(Map map, env) {
                                 script {
                                     try {
                                         withEnv(conf.withEnvList){
-                                            compile.compileOfGlang()
+                                            compile.compileOfJs()
+                                        }
+                                    } catch (e) {
+                                        sh "echo ${e}"
+                                        conf.failMsg = '编译失败！'
+                                        throw e
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    stage('Nodets编译') {
+                        when {
+                            allOf {
+                                expression { return conf.getAttr('compile') }
+                                expression { return conf.getAttr('codeLanguage') == 'nodets' }
+                            }
+                            
+                        }
+                        steps {
+                            container('compile') {
+                                script {
+                                    try {
+                                        withEnv(conf.withEnvList){
+                                            compile.compileOfNodets()
                                         }
                                     } catch (e) {
                                         sh "echo ${e}"
@@ -559,6 +610,104 @@ def call(Map map, env) {
                             }
                         }
                     }
+                    stage('Golang编译') {
+                        when {
+                            allOf {
+                                expression { return conf.getAttr('compile') }
+                                expression { return conf.getAttr('codeLanguage') == 'golang' }
+                            }
+                            
+                        }
+                        steps {
+                            container('compile') {
+                                script {
+                                    try {
+                                        withEnv(conf.withEnvList){
+                                            compile.compileOfGolang()
+                                        }
+                                    } catch (e) {
+                                        sh "echo ${e}"
+                                        conf.failMsg = '编译失败！'
+                                        throw e
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    stage('C++编译') {
+                        when {
+                            allOf {
+                                expression { return conf.getAttr('compile') }
+                                expression { return conf.getAttr('codeLanguage') == 'c++' }
+                            }
+                            
+                        }
+                        steps {
+                            container('compile') {
+                                script {
+                                    try {
+                                        withEnv(conf.withEnvList){
+                                            compile.compileOfC()
+                                        }
+                                    } catch (e) {
+                                        sh "echo ${e}"
+                                        conf.failMsg = '编译失败！'
+                                        throw e
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    stage('Android编译') {
+                        when {
+                            allOf {
+                                expression { return conf.getAttr('compile') }
+                                expression { return conf.getAttr('codeLanguage') == 'android' }
+                            }
+                            
+                        }
+                        steps {
+                            container('compile') {
+                                script {
+                                    try {
+                                        withEnv(conf.withEnvList){
+                                            compile.compileOfAndroid()
+                                        }
+                                    } catch (e) {
+                                        sh "echo ${e}"
+                                        conf.failMsg = '编译失败！'
+                                        throw e
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    stage('Unity编译') {
+                        when {
+                            allOf {
+                                expression { return conf.getAttr('compile') }
+                                expression { return conf.getAttr('codeLanguage') == 'unity' }
+                            }
+                            
+                        }
+                        steps {
+                            container('compile') {
+                                script {
+                                    try {
+                                        withEnv(conf.withEnvList){
+                                            compile.compileOfUnity()
+                                        }
+                                    } catch (e) {
+                                        sh "echo ${e}"
+                                        conf.failMsg = '编译失败！'
+                                        throw e
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    
                 }
             }
 
