@@ -1,11 +1,11 @@
 package com.dmai
 
-class Compile {
+class ModelManage {
 
     protected final def script
     private final Conf conf
 
-    Compile(script, Conf conf) {
+    ModelManage(script, Conf conf) {
         this.script = script
         this.conf = conf
     }
