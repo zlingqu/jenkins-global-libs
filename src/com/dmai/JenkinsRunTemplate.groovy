@@ -223,11 +223,11 @@ class JenkinsRunTemplate {
       tmpStringList.length >= 11 ? this.conf.setAttr('modelGitRepository', tmpStringList[10]) : this.conf.setAttr('modelGitRepository', '')
       tmpStringList.length >= 12 ? this.conf.setAttr('deployEnvStatus', tmpStringList[11]) : this.conf.setAttr('deployEnvStatus', 'start')
       tmpStringList.length >= 13 ? this.conf.setAttr('deployEnv', tmpStringList[12]) : this.conf.setAttr('deployEnv', 'dev')
-      tmpStringList.length >= 14 ? this.conf.setAttr('nodeEnv', tmpStringList[13]) : this.conf.setAttr('nodeEnv', 'dev')
-      tmpStringList.length >= 15 ? this.conf.setAttr('ifUseIstio', Boolean.parseBoolean(tmpStringList[14])) : this.conf.setAttr('ifUseIstio', false)
-      tmpStringList.length >= 16 ? this.conf.setAttr('ifUseApolloOfflineEnv', Boolean.parseBoolean(tmpStringList[15])) : this.conf.setAttr('ifUseApolloOfflineEnv', false)
-      tmpStringList.length >= 17 ? this.conf.setAttr('yamlEnv', tmpStringList[16]) : this.conf.setAttr('yamlEnv', 'None')
-      tmpStringList.length >= 18 ? this.conf.setAttr('androidFlavor', tmpStringList[17]) : this.conf.setAttr('androidFlavor', 'default')
+      tmpStringList.length >= 13 ? this.conf.setAttr('nodeEnv', tmpStringList[12]) : this.conf.setAttr('nodeEnv', 'dev')
+      tmpStringList.length >= 14 ? this.conf.setAttr('ifUseIstio', Boolean.parseBoolean(tmpStringList[13])) : this.conf.setAttr('ifUseIstio', false)
+      tmpStringList.length >= 15 ? this.conf.setAttr('ifUseApolloOfflineEnv', Boolean.parseBoolean(tmpStringList[14])) : this.conf.setAttr('ifUseApolloOfflineEnv', false)
+      tmpStringList.length >= 16 ? this.conf.setAttr('yamlEnv', tmpStringList[15]) : this.conf.setAttr('yamlEnv', 'None')
+      tmpStringList.length >= 17 ? this.conf.setAttr('androidFlavor', tmpStringList[16]) : this.conf.setAttr('androidFlavor', 'default')
     }
 
     def apolloEnvList = ['dev', 'test', 'prd', 'stage', 'uat']
