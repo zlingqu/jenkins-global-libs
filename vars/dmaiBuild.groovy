@@ -479,26 +479,7 @@ def call(Map map, env) {
                 }
 
                 parallel {
-                    // stage('自定义编译') {
-                    //     when {
-                    //         allOf {
-                    //             expression { return conf.getAttr('useCustomImage') }
-                    //         }
-                    //     }
-                    //     steps {
-                    //         container('custom-image') {
-                    //             script {
-                    //                 try {
-                    //                     sh conf.getAttr('execCommand')
-                    //                 } catch (e) {
-                    //                     sh 'echo ${e}'
-                    //                     conf.failMsg = '自定义镜像执行命令失败，执行命令为：' + conf.getAttr('execCommand')
-                    //                     throw e
-                    //                 }
-                    //             }
-                    //         }
-                    //     }
-                    // }
+
                     stage('Nodejs编译') {
                         when {
                             allOf {

@@ -54,41 +54,4 @@ class Compile {
         this.script.sh String.format('''mvn dm:package -Ddeploy.env=%s''', this.conf.getAttr('deployEnv'))
         }
     }
-
-
-
-    // public void compile() {
-    //     if (this.conf.getAttr('jobName') in ['ta-resource-service']) return
-    //     if (this.conf.getAttr('compile')) {
-    //         // wocao
-    //         if (this.conf.appName in ['content-producer']) return
-
-    //         if (this.conf.getAttr('customCompileCommand')) {
-    //             if (this.conf.getAttr('codeLanguage') in ['js', 'nodes']) {
-    //                 this.script.sh "test -e node_modules && rm -fr node_modules ; " +
-    //                         "test -e /data/cache/node_modules/node_modules.tar && cp -rp /data/cache/node_modules/node_modules.tar ./ ; tar xf node_modules.tar && rm -fr node_modules.tar ; " + String.format("export FRONTEND_ENV=%s;", this.conf.getAttr('nodeEnv')) +
-    //                         "${this.conf.getAttr('customCompileCommand')} && tar cf node_modules.tar node_modules ;" +
-    //                         "cp -rp node_modules.tar /data/cache/node_modules && rm -fr node_modules.tar"
-    //                 return
-    //             }
-    //             this.script.sh "${this.conf.getAttr('customCompileCommand')}"
-    //             return
-    //         }
-
-    //         if (this.conf.appName == "work-attendance") {
-    //             this.script.sh " package -Dmaven.test.skip=true; \
-    //                                 test -e /root/.m2/target && rm -fr /root/.m2/target; \
-    //                                 cp -rp target /root/.m2/; cd /root/.m2/target && mv work-attendance*.jar work-attendance.jar"
-    //             return
-    //         }
-
-    //         switch (this.conf.getAttr('codeLanguage')) {
-    //             case 'nodets':
-    //                 this.script.sh "test -e node_modules && rm -fr node_modules ; " +
-    //                         "test -e /data/cache/node_modules/node_modules.tar && cp -rp /data/cache/node_modules/node_modules.tar ./ ; tar xf node_modules.tar && rm -fr node_modules.tar ; " +
-    //                         "npm config set registry http://nexus.dm-ai.cn/repository/npm && npm install && tsc && tar cf node_modules.tar node_modules ; cp -rp node_modules.tar /data/cache/node_modules && rm -fr node_modules.tar"
-    //                 return
-    //         }
-    //     }
-    // }
 }
