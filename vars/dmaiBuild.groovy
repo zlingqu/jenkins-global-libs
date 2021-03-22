@@ -25,6 +25,9 @@ def call(Map map, env) {
     // 初始化编译模块
     Compile compile = new Compile(this, conf)
 
+    // 模型管理初始化
+    ModelManage modelManage = new ModelManage(this, conf)
+
     // 全局 docker 镜像生成
     MakeDockerImage makeDockerImage = new MakeDockerImage(this, conf)
 
