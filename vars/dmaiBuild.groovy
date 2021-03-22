@@ -474,6 +474,7 @@ def call(Map map, env) {
                 when {
                     allOf {
                         expression { return conf.ifBuild() }
+                        expression { return conf.getAttr('compile') }
                     }
                 }
 
@@ -501,7 +502,6 @@ def call(Map map, env) {
                     stage('Nodejs编译') {
                         when {
                             allOf {
-                                expression { return conf.getAttr('compile') }
                                 expression { return conf.getAttr('codeLanguage') == 'node' }
                             }
                             
@@ -525,7 +525,6 @@ def call(Map map, env) {
                     stage('JavaScript编译') {
                         when {
                             allOf {
-                                expression { return conf.getAttr('compile') }
                                 expression { return conf.getAttr('codeLanguage') == 'js' }
                             }
                             
@@ -549,7 +548,6 @@ def call(Map map, env) {
                     stage('Nodets编译') {
                         when {
                             allOf {
-                                expression { return conf.getAttr('compile') }
                                 expression { return conf.getAttr('codeLanguage') == 'nodets' }
                             }
                             
@@ -573,7 +571,6 @@ def call(Map map, env) {
                     stage('Java编译') {
                         when {
                             allOf {
-                                expression { return conf.getAttr('compile') }
                                 expression { return conf.getAttr('codeLanguage') == 'java' }
                             }
                             
@@ -597,7 +594,6 @@ def call(Map map, env) {
                     stage('Golang编译') {
                         when {
                             allOf {
-                                expression { return conf.getAttr('compile') }
                                 expression { return conf.getAttr('codeLanguage') == 'golang' }
                             }
                             
@@ -621,7 +617,6 @@ def call(Map map, env) {
                     stage('C++编译') {
                         when {
                             allOf {
-                                expression { return conf.getAttr('compile') }
                                 expression { return conf.getAttr('codeLanguage') == 'c++' }
                             }
                             
@@ -645,7 +640,6 @@ def call(Map map, env) {
                     stage('Android编译') {
                         when {
                             allOf {
-                                expression { return conf.getAttr('compile') }
                                 expression { return conf.getAttr('codeLanguage') == 'android' }
                             }
                             
@@ -669,7 +663,6 @@ def call(Map map, env) {
                     stage('Unity编译') {
                         when {
                             allOf {
-                                expression { return conf.getAttr('compile') }
                                 expression { return conf.getAttr('codeLanguage') == 'unity' }
                             }
                             
