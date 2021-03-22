@@ -437,7 +437,7 @@ def call(Map map, env) {
                     stage('使用git管理模型') {
                         when {
                             allOf {
-                                expression { return conf.getAttr('ifUseGitManagerModel')}
+                                expression { return conf.getAttr('ifUseGitManagerModel') }
                             }
                         }
 
@@ -461,23 +461,14 @@ def call(Map map, env) {
                     stage('使用文件存储管理模型') {
                         when {
                             allOf {
-                                expression { return !conf.getAttr('ifUseGitManagerModel')}
+                                expression { return conf.getAttr('ifUseGitManagerModel') }
                             }
                         }
 
                         steps {
                             container('adp') {
                                 script {
-                                    try {
-                                        withCredentials([usernamePassword(credentialsId: 'devops-use', passwordVariable: 'password', usernameVariable: 'username')]) {
-                                            sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + conf.getAttr("modelGitRepository").replace("https://", 'https://$username:$password@') + ' model'
-                                        }
-                                        sh 'pwd;ls -l;rm -fr model/.git'
-                                    } catch (e) {
-                                        sh "echo ${e}"
-                                        conf.failMsg = '从gitlab下载模型文件失败！'
-                                        throw e
-                                    }
+                                   sh "mkdir -p ${this.conf.getAttr('modelPath')}; cp -rp /models/* ${this.conf.getAttr('modelPath')}"
                                 }
                             }
                         }
