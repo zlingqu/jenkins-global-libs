@@ -15,8 +15,8 @@ class Compile {
     }
     
     public void compileOfNodejs() {
-        this.script.sh "test -e node_modules && rm -fr node_modules ; " +
-                    "test -e /data/cache/node_modules/node_modules.tar && cp -rp /data/cache/node_modules/node_modules.tar ./ ; tar xf node_modules.tar && rm -fr node_modules.tar ; " +
+        this.script.sh "test -e node_modules && rm -fr node_modules ;" +
+                    "test -e /data/cache/node_modules/node_modules.tar && tar xf /data/cache/node_modules/node_modules.tar -C ./ ; " +
                     "npm config set registry http://nexus.dm-ai.cn/repository/npm && npm install && tar cf node_modules.tar node_modules ; cp -rp node_modules.tar /data/cache/node_modules && rm -fr node_modules.tar"
     }
     public void compileOfC() {
@@ -24,7 +24,7 @@ class Compile {
     }
     public void compileOfNodets() {
         this.script.sh "test -e node_modules && rm -fr node_modules ; " +
-                            "test -e /data/cache/node_modules/node_modules.tar && cp -rp /data/cache/node_modules/node_modules.tar ./ ; tar xf node_modules.tar && rm -fr node_modules.tar ; " +
+                            "test -e /data/cache/node_modules/node_modules.tar && cp -rp /data/cache/node_modules/node_modules.tar ./ && tar xf node_modules.tar && rm -fr node_modules.tar ; " +
                             "npm config set registry http://nexus.dm-ai.cn/repository/npm && npm install && tsc && tar cf node_modules.tar node_modules ; cp -rp node_modules.tar /data/cache/node_modules && rm -fr node_modules.tar"
     }
     public void compileOfJs() {
