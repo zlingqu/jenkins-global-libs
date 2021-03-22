@@ -29,9 +29,9 @@ class Compile {
     }
     public void compileOfJs() {
         def tmpJsCompileString = 'npm config set registry https://npm.dm-ai.cn/repository/npm/ && npm install && npm run build || echo'
-        if (this.conf.getAttr('ifCompileParam')) {
-            tmpJsCompileString = this.conf.getAttr('compileParam')
-        }
+        // if (this.conf.getAttr('ifCompileParam')) {
+        //     tmpJsCompileString = this.conf.getAttr('compileParam')
+        // }
         this.script.sh String.format("test -e node_modules && rm -fr node_modules ; " +
                 "test -e /data/cache/node_modules/node_modules.tar && cp -rp /data/cache/node_modules/node_modules.tar ./ ; tar xf node_modules.tar && rm -fr node_modules.tar ; " +
                 "export FRONTEND_ENV=%s; %s && tar cf node_modules.tar node_modules;" +
@@ -46,7 +46,7 @@ class Compile {
          this.script.sh "test -e /root/.gradle && rm -fr /root/.gradle; " +
                             "test -e /android_cache/.gradle-cache.tar && cp -rp /android_cache/.gradle-cache.tar /cache && rm -fr /cache/.gradle && tar xf /cache/.gradle-cache.tar -C /cache;" +
                             "test -e /android_cache/.gradle-root.tar && cp -rp /android_cache/.gradle-root.tar /root && tar xf /root/.gradle-root.tar -C /root;" +
-                            "sh -x /opt/compile.sh  " + "${this.conf.getAttr('compileParam')}; " +
+                            "sh -x /opt/compile.sh ;" +
                             "test -d /cache && cd /cache && tar cf .gradle-cache.tar .gradle && mv .gradle-cache.tar /android_cache;" +
                             "cd /root && tar cf .gradle-root.tar .gradle && mv .gradle-root.tar /android_cache"
     }

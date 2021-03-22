@@ -202,7 +202,7 @@ def call(Map map, env) {
             choice(name: 'NODE_ENV', choices: defaultNodeEnvList, description: '前端专用，其他不关注')
 
             string(name: 'DEPLOY_MASTER_PASSWORD', defaultValue: 'please-input-password', description: '部署master分支请找运维人员输入密码自动部署')
-            string(name: 'COMPILE_PARAM', defaultValue: '', description: 'android项目自定义的编译参数')
+            // string(name: 'COMPILE_PARAM', defaultValue: '', description: 'android项目自定义的编译参数')
 
             string(name: 'REPLICAS', defaultValue: replicas, description: '部署在k8s集群中需要的副本数')
             string(name: 'CONTAINER_PORT', defaultValue: containerPort, description: '默认的容器监听端口')
@@ -479,26 +479,26 @@ def call(Map map, env) {
                 }
 
                 parallel {
-                    stage('自定义编译') {
-                        when {
-                            allOf {
-                                expression { return conf.getAttr('useCustomImage') }
-                            }
-                        }
-                        steps {
-                            container('custom-image') {
-                                script {
-                                    try {
-                                        sh conf.getAttr('execCommand')
-                                    } catch (e) {
-                                        sh 'echo ${e}'
-                                        conf.failMsg = '自定义镜像执行命令失败，执行命令为：' + conf.getAttr('execCommand')
-                                        throw e
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    // stage('自定义编译') {
+                    //     when {
+                    //         allOf {
+                    //             expression { return conf.getAttr('useCustomImage') }
+                    //         }
+                    //     }
+                    //     steps {
+                    //         container('custom-image') {
+                    //             script {
+                    //                 try {
+                    //                     sh conf.getAttr('execCommand')
+                    //                 } catch (e) {
+                    //                     sh 'echo ${e}'
+                    //                     conf.failMsg = '自定义镜像执行命令失败，执行命令为：' + conf.getAttr('execCommand')
+                    //                     throw e
+                    //                 }
+                    //             }
+                    //         }
+                    //     }
+                    // }
                     stage('Nodejs编译') {
                         when {
                             allOf {
