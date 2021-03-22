@@ -24,7 +24,7 @@ class ModelManage {
     }
     public void modelNfsManage() {
         try {
-            this.script.sh "mkdir -p ${this.conf.getAttr('modelPath')}; cp -rp /models/* ${this.conf.getAttr('modelPath')}"
+            this.script.sh String.format("mkdir -p %s; cp -rp /models/* %s",this.conf.getAttr('modelPath'),this.conf.getAttr('modelPath'))
         } catch (e) {
             this.script.sh "echo ${e}"
             this.conf.failMsg = '从gitlab下载模型文件失败！'
