@@ -106,7 +106,7 @@ def call(Map map, env) {
     def defaultGitAddress = conf.getAttr('gitAddress') ? conf.getAttr('gitAddress') : ''
 
     // compile
-    def defaultCompile = conf.getAttr('compile') ? conf.getAttr('compile') : false
+    def defaultCompile = conf.getAttr('ifCompile') ? conf.getAttr('ifCompile') : false
     if (conf.getAttr('codeLanguage') in ['node', 'nodets']) {
         defaultCompile = true
     }
@@ -230,7 +230,7 @@ def call(Map map, env) {
             string(name: 'CODE_LANGUAGE', defaultValue: defaultCodeLanguage, description: 'code language')
 
             //
-            booleanParam(name: 'COMPILE', defaultValue: defaultCompile, description: '是否编译')
+            booleanParam(name: 'IF_COMPILE', defaultValue: defaultCompile, description: '是否编译')
 
             //
             booleanParam(name: 'DEPLOY', defaultValue: defaultDeploy, description: '是否部署')
