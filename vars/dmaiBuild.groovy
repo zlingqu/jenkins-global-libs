@@ -447,7 +447,10 @@ def call(Map map, env) {
                         steps {
                             container('adp') {
                                 script {
-                                    modelManage.modelGitManage()
+                                    // modelManage.modelGitManage()
+                                    withCredentials([usernamePassword(credentialsId: 'devops-use', passwordVariable: 'password', usernameVariable: 'username')]) {
+                this.script.sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + this.conf.getAttr("modelGitRepository").replace("https://", 'https://$username:$password@') + ' model'
+            }
                                 }
                             }
                         }
