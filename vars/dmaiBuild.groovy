@@ -427,12 +427,16 @@ def call(Map map, env) {
                 }
                     
             }
-            stage('GPU模型文件处理'){
+            stage('GPU模型文件处理') {
+                when {
+                    allOf {
+                        expression { return conf.getAttr('useModel') }
+                    }
+                }
                 parallel {
                     stage('使用git管理模型') {
                         when {
                             allOf {
-                                expression { return conf.getAttr('useModel') }
                                 expression { return conf.getAttr('ifUseGitManagerModel')}
                             }
                         }
@@ -457,7 +461,6 @@ def call(Map map, env) {
                     stage('使用文件存储管理模型') {
                         when {
                             allOf {
-                                expression { return conf.getAttr('useModel') }
                                 expression { return !conf.getAttr('ifUseGitManagerModel')}
                             }
                         }
