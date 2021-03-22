@@ -458,21 +458,20 @@ def call(Map map, env) {
                             }
                         }
                     }
-                    stage('使用文件存储管理模型') {
-                        when {
-                            allOf {
-                                expression { return conf.getAttr('ifUseGitManagerModel') }
-                            }
-                        }
-
-                        steps {
-                            container('adp') {
-                                script {
-                                   sh "mkdir -p ${this.conf.getAttr('modelPath')}; cp -rp /models/* ${this.conf.getAttr('modelPath')}"
-                                }
-                            }
-                        }
-                    }
+                    // stage('使用文件存储管理模型') {
+                    //     when {
+                    //         allOf {
+                    //             expression { return conf.getAttr('ifUseGitManagerModel') }
+                    //         }
+                    //     }
+                    //     steps {
+                    //         container('adp') {
+                    //             script {
+                    //                sh "mkdir -p ${this.conf.getAttr('modelPath')}; cp -rp /models/* ${this.conf.getAttr('modelPath')}"
+                    //             }
+                    //         }
+                    //     }
+                    // }
                 }
             }
 
