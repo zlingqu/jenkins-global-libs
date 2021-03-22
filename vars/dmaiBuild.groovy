@@ -458,20 +458,20 @@ def call(Map map, env) {
                             }
                         }
                     }
-                    // stage('使用文件存储管理模型') {
-                    //     when {
-                    //         allOf {
-                    //             expression { return conf.getAttr('ifUseGitManagerModel') }
-                    //         }
-                    //     }
-                    //     steps {
-                    //         container('adp') {
-                    //             script {
-                    //                sh "mkdir -p ${this.conf.getAttr('modelPath')}; cp -rp /models/* ${this.conf.getAttr('modelPath')}"
-                    //             }
-                    //         }
-                    //     }
-                    // }
+                    stage('使用文件存储管理模型') {
+                        when {
+                            allOf {
+                                expression { return conf.getAttr('ifUseGitManagerModel') }
+                            }
+                        }
+                        steps {
+                            container('adp') {
+                                script {
+                                   sh "mkdir -p ${conf.getAttr('modelPath')}; cp -rp /models/* ${conf.getAttr('modelPath')}"
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
@@ -504,34 +504,6 @@ def call(Map map, env) {
                             }
                         }
                     }
-
-                    // stage('通用编译') {
-                    //     when {
-                    //         allOf{
-                    //             expression { return conf.getAttr('compile') }
-                    //             expression { return conf.getAttr('codeLanguage') != 'golang' }
-                    //             expression { return conf.getAttr('codeLanguage') != 'java' }
-                    //             expression { return conf.getAttr('codeLanguage') != 'node' }
-                    //             expression { return conf.getAttr('codeLanguage') != 'c++' }
-                    //             expression { return conf.getAttr('codeLanguage') != 'android' }
-                    //         }
-                    //     }
-                    //     steps {
-                    //         container('compile') {
-                    //             script {
-                    //                 try {
-                    //                     withEnv(conf.withEnvList){
-                    //                         compile.compile()
-                    //                     }
-                    //                 } catch (e) {
-                    //                     sh "echo ${e}"
-                    //                     conf.failMsg = '编译失败！'
-                    //                     throw e
-                    //                 }
-                    //             }
-                    //         }
-                    //     }
-                    // }
                     stage('Nodejs编译') {
                         when {
                             allOf {
@@ -724,8 +696,6 @@ def call(Map map, env) {
                             }
                         }
                     }
-                    
-                    
                 }
             }
 
