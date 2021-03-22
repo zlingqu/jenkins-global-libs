@@ -444,7 +444,7 @@ def call(Map map, env) {
                         steps {
                             container('adp') {
                                 script {
-                                    modelNfsManage.modelGitManage()
+                                    modelManage.modelGitManage()
                                 }
                             }
                         }
@@ -452,13 +452,13 @@ def call(Map map, env) {
                     stage('使用文件存储管理模型') {
                         when {
                             allOf {
-                                expression { return conf.getAttr('ifUseGitManagerModel') }
+                                expression { return !conf.getAttr('ifUseGitManagerModel') }
                             }
                         }
                         steps {
                             container('adp') {
                                 script {
-                                   modelNfsManage.modelNfsManage()
+                                   modelManage.modelNfsManage()
                                 }
                             }
                         }
