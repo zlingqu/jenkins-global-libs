@@ -9,12 +9,6 @@ class ModelManage {
         this.script = script
         this.conf = conf
     }
-    // public void modelGitManage() {
-    //     this.script.sh "pwd"
-    // }
-    // public void modelNfsManage() {
-    //     this.script.sh "pwd"
-    // }
     public void modelGitManage() {
         try {
             // withCredentials([usernamePassword(credentialsId: 'devops-use', passwordVariable: 'password', usernameVariable: 'username')]) {
