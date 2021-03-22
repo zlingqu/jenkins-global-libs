@@ -474,7 +474,7 @@ def call(Map map, env) {
                 when {
                     allOf {
                         expression { return conf.ifBuild() }
-                        expression { return conf.getAttr('compile') }
+                        expression { return conf.getAttr('ifCompile') }
                     }
                 }
 

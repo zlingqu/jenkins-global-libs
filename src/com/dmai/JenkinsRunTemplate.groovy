@@ -70,7 +70,7 @@ class JenkinsRunTemplate {
     this.conf.setAttr('gitAddress', params.GIT_ADDRESS)
 
     // set compile
-    this.conf.setAttr('compile', params.COMPILE)
+    this.conf.setAttr('ifCompile', params.IF_COMPILE)
 
     // set code language
     this.conf.setAttr('codeLanguage', params.CODE_LANGUAGE)
