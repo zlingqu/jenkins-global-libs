@@ -18,7 +18,7 @@ class ModelManage {
             this.script.sh 'pwd;ls -l;rm -fr model/.git'
         } catch (e) {
             this.script.sh "echo ${e}"
-            conf.failMsg = '从gitlab下载模型文件失败！'
+            this.script.conf.failMsg = '从gitlab下载模型文件失败！'
             throw e
         }
     }
@@ -27,7 +27,7 @@ class ModelManage {
             this.script.sh "mkdir -p ${conf.getAttr('modelPath')}; cp -rp /models/* ${conf.getAttr('modelPath')}"
         } catch (e) {
             this.script.sh "echo ${e}"
-            conf.failMsg = '从gitlab下载模型文件失败！'
+            this.script.conf.failMsg = '从gitlab下载模型文件失败！'
             throw e
         }
     }
