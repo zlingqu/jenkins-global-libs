@@ -511,7 +511,7 @@ def call(Map map, env) {
                                 script {
                                     try {
                                         withEnv(conf.withEnvList){
-                                            compile.compileOfNodejs()
+                                            compile.compileOfNode()
                                         }
                                     } catch (e) {
                                         sh "echo ${e}"
@@ -557,7 +557,7 @@ def call(Map map, env) {
                                 script {
                                     try {
                                         withEnv(conf.withEnvList){
-                                            compile.compileOfNodets()
+                                            compile.compileOfNode()
                                         }
                                     } catch (e) {
                                         sh "echo ${e}"

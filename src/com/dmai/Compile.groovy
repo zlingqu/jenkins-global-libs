@@ -14,7 +14,7 @@ class Compile {
         this.script.sh "go env -w GOPRIVATE=gitlab.dm-ai.cn;go env -w GO111MODULE=on;export GOPROXY=https://mirrors.aliyun.com/goproxy/;make compile"
     }
     
-    public void compileOfNodejs() {
+    public void compileOfNode() {
         this.script.sh "test -e node_modules && rm -fr node_modules ;" +
                     "test -e /data/cache/node_modules/node_modules.tar && tar xf /data/cache/node_modules/node_modules.tar -C ./ ; " +
                     "test -e package-lock.json && rm -f package-lock.json ; " +
@@ -22,11 +22,6 @@ class Compile {
     }
     public void compileOfC() {
         this.script.sh "make"
-    }
-    public void compileOfNodets() {
-        this.script.sh "test -e node_modules && rm -fr node_modules ; " +
-                            "test -e /data/cache/node_modules/node_modules.tar && cp -rp /data/cache/node_modules/node_modules.tar ./ && tar xf node_modules.tar && rm -fr node_modules.tar ; " +
-                            "npm config set registry http://nexus.dm-ai.cn/repository/npm && npm install && tsc && tar cf node_modules.tar node_modules ; cp -rp node_modules.tar /data/cache/node_modules && rm -fr node_modules.tar"
     }
     public void compileOfJs() {
         def tmpJsCompileString = 'npm config set registry https://npm.dm-ai.cn/repository/npm/ && npm install && npm run build || echo'
