@@ -215,7 +215,7 @@ class JenkinsRunTemplate {
       // tmpStringList.length >= 7 ? this.conf.setAttr('ifCompileParam', Boolean.parseBoolean(tmpStringList[6])) : this.conf.setAttr('ifCompileParam', false)
       // tmpStringList.length >= 8 ? this.conf.setAttr('ifCompileImage', Boolean.parseBoolean(tmpStringList[7])) : this.conf.setAttr('ifCompileImage', false)
       // tmpStringList.length >= 9 ? this.conf.setAttr('compileImage', tmpStringList[8]) : this.conf.setAttr('compileImage', '')
-      tmpStringList.length >= 7 ? this.conf.setAttr('ifUseGbs', Boolean.parseBoolean(tmpStringList[9])) : this.conf.setAttr('ifUseGbs', false)
+      tmpStringList.length >= 7 ? this.conf.setAttr('ifUseGbs', Boolean.parseBoolean(tmpStringList[6])) : this.conf.setAttr('ifUseGbs', false)
       // tmpStringList.length >= 11 ? this.conf.setAttr('ifCompileCache', Boolean.parseBoolean(tmpStringList[6])) : this.conf.setAttr('ifCompileCache', false)
       tmpStringList.length >= 8 ? this.conf.setAttr('ifUseModel', Boolean.parseBoolean(tmpStringList[7])) : this.conf.setAttr('ifUseModel', false)
       tmpStringList.length >= 9 ? this.conf.setAttr('ifUseGitManagerModel', Boolean.parseBoolean(tmpStringList[8])) : this.conf.setAttr('ifUseGitManagerModel', false)
