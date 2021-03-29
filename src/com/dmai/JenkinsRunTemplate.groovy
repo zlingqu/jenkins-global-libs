@@ -190,11 +190,7 @@ class JenkinsRunTemplate {
     this.conf.setAttr('if_add_unity_project', false)
     this.conf.setAttr('unity_app_name', 'no_unity')
     this.conf.setAttr('ifUseRootDockerfile', false)
-    // this.conf.setAttr('ifCompileParam', false)
-    // this.conf.setAttr('ifCompileImage', false)
-    // this.conf.setAttr('compileImage', '')
     this.conf.setAttr('ifUseGbs', false)
-    // this.conf.setAttr('ifCompileCache', false)
     this.conf.setAttr('ifUseModel', false)
     this.conf.setAttr('ifUseGitManagerModel', false)
     this.conf.setAttr('ifSaveModelBuildComputer', false)
@@ -203,6 +199,7 @@ class JenkinsRunTemplate {
     this.conf.setAttr('ifUseIstio', false)
     this.conf.setAttr('ifUseApolloOfflineEnv', false)
     this.conf.setAttr('yamlEnv', 'None')
+    this.conf.setAttr('ifUseApollo', true)
     this.conf.setAttr('androidFlavor', 'default')
     if (params.GLOABL_STRING != '') {
       def tmpStringList = params.GLOABL_STRING.split(':::')
@@ -212,11 +209,7 @@ class JenkinsRunTemplate {
       tmpStringList.length >= 4 ? this.conf.setAttr('if_add_unity_project', tmpStringList[3]) : this.conf.setAttr('if_add_unity_project', false)
       tmpStringList.length >= 5 ? this.conf.setAttr('unity_app_name', tmpStringList[4]) : this.conf.setAttr('unity_app_name', 'no_unity')
       tmpStringList.length >= 6 ? this.conf.setAttr('ifUseRootDockerfile', Boolean.parseBoolean(tmpStringList[5])) : this.conf.setAttr('ifUseRootDockerfile', false)
-      // tmpStringList.length >= 7 ? this.conf.setAttr('ifCompileParam', Boolean.parseBoolean(tmpStringList[6])) : this.conf.setAttr('ifCompileParam', false)
-      // tmpStringList.length >= 8 ? this.conf.setAttr('ifCompileImage', Boolean.parseBoolean(tmpStringList[7])) : this.conf.setAttr('ifCompileImage', false)
-      // tmpStringList.length >= 9 ? this.conf.setAttr('compileImage', tmpStringList[8]) : this.conf.setAttr('compileImage', '')
       tmpStringList.length >= 7 ? this.conf.setAttr('ifUseGbs', Boolean.parseBoolean(tmpStringList[6])) : this.conf.setAttr('ifUseGbs', false)
-      // tmpStringList.length >= 11 ? this.conf.setAttr('ifCompileCache', Boolean.parseBoolean(tmpStringList[6])) : this.conf.setAttr('ifCompileCache', false)
       tmpStringList.length >= 8 ? this.conf.setAttr('ifUseModel', Boolean.parseBoolean(tmpStringList[7])) : this.conf.setAttr('ifUseModel', false)
       tmpStringList.length >= 9 ? this.conf.setAttr('ifUseGitManagerModel', Boolean.parseBoolean(tmpStringList[8])) : this.conf.setAttr('ifUseGitManagerModel', false)
       tmpStringList.length >= 10 ? this.conf.setAttr('ifSaveModelBuildComputer', Boolean.parseBoolean(tmpStringList[9])) : this.conf.setAttr('ifSaveModelBuildComputer', false)
@@ -227,7 +220,8 @@ class JenkinsRunTemplate {
       tmpStringList.length >= 14 ? this.conf.setAttr('ifUseIstio', Boolean.parseBoolean(tmpStringList[13])) : this.conf.setAttr('ifUseIstio', false)
       tmpStringList.length >= 15 ? this.conf.setAttr('ifUseApolloOfflineEnv', Boolean.parseBoolean(tmpStringList[14])) : this.conf.setAttr('ifUseApolloOfflineEnv', false)
       tmpStringList.length >= 16 ? this.conf.setAttr('yamlEnv', tmpStringList[15]) : this.conf.setAttr('yamlEnv', 'None')
-      tmpStringList.length >= 17 ? this.conf.setAttr('androidFlavor', tmpStringList[16]) : this.conf.setAttr('androidFlavor', 'default')
+      tmpStringList.length >= 17 ? this.conf.setAttr('ifUseApollo', Boolean.parseBoolean(tmpStringList[16])) : this.conf.setAttr('ifUseApollo', true)
+      tmpStringList.length >= 18 ? this.conf.setAttr('androidFlavor', tmpStringList[17]) : this.conf.setAttr('androidFlavor', 'default')
     }
 
     def apolloEnvList = ['dev', 'test', 'prd', 'stage', 'uat']
