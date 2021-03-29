@@ -30,11 +30,12 @@ class MakeDockerImage {
 
         //如果不是部署在公司的k8s环境中的镜像，在倒数第二行灌入配置文件。
         // if (this.conf.getAttr('deployEnvStatus') == 'stop' && this.conf.getAttr('ifUseApolloOfflineEnv')) {
-        if (this.conf.getAttr('ifApolloToDockerfileEnv')) {
+        if (this.conf.getAttr('ifUseApolloForDockerfile')) {
             this.script.sh "echo -e '\n' >> Dockerfile"
             try {
-                this.script.sh String.format('/usr/bin/tools-get-apollo-data-write-dockerfile --config_server_url=%s --appId=%s --clusterName="%s" --namespaceName="%s" --Dockerfile=`pwd`/Dockerfile',
-                        this.conf.getAttr('apolloConfigAddress'),
+                this.script.sh String.format('/usr/bin/tools-get-apollo-data-write-dockerfile --config_server_url=http://%s-conf.apollo.cc.dm-ai.cn --appId=%s --clusterName="%s" --namespaceName="%s" --Dockerfile=`pwd`/Dockerfile',
+                        // this.conf.getAttr('apolloConfigAddress'),
+                        this.conf.getAttr('apolloEnvForDockerfile'),
                         this.conf.getAttr('jobName'),
                         this.conf.getAttr('apolloClusterForDockerfile'),
                         // this.conf.getAttr('apolloClusterName'),
