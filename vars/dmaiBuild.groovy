@@ -114,7 +114,7 @@ def call(Map map, env) {
     // https
     def defaultUseHttps = conf.getAttr('https') ? conf.getAttr('https') : false
 
-    def defaultUserApolloOfflineEnv = conf.getAttr('ifUseApolloOfflineEnv') ? conf.getAttr('ifUseApolloOfflineEnv') : false
+    // def defaultUserApolloOfflineEnv = conf.getAttr('ifUseApolloOfflineEnv') ? conf.getAttr('ifUseApolloOfflineEnv') : false
 
     // http
     def defaultUseHttp = conf.getAttr('http') ? conf.getAttr('http') : true
@@ -194,7 +194,7 @@ def call(Map map, env) {
             string(name: 'GIT_TAG', defaultValue: '', description: 'git的tag版本')
             string(name: 'APOLLO_CLUSTER_NAME', defaultValue: 'default', description: 'apollo配置中心中的集群名字，默认是default')
             string(name: 'APOLLO_NAMESPACE', defaultValue: 'application', description: 'apollo配置中心中的空间名，默认是application')
-            booleanParam(name: 'IF_USE_APOLLO_OFFLINE_ENV', defaultValue: defaultUserApolloOfflineEnv , description: '是否从apollo拉取配置注入环境变量，默认是false')
+            // booleanParam(name: 'IF_USE_APOLLO_OFFLINE_ENV', defaultValue: defaultUserApolloOfflineEnv , description: '是否从apollo拉取配置注入环境变量，默认是false')
 
             string(name: 'BRANCH_NAME', defaultValue: branchName, description: '代码分支名')
 
