@@ -201,6 +201,10 @@ class JenkinsRunTemplate {
     this.conf.setAttr('yamlEnv', 'None')
     this.conf.setAttr('ifUseApollo', true)
     this.conf.setAttr('androidFlavor', 'default')
+    this.conf.setAttr('if_apollo_to_dockerfile_env', false)
+    this.conf.setAttr('apollo_cluster_for_dockerfile', 'default')
+    this.conf.setAttr('apollo_namespace_for_dockerfile', 'application')
+
     if (params.GLOABL_STRING != '') {
       def tmpStringList = params.GLOABL_STRING.split(':::')
       tmpStringList.length >= 1 ? this.conf.setAttr('useGrpc', tmpStringList[0]) : this.conf.setAttr('useGrpc', false)
@@ -222,6 +226,10 @@ class JenkinsRunTemplate {
       tmpStringList.length >= 16 ? this.conf.setAttr('yamlEnv', tmpStringList[15]) : this.conf.setAttr('yamlEnv', 'None')
       tmpStringList.length >= 17 ? this.conf.setAttr('ifUseApollo', Boolean.parseBoolean(tmpStringList[16])) : this.conf.setAttr('ifUseApollo', true)
       tmpStringList.length >= 18 ? this.conf.setAttr('androidFlavor', tmpStringList[17]) : this.conf.setAttr('androidFlavor', 'default')
+      tmpStringList.length >= 19 ? this.conf.setAttr('if_apollo_to_dockerfile_env', Boolean.parseBoolean(tmpStringList[18])) : this.conf.setAttr('if_apollo_to_dockerfile_env', false)
+      tmpStringList.length >= 20 ? this.conf.setAttr('apollo_cluster_for_dockerfile', tmpStringList[19]) : this.conf.setAttr('apollo_cluster_for_dockerfile', 'default')
+      tmpStringList.length >= 21 ? this.conf.setAttr('apollo_namespace_for_dockerfile', tmpStringList[20]) : this.conf.setAttr('apollo_namespace_for_dockerfile', 'application')
+
     }
 
     def apolloEnvList = ['dev', 'test', 'prd', 'stage', 'uat']
