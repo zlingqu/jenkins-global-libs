@@ -197,7 +197,6 @@ class JenkinsRunTemplate {
     this.conf.setAttr('modelGitRepository', '')
     this.conf.setAttr('deployEnvStatus', 'start')
     this.conf.setAttr('ifUseIstio', false)
-    this.conf.setAttr('ifUseApolloOfflineEnv', false)
     this.conf.setAttr('yamlEnv', 'None')
     this.conf.setAttr('ifUseApollo', true)
     this.conf.setAttr('androidFlavor', 'default')
@@ -223,14 +222,13 @@ class JenkinsRunTemplate {
       tmpStringList.length >= 13 ? this.conf.setAttr('deployEnv', tmpStringList[12]) : this.conf.setAttr('deployEnv', 'dev')
       tmpStringList.length >= 13 ? this.conf.setAttr('nodeEnv', tmpStringList[12]) : this.conf.setAttr('nodeEnv', 'dev')
       tmpStringList.length >= 14 ? this.conf.setAttr('ifUseIstio', Boolean.parseBoolean(tmpStringList[13])) : this.conf.setAttr('ifUseIstio', false)
-      tmpStringList.length >= 15 ? this.conf.setAttr('ifUseApolloOfflineEnv', Boolean.parseBoolean(tmpStringList[14])) : this.conf.setAttr('ifUseApolloOfflineEnv', false)
-      tmpStringList.length >= 16 ? this.conf.setAttr('yamlEnv', tmpStringList[15]) : this.conf.setAttr('yamlEnv', 'None')
-      tmpStringList.length >= 17 ? this.conf.setAttr('ifUseApollo', Boolean.parseBoolean(tmpStringList[16])) : this.conf.setAttr('ifUseApollo', true)
-      tmpStringList.length >= 18 ? this.conf.setAttr('androidFlavor', tmpStringList[17]) : this.conf.setAttr('androidFlavor', 'default')
-      tmpStringList.length >= 19 ? this.conf.setAttr('ifUseApolloForDockerfile', Boolean.parseBoolean(tmpStringList[18])) : this.conf.setAttr('ifUseApolloForDockerfile', false)
-      tmpStringList.length >= 20 ? this.conf.setAttr('apolloEnvForDockerfile', tmpStringList[19]) : this.conf.setAttr('apolloEnvForDockerfile', 'prd')
-      tmpStringList.length >= 21 ? this.conf.setAttr('apolloClusterForDockerfile', tmpStringList[20]) : this.conf.setAttr('apolloClusterForDockerfile', 'default')
-      tmpStringList.length >= 22 ? this.conf.setAttr('apolloNamespaceForDockerfile', tmpStringList[21]) : this.conf.setAttr('apolloNamespaceForDockerfile', 'application')
+      tmpStringList.length >= 15 ? this.conf.setAttr('yamlEnv', tmpStringList[14]) : this.conf.setAttr('yamlEnv', 'None')
+      tmpStringList.length >= 16 ? this.conf.setAttr('ifUseApollo', Boolean.parseBoolean(tmpStringList[15])) : this.conf.setAttr('ifUseApollo', true)
+      tmpStringList.length >= 17 ? this.conf.setAttr('androidFlavor', tmpStringList[16]) : this.conf.setAttr('androidFlavor', 'default')
+      tmpStringList.length >= 18 ? this.conf.setAttr('ifUseApolloForDockerfile', Boolean.parseBoolean(tmpStringList[17])) : this.conf.setAttr('ifUseApolloForDockerfile', false)
+      tmpStringList.length >= 19 ? this.conf.setAttr('apolloEnvForDockerfile', tmpStringList[18]) : this.conf.setAttr('apolloEnvForDockerfile', 'prd')
+      tmpStringList.length >= 20 ? this.conf.setAttr('apolloClusterForDockerfile', tmpStringList[19]) : this.conf.setAttr('apolloClusterForDockerfile', 'default')
+      tmpStringList.length >= 21 ? this.conf.setAttr('apolloNamespaceForDockerfile', tmpStringList[20]) : this.conf.setAttr('apolloNamespaceForDockerfile', 'application')
 
     }
 
@@ -247,10 +245,6 @@ class JenkinsRunTemplate {
     if (this.conf.getAttr('deployEnv') == 'mlcloud-dev') {
       this.conf.setAttr('apolloEnv', 'dev')
     }
-
-    // APOLLO_CONFIG_ADDRESS
-    // this.conf.setAttr('apolloConfigAddress', 'http://' + this.conf.getAttr('apolloEnv') + '-conf.apollo.cc.dm-ai.cn')
-
 
     if (this.conf.getAttr('deployEnv') != 'prd' && this.conf.getAttr('buildPlatform') == 'adp') {
       this.conf.setAttr('domain', this.conf.getAttr('jobName') + '.' + this.conf.getAttr('namespace') + '.' + this.conf.getAttr('deployEnv') + '.dm-ai.cn')

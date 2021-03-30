@@ -114,7 +114,6 @@ def call(Map map, env) {
     // https
     def defaultUseHttps = conf.getAttr('https') ? conf.getAttr('https') : false
 
-    // def defaultUserApolloOfflineEnv = conf.getAttr('ifUseApolloOfflineEnv') ? conf.getAttr('ifUseApolloOfflineEnv') : false
 
     // http
     def defaultUseHttp = conf.getAttr('http') ? conf.getAttr('http') : true
@@ -188,13 +187,11 @@ def call(Map map, env) {
             
             string(name: 'GPU_TYPE', defaultValue: defaultGpuType, description: 'gpu卡类型选择')
 
-            //            string(name: 'VERSION_CONTROL_MODE', defaultValue: 'GitCommitId', description: '构建的时候的版本控制方式，GitCommitId和GitTags，默认GitCommitId')
             choice(name: 'VERSION_CONTROL_MODE', choices: ['GitCommitId', 'GitTags'], description: '构建的时候的版本控制方式，GitCommitId和GitTags，默认GitCommitId')
             string(name: 'GIT_VERSION', defaultValue: 'last', description: 'git的commit 版本号，git log 查看。')
             string(name: 'GIT_TAG', defaultValue: '', description: 'git的tag版本')
             string(name: 'APOLLO_CLUSTER_NAME', defaultValue: 'default', description: 'apollo配置中心中的集群名字，默认是default')
             string(name: 'APOLLO_NAMESPACE', defaultValue: 'application', description: 'apollo配置中心中的空间名，默认是application')
-            // booleanParam(name: 'IF_USE_APOLLO_OFFLINE_ENV', defaultValue: defaultUserApolloOfflineEnv , description: '是否从apollo拉取配置注入环境变量，默认是false')
 
             string(name: 'BRANCH_NAME', defaultValue: branchName, description: '代码分支名')
 
@@ -202,7 +199,6 @@ def call(Map map, env) {
             choice(name: 'NODE_ENV', choices: defaultNodeEnvList, description: '前端专用，其他不关注')
 
             string(name: 'DEPLOY_MASTER_PASSWORD', defaultValue: 'please-input-password', description: '部署master分支请找运维人员输入密码自动部署')
-            // string(name: 'COMPILE_PARAM', defaultValue: '', description: 'android项目自定义的编译参数')
 
             string(name: 'REPLICAS', defaultValue: replicas, description: '部署在k8s集群中需要的副本数')
             string(name: 'CONTAINER_PORT', defaultValue: containerPort, description: '默认的容器监听端口')
