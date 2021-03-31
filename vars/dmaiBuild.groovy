@@ -154,9 +154,6 @@ def call(Map map, env) {
     // 是否使用模型
     def defaultUseModel = (conf.getAttr('useModel')) ? (conf.getAttr('useModel')) : false
 
-    // 是否使用configmap注入环境变量
-    def defaultUseConfigmap = conf.getAttr('useConfigMap') ? conf.getAttr('useConfigMap') : false
-
     // 是否有存储需求
     def defaultUseStore = conf.getAttr('useStore') ? conf.getAttr('useStore') : false
 
@@ -263,9 +260,6 @@ def call(Map map, env) {
 
             // defaultUseModel
             booleanParam(name: 'USE_MODEL', defaultValue: defaultUseModel, description: '是否使用模型文件')
-
-            //
-            booleanParam(name: 'USE_CONFIGMAP', defaultValue: defaultUseConfigmap, description: '是否使用configmap注入环境变量')
 
             //
             booleanParam(name: 'IF_STORAGE_LOCALE', defaultValue: defaultUseStore, description: '是否使用本地存储')
@@ -856,19 +850,9 @@ def call(Map map, env) {
                                 if (conf.getAttr('buildPlatform') != 'adp' || conf.getAttr('customKubernetesDeployTemplate')) {
                                     deploykubernetes.createIngress()
 
-                                    if (isTest) {
-                                        deploykubernetes.createConfigMap(true)
-                                    } else if (isNotTest) {
-                                        deploykubernetes.createConfigMap(false)
-                                    }
 
                                     deploykubernetes.deployKubernetes()
                                 } else {
-                                    if (isTest) {
-                                        deploykubernetes.createConfigMap(true)
-                                    } else if (isNotTest) {
-                                        deploykubernetes.createConfigMap(false)
-                                    }
 
                                     deploykubernetes.deleteOldIngress()
                                     sh 'kubectl apply -f /workspace/dest_dir/template.tmpl'

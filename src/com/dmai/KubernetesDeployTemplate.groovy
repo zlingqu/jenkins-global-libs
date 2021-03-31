@@ -169,17 +169,6 @@ $volumes
     return ''
   }
 
-  // 根据用户的设置来选择是否，使用批量的环境变量的注入方式：
-  private String getEnvFrom() {
-    if (this.conf.getAttr('useEnvFile') && this.conf.getAttr('useConfigMap')) {
-      return String.format('''
-        envFrom:
-        - configMapRef:
-            name: %s
-''', this.conf.appName)
-    }
-    return ''
-  }
 
   // 根据用户的设置，来生成yaml中，是否对资源限制的模版文件。
   private String resourcesTemplate() {
@@ -358,16 +347,6 @@ spec:
 
   private String getVolumes() {
     return this.getVolumesString()
-  //        switch (conf.getAttr('codeLanguage')) {
-  //            case 'node':
-  //                return this.getVolumesString()
-  //            case 'python':
-  //                return this.getVolumesString()
-  //            case 'c++':
-  //                return this.getVolumesString()
-  //            default:
-  //                return ''
-  //        }
   }
 
   private String getVolumesString() {
@@ -416,14 +395,6 @@ spec:
     def returnString = '''
       volumes:
 '''
-    if (this.conf.getAttr('useConfigMap')) {
-      returnString += String.format('''
-      - name: %s
-        configMap:
-          name: %s
-''', this.conf.appName, this.conf.appName)
-    }
-
     if (this.conf.getAttr('useStore')) {
       //
       if (this.conf.getAttr('deployEnv') == 'lexue') {
@@ -459,20 +430,12 @@ spec:
 '''
     }
 
-    if (this.conf.getAttr('configMapName') in [null, '', false] && this.conf.getAttr('useStore') in [null, '', false]) return ''
+    if this.conf.getAttr('useStore') in [null, '', false] return ''
 
     //        非特殊情况下：
     def returnString = '''
         volumeMounts:
 '''
-    if (this.conf.getAttr('useConfigMap') && this.conf.getAttr('configMapName')) {
-      returnString += String.format('''
-        - name: %s
-          mountPath: /app/%s
-          subPath: %s
-''', this.conf.appName, this.conf.getAttr('configMapName'), this.conf.getAttr('configMapName'))
-    }
-
     if (this.conf.getAttr('useStore')) {
       returnString += String.format('''
         - name: data

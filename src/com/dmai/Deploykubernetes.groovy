@@ -54,36 +54,9 @@ class Deploykubernetes {
         // return "kubectl apply -f https://gitlab.dm-ai.cn/devops/adp/deployment/raw/${this.conf.getAttr('branchName')}/" + format + '?private_token=zXswJbwzgd3Smarcd4pD'
     }
 
-    public void createConfigMap(isTest) {
-        if (!this.conf.getAttr('useConfigMap')) return
-
-        // 老版的使用configmap的形式挂载文件
-        try {
-            this.script.sh String.format(kubectlDeployment('master/%s/%s/%s/configmap.yml'),
-            // raw/master/xmc2-lexue/dev/engine-image-process/configmap.yml
-                    this.conf.getAttr('namespace'),
-                    //                    this.conf.getAttr('branchName') in ['master', 'dev'] ? this.conf.getAttr(this.conf.getAttr('branchName')) : this.conf.getAttr('branchName'),
-                    // isTest ? 'test' : this.conf.getAttr('deployEnv'),
-                    this.conf.getAttr('deployEnv'),
-                    this.conf.appName
-            )
-        } catch (e) {
-            this.script.sh "echo ${e}"
-        }
-    }
-
     public void createIngress() {
         if (this.conf.getAttr('domain') == '' || !this.conf.getAttr('domain')) return
 
-        //         try {
-        //             this.script.sh String.format(kubectlDeployment("%s/%s/%s/ingress.yml"),
-        //                     this.conf.getAttr('namespace'),
-        // //                    this.conf.getAttr('branchName') in ['master', 'dev'] ? this.conf.getAttr(this.conf.getAttr('branchName')) : this.conf.getAttr('branchName'),
-        //                     this.conf.getAttr('deployEnv'),
-        //                     this.conf.appName
-        //             )
-        //         } catch (e) {
-        // this.script.sh "echo ${e}"
         this.script.sh "echo '${this.createIngressFile()}' > ingress.yml"
         this.script.sh 'cat ingress.yml'
         this.script.sh 'kubectl apply -f ingress.yml'

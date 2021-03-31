@@ -120,9 +120,6 @@ class JenkinsRunTemplate {
     // set USE_MODEL
     this.conf.setAttr('useModel', params.USE_MODEL)
 
-    // set USE_CONFIGMAP
-    this.conf.setAttr('useConfigMap', params.USE_CONFIGMAP)
-
     // set IF_STORAGE_LOCALE
     this.conf.setAttr('useStore', params.IF_STORAGE_LOCALE)
 
@@ -173,11 +170,6 @@ class JenkinsRunTemplate {
 
     if (this.conf.getAttr('useModel') && !this.conf.getAttr('modelPath') && !this.conf.getAttr('modelGitAddress')) {
       this.conf.setAttr('modelPath', 'app/data')
-    }
-
-    // 特殊设置默认的useEnvFile
-    if (this.conf.getAttr('useConfigMap') && !this.conf.getAttr('configMapName')) {
-      this.conf.setAttr('useEnvFile', true)
     }
 
     this.conf.setAttr('jenkinsJobName', this.conf.getAttr('jobName'))
