@@ -430,7 +430,7 @@ spec:
 '''
     }
 
-    if this.conf.getAttr('useStore') in [null, '', false] return ''
+    if (this.conf.getAttr('useStore') in [null, '', false]) return ''
 
     //        非特殊情况下：
     def returnString = '''
