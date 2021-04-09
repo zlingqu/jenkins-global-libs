@@ -196,7 +196,7 @@ class JenkinsRunTemplate {
     this.conf.setAttr('apolloEnvForDockerfile', 'prd')
     this.conf.setAttr('apolloClusterForDockerfile', 'default')
     this.conf.setAttr('apolloNamespaceForDockerfile', 'application')
-    this.conf.setAttr('IfUsePodAntiAffinity', false)
+    this.conf.setAttr('ifUsePodAntiAffinity', false)
 
     if (params.GLOABL_STRING != '') {
       def tmpStringList = params.GLOABL_STRING.split(':::')
@@ -222,7 +222,7 @@ class JenkinsRunTemplate {
       tmpStringList.length >= 19 ? this.conf.setAttr('apolloEnvForDockerfile', tmpStringList[18]) : this.conf.setAttr('apolloEnvForDockerfile', 'prd')
       tmpStringList.length >= 20 ? this.conf.setAttr('apolloClusterForDockerfile', tmpStringList[19]) : this.conf.setAttr('apolloClusterForDockerfile', 'default')
       tmpStringList.length >= 21 ? this.conf.setAttr('apolloNamespaceForDockerfile', tmpStringList[20]) : this.conf.setAttr('apolloNamespaceForDockerfile', 'application')
-      tmpStringList.length >= 22 ? this.conf.setAttr('IfUsePodAntiAffinity', Boolean.parseBoolean(tmpStringList[21])) : this.conf.setAttr('IfUsePodAntiAffinity', false)
+      tmpStringList.length >= 22 ? this.conf.setAttr('ifUsePodAntiAffinity', Boolean.parseBoolean(tmpStringList[21])) : this.conf.setAttr('ifUsePodAntiAffinity', false)
 
 
     }
