@@ -55,7 +55,7 @@ class MakeDockerImage {
 
         // this.script.sh "echo '${this.dockerFileTemplate.getDockerComposeFile()}' > docker-compose.yml"
 
-        this.script.sh String.format('pwd;ls -R;docker-compose build --build-arg VUE_APP_SCENE=%s --build-arg MODEL_VERSION=%s --build-arg FRONTEND_ENV=%s service-docker-build',
+        this.script.sh String.format('pwd;ls -lR /models ;docker-compose build --build-arg VUE_APP_SCENE=%s --build-arg MODEL_VERSION=%s --build-arg FRONTEND_ENV=%s service-docker-build',
                 this.conf.vueAppScene, this.conf.modelVersion, this.conf.getAttr('nodeEnv')
         )
 
