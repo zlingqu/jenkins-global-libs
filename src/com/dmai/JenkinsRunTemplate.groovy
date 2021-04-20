@@ -115,7 +115,7 @@ class JenkinsRunTemplate {
     this.conf.setAttr('makeImage', params.IF_MAKE_IMAGE)
 
     // set IF_CHECK_PODS_STATUS
-    this.conf.setAttr('checkPodsStatus', params.IF_CHECK_PODS_STATUS)
+    this.conf.setAttr('ifCheckPodsStatus', params.IF_CHECK_PODS_STATUS)
 
     // set USE_MODEL
     this.conf.setAttr('useModel', params.USE_MODEL)
@@ -358,7 +358,7 @@ spec:
     return String.format('''
   - name: adp
     imagePullPolicy: IfNotPresent
-    image: docker.dm-ai.cn/devops/base-image-adp:0.5.26%s
+    image: docker.dm-ai.cn/devops/base-image-adp:0.5.27%s
     env:
     - name: VUE_APP_SCENE
       value: %s
