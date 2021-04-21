@@ -25,13 +25,12 @@ class Compile {
     }
     public void compileOfJs() {
         def tmpJsCompileString = 'npm config set registry https://npm.dm-ai.cn/repository/npm/ && npm install && npm run build || echo'
-        // if (this.conf.getAttr('ifCompileParam')) {
-        //     tmpJsCompileString = this.conf.getAttr('compileParam')
-        // }
-        this.script.sh String.format("test -e node_modules && rm -fr node_modules ; " +
-                "test -e /data/cache/node_modules/node_modules.tar && cp -rp /data/cache/node_modules/node_modules.tar ./ ; tar xf node_modules.tar && rm -fr node_modules.tar ; " +
-                "export FRONTEND_ENV=%s; %s && tar cf node_modules.tar node_modules;" +
-                "cp -rp node_modules.tar /data/cache/node_modules && rm -fr node_modules.tar", this.conf.getAttr('nodeEnv'), tmpJsCompileString)
+
+        this.script.sh String.format("ln -sv /data/cache/node_modules node_modules"+"export FRONTEND_ENV=%s; %s", this.conf.getAttr('nodeEnv'), tmpJsCompileString)
+        // this.script.sh String.format("test -e node_modules && rm -fr node_modules ; " +
+        //         "test -e /data/cache/node_modules/node_modules.tar && cp -rp /data/cache/node_modules/node_modules.tar ./ ; tar xf node_modules.tar && rm -fr node_modules.tar ; " +
+        //         "export FRONTEND_ENV=%s; %s && tar cf node_modules.tar node_modules;" +
+        //         "cp -rp node_modules.tar /data/cache/node_modules && rm -fr node_modules.tar", this.conf.getAttr('nodeEnv'), tmpJsCompileString)
     }
     public void compileOfUnity() {
         this.script.sh "test -e compile.sh && chmod +x ci/* && bash -x compile.sh && echo success || echo failure; test ! -e compile.sh && bash /opt/compile.sh && echo success || echo failure;"

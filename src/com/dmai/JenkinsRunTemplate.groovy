@@ -270,15 +270,13 @@ class JenkinsRunTemplate {
     def returnString = this.templateTop() +
                 this.templateDockerCompile() +
                 this.templateADP() +
-                this.templateJiagu() +
                 this.templateSonarCheck() +
                 this.customImage() +
                 this.defaultVolumes()
     return returnString
   }
+
   public String getJenkinsRunTemplateOnJar() {
-    // println( this.templateTop())
-    // println( this.templateDockerCompile() )
     return this.templateTop() + this.templateDockerCompile()
   }
 
@@ -343,16 +341,24 @@ spec:
   }
 
   private String templateJsCompilevolumeMounts() {
-    //        if (this.conf.getAttr('makeImage') && this.conf.getAttr('codeLanguage') in ['js', 'node']) {
-    if (this.conf.getAttr('codeLanguage') in ['js', 'node', 'nodets']) {
+    if (this.conf.getAttr('codeLanguage') in ['node', 'nodets']) {
       return String.format('''
     volumeMounts:
     - name: jenkins-build-path
       mountPath: /data/cache/node_modules
       subPath: jenkins_home/node_cache/%s/%s
 ''', this.conf.appName, this.conf.getAttr('branchName'))
+    } else if (this.conf.getAttr('codeLanguage') in ['js']) {
+      return '''
+    volumeMounts:
+    - name: jenkins-build-path
+      mountPath: /data/cache/node_modules
+      subPath: jenkins_home/node_cache/js_public/node_modules
+'''
+    } else {
+      return ''
     }
-    return ''
+    
 }
   private String templateADP() {
     return String.format('''
@@ -376,30 +382,6 @@ spec:
 ''', this.conf.getAttr('envType') == 'arm' ? '-arm' : '', this.conf.vueAppScene, this.useModelPath())
   }
 
-  private String templateJiagu() {
-    if (this.conf.getAttr('codeLanguage') == 'unity' || this.conf.getAttr('codeLanguage') == 'android') {
-      return String.format('''
-  - name: jiagu
-    image: docker.dm-ai.cn/devops/android-jiagu:0.1.3
-    imagePullPolicy: IfNotPresent
-    env:
-    - name: DMAI_PRIVATE_DOCKER_REGISTRY
-      value: docker.dm-ai.cn
-    - name: ADP_DATE
-      value: %s
-    volumeMounts:
-    - name: jenkins-build-path
-      mountPath: /data
-      subPath: android_home/unity_home/%s/%s
-    command:
-    - "sleep"
-    args:
-    - "3600"
-    tty: true
-''', this.adpDate, this.conf.appName, this.conf.getAttr('deployEnv'))
-    }
-    return ''
-  }
 
   private String templateSonarCheck() {
     return String.format('''
