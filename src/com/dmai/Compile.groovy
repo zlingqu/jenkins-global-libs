@@ -27,7 +27,7 @@ class Compile {
         def tmpJsCompileString = 'npm config set registry https://npm.dm-ai.cn/repository/npm/ && npm install && npm run build || echo'
 
         // this.script.sh String.format("cp ;"+"export FRONTEND_ENV=%s; %s", this.conf.getAttr('nodeEnv'), tmpJsCompileString)
-         this.script.sh String.format("test -e /data/cache/node_modules/node_modules && /bin/cp -rp /data/cache/node_modules/node_modules . ;" +
+         this.script.sh String.format("test -e /data/cache/node_modules && /bin/cp -rp /data/cache/node_modules . ;" +
                 "export FRONTEND_ENV=%s; %s;" +
                 "/bin/cp -rp node_modules /data/cache/", this.conf.getAttr('nodeEnv'), tmpJsCompileString)
         // this.script.sh String.format("test -e node_modules && rm -fr node_modules ; " +
