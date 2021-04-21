@@ -288,7 +288,6 @@ metadata:
   name: jenkinsTemplate
   namespace: devops
 spec:
-  hostNetwork: true
   hostAliases:
   - ip: 192.168.3.140
     hostnames:
@@ -459,7 +458,7 @@ spec:
             case 'js':
         return String.format('''
   - name: compile
-    image: docker.dm-ai.cn/devops/base-image-compile-frontend:0.03
+    image: docker.dm-ai.cn/public/node:10.15.3-jessie-base
     imagePullPolicy: IfNotPresent
     securityContext:
       privileged: true
