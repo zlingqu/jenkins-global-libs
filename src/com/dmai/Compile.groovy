@@ -26,10 +26,13 @@ class Compile {
     public void compileOfJs() {
         def tmpJsCompileString = 'npm config set registry https://npm.dm-ai.cn/repository/npm/ && npm install && npm run build || echo'
 
-        // this.script.sh String.format("cp ;"+"export FRONTEND_ENV=%s; %s", this.conf.getAttr('nodeEnv'), tmpJsCompileString)
-         this.script.sh String.format("test -e /data/cache/node_modules && /bin/cp -rp /data/cache/node_modules . ;" +
-                "export FRONTEND_ENV=%s; %s;" +
-                "/bin/cp -rp node_modules /data/cache/", this.conf.getAttr('nodeEnv'), tmpJsCompileString)
+        this.script.sh String.format("mount -t nfs 192.168.3.212:/devops/jenkins_artical/jenkins_home/node_cache/js_public/node_modules node_modules;" +
+        "export FRONTEND_ENV=%s; %s;", this.conf.getAttr('nodeEnv'), tmpJsCompileString)
+
+        //  this.script.sh String.format("test -e /data/cache/node_modules && /bin/cp -rp /data/cache/node_modules . ;" +
+        //         "export FRONTEND_ENV=%s; %s;" +
+        //         "/bin/cp -rp node_modules /data/cache/", this.conf.getAttr('nodeEnv'), tmpJsCompileString)
+
         // this.script.sh String.format("test -e node_modules && rm -fr node_modules ; " +
         //         "test -e /data/cache/node_modules/node_modules.tar && cp -rp /data/cache/node_modules/node_modules.tar ./ ; tar xf node_modules.tar && rm -fr node_modules.tar ; " +
         //         "export FRONTEND_ENV=%s; %s && tar cf node_modules.tar node_modules;" +
