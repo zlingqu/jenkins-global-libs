@@ -460,6 +460,9 @@ spec:
   - name: compile
     image: docker.dm-ai.cn/public/node:10.15.3-jessie-base
     imagePullPolicy: IfNotPresent
+    securityContext:
+      capabilities:
+          add: ["SYS_ADMIN"]
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
       value: docker.dm-ai.cn
