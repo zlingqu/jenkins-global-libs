@@ -461,7 +461,6 @@ spec:
     image: docker.dm-ai.cn/public/node:10.15.3-jessie-base
     imagePullPolicy: IfNotPresent
     securityContext:
-      privileged: true
       capabilities:
           add: ["SYS_ADMIN"]
     env: #指定容器中的环境变量
