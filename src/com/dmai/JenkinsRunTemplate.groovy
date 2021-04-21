@@ -352,8 +352,8 @@ spec:
       return '''
     volumeMounts:
     - name: jenkins-build-path
-      mountPath: /data/cache/node_modules
-      subPath: jenkins_home/node_cache/js_public/node_modules
+      mountPath: /data/cache
+      subPath: node_cache
 '''
     } else {
       return ''
