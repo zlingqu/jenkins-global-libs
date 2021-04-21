@@ -349,12 +349,12 @@ spec:
       subPath: jenkins_home/node_cache/%s/%s
 ''', this.conf.appName, this.conf.getAttr('branchName'))
     } else if (this.conf.getAttr('codeLanguage') in ['js']) {
-      return '''
+      return String.format('''
     volumeMounts:
     - name: jenkins-build-path
-      mountPath: /workspace/node_modules
+      mountPath: %s
       subPath: jenkins_home/node_cache/js_public/node_modules
-'''
+''',this.conf.getAttr('WORKSPACE'))
     } else {
       return ''
     }
