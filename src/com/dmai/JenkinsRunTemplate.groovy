@@ -462,7 +462,6 @@ spec:
     image: docker.dm-ai.cn/devops/base-image-compile-frontend:0.03
     imagePullPolicy: IfNotPresent
     securityContext:
-      runAsNonRoot: true
       privileged: true
       capabilities:
           add: ["SYS_ADMIN"]
