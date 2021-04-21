@@ -26,7 +26,7 @@ class Compile {
     public void compileOfJs() {
         def tmpJsCompileString = 'npm config set registry https://npm.dm-ai.cn/repository/npm/ && npm install && npm run build || echo'
 
-        this.script.sh String.format("test -e package-lock.json && rm -f package-lock.json &&"+
+        this.script.sh String.format("test -e package-lock.json && rm -f package-lock.json ;"+
         "mkdir -p node_modules &&" +
         "mount -t nfs 192.168.3.212:/devops/jenkins_artical/jenkins_home/node_cache/js_public/node_modules node_modules &&" +
         "export FRONTEND_ENV=%s; %s;", this.conf.getAttr('nodeEnv'), tmpJsCompileString)
