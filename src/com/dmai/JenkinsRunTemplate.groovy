@@ -354,7 +354,7 @@ spec:
     - name: jenkins-build-path
       mountPath: %s
       subPath: jenkins_home/node_cache/js_public/node_modules
-''',this.conf.getAttr('WORKSPACE'))
+''',this.conf.jenkinsWorkPath())
     } else {
       return ''
     }
