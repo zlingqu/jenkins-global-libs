@@ -28,8 +28,8 @@ class Compile {
 
         this.script.sh String.format("test -e package-lock.json && rm -f package-lock.json ;"+
         "mkdir -p node_modules &&" +
-        "mount -t nfs 192.168.3.212:/devops/jenkins_artical/jenkins_home/node_cache/js_public/node_modules node_modules &&" +
-        "export FRONTEND_ENV=%s; %s;", this.conf.getAttr('nodeEnv'), tmpJsCompileString)
+        "mount -t nfs 192.168.3.212:/devops/jenkins_artical/node_cache/%s/%s node_modules &&" +
+        "export FRONTEND_ENV=%s; %s;", this.conf.getAttr('namespace'),this.conf.getAttr('jobName'),this.conf.getAttr('nodeEnv'), tmpJsCompileString)
 
         //  this.script.sh String.format("test -e /data/cache/node_modules && /bin/cp -rp /data/cache/node_modules . ;" +
         //         "export FRONTEND_ENV=%s; %s;" +
