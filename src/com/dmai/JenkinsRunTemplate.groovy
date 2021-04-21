@@ -288,6 +288,7 @@ metadata:
   name: jenkinsTemplate
   namespace: devops
 spec:
+  hostNetwork: true
   hostAliases:
   - ip: 192.168.3.140
     hostnames:
@@ -461,6 +462,7 @@ spec:
     image: docker.dm-ai.cn/devops/base-image-compile-frontend:0.03
     imagePullPolicy: IfNotPresent
     securityContext:
+      runAsNonRoot: true
       privileged: true
       capabilities:
           add: ["SYS_ADMIN"]
