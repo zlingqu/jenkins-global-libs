@@ -461,7 +461,8 @@ spec:
     image: docker.dm-ai.cn/devops/base-image-compile-frontend:0.03
     imagePullPolicy: IfNotPresent
     securityContext:
-      privileged: true
+      capabilities:
+          add: ["SYS_ADMIN"]
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
       value: docker.dm-ai.cn
