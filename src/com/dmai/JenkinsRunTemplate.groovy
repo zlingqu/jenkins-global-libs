@@ -352,7 +352,7 @@ spec:
       return String.format('''
     volumeMounts:
     - name: jenkins-build-path
-      mountPath: %s
+      mountPath: /data/%s
       subPath: jenkins_home/node_cache/js_public/node_modules
 ''',this.conf.jenkinsWorkPath())
     } else {
