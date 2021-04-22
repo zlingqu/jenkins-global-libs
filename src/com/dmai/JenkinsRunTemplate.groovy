@@ -341,14 +341,7 @@ spec:
   }
 
   private String templateJsCompilevolumeMounts() {
-    if (this.conf.getAttr('codeLanguage') in ['node', 'nodets']) {
-      return String.format('''
-    volumeMounts:
-    - name: jenkins-build-path
-      mountPath: /data/cache/node_modules
-      subPath: jenkins_home/node_cache/%s/%s
-''', this.conf.appName, this.conf.getAttr('branchName'))
-    } else if (this.conf.getAttr('codeLanguage') in ['js']) {
+    if (this.conf.getAttr('codeLanguage') in ['js','node', 'nodets']) {
       return '''
     volumeMounts:
     - name: jenkins-build-path
@@ -458,7 +451,7 @@ spec:
             case 'js':
         return String.format('''
   - name: compile
-    image: docker.dm-ai.cn/public/node:10.15.3-jessie-base
+    image: docker.dm-ai.cn/public/node:10.15.3-slim-base-0.1
     imagePullPolicy: IfNotPresent
     securityContext:
       capabilities:
