@@ -372,13 +372,8 @@ def call(Map map, env) {
                         steps {
                             container('adp') {
                                 script {
-                                    try {
-                                            sh "git config --global http.sslVerify false ;git fetch ;git checkout ${conf.getAttr('gitTag')}"
-                                    } catch (e) {
-                                        sh 'echo ${e}'
-                                        conf.failMsg = '拉取指定git的tag失败，请确认tag是否正确'
-                                        throw e
-                                    }
+                                    sh "git config --global http.sslVerify false ;git fetch ;git checkout ${conf.getAttr('gitTag')}"
+
                                 }
                             }
                         }
@@ -400,21 +395,14 @@ def call(Map map, env) {
                 steps {
                     container('compile') {
                         script {
-                            try {
-                                sh 'npm config set registry https://npm.dm-ai.cn/repository/npm/ && npm install && npm run build || echo '
-                                sh 'npm i -g nyc || echo 0'
-                                sh 'npm i -g mocha || echo 0'
-                                sh 'rm -fr deployment || echo 0'
-                                sh 'nyc --reporter=lcov --reporter=text --report-dir=coverage mocha test/**/*.js --exit || echo 0'
-                            } catch (e) {
-                                sh "echo ${e}"
-                            }
+                            sh 'npm config set registry https://npm.dm-ai.cn/repository/npm/ && npm install && npm run build || echo '
+                            sh 'npm i -g nyc || echo 0'
+                            sh 'npm i -g mocha || echo 0'
+                            sh 'rm -fr deployment || echo 0'
+                            sh 'nyc --reporter=lcov --reporter=text --report-dir=coverage mocha test/**/*.js --exit || echo 0'
 
-                            try {
-                                    codeCheck.sonarCheck()
-                            } catch (e) {
-                                sh "echo ${e}"
-                            }
+                            codeCheck.sonarCheck()
+
                         }
                     }
                 }
@@ -469,7 +457,6 @@ def call(Map map, env) {
                 }
 
                 parallel {
-
                     stage('NodeJs(Ts)') {
                         when {
                             anyOf {
@@ -684,13 +671,7 @@ def call(Map map, env) {
                         steps {
                             container('jiagu') {
                                 script {
-                                    try {
-                                        sh 'sh -x /opt/jiagu.sh'
-                                    } catch (e) {
-                                        sh 'echo ${e}'
-                                        conf.failMsg = '编译失败！'
-                                        throw e
-                                    }
+                                    sh 'sh -x /opt/jiagu.sh'
                                 }
                             }
                         }
@@ -707,29 +688,8 @@ def call(Map map, env) {
                             container('adp') {
                                 script {
                                     if (conf.ifMakeImage() && conf.getAttr('makeImage')) {
-                                        // try {
-                                        //     withEnv(conf.withEnvList) {
-                                        //         sh 'dockerize -template nginx.conf:nginx.conf || echo 0'
-                                        //     }
-                                        // } catch (e) {
-                                        //     sh 'echo ${e}'
-                                        // }
-
-                                        try {
-                                            makeDockerImage.makeImage()
-                                        } catch (e) {
-                                            sh 'echo ${e}'
-                                            conf.failMsg = '制作容器镜像失败！'
-                                            throw e
-                                        }
-
-                                        try {
-                                            makeDockerImage.pushImage()
-                                        } catch (e) {
-                                            sh 'echo ${e}'
-                                            conf.failMsg = '推送镜像到镜像仓库失败！'
-                                            throw e
-                                        }
+                                        makeDockerImage.makeImage()
+                                        makeDockerImage.pushImage()
                                     }
                                 }
                             }
