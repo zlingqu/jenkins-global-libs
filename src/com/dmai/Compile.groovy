@@ -15,10 +15,17 @@ class Compile {
     }
     
     public void compileOfNode() {
-        this.script.sh "test -e node_modules && rm -fr node_modules ;" +
-                    "test -e /data/cache/node_modules/node_modules.tar && tar xf /data/cache/node_modules/node_modules.tar -C ./ ; " +
-                    "test -e package-lock.json && rm -f package-lock.json ; " +
-                    "npm config set registry http://nexus.dm-ai.cn/repository/npm && npm install && tar cf node_modules.tar node_modules ; cp -rp node_modules.tar /data/cache/node_modules && rm -fr node_modules.tar"
+
+        this.script.sh String.format("mkdir -p /data/cache/%s/%s && "+
+        "test -e package-lock.json && rm -f package-lock.json ;"+
+        "mkdir -p node_modules &&" +
+        "mount -t nfs 192.168.3.212:/devops/jenkins_artical/node_cache/%s/%s node_modules &&" +
+        "npm config set registry https://npm.dm-ai.cn/repository/npm/ && npm install;", this.conf.getAttr('namespace'),this.conf.getAttr('jobName'))
+
+        // this.script.sh "test -e node_modules && rm -fr node_modules ;" +
+        //             "test -e /data/cache/node_modules/node_modules.tar && tar xf /data/cache/node_modules/node_modules.tar -C ./ ; " +
+        //             "test -e package-lock.json && rm -f package-lock.json ; " +
+        //             "npm config set registry http://nexus.dm-ai.cn/repository/npm && npm install && tar cf node_modules.tar node_modules ; cp -rp node_modules.tar /data/cache/node_modules && rm -fr node_modules.tar"
     }
     public void compileOfC() {
         this.script.sh "make"
