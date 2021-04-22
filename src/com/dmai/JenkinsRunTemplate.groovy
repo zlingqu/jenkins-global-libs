@@ -353,7 +353,7 @@ spec:
     volumeMounts:
     - name: jenkins-build-path
       mountPath: /data/cache
-      subPath: jenkins_artical/node_cache
+      subPath: node_cache
 '''
     } else {
       return ''
