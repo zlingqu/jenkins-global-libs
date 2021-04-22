@@ -520,7 +520,7 @@ spec:
             case 'node':
         return String.format('''
   - name: compile
-    image: docker.dm-ai.cn/devops/node:0.0.4
+    image: docker.dm-ai.cn/public/node:10.15.3-slim-base-0.1
     imagePullPolicy: IfNotPresent
     env: #指定容器中的环境变量
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
