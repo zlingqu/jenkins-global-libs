@@ -381,7 +381,7 @@ spec:
   - name: sonar-check
     image: docker.dm-ai.cn/devops/sonar-scanner:4.0
     imagePullPolicy: IfNotPresent
-    env: #指定容器中的环境变量
+    env: 
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
       value: docker.dm-ai.cn
     command:
@@ -398,7 +398,7 @@ spec:
   - name: custom-image
     image: %s
     imagePullPolicy: IfNotPresent
-    env: #指定容器中的环境变量
+    env: 
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
       value: docker.dm-ai.cn
     command:
@@ -417,7 +417,7 @@ spec:
   - name: compile
     image: docker.dm-ai.cn/public/centos-node:v1.0
     imagePullPolicy: IfNotPresent
-    env: #指定容器中的环境变量
+    env: 
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
       value: docker.dm-ai.cn
 %s
@@ -434,7 +434,7 @@ spec:
   - name: compile
     image: docker.dm-ai.cn/arm64/node:10.16.3-slim-tx2
     imagePullPolicy: IfNotPresent
-    env: #指定容器中的环境变量
+    env: 
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
       value: docker.dm-ai.cn
 %s
@@ -455,8 +455,8 @@ spec:
     imagePullPolicy: IfNotPresent
     securityContext:
       capabilities:
-          add: ["SYS_ADMIN"]
-    env: #指定容器中的环境变量
+          add: ["SYS_ADMIN"] #加了这个，在pod里面可以使用mount命令
+    env: 
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
       value: docker.dm-ai.cn
 %s
@@ -471,7 +471,7 @@ spec:
   - name: compile
     image: docker.dm-ai.cn/devops/dm-android:0.8.23
     imagePullPolicy: IfNotPresent
-    env: #指定容器中的环境变量
+    env: 
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
       value: docker.dm-ai.cn
     volumeMounts:
@@ -495,7 +495,7 @@ spec:
   - name: compile
     image: docker.dm-ai.cn/devops/base-image-unity:0.1.1
     imagePullPolicy: IfNotPresent
-    env: #指定容器中的环境变量
+    env: 
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
       value: docker.dm-ai.cn
     - name: ADP_DATE
@@ -522,7 +522,7 @@ spec:
   - name: compile
     image: docker.dm-ai.cn/devops/media-access:r.13
     imagePullPolicy: IfNotPresent
-    env: #指定容器中的环境变量
+    env: 
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
       value: docker.dm-ai.cn
     command:
@@ -536,7 +536,7 @@ spec:
   - name: compile
     image: docker.dm-ai.cn/devops/base-image-mvn:0.1.2
     imagePullPolicy: IfNotPresent
-    env: #指定容器中的环境变量
+    env: 
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
       value: docker.dm-ai.cn
     volumeMounts:
@@ -565,7 +565,7 @@ spec:
   - name: compile
     image: docker.dm-ai.cn/devops/base-image-golang-compile:master-2-1e85e1e99bfee20f6f0cc5de5a74ce339100d4bd
     imagePullPolicy: IfNotPresent
-    env: #指定容器中的环境变量
+    env: 
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
       value: docker.dm-ai.cn
     command:
