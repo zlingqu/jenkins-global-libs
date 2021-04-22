@@ -31,13 +31,17 @@ class Compile {
         this.script.sh "make"
     }
     public void compileOfJs() {
-        def tmpJsCompileString = 'npm config set registry https://npm.dm-ai.cn/repository/npm/ && npm install && npm run build || echo'
 
         this.script.sh String.format("mkdir -p /data/cache/%s/%s && "+
         "test -e package-lock.json && rm -f package-lock.json ;"+
         "mkdir -p node_modules &&" +
         "mount -t nfs 192.168.3.212:/devops/jenkins_artical/node_cache/%s/%s node_modules &&" +
-        "export FRONTEND_ENV=%s; %s;", this.conf.getAttr('namespace'),this.conf.getAttr('jobName'),this.conf.getAttr('namespace'),this.conf.getAttr('jobName'),this.conf.getAttr('nodeEnv'), tmpJsCompileString)
+        "export FRONTEND_ENV=%s; npm config set registry https://npm.dm-ai.cn/repository/npm/ && npm install && npm run build;",
+        this.conf.getAttr('namespace'),
+        this.conf.getAttr('jobName'),
+        this.conf.getAttr('namespace'),
+        this.conf.getAttr('jobName'),
+        this.conf.getAttr('nodeEnv'))
 
         //  this.script.sh String.format("test -e /data/cache/node_modules && /bin/cp -rp /data/cache/node_modules . ;" +
         //         "export FRONTEND_ENV=%s; %s;" +
