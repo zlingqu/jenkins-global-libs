@@ -470,10 +470,11 @@ def call(Map map, env) {
 
                 parallel {
 
-                    stage('Nodejs编译') {
+                    stage('nodeJs/nodeTs编译') {
                         when {
-                            allOf {
+                            anyOf {
                                 expression { return conf.getAttr('codeLanguage') == 'node' }
+                                expression { return conf.getAttr('codeLanguage') == 'nodets' }
                             }
                             
                         }
@@ -503,37 +504,8 @@ def call(Map map, env) {
                         steps {
                             container('compile') {
                                 script {
-                                    try {
-                                        withEnv(conf.withEnvList){
-                                            compile.compileOfJs()
-                                        }
-                                    } catch (e) {
-                                        sh "echo ${e}"
-                                        conf.failMsg = '编译失败！'
-                                        throw e
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    stage('Nodets编译') {
-                        when {
-                            allOf {
-                                expression { return conf.getAttr('codeLanguage') == 'nodets' }
-                            }
-                            
-                        }
-                        steps {
-                            container('compile') {
-                                script {
-                                    try {
-                                        withEnv(conf.withEnvList){
-                                            compile.compileOfNode()
-                                        }
-                                    } catch (e) {
-                                        sh "echo ${e}"
-                                        conf.failMsg = '编译失败！'
-                                        throw e
+                                    withEnv(conf.withEnvList){
+                                        compile.compileOfJs()
                                     }
                                 }
                             }
