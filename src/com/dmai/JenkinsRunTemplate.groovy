@@ -448,7 +448,7 @@ spec:
 
     //        if (! this.conf.getAttr('compile')) return ''
     switch (this.conf.getAttr('codeLanguage')) {
-            case 'js':
+            case ['js','node','nodets']:
         return String.format('''
   - name: compile
     image: docker.dm-ai.cn/public/node:10.15.3-slim-base-0.1
@@ -516,44 +516,6 @@ spec:
     - "3600"
     tty: true
 ''', this.adpDate, this.conf.appName, this.conf.getAttr('deployEnv'), this.conf.appName, this.conf.getAttr('deployEnv'), this.conf.appName, this.conf.getAttr('deployEnv'))
-
-            case 'node':
-        return String.format('''
-  - name: compile
-    image: docker.dm-ai.cn/public/node:10.15.3-slim-base-0.1
-    imagePullPolicy: IfNotPresent
-    securityContext:
-      capabilities:
-          add: ["SYS_ADMIN"]
-    env: #指定容器中的环境变量
-    - name: DMAI_PRIVATE_DOCKER_REGISTRY
-      value: docker.dm-ai.cn
-%s
-    command:
-    - "sleep"
-    args:
-    - "3600"
-    tty: true
-''', this.templateJsCompilevolumeMounts())
-
-            case 'nodets':
-        return String.format('''
-  - name: compile
-    image: docker.dm-ai.cn/devops/node:0.0.4
-    imagePullPolicy: IfNotPresent
-    securityContext:
-      capabilities:
-          add: ["SYS_ADMIN"]
-    env: #指定容器中的环境变量
-    - name: DMAI_PRIVATE_DOCKER_REGISTRY
-      value: docker.dm-ai.cn
-%s
-    command:
-    - "sleep"
-    args:
-    - "3600"
-    tty: true
-''', this.templateJsCompilevolumeMounts())
 
             case 'c++':
         return '''
