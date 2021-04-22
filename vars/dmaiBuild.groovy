@@ -470,7 +470,7 @@ def call(Map map, env) {
 
                 parallel {
 
-                    stage('nodeJs/nodeTs编译') {
+                    stage('NodeJs(Ts)') {
                         when {
                             anyOf {
                                 expression { return conf.getAttr('codeLanguage') == 'node' }
@@ -481,20 +481,14 @@ def call(Map map, env) {
                         steps {
                             container('compile') {
                                 script {
-                                    try {
-                                        withEnv(conf.withEnvList){
-                                            compile.compileOfNode()
-                                        }
-                                    } catch (e) {
-                                        sh "echo ${e}"
-                                        conf.failMsg = '编译失败！'
-                                        throw e
+                                    withEnv(conf.withEnvList){
+                                        compile.compileOfNode()
                                     }
                                 }
                             }
                         }
                     }
-                    stage('JavaScript编译') {
+                    stage('JavaScript') {
                         when {
                             allOf {
                                 expression { return conf.getAttr('codeLanguage') == 'js' }
@@ -511,7 +505,7 @@ def call(Map map, env) {
                             }
                         }
                     }
-                    stage('Java编译') {
+                    stage('Java') {
                         when {
                             allOf {
                                 expression { return conf.getAttr('codeLanguage') == 'java' }
@@ -521,20 +515,14 @@ def call(Map map, env) {
                         steps {
                             container('compile') {
                                 script {
-                                    try {
-                                        withEnv(conf.withEnvList){
-                                            compile.compileOfJava()
-                                        }
-                                    } catch (e) {
-                                        sh "echo ${e}"
-                                        conf.failMsg = '编译失败！'
-                                        throw e
+                                    withEnv(conf.withEnvList){
+                                        compile.compileOfJava()
                                     }
                                 }
                             }
                         }
                     }
-                    stage('Golang编译') {
+                    stage('Golang') {
                         when {
                             allOf {
                                 expression { return conf.getAttr('codeLanguage') == 'golang' }
@@ -544,20 +532,14 @@ def call(Map map, env) {
                         steps {
                             container('compile') {
                                 script {
-                                    try {
-                                        withEnv(conf.withEnvList){
-                                            compile.compileOfGolang()
-                                        }
-                                    } catch (e) {
-                                        sh "echo ${e}"
-                                        conf.failMsg = '编译失败！'
-                                        throw e
+                                    withEnv(conf.withEnvList){
+                                        compile.compileOfGolang()
                                     }
                                 }
                             }
                         }
                     }
-                    stage('C++编译') {
+                    stage('C++') {
                         when {
                             allOf {
                                 expression { return conf.getAttr('codeLanguage') == 'c++' }
@@ -567,20 +549,14 @@ def call(Map map, env) {
                         steps {
                             container('compile') {
                                 script {
-                                    try {
-                                        withEnv(conf.withEnvList){
-                                            compile.compileOfC()
-                                        }
-                                    } catch (e) {
-                                        sh "echo ${e}"
-                                        conf.failMsg = '编译失败！'
-                                        throw e
+                                    withEnv(conf.withEnvList){
+                                        compile.compileOfC()
                                     }
                                 }
                             }
                         }
                     }
-                    stage('Android编译') {
+                    stage('Android') {
                         when {
                             allOf {
                                 expression { return conf.getAttr('codeLanguage') == 'android' }
@@ -590,14 +566,8 @@ def call(Map map, env) {
                         steps {
                             container('compile') {
                                 script {
-                                    try {
-                                        withEnv(conf.withEnvList){
-                                            compile.compileOfAndroid()
-                                        }
-                                    } catch (e) {
-                                        sh "echo ${e}"
-                                        conf.failMsg = '编译失败！'
-                                        throw e
+                                    withEnv(conf.withEnvList){
+                                        compile.compileOfAndroid()
                                     }
                                 }
                             }
@@ -613,14 +583,8 @@ def call(Map map, env) {
                         steps {
                             container('compile') {
                                 script {
-                                    try {
-                                        withEnv(conf.withEnvList){
-                                            compile.compileOfUnity()
-                                        }
-                                    } catch (e) {
-                                        sh "echo ${e}"
-                                        conf.failMsg = '编译失败！'
-                                        throw e
+                                    withEnv(conf.withEnvList){
+                                        compile.compileOfUnity()
                                     }
                                 }
                             }
