@@ -333,16 +333,6 @@ spec:
 
   private String getVolumeMounts() {
     return this.getVolumeMountsString()
-  //        switch (this.conf.getAttr('codeLanguage')) {
-  //            case 'node':
-  //                return this.getVolumeMountsString()
-  //            case 'python':
-  //                return this.getVolumeMountsString()
-  //            case 'c++':
-  //                return this.getVolumeMountsString()
-  //            default:
-  //                return ''
-  //        }
   }
 
   private String getVolumes() {
