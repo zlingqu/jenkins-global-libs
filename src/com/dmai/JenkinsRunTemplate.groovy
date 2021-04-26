@@ -459,7 +459,7 @@ spec:
             case ['js','node','nodets']:
         return String.format('''
   - name: compile
-    image: docker.dm-ai.cn/public/node:10.15.3-slim-base-0.1
+    image: docker.dm-ai.cn/public/node:10.15.3-slim-base-0.2
     imagePullPolicy: IfNotPresent
     securityContext:
       capabilities:
