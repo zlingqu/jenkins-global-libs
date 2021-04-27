@@ -335,7 +335,7 @@ class DmaiEmail {
                 'gitAddress'     : this.conf.getAttr('gitAddress'),
                 'k8sWebAddress'  : this.conf.getK8sWebAddress(),
                 // 'buildEnvInfo'   : this.buildEnvInfo().replaceAll('用户测试验证地址：', ''),
-                'buildEnvInfo'   : this.conf.getAttr('domain_before')+this.conf.getAttr('domain_middle')+this.conf.getAttr('domain_after')+this.conf.getAttr('domain_path'),
+                'buildEnvInfo'   : this.conf.getAttr('domainBefore')+this.conf.getAttr('domainMiddle')+this.conf.getAttr('domainAfter')+this.conf.getAttr('domainPath'),
                 'useSvcInfo'     : this.useSvcInfo(),
                 'sonarAddress'   : 'http://sonar.ops.dm-ai.cn/dashboard?id=' + this.conf.appName,
                 'adpUrlApp'      : this.adpUrlApp,
