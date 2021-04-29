@@ -51,48 +51,10 @@ class Deploykubernetes {
 
     public String kubectlDeployment(String format) {
         return "kubectl apply -f https://gitlab.dm-ai.cn/devops/adp/deployment/raw/" + format + '?private_token=zXswJbwzgd3Smarcd4pD'
-        // return "kubectl apply -f https://gitlab.dm-ai.cn/devops/adp/deployment/raw/${this.conf.getAttr('branchName')}/" + format + '?private_token=zXswJbwzgd3Smarcd4pD'
-    }
-
-    public void createIngress() {
-        if (this.conf.getAttr('domain') == '' || !this.conf.getAttr('domain')) return
-
-        this.script.sh "echo '${this.createIngressFile()}' > ingress.yml"
-        this.script.sh 'cat ingress.yml'
-        this.script.sh 'kubectl apply -f ingress.yml'
-        // }
-
-        return
     }
 
     public void deleteOldIngress() {
         this.script.sh String.format('kubectl delete ing %s -n %s || echo 0', this.conf.getAttr('jobName'), this.conf.getAttr('namespace'))
-    //        trafic 2.0后不需要删除 IngressRoute
-    //        this.script.sh String.format("kubectl delete IngressRoute %s -n %s || echo 0", this.conf.getAttr('jobName'), this.conf.getAttr('namespace'))
-    //        this.script.sh String.format("kubectl delete IngressRoute %s -n %s || echo 0", this.conf.getAttr('jobName') + '-https', this.conf.getAttr('namespace'))
-    }
-
-    private String createIngressFile() {
-        return String.format('''
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
-  name: %s
-  namespace: %s
-spec:
-  entryPoints:
-  - web
-  routes:
-  - match: Host(`%s`)
-    kind: Rule
-    services:
-    - name: %s
-      port: 80
-''',
-                this.conf.appName,
-                this.conf.getAttr('namespace'),
-                this.conf.getAttr('domain'),
-                this.conf.appName)
     }
 
 }

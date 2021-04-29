@@ -11,10 +11,7 @@ class ModelManage {
     }
     public void modelGitManage() {
         try {
-            // withCredentials([usernamePassword(credentialsId: 'devops-use', passwordVariable: 'password', usernameVariable: 'username')]) {
-                // this.script.sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + this.conf.getAttr("modelGitRepository").replace("https://", 'https://$username:$password@') + ' model'
-                this.script.sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + this.conf.getAttr("modelGitRepository").replace("https://", 'https://dev-admin:46570e4250dc38fc48e3c61db@') + ' model'
-            // }
+            this.script.sh 'source /etc/profile; git config --global http.sslVerify false ; git clone ' + this.conf.getAttr("modelGitRepository").replace("https://", 'https://dev-admin:46570e4250dc38fc48e3c61db@') + ' model'
             this.script.sh "pwd && ls -l && rm -fr model/.git"
         } catch (e) {
             this.script.sh "echo ${e}"

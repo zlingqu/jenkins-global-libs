@@ -111,21 +111,12 @@ def call(Map map, env) {
         defaultCompile = true
     }
 
-    // https
-    def defaultUseHttps = conf.getAttr('https') ? conf.getAttr('https') : false
-
-
-    // http
-    def defaultUseHttp = conf.getAttr('http') ? conf.getAttr('http') : true
-
     // deploy
     def defaultDeploy = conf.getAttr('deploy') ? conf.getAttr('deploy') : false
 
     // code language
     def defaultCodeLanguage = conf.getAttr('codeLanguage') ? conf.getAttr('codeLanguage') : ''
 
-    // domain
-    def defaultDomain = conf.getAttr('domain') ? conf.getAttr('domain') : ''
 
     // if_use_auto_deploy_file
     def useAutoDeployFile = conf.getAttr('customKubernetesDeployTemplate') ? conf.getAttr('customKubernetesDeployTemplate') : false
@@ -228,14 +219,6 @@ def call(Map map, env) {
             //
             booleanParam(name: 'DEPLOY', defaultValue: defaultDeploy, description: '是否部署')
 
-            //domain
-            string(name: 'DOMAIN', defaultValue: defaultDomain, description: '应用使用的域名')
-
-            // https
-            booleanParam(name: 'IF_USE_HTTPS', defaultValue: defaultUseHttps, description: '是否使用https')
-
-            // http
-            booleanParam(name: 'IF_USE_HTTP', defaultValue: defaultUseHttp, description: '是否使用http')
 
             // if_use_auto_deploy_file
             booleanParam(name: 'CUSTOM_KUBERNETES_DEPLOY_TEMPLATE', defaultValue: useAutoDeployFile, description: '使用使用自定义的k8s部署模版')
@@ -744,8 +727,6 @@ def call(Map map, env) {
                                 }
 
                                 if (conf.getAttr('buildPlatform') != 'adp' || conf.getAttr('customKubernetesDeployTemplate')) {
-                                    deploykubernetes.createIngress()
-
 
                                     deploykubernetes.deployKubernetes()
                                 } else {

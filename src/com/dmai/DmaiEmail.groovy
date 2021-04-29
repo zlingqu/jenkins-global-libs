@@ -334,7 +334,6 @@ class DmaiEmail {
                 'buildResult'    : buildResult,
                 'gitAddress'     : this.conf.getAttr('gitAddress'),
                 'k8sWebAddress'  : this.conf.getK8sWebAddress(),
-                // 'buildEnvInfo'   : this.buildEnvInfo().replaceAll('用户测试验证地址：', ''),
                 'buildEnvInfo'   : this.conf.getAttr('domainBefore')+this.conf.getAttr('domainMiddle')+this.conf.getAttr('domainAfter')+(this.conf.getAttr('domainPath')=='None'?'':this.conf.getAttr('domainPath')),
                 'useSvcInfo'     : this.useSvcInfo(),
                 'sonarAddress'   : 'http://sonar.ops.dm-ai.cn/dashboard?id=' + this.conf.appName,
@@ -356,16 +355,6 @@ class DmaiEmail {
         }
         return ''
     }
-
-    private String buildEnvInfo() {
-        // 兼容新版的域名地址 launcher-management-x2.deploy-env.dm-ai.cn
-        if (this.conf.getAttr('domain') ) {
-            if (this.conf.getAttr('https') || (this.conf.getAttr('https') == false && this.conf.getAttr('stageHttps') == true)) {
-                return  '用户测试验证地址：' + 'https://' + this.conf.getAttr('domain')
-            } else {
-                return '用户测试验证地址：' + 'http://' + this.conf.getAttr('domain')
-            }
-        }
 
         if (this.conf.getAttr('svcType') != 'None' && this.conf.getAttr('svcType') == 'NodePort') {
             return '用户测试验证地址：' + this.conf.getAppUrl()

@@ -78,14 +78,6 @@ class JenkinsRunTemplate {
     // set deploy
     this.conf.setAttr('deploy', params.DEPLOY)
 
-    // set domain
-    this.conf.setAttr('domain', params.DOMAIN)
-
-    // set https
-    this.conf.setAttr('https', params.IF_USE_HTTPS)
-
-    // set http
-    this.conf.setAttr('http', params.IF_USE_HTTP)
 
     // set CUSTOM_KUBERNETES_DEPLOY_TEMPLATE
     this.conf.setAttr('customKubernetesDeployTemplate', params.CUSTOM_KUBERNETES_DEPLOY_TEMPLATE)
@@ -247,25 +239,6 @@ class JenkinsRunTemplate {
 
     if (this.conf.getAttr('deployEnv') == 'mlcloud-dev') {
       this.conf.setAttr('apolloEnv', 'dev')
-    }
-
-    if (this.conf.getAttr('deployEnv') != 'prd' && this.conf.getAttr('buildPlatform') == 'adp') {
-      this.conf.setAttr('domain', this.conf.getAttr('jobName') + '.' + this.conf.getAttr('namespace') + '.' + this.conf.getAttr('deployEnv') + '.dm-ai.cn')
-    }
-
-    // domain https
-    if (this.conf.getAttr('https')) {
-      if (!(this.conf.getAttr('deployEnv') in ['prd', 'dev', 'test', 'stage'])) {
-        this.conf.setAttr('domain', this.conf.getAttr('jobName') + '-' + this.conf.getAttr('namespace') + '-' + this.conf.getAttr('deployEnv') + '.dm-ai.cn')
-      }
-      if (this.conf.getAttr('deployEnv') in ['dev', 'test', 'stage']) {
-        this.conf.setAttr('domain', this.conf.getAttr('jobName') + '-' + this.conf.getAttr('namespace') + '.' + this.conf.getAttr('deployEnv') + '.dm-ai.cn')
-      }
-    }
-    
-    // if (this.conf.getAttr('deployEnv') in this.conf.externalK8sEnv) { //如果是外部环境，不创建域名，因为外部的ingres规则和dmai的traefik不兼容
-    if (this.conf.getAttr('deployEnvStatus') == 'stop' && this.conf.getAttr('deployEnv') != 'chuanyin') { //如果是外部离线环境，不创建域名，因为外部的ingres规则和dmai的traefik不兼容
-            this.conf.setAttr('domain', '')
     }
 
   }
