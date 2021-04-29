@@ -149,7 +149,7 @@ def call(Map map, env) {
     def defaultUseStore = conf.getAttr('useStore') ? conf.getAttr('useStore') : false
 
     // 存储路径
-    def defaultStorePath = conf.getAttr('storePath') ? conf.getAttr('storePath') : '/data'
+    def defaultStorePath = conf.getAttr('storePath') ? conf.getAttr('storePath') : 'mypvc:/data'
 
     // 分支名称
     def branchName = conf.getAttr('branchName') ? conf.getAttr('branchName') : ''
