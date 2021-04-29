@@ -153,7 +153,6 @@ class Conf implements Serializable {
         if (this.getAttr('deployPassword') != 'dmai2019999' && this.getAttr('deployEnv') == 'prd') return false
         if (this.getAttr('namespace') == 'test') return false
         if (this.getAttr('deployEnv') == 'default') return false
-//        if (this.getAttr('buildPlatform') == 'jenkins' &&  !(this.getAttr('branchName') in ['master', 'dev', 'stage','release']))
         return true
     }
 

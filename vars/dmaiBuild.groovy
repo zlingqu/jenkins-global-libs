@@ -154,8 +154,6 @@ def call(Map map, env) {
     // 分支名称
     def branchName = conf.getAttr('branchName') ? conf.getAttr('branchName') : ''
 
-    // buildPlatform
-    def defBuildPlatform = conf.getAttr('buildPlatform') ? conf.getAttr('buildPlatform') : 'jenkins'
 
     // if check pods service
     def defaultCheckPodsStatus = false
@@ -252,9 +250,6 @@ def call(Map map, env) {
 
             // success deploy, check pods status
             booleanParam(name: 'IF_CHECK_PODS_STATUS', defaultValue: defaultCheckPodsStatus, description: '是否在部署后检查pods的状态')
-
-            // set build platform
-            string(name: 'BUILD_PLATFORM', defaultValue: defBuildPlatform, description: '构建平台，默认jenkins，adp代表发布平台，为了额兼容性考虑')
 
             //JS version
             string(name: 'JS_VERSION', defaultValue: '0.0.0', description: '前端库的版本，用于推流，其他项目不关注')
@@ -695,18 +690,16 @@ def call(Map map, env) {
                             withEnv(conf.withEnvList) {
                                 sh 'echo 部署的环境是 $BUILD_ENV_deployEnv'
                             }
-                            if (conf.getAttr('buildPlatform') == 'adp')  {
-                                // adp 自动生成模板
-                                try {
-                                    withEnv(conf.withEnvList) {
-                                        // sh 'printenv'
-                                        sh 'cd /workspace; dockerize -template src_dir:dest_dir  && cat dest_dir/template.tmpl'
-                                    }
-                                } catch (e) {
-                                    sh "echo ${e}"
+                            // 生成yaml文件
+                            try {
+                                withEnv(conf.withEnvList) {
+                                    // sh 'printenv'
+                                    sh 'cd /workspace; dockerize -template src_dir:dest_dir  && cat dest_dir/template.tmpl'
                                 }
-
+                            } catch (e) {
+                                sh "echo ${e}"
                             }
+
                             // 发布到测试环境的条件
                             boolean isTest = conf.getAttr('deployEnv') == 'test'
                             // 其它非测试环境的发布条件  条件不能换行
@@ -726,7 +719,7 @@ def call(Map map, env) {
                                     sh String.format('kubectl label ns %s istio-injection=enabled --overwrite', conf.getAttr('namespace'))
                                 }
 
-                                if (conf.getAttr('buildPlatform') != 'adp' || conf.getAttr('customKubernetesDeployTemplate')) {
+                                if (conf.getAttr('customKubernetesDeployTemplate')) {
 
                                     deploykubernetes.deployKubernetes()
                                 } else {

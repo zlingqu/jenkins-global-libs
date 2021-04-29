@@ -137,8 +137,6 @@ class JenkinsRunTemplate {
     // DEPLOY_MASTER_PASSWORD
     this.conf.setAttr('deployPassword', params.DEPLOY_MASTER_PASSWORD)
 
-    //BUILD_PLATFORM
-    this.conf.setAttr('buildPlatform', params.BUILD_PLATFORM)
 
     // workspace
     this.conf.setAttr('configFilePath', '/app')
