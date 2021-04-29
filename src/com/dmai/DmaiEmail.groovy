@@ -346,4 +346,5 @@ class DmaiEmail {
         }else if (this.conf.getAttr('codeLanguage') != 'android') {
             return Tools.simpleTemplate(textComman, bind)
         }
+    }
 }
