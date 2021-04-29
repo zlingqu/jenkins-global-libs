@@ -111,14 +111,6 @@ class Conf implements Serializable {
     }
 
 
-    public String getAppUrl() {
-        switch (this.getAttr('svcType')) {
-            case 'ClusterIP':
-                return '用户使用的svc模式为ClusterIP,外部无法直接访问。'
-            case 'NodePort':
-                return this.nodePortAddress() + ':' + this.getAttr('nodePort')
-        }
-    }
 
     private String nodePortAddress() {
         switch (this.getAttr('branchName')) {

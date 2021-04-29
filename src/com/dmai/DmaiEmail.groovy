@@ -335,7 +335,6 @@ class DmaiEmail {
                 'gitAddress'     : this.conf.getAttr('gitAddress'),
                 'k8sWebAddress'  : this.conf.getK8sWebAddress(),
                 'buildEnvInfo'   : this.conf.getAttr('domainBefore')+this.conf.getAttr('domainMiddle')+this.conf.getAttr('domainAfter')+(this.conf.getAttr('domainPath')=='None'?'':this.conf.getAttr('domainPath')),
-                'useSvcInfo'     : this.useSvcInfo(),
                 'sonarAddress'   : 'http://sonar.ops.dm-ai.cn/dashboard?id=' + this.conf.appName,
                 'adpUrlApp'      : this.adpUrlApp,
                 'namespace'      : this.conf.getAttr('namespace'),
@@ -348,18 +347,6 @@ class DmaiEmail {
             return Tools.simpleTemplate(textComman, bind)
         }
     }
-
-    private String useSvcInfo() {
-        if (this.conf.getAttr('svcType')=='None') {
-            return '此服务未使用service，无外部访问地址！'
-        }
-        return ''
-    }
-
-        if (this.conf.getAttr('svcType') != 'None' && this.conf.getAttr('svcType') == 'NodePort') {
-            return '用户测试验证地址：' + this.conf.getAppUrl()
-        }
-
         return ''
     }
 
