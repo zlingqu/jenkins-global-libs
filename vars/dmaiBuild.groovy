@@ -112,7 +112,7 @@ def call(Map map, env) {
     }
 
     // deploy
-    def defaultDeploy = conf.getAttr('deploy') ? conf.getAttr('deploy') : false
+    def defaultDeploy = conf.getAttr('ifDeploy') ? conf.getAttr('ifDeploy') : false
 
     // code language
     def defaultCodeLanguage = conf.getAttr('codeLanguage') ? conf.getAttr('codeLanguage') : ''
@@ -211,11 +211,11 @@ def call(Map map, env) {
             // codeLanguage
             string(name: 'CODE_LANGUAGE', defaultValue: defaultCodeLanguage, description: 'code language')
 
-            //
+            //是否编译
             booleanParam(name: 'IF_COMPILE', defaultValue: defaultCompile, description: '是否编译')
 
-            //
-            booleanParam(name: 'DEPLOY', defaultValue: defaultDeploy, description: '是否部署')
+            //是否部署
+            booleanParam(name: 'IF_DEPLOY', defaultValue: defaultDeploy, description: '是否部署')
 
 
             // if_use_auto_deploy_file
@@ -363,7 +363,7 @@ def call(Map map, env) {
                 when {
                     allOf { //所有的条件都满足
                         expression { return conf.ifBuild() };
-                        expression { return conf.getAttr('deploy') };
+                        expression { return conf.getAttr('ifDeploy') };
                         expression { return conf.getAttr('branchName') == 'dev' };
                         expression { return conf.getAttr('codeLanguage') in ['js', 'node'] };
                         expression { return conf.getAttr('sonarCheck') };
@@ -678,7 +678,7 @@ def call(Map map, env) {
             stage('部署') {
                 when {
                     allOf {
-                        expression { return conf.getAttr('deploy') }
+                        expression { return conf.getAttr('ifDeploy') }
                         expression { return conf.getAttr('codeLanguage') != 'android'}
                         expression { return conf.getAttr('codeLanguage') != 'unity' }
                         expression { return conf.getAttr('deployEnv') != 'not-deploy' }
