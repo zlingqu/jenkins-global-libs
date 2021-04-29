@@ -4,7 +4,7 @@ import com.tool.Tools
 import java.net.URLEncoder
 import java.util.concurrent.TimeUnit
 
-// import static java.nio.charset.StandardCharsets.UTF_8
+// 构建后邮件通知相关逻辑
 
 class DmaiEmail {
 

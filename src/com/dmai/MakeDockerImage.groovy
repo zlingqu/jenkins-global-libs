@@ -1,5 +1,8 @@
 package com.dmai
 
+
+// 制作docker镜像
+
 class MakeDockerImage {
 
     protected final def script

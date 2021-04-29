@@ -1,5 +1,6 @@
 package com.dmai
 
+// 编译相关的逻辑
 class Compile {
 
     protected final def script

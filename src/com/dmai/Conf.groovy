@@ -1,5 +1,7 @@
 package com.dmai
 
+// 全局配置，包括配置加载、特殊项目配置处理等
+
 class Conf implements Serializable {
 
     public String appName

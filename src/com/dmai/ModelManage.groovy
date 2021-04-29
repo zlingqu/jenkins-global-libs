@@ -1,5 +1,8 @@
 package com.dmai
 
+
+// gpu如果模型和代码分别管理的，在制作镜像前，这里负责从某些地方获取模型文件
+
 class ModelManage {
 
     protected final def script

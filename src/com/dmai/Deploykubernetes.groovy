@@ -1,5 +1,7 @@
 package com.dmai
 
+// k8s自定义yaml相关逻辑
+
 class Deploykubernetes {
 
     protected final def script

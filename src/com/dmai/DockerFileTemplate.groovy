@@ -2,6 +2,8 @@ package com.dmai
 
 import com.tool.Tools
 
+// 全局默认的dockerfile
+
 class DockerFileTemplate {
 
     private Conf conf

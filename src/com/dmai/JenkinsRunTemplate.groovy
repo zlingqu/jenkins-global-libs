@@ -2,6 +2,8 @@ package com.dmai
 
 import com.tool.Tools
 
+// Jenkins slave运行相关的逻辑，比如配置获取、运行的pod yaml配置、特殊项目处理等
+
 class JenkinsRunTemplate {
 
   private Conf conf

@@ -3,6 +3,8 @@ package com.dmai
 import java.util.concurrent.TimeUnit
 import groovy.json.JsonSlurper
 
+// 构建后需要判断pod是否起来
+
 class KubernetesStatusCheck {
 
     private Conf conf
