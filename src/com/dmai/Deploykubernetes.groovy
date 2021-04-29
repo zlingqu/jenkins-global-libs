@@ -4,25 +4,14 @@ class Deploykubernetes {
 
     protected final def script
     private final Conf conf
-    private KubernetesDeployTemplate kubernetesDeployTemplate
 
     Deploykubernetes(script, Conf conf) {
         this.script = script
         this.conf = conf
-        this.kubernetesDeployTemplate = new KubernetesDeployTemplate(this.conf)
     }
 
     public void deployKubernetes() {
-        if (!this.conf.getAttr('customKubernetesDeployTemplate')) {
-            try {
-                this.script.sh "echo '${this.kubernetesDeployTemplate.getKubernetesDeployTemplate()}' > Deploy-k8s.yml"
-            }
-            catch (e) {
-                this.script.sh "${e}"
-            }
-        }
 
-        //
         if (this.conf.getAttr('customKubernetesDeployTemplate')) {
             if (this.conf.getAttr('autoDeployContent')) {
                 this.script.sh "echo '${this.conf.getAttr('autoDeployContent')}' > Deploy-k8s.yml"
@@ -39,7 +28,6 @@ class Deploykubernetes {
                 } catch (e) {
                     this.script.sh "${e}"
                 }
-                this.script.sh "test -e  Deploy-k8s.yml || cat ${deploymentDeployK8sFile}  | sed s#JENKINS_DEPLOY_IMAGE_ADDRESS#${this.conf.getAttr('buildImageAddress')}#g > Deploy-k8s.yml"
                 this.script.sh "test -e  Deploy-k8s.yml && sed -i s#JENKINS_DEPLOY_IMAGE_ADDRESS#${this.conf.getAttr('buildImageAddress')}#g Deploy-k8s.yml"
                 this.script.sh 'cat Deploy-k8s.yml'
             }

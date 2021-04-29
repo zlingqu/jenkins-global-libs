@@ -24,22 +24,6 @@ class DmaiEmail {
         this.adpUrlApp = 'http://adp.dm-ai.cn/#/deployment-management'
     }
 
-    public userSureEmail() {
-        try {
-            this.script.emailext(
-                    body: String.format('http://jenkins.ops.dm-ai.cn/job/%s/job/%s/%s/input/',
-                            this.conf.getAttr('jobName'),
-                            this.conf.getAttr('branchName'),
-                            this.conf.getAttr('buildNumber')
-                    ),
-                    subject: '紧急->用户确认邮件',
-                    to: this.conf.getAttr('emailAddress')
-            )
-        }
-        catch (e) {
-            this.script.sh "${e}"
-        }
-    }
 
     private String requestBodyString(String token, String status) {
         return String.format('''
@@ -343,7 +327,6 @@ class DmaiEmail {
                 'buildResult'    : buildResult,
                 'gitAddress'     : this.conf.getAttr('gitAddress'),
                 'k8sWebAddress'  : this.conf.getK8sWebAddress(),
-                // 'buildEnvInfo'   : this.conf.getAttr('domainBefore')+this.conf.getAttr('domainMiddle')+this.conf.getAttr('domainAfter')+(this.conf.getAttr('domainPath')=='None'?'':this.conf.getAttr('domainPath')),
                 'buildEnvInfo'   : this.buildEnvInfo(),
                 'sonarAddress'   : 'http://sonar.ops.dm-ai.cn/dashboard?id=' + this.conf.appName,
                 'adpUrlApp'      : this.adpUrlApp,

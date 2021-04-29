@@ -111,30 +111,6 @@ class Conf implements Serializable {
     }
 
 
-
-    private String nodePortAddress() {
-        switch (this.getAttr('branchName')) {
-            case 'master':
-                return 'http://192.168.11.20'
-            case 'dev':
-                return this.getDevUrl()
-        }
-    }
-
-//    根据dev标签来判断用户的dev分支部署在那个环境
-    private String getDevUrl() {
-        switch (this.getAttr('deployEnv')) {
-            case 'test':
-                return 'http://192.168.3.140'
-            case 'dev':
-                return 'http://192.168.3.21'
-            case 'master':
-                return 'http://192.168.11.20'
-            case 'jenkins':
-                return 'http://192.168.69.32'
-        }
-    }
-
     // print appConf
     public def printAppConf() {
         this.withEnvList = []

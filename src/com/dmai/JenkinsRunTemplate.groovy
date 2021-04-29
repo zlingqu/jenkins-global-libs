@@ -79,49 +79,49 @@ class JenkinsRunTemplate {
     this.conf.setAttr('deploy', params.DEPLOY)
 
 
-    // set CUSTOM_KUBERNETES_DEPLOY_TEMPLATE
+    // 是否自定义yaml
     this.conf.setAttr('customKubernetesDeployTemplate', params.CUSTOM_KUBERNETES_DEPLOY_TEMPLATE)
 
-    // set CUSTOM_KUBERNETES_DEPLOY_TEMPLATE_CONTENT
+    // 自定义yaml内容
     this.conf.setAttr('autoDeployContent', params.CUSTOM_KUBERNETES_DEPLOY_TEMPLATE_CONTENT)
 
-    // set CUSTOM_DOCKERFILE
+    // 是否自定义dockerfile
     this.conf.setAttr('customDockerfile', params.CUSTOM_DOCKERFILE)
 
-    // set CUSTOM_DOCKERFILE_CONTENT
+    // 自定义dockerfile内容
     this.conf.setAttr('customDockerfileContent', params.CUSTOM_DOCKERFILE_CONTENT)
 
-    // set SERVICE_TYPE
+    // set 服务类型
     this.conf.setAttr('svcType', params.SERVICE_TYPE)
 
-    // set replicationControllerType
+    // set 控制器类型
     this.conf.setAttr('replicationControllerType', params.replicationControllerType)
 
-    // set default port
+    // set 默认端口
     this.conf.setAttr('containerPort', params.CONTAINER_PORT)
     if (!this.conf.getAttr('containerPort')) {
       this.conf.setAttr('containerPort', '80')
     }
 
-    // if make images
+    // if 是否制作镜像
     this.conf.setAttr('makeImage', params.IF_MAKE_IMAGE)
 
-    // set IF_CHECK_PODS_STATUS
+    // set 是否检查pod状态
     this.conf.setAttr('ifCheckPodsStatus', params.IF_CHECK_PODS_STATUS)
 
-    // set USE_MODEL
+    // set 是否使用模型
     this.conf.setAttr('useModel', params.USE_MODEL)
 
-    // set IF_STORAGE_LOCALE
+    // set 是否使用存储
     this.conf.setAttr('useStore', params.IF_STORAGE_LOCALE)
 
-    // set STORAGE_PATH
+    // set 存储路径
     this.conf.setAttr('storePath', params.STORAGE_PATH)
 
-    // VERSION_CONTROL_MODE
+    // git 版本控制方式
     this.conf.setAttr('versionControlMode', params.VERSION_CONTROL_MODE)
 
-    // GIT_TAG
+    // git tag
     this.conf.setAttr('gitTag', params.GIT_TAG)
 
     // APOLLO_CLUSTER_NAME
