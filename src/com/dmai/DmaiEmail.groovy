@@ -129,6 +129,15 @@ class DmaiEmail {
             this.script.sh "${e}"
         }
     }
+    private String buildEnvInfo() {
+        if (this.conf.getAttr('domainMiddle') == 'None') {
+            return  '无'
+        } else {
+            return this.conf.getAttr('domainBefore')+this.conf.getAttr('domainMiddle')+this.conf.getAttr('domainAfter')+(this.conf.getAttr('domainPath')=='None'?'':this.conf.getAttr('domainPath'))
+        }
+
+    }
+
 
     private String emailBody(String buildResult) {
         def String apkViewUrl = ''
@@ -334,7 +343,8 @@ class DmaiEmail {
                 'buildResult'    : buildResult,
                 'gitAddress'     : this.conf.getAttr('gitAddress'),
                 'k8sWebAddress'  : this.conf.getK8sWebAddress(),
-                'buildEnvInfo'   : this.conf.getAttr('domainBefore')+this.conf.getAttr('domainMiddle')+this.conf.getAttr('domainAfter')+(this.conf.getAttr('domainPath')=='None'?'':this.conf.getAttr('domainPath')),
+                // 'buildEnvInfo'   : this.conf.getAttr('domainBefore')+this.conf.getAttr('domainMiddle')+this.conf.getAttr('domainAfter')+(this.conf.getAttr('domainPath')=='None'?'':this.conf.getAttr('domainPath')),
+                'buildEnvInfo'   : this.buildEnvInfo(),
                 'sonarAddress'   : 'http://sonar.ops.dm-ai.cn/dashboard?id=' + this.conf.appName,
                 'adpUrlApp'      : this.adpUrlApp,
                 'namespace'      : this.conf.getAttr('namespace'),
