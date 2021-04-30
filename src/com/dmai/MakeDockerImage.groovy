@@ -30,7 +30,8 @@ class MakeDockerImage {
     // 使用adp应用管理里面配置的Dockerfile
     public void changeDockerfileToAdpConfig(){
         this.createDockerignore()
-        this.script.sh String.format('echo %s > Dockerfile', this.conf.getAttr('customDockerfileContent'))
+        // this.script.sh String.format('echo %s > Dockerfile', this.conf.getAttr('customDockerfileContent'))
+        this.script.sh "echo '${this.conf.getAttr('customDockerfileContent')}' > Dockerfile"
         this.pullEnvToDockerfileFromApollo()
     }
 
@@ -65,7 +66,7 @@ class MakeDockerImage {
         this.script.sh 'cat Dockerfile'
     }
 
-    public makeImage() {
+    public void makeImage() {
         this.script.sh 'pwd;tree -L 2'
         this.script.sh String.format('docker-compose build --build-arg VUE_APP_SCENE=%s --build-arg MODEL_VERSION=%s --build-arg FRONTEND_ENV=%s  service-docker-build',
             this.conf.vueAppScene, 
