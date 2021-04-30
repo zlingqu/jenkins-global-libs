@@ -639,7 +639,7 @@ def call(Map map, env) {
                 parallel {
                     stage('使用adp默认的Dockerfile') {
                         when {
-                            allof {
+                            allOf {
                                 expression { return !conf.getAttr('customDockerfile') };
                             }
                         }
@@ -653,7 +653,7 @@ def call(Map map, env) {
                     }
                     stage('使用adp前端配置的Dockerfile') {
                         when {
-                            allof {
+                            allOf {
                                 expression { return conf.getAttr('customDockerfile') };
                                 expression { return !conf.getAttr('ifUseRootDockerfile') };
                             }
@@ -668,7 +668,7 @@ def call(Map map, env) {
                     }
                     stage('使用代码根目录下面的Dockerfile') {
                         when {
-                            allof {
+                            allOf {
                                 expression { return conf.getAttr('customDockerfile') };
                                 expression { return conf.getAttr('ifUseRootDockerfile') };
                             }
