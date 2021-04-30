@@ -635,7 +635,55 @@ def call(Map map, env) {
                     }
                 }
             }
+            stage('加载Dockerfile'){
+                parelles {
+                    stage('使用adp默认的Dockerfile') {
+                        when{
+                            allof{
+                                expression { return !conf.getAttr('customDockerfile') };
+                            }
+                        }
+                        steps{
+                            container('adp'){
+                                script{
+                                    makeDockerImage.changeDockerfileToDefault()
+                                }
+                            }
+                        }
+                    }
+                    stage('使用adp前端配置的Dockerfile') {
+                        when{
+                            allof{
+                                expression { return conf.getAttr('customDockerfile') };
+                                expression { return !conf.getAttr('ifUseRootDockerfile') };
+                            }
+                        }
+                        steps{
+                            container('adp'){
+                                script{
+                                    makeDockerImage.changeDockerfileToAdpConfig()
+                                }
+                            }
+                        }
+                    }
+                    stage('使用代码根目录下面的Dockerfile') {
+                        when{
+                            allof{
+                                expression { return conf.getAttr('customDockerfile') };
+                                expression { return conf.getAttr('ifUseRootDockerfile') };
+                            }
+                        }
+                        steps{
+                            container('adp'){
+                                script{
+                                    makeDockerImage.changeDockerfileToGitRootDir()
+                                }
+                            }
+                        }
+                    }
+                }
 
+            }
             stage('构建') {
                 parallel {
                     // unity需要 TODO 整合android加固流程

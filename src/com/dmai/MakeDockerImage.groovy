@@ -19,29 +19,42 @@ class MakeDockerImage {
         this.script.sh "echo '${this.dockerFileTemplate.getDockerComposeFile()}' > docker-compose.yml"
 
     }
-    public void makeImage() {
-        //创建docker构建的时候的排除文件。
+
+    // 使用默认的Dockerfile
+    public void changeDockerfileToDefault(){
         this.createDockerignore()
+        this.script.sh "echo '${this.dockerFileTemplate.getDockerFile()}' > Dockerfile"
+        this.pullEnvToDockerfileFromApollo()
+    }
 
-        if (!conf.getAttr('customDockerfile')) {
-            this.script.sh "echo '${this.dockerFileTemplate.getDockerFile()}' > Dockerfile"
-        }
+    // 使用adp应用管理里面配置的Dockerfile
+    public void changeDockerfileToAdpConfig(){
+        this.createDockerignore()
+        this.script.sh "echo '${this.conf.getAttr('customDockerfileContent')}' > Dockerfile"
+        this.pullEnvToDockerfileFromApollo()
+    }
 
-        if (conf.getAttr('customDockerfile') && !this.conf.getAttr('ifUseRootDockerfile')) {
-            this.script.sh "echo '${this.conf.getAttr('customDockerfileContent')}' > Dockerfile"
-        }
+    // 使用代码根目录下面的Dockerfile
+    public void changeDockerfileToGitRootDir(){
+        this.createDockerignore()
+        this.pullEnvToDockerfileFromApollo()
+    }
 
+    public void pullEnvToDockerfileFromApollo() {
         //从apollo拉取配置注入Dockerfile
         if (this.conf.getAttr('ifUseApolloForDockerfile')) {
             this.script.sh "echo -e '\n' >> Dockerfile"
             try {
-                this.script.sh String.format('/usr/bin/tools-get-apollo-data-write-dockerfile --config_server_url=http://%s-conf.apollo.cc.dm-ai.cn --appId=%s --clusterName="%s" --namespaceName="%s" --Dockerfile=`pwd`/Dockerfile',
+                this.script.sh String.format('/usr/bin/tools-get-apollo-data-write-dockerfile 
+                        --config_server_url=http://%s-conf.apollo.cc.dm-ai.cn 
+                        --appId=%s 
+                        --clusterName="%s" 
+                        --namespaceName="%s" 
+                        --Dockerfile=`pwd`/Dockerfile',
                         this.conf.getAttr('apolloEnvForDockerfile'),
                         this.conf.getAttr('jobName'),
                         this.conf.getAttr('apolloClusterForDockerfile'),
                         this.conf.getAttr('apolloNamespaceForDockerfile'))
-                this.script.sh "echo 'deployEnvStatus=offline' >> Dockerfile"
-                this.script.sh 'cat Dockerfile'
             } catch (e) {
                 this.conf.setAttr('deployRes', '构建离线部署环境的镜像，从apollo拉取数据失败，请检查apollo配置或者网络问题')
                 this.conf.setAttr('deployMsg', '构建离线部署环境的镜像，从apollo拉取数据失败，请检查apollo配置或者网络问题')
@@ -51,17 +64,21 @@ class MakeDockerImage {
 
         if (this.conf.getAttr('deployEnvStatus') == 'start' ) {
             this.script.sh "echo -e '\nENV deployEnvStatus=online' >> Dockerfile"
-            this.script.sh 'cat Dockerfile'
+        }else{
+            this.script.sh "echo 'deployEnvStatus=offline' >> Dockerfile"
         }
+        this.script.sh 'cat Dockerfile'
+    }
 
-        // ### 需要处理 1。 使用环境变量的。 2. 有些业务是没配置文件的。注意。
-
-        // this.script.sh "echo '${this.dockerFileTemplate.getDockerComposeFile()}' > docker-compose.yml"
-
-        this.script.sh String.format('pwd;tree -L 2;docker-compose build --build-arg VUE_APP_SCENE=%s --build-arg MODEL_VERSION=%s --build-arg FRONTEND_ENV=%s service-docker-build',
-                this.conf.vueAppScene, this.conf.modelVersion, this.conf.getAttr('nodeEnv')
+    private void makeImage() {
+        this.script.sh String.format('pwd;tree -L 2;
+        docker-compose build 
+        --build-arg VUE_APP_SCENE=%s 
+        --build-arg MODEL_VERSION=%s 
+        --build-arg FRONTEND_ENV=%s 
+        service-docker-build',
+        this.conf.vueAppScene, this.conf.modelVersion, this.conf.getAttr('nodeEnv')
         )
-
     }
 
     private void createDockerignore() {
