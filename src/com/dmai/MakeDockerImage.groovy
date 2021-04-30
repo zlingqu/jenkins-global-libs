@@ -45,12 +45,7 @@ class MakeDockerImage {
         if (this.conf.getAttr('ifUseApolloForDockerfile')) {
             this.script.sh "echo -e '\n' >> Dockerfile"
             try {
-                this.script.sh String.format('/usr/bin/tools-get-apollo-data-write-dockerfile 
-                        --config_server_url=http://%s-conf.apollo.cc.dm-ai.cn 
-                        --appId=%s 
-                        --clusterName="%s" 
-                        --namespaceName="%s" 
-                        --Dockerfile=`pwd`/Dockerfile',
+                this.script.sh String.format('/usr/bin/tools-get-apollo-data-write-dockerfile --config_server_url=http://%s-conf.apollo.cc.dm-ai.cn  --appId=%s  --clusterName="%s"  --namespaceName="%s"  --Dockerfile=`pwd`/Dockerfile',
                         this.conf.getAttr('apolloEnvForDockerfile'),
                         this.conf.getAttr('jobName'),
                         this.conf.getAttr('apolloClusterForDockerfile'),
@@ -71,14 +66,11 @@ class MakeDockerImage {
     }
 
     private void makeImage() {
-        this.script.sh String.format('pwd;tree -L 2;
-        docker-compose build 
-        --build-arg VUE_APP_SCENE=%s 
-        --build-arg MODEL_VERSION=%s 
-        --build-arg FRONTEND_ENV=%s 
-        service-docker-build',
-        this.conf.vueAppScene, this.conf.modelVersion, this.conf.getAttr('nodeEnv')
-        )
+        this.script.sh 'pwd;tree -L 2'
+        this.script.sh String.format('docker-compose build --build-arg VUE_APP_SCENE=%s --build-arg MODEL_VERSION=%s --build-arg FRONTEND_ENV=%s  service-docker-build',
+            this.conf.vueAppScene, 
+            this.conf.modelVersion, 
+            this.conf.getAttr('nodeEnv'))
     }
 
     private void createDockerignore() {
