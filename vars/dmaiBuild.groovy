@@ -834,6 +834,7 @@ def call(Map map, env) {
                     echo currentBuild.result
                     dmaiEmail.writeBuildResultToAdp(currentBuild.result)
                     dmaiEmail.writeBuildResultToAdpResult(currentBuild.result)
+                    deleteDir()
                 }
             }
         }
