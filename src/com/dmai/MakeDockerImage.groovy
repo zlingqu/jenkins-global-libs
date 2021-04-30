@@ -32,6 +32,8 @@ class MakeDockerImage {
         this.createDockerignore()
         // this.script.sh String.format('echo %s > Dockerfile', this.conf.getAttr('customDockerfileContent'))
         this.script.sh "echo '${this.conf.getAttr('customDockerfileContent')}' > Dockerfile"
+        this.script.sh 'cat Dockerfile'
+        this.script.sh "echo -e '\n' >> Dockerfile"
         this.pullEnvToDockerfileFromApollo()
     }
 
@@ -60,7 +62,7 @@ class MakeDockerImage {
 
         if (this.conf.getAttr('deployEnvStatus') == 'start' ) {
             this.script.sh "echo -e '\nENV deployEnvStatus=online' >> Dockerfile"
-        }else{
+        } else {
             this.script.sh "echo 'deployEnvStatus=offline' >> Dockerfile"
         }
         this.script.sh 'cat Dockerfile'
