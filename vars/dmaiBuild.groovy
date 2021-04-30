@@ -636,7 +636,7 @@ def call(Map map, env) {
                 }
             }
             stage('加载Dockerfile') {
-                parelles {
+                parallel {
                     stage('使用adp默认的Dockerfile') {
                         when {
                             allof {
@@ -651,36 +651,36 @@ def call(Map map, env) {
                             }
                         }
                     }
-                    // stage('使用adp前端配置的Dockerfile') {
-                    //     when {
-                    //         allof {
-                    //             expression { return conf.getAttr('customDockerfile') };
-                    //             expression { return !conf.getAttr('ifUseRootDockerfile') };
-                    //         }
-                    //     }
-                    //     steps {
-                    //         container('adp') {
-                    //             script {
-                    //                 makeDockerImage.changeDockerfileToAdpConfig()
-                    //             }
-                    //         }
-                    //     }
-                    // }
-                    // stage('使用代码根目录下面的Dockerfile') {
-                    //     when {
-                    //         allof {
-                    //             expression { return conf.getAttr('customDockerfile') };
-                    //             expression { return conf.getAttr('ifUseRootDockerfile') };
-                    //         }
-                    //     }
-                    //     steps {
-                    //         container('adp') {
-                    //             script {
-                    //                 makeDockerImage.changeDockerfileToGitRootDir()
-                    //             }
-                    //         }
-                    //     }
-                    // }
+                    stage('使用adp前端配置的Dockerfile') {
+                        when {
+                            allof {
+                                expression { return conf.getAttr('customDockerfile') };
+                                expression { return !conf.getAttr('ifUseRootDockerfile') };
+                            }
+                        }
+                        steps {
+                            container('adp') {
+                                script {
+                                    makeDockerImage.changeDockerfileToAdpConfig()
+                                }
+                            }
+                        }
+                    }
+                    stage('使用代码根目录下面的Dockerfile') {
+                        when {
+                            allof {
+                                expression { return conf.getAttr('customDockerfile') };
+                                expression { return conf.getAttr('ifUseRootDockerfile') };
+                            }
+                        }
+                        steps {
+                            container('adp') {
+                                script {
+                                    makeDockerImage.changeDockerfileToGitRootDir()
+                                }
+                            }
+                        }
+                    }
                 }
 
             }
