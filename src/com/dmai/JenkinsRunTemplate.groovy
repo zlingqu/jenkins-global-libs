@@ -70,7 +70,7 @@ class JenkinsRunTemplate {
     this.conf.setAttr('codeLanguage', params.CODE_LANGUAGE)
 
     // set deploy
-    this.conf.setAttr('deploy', params.DEPLOY)
+    this.conf.setAttr('ifDeploy', params.IF_DEPLOY)
 
 
     // 是否自定义yaml
