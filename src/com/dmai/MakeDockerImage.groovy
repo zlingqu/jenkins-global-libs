@@ -23,14 +23,14 @@ class MakeDockerImage {
     // 使用默认的Dockerfile
     public void changeDockerfileToDefault(){
         this.createDockerignore()
-        this.script.sh "echo '${this.dockerFileTemplate.getDockerFile()}' > Dockerfile"
+        this.script.sh String.format('echo %s > Dockerfile', this.dockerFileTemplate.getDockerFile())
         this.pullEnvToDockerfileFromApollo()
     }
 
     // 使用adp应用管理里面配置的Dockerfile
     public void changeDockerfileToAdpConfig(){
         this.createDockerignore()
-        this.script.sh "echo '${this.conf.getAttr('customDockerfileContent')}' > Dockerfile"
+        this.script.sh String.format('echo %s > Dockerfile', this.conf.getAttr('customDockerfileContent'))
         this.pullEnvToDockerfileFromApollo()
     }
 
@@ -65,7 +65,7 @@ class MakeDockerImage {
         this.script.sh 'cat Dockerfile'
     }
 
-    private void makeImage() {
+    public makeImage() {
         this.script.sh 'pwd;tree -L 2'
         this.script.sh String.format('docker-compose build --build-arg VUE_APP_SCENE=%s --build-arg MODEL_VERSION=%s --build-arg FRONTEND_ENV=%s  service-docker-build',
             this.conf.vueAppScene, 
@@ -75,7 +75,6 @@ class MakeDockerImage {
 
     private void createDockerignore() {
         this.script.sh 'touch .dockerignore'
-        //        this.script.sh "echo .git > .dockerignore; echo Dockerfile >> .dockerignore;echo Jenkinsfile >> .dockerignore; echo deployment >> .dockerignore; echo docker-compose.yml >> .dockerignore"
         this.script.sh 'echo .git > .dockerignore; echo Dockerfile >> .dockerignore;echo Jenkinsfile >> .dockerignore; echo docker-compose.yml >> .dockerignore; echo deployment >> .dockerignore'
     }
 
