@@ -23,7 +23,7 @@ class MakeDockerImage {
     // 使用默认的Dockerfile
     public void changeDockerfileToDefault() {
         this.createDockerignore()
-        this.script.sh String.format('echo %s > Dockerfile', this.dockerFileTemplate.getDockerFile())
+        this.script.sh "echo '${this.dockerFileTemplate.getDockerFile()}' > Dockerfile"
         this.pullEnvToDockerfileFromApollo()
     }
 
