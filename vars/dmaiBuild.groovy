@@ -637,7 +637,7 @@ def call(Map map, env) {
             }
             stage('加载Dockerfile') {
                 parallel {
-                    stage('使用adp默认的Dockerfile') {
+                    stage('使用默认值加载') {
                         when {
                             allOf {
                                 expression { return !conf.getAttr('customDockerfile') };
@@ -651,7 +651,7 @@ def call(Map map, env) {
                             }
                         }
                     }
-                    stage('使用adp前端配置的Dockerfile') {
+                    stage('从应用管理配置内容加载') {
                         when {
                             allOf {
                                 expression { return conf.getAttr('customDockerfile') };
@@ -666,7 +666,7 @@ def call(Map map, env) {
                             }
                         }
                     }
-                    stage('使用代码根目录下面的Dockerfile') {
+                    stage('从代码根目录加载') {
                         when {
                             allOf {
                                 expression { return conf.getAttr('customDockerfile') };
