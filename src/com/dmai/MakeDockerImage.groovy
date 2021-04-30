@@ -67,8 +67,8 @@ class MakeDockerImage {
     public void makeImage() {
         this.script.sh 'pwd;tree -L 2'
         this.script.sh String.format('docker-compose build --build-arg VUE_APP_SCENE=%s --build-arg MODEL_VERSION=%s --build-arg FRONTEND_ENV=%s  service-docker-build',
-            this.conf.vueAppScene, 
-            this.conf.modelVersion, 
+            this.conf.vueAppScene,
+            this.conf.modelVersion,
             this.conf.getAttr('nodeEnv'))
     }
 
