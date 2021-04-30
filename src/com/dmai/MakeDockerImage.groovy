@@ -21,24 +21,21 @@ class MakeDockerImage {
     }
 
     // 使用默认的Dockerfile
-    public void changeDockerfileToDefault(){
+    public void changeDockerfileToDefault() {
         this.createDockerignore()
         this.script.sh String.format('echo %s > Dockerfile', this.dockerFileTemplate.getDockerFile())
         this.pullEnvToDockerfileFromApollo()
     }
 
     // 使用adp应用管理里面配置的Dockerfile
-    public void changeDockerfileToAdpConfig(){
+    public void changeDockerfileToAdpConfig() {
         this.createDockerignore()
-        // this.script.sh String.format('echo %s > Dockerfile', this.conf.getAttr('customDockerfileContent'))
         this.script.sh "echo '${this.conf.getAttr('customDockerfileContent')}' > Dockerfile"
-        this.script.sh 'cat Dockerfile'
-        this.script.sh "echo -e '\n' >> Dockerfile"
         this.pullEnvToDockerfileFromApollo()
     }
 
     // 使用代码根目录下面的Dockerfile
-    public void changeDockerfileToGitRootDir(){
+    public void changeDockerfileToGitRootDir() {
         this.createDockerignore()
         this.pullEnvToDockerfileFromApollo()
     }
@@ -53,6 +50,7 @@ class MakeDockerImage {
                         this.conf.getAttr('jobName'),
                         this.conf.getAttr('apolloClusterForDockerfile'),
                         this.conf.getAttr('apolloNamespaceForDockerfile'))
+                        this.script.sh "echo 'deployEnvStatus=offline' >> Dockerfile"
             } catch (e) {
                 this.conf.setAttr('deployRes', '构建离线部署环境的镜像，从apollo拉取数据失败，请检查apollo配置或者网络问题')
                 this.conf.setAttr('deployMsg', '构建离线部署环境的镜像，从apollo拉取数据失败，请检查apollo配置或者网络问题')
@@ -60,11 +58,9 @@ class MakeDockerImage {
             }
         }
 
-        if (this.conf.getAttr('deployEnvStatus') == 'start' ) {
-            this.script.sh "echo -e '\nENV deployEnvStatus=online' >> Dockerfile"
-        } else {
-            this.script.sh "echo 'deployEnvStatus=offline' >> Dockerfile"
-        }
+        // if (this.conf.getAttr('deployEnvStatus') == 'start' ) {
+        //     this.script.sh "echo -e '\nENV deployEnvStatus=online' >> Dockerfile"
+        // }
         this.script.sh 'cat Dockerfile'
     }
 
