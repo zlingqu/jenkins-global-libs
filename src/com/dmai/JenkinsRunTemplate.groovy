@@ -283,6 +283,9 @@ spec:
   - ip: 192.168.11.4
     hostnames:
     - adp.dm-ai.cn
+  - ip: 192.168.11.200
+    hostnames:
+    - www.baidu.com
   imagePullSecrets:
   - name: regsecret
   containers:
