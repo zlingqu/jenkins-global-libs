@@ -354,6 +354,10 @@ spec:
   - name: kaniko
     imagePullPolicy: IfNotPresent
     image: docker.dm-ai.cn/public/kaniko-executor:debug-v1.3.0
+    command:
+    - "sleep"
+    args:
+    - "3600"
 ''')
   }
 
