@@ -31,6 +31,9 @@ def call(Map map, env) {
     // 全局 docker 镜像生成
     MakeDockerImage makeDockerImage = new MakeDockerImage(this, conf)
 
+        // 全局 docker 镜像生成
+    Kaniko kaniko = new Kaniko(this, conf)
+
     // 自动生成的k8s，部署文件
     Deploykubernetes deploykubernetes = new Deploykubernetes(this, conf)
 
@@ -682,7 +685,6 @@ def call(Map map, env) {
                         }
                     }
                 }
-
             }
             stage('构建') {
                 parallel {
@@ -716,6 +718,15 @@ def call(Map map, env) {
                                     if (conf.ifMakeImage() && conf.getAttr('makeImage')) {
                                         makeDockerImage.makeImage()
                                         makeDockerImage.pushImage()
+                                    }
+                                }
+                            }
+                        }
+                        steps {
+                            container('kaniko') {
+                                script {
+                                    if (conf.ifMakeImage() && conf.getAttr('makeImage')) {
+                                        kaniko.makeAndPushImage()
                                     }
                                 }
                             }

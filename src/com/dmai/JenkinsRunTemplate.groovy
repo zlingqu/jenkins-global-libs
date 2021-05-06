@@ -242,6 +242,7 @@ class JenkinsRunTemplate {
 
     def returnString = this.templateTop() +
                 this.templateDockerCompile() +
+                this.templateKaniko() +
                 this.templateADP() +
                 this.templateSonarCheck() +
                 this.customImage() +
@@ -347,6 +348,21 @@ spec:
     tty: true
 ''', this.conf.getAttr('envType') == 'arm' ? '-arm' : '', this.conf.vueAppScene, this.useModelPath())
   }
+
+  private String templateKaniko() {
+    return String.format('''
+  - name: kaniko
+    imagePullPolicy: IfNotPresent
+    image: docker.dm-ai.cn/public/kaniko-executor:v1.6.0
+    command:
+    - "sleep"
+    args:
+    - "3600"
+    tty: true
+''')
+  }
+
+
 
 
   private String templateSonarCheck() {
