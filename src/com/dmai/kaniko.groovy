@@ -3,13 +3,13 @@ package com.dmai
 
 // 制作docker镜像
 
-class Kanito {
+class Kaniko {
 
     protected final def script
     private final Conf conf
     private DockerFileTemplate dockerFileTemplate
 
-    Kanito(script, Conf conf) {
+    Kaniko(script, Conf conf) {
         this.script = script
         this.conf = conf
         this.dockerFileTemplate = new DockerFileTemplate(this.conf)
