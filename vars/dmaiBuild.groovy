@@ -722,6 +722,8 @@ def call(Map map, env) {
                                 }
                             }
                         }
+                    }
+                    stage('镜像处理 by kaniko') {
                         steps {
                             container('kaniko') {
                                 script {
