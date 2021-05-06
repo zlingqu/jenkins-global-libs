@@ -14,9 +14,7 @@ class Kaniko {
     }
     public void makeAndPushImage() {
         // this.script.sh '/kaniko/executor --destination $IMAGE_TAG_NAME' + this.conf.getAttr('buildImageAddress')
-        sh '''\
-        #!/busybox/sh -e
-        echo quzl
-        '''
+        echo 'quzl'
+        // /kaniko/executor --destination $IMAGE_TAG_NAME' + this.conf.getAttr('buildImageAddress')
     }
 }
