@@ -270,9 +270,9 @@ def call(Map map, env) {
                 yaml new JenkinsRunTemplate(conf).getJenkinsRunTemplate(params.DEPLOY_MASTER_PASSWORD, params.DEPLOY_ENV, params)
                 cloud 'kubernetes-dev'
                 label conf.getAttr('jobName') + '-' + Tools.handleBranchName(conf.getAttr('branchName')) + '-' + conf.getAttr('buildNumber')
-                defaultContainer 'jnlp'
+                // defaultContainer 'jnlp'
                 namespace 'devops'
-                // inheritFrom 'base-template'
+                // inheritFrom 'base-template' 几层pod模板列表，在Jenkins控制台创建的
             }
         }
 
