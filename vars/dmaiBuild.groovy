@@ -31,7 +31,7 @@ def call(Map map, env) {
     // 全局 docker 镜像生成
     MakeDockerImage makeDockerImage = new MakeDockerImage(this, conf)
 
-        // 全局 docker 镜像生成
+    // 全局 kaniko
     Kaniko kaniko = new Kaniko(this, conf)
 
     // 自动生成的k8s，部署文件
