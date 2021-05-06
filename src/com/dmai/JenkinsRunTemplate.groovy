@@ -353,12 +353,7 @@ spec:
     return String.format('''
   - name: kaniko
     imagePullPolicy: IfNotPresent
-    image: docker.dm-ai.cn/public/kaniko-executor:v1.6.0
-    command:
-    - "sleep"
-    args:
-    - "3600"
-    tty: true
+    image: docker.dm-ai.cn/public/kaniko-executor:debug-v1.3.0
 ''')
   }
 
