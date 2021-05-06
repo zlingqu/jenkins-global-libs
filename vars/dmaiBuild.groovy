@@ -272,7 +272,7 @@ def call(Map map, env) {
                 label conf.getAttr('jobName') + '-' + Tools.handleBranchName(conf.getAttr('branchName')) + '-' + conf.getAttr('buildNumber')
                 defaultContainer 'jnlp'
                 namespace 'devops'
-                inheritFrom 'base-template'
+                // inheritFrom 'base-template'
             }
         }
 
