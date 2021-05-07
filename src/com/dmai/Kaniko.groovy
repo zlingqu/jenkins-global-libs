@@ -14,6 +14,6 @@ class Kaniko {
     }
     public void makeAndPushImage() {
         this.script.sh 'echo quzl'
-        this.script.sh 'pwd && tree -L 2 && executor --destination ' + this.conf.getAttr('buildImageAddress')
+        this.script.sh 'pwd && tree -L 2 && executor --context /workspace --destination ' + this.conf.getAttr('buildImageAddress')
     }
 }
