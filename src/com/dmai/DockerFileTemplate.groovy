@@ -135,20 +135,4 @@ ENV TZ="Asia/Shanghai"
 CMD [ "npm","start" ]
 ''', imageString)
     }
-
-    public String getDockerComposeFile() {
-        def text = '''
-version: "2"
-services:
-  service-docker-build:
-    build: ./
-    image: $imageAddress'''
-
-        def binding = [
-                'imageAddress': this.conf.getAttr('buildImageAddress'),
-        ]
-
-        return Tools.simpleTemplate(text, binding)
-    }
-
 }

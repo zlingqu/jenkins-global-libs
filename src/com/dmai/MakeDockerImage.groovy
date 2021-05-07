@@ -1,5 +1,5 @@
 package com.dmai
-
+import com.tool.Tools
 
 //docker-compose处理docker image
 
@@ -7,16 +7,30 @@ class MakeDockerImage {
 
     protected final def script
     private final Conf conf
-    private DockerFileTemplate dockerFileTemplate
 
     MakeDockerImage(script, Conf conf) {
         this.script = script
         this.conf = conf
-        this.dockerFileTemplate = new DockerFileTemplate(this.conf)
     }
 
+    public String getDockerComposeFile() {
+        def text = '''
+version: "2"
+services:
+  service-docker-build:
+    build: ./
+    image: $imageAddress'''
+
+        def binding = [
+                'imageAddress': this.conf.getAttr('buildImageAddress'),
+        ]
+
+        return Tools.simpleTemplate(text, binding)
+    }
+
+
     public void makeDockerComposeYml() {
-        this.script.sh "echo '${this.dockerFileTemplate.getDockerComposeFile()}' > docker-compose.yml"
+        this.script.sh "echo '${getDockerComposeFile()}' > docker-compose.yml"
 
     }
 
