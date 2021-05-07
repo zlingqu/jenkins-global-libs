@@ -729,7 +729,7 @@ def call(Map map, env) {
                         when {
                             allOf {
                                 expression { return conf.ifBuild() };
-                                expression { return ['android','unity'].contains(conf.getAttr('codeLanguage'))};
+                                expression { return !['android','unity'].contains(conf.getAttr('codeLanguage'))};
                                 expression { return conf.getAttr('makeImage') };
                                 expression { return conf.ifMakeImage() };
                             }
