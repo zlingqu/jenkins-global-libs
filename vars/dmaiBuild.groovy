@@ -704,25 +704,25 @@ def call(Map map, env) {
                             }
                         }
                     }
-                    stage('镜像制作、镜像上传') {
-                        when {
-                            allOf {
-                                expression { return conf.ifBuild() };
-                                expression { return conf.getAttr('codeLanguage') != 'android'};
-                                expression { return conf.getAttr('codeLanguage') != 'unity' };
-                            }
-                        }
-                        steps {
-                            container('adp') {
-                                script {
-                                    if (conf.ifMakeImage() && conf.getAttr('makeImage')) {
-                                        makeDockerImage.makeImage()
-                                        makeDockerImage.pushImage()
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    // stage('镜像制作、镜像上传') {
+                    //     when {
+                    //         allOf {
+                    //             expression { return conf.ifBuild() };
+                    //             expression { return conf.getAttr('codeLanguage') != 'android'};
+                    //             expression { return conf.getAttr('codeLanguage') != 'unity' };
+                    //         }
+                    //     }
+                    //     steps {
+                    //         container('adp') {
+                    //             script {
+                    //                 if (conf.ifMakeImage() && conf.getAttr('makeImage')) {
+                    //                     makeDockerImage.makeImage()
+                    //                     makeDockerImage.pushImage()
+                    //                 }
+                    //             }
+                    //         }
+                    //     }
+                    // }
                     stage('镜像处理 by kaniko') {
                         steps {
                             container('kaniko') {
