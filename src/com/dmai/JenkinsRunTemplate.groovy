@@ -242,7 +242,7 @@ class JenkinsRunTemplate {
 
     def returnString = this.templateTop() +
                 this.templateDockerCompile() +
-                this.templateKaniko() +
+                this.templateADP() +
                 this.templateSonarCheck() +
                 this.customImage() +
                 this.defaultVolumes()
@@ -330,7 +330,7 @@ spec:
     return String.format('''
   - name: adp
     imagePullPolicy: IfNotPresent
-    image: docker.dm-ai.cn/devops/base-image-adp:0.5.31%s
+    image: docker.dm-ai.cn/devops/base-image-adp:0.5.32%s
     env:
     - name: VUE_APP_SCENE
       value: %s

@@ -727,7 +727,7 @@ def call(Map map, env) {
                     // }
                     stage('镜像处理 by kaniko') {
                         steps {
-                            container('kaniko') {
+                            container('adp') {
                                 script {
                                     if (conf.ifMakeImage() && conf.getAttr('makeImage')) {
                                         makeDockerImage.makeDockerComposeYml()
