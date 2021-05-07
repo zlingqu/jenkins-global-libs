@@ -28,10 +28,14 @@ def call(Map map, env) {
     // 模型管理初始化
     ModelManage modelManage = new ModelManage(this, conf)
 
-    // 全局 docker 镜像生成
+    // docker-compose处理
     MakeDockerImage makeDockerImage = new MakeDockerImage(this, conf)
 
-    // 全局 kaniko
+
+    //Dockerfile处理
+    MakeDockerfile makeDockerfile = new MakeDockerfile(this, conf)
+
+    // kaniko处理docker image
     Kaniko kaniko = new Kaniko(this, conf)
 
     // 自动生成的k8s，部署文件
@@ -580,7 +584,6 @@ def call(Map map, env) {
                                     conf.setAttr('buildImageTag', conf.getBuildImageAddressTag())
                                     conf.setAttr('buildImageAddress', conf.getBuildImageAddress('rdac-docker.dm-ai.cn'))
                                     conf.printAppConf()
-                                    makeDockerImage.makeDockerComposeYml()
                                 }
                             }
                         }
@@ -600,7 +603,6 @@ def call(Map map, env) {
                                     conf.setAttr('buildImageTag', conf.getBuildImageAddressTag())
                                     conf.setAttr('buildImageAddress', conf.getBuildImageAddress('registry.cn-zhangjiakou.aliyuncs.com'))
                                     conf.printAppConf()
-                                    makeDockerImage.makeDockerComposeYml()
                                 }
                             }
                         }
@@ -631,7 +633,6 @@ def call(Map map, env) {
                                     conf.setAttr('buildImageTag', conf.getBuildImageAddressTag())
                                     conf.setAttr('buildImageAddress', conf.getBuildImageAddress('docker.dm-ai.cn'))
                                     conf.printAppConf()
-                                    makeDockerImage.makeDockerComposeYml()
                                 }
                             }
                         }
@@ -649,7 +650,7 @@ def call(Map map, env) {
                         steps {
                             container('adp') {
                                 script {
-                                    makeDockerImage.changeDockerfileToDefault()
+                                    makeDockerfile.changeDockerfileToDefault()
                                 }
                             }
                         }
@@ -664,7 +665,7 @@ def call(Map map, env) {
                         steps {
                             container('adp') {
                                 script {
-                                    makeDockerImage.changeDockerfileToAdpConfig()
+                                    makeDockerfile.changeDockerfileToAdpConfig()
                                 }
                             }
                         }
@@ -679,7 +680,7 @@ def call(Map map, env) {
                         steps {
                             container('adp') {
                                 script {
-                                    makeDockerImage.changeDockerfileToGitRootDir()
+                                    makeDockerfile.changeDockerfileToGitRootDir()
                                 }
                             }
                         }
@@ -716,6 +717,7 @@ def call(Map map, env) {
                     //         container('adp') {
                     //             script {
                     //                 if (conf.ifMakeImage() && conf.getAttr('makeImage')) {
+                    //                     makeDockerImage.makeDockerComposeYml()
                     //                     makeDockerImage.makeImage()
                     //                     makeDockerImage.pushImage()
                     //                 }
@@ -728,6 +730,7 @@ def call(Map map, env) {
                             container('kaniko') {
                                 script {
                                     if (conf.ifMakeImage() && conf.getAttr('makeImage')) {
+                                        makeDockerImage.makeDockerComposeYml()
                                         kaniko.makeAndPushImage()
                                     }
                                 }

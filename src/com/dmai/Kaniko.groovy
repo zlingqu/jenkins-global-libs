@@ -1,7 +1,7 @@
 package com.dmai
 
 
-// 制作docker镜像
+// kaniko处理docker image
 
 class Kaniko {
 
