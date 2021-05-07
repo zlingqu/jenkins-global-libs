@@ -749,8 +749,7 @@ def call(Map map, env) {
                 when {
                     allOf {
                         expression { return conf.getAttr('ifDeploy') }
-                        expression { return conf.getAttr('codeLanguage') != 'android'}
-                        expression { return conf.getAttr('codeLanguage') != 'unity' }
+                        expression { return !['android','unity'].contains(conf.getAttr('codeLanguage'))}
                         expression { return conf.getAttr('deployEnv') != 'not-deploy' }
                     }
                 }
