@@ -726,13 +726,19 @@ def call(Map map, env) {
                     //     }
                     // }
                     stage('镜像处理 by kaniko') {
+                        when {
+                            allOf {
+                                expression { return conf.ifBuild() };
+                                expression { return ['android','unity'].contains(conf.getAttr('codeLanguage'))};
+                                expression { return conf.getAttr('makeImage') };
+                                expression { return conf.ifMakeImage() };
+                            }
+                        }
                         steps {
                             container('adp') {
                                 script {
-                                    if (conf.ifMakeImage() && conf.getAttr('makeImage')) {
                                         makeDockerImage.makeDockerComposeYml()
                                         kaniko.makeAndPushImage()
-                                    }
                                 }
                             }
                         }
