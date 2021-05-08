@@ -14,7 +14,7 @@ class Kaniko {
     }
     public void makeAndPushImage() {
         // this.script.sh 'echo quzl'
-        this.script.sh String.format('pwd && tree -L 2 && /kaniko/executor --context ${WORKSPACE} --build-arg MODEL_VERSION=%s --build-arg FRONTEND_ENV=%s --build-arg VUE_APP_SCENE=%s --destination %s',
+        this.script.sh String.format('pwd && tree -L 2 && /kaniko/executor --context ${WORKSPACE} --dockerfile ${WORKSPACE}/Dockerfile --build-arg MODEL_VERSION=%s --build-arg FRONTEND_ENV=%s --build-arg VUE_APP_SCENE=%s --destination %s',
         this.conf.modelVersion,
         this.conf.getAttr('nodeEnv'),
         this.conf.vueAppScene,
