@@ -330,7 +330,7 @@ spec:
     return String.format('''
   - name: adp
     imagePullPolicy: IfNotPresent
-    image: docker.dm-ai.cn/devops/base-image-adp:0.5.32%s
+    image: docker.dm-ai.cn/devops/base-image-adp:0.5.33%s
     env:
     - name: VUE_APP_SCENE
       value: %s
@@ -438,7 +438,7 @@ spec:
             case ['js','node','nodets']:
         return String.format('''
   - name: compile
-    image: docker.dm-ai.cn/public/node:10.15.3-slim-base-0.5
+    image: docker.dm-ai.cn/public/node:10.24.1
     imagePullPolicy: IfNotPresent
     securityContext:
       capabilities:
