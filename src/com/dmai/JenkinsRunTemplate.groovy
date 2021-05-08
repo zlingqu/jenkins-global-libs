@@ -438,7 +438,7 @@ spec:
             case ['js','node','nodets']:
         return String.format('''
   - name: compile
-    image: docker.dm-ai.cn/public/node:10.24.1
+    image: docker.dm-ai.cn/public/node:10.24.1-base-0.1
     imagePullPolicy: IfNotPresent
     securityContext:
       capabilities:
