@@ -330,7 +330,7 @@ spec:
     return String.format('''
   - name: adp
     imagePullPolicy: IfNotPresent
-    image: docker.dm-ai.cn/devops/base-image-adp:0.5.33%s
+    image: docker.dm-ai.cn/devops/base-image-adp:0.5.34%s
     env:
     - name: VUE_APP_SCENE
       value: %s
@@ -352,7 +352,7 @@ spec:
     return String.format('''
   - name: kaniko
     imagePullPolicy: IfNotPresent
-    image: docker.dm-ai.cn/devops/base-image-adp:0.5.33
+    image: docker.dm-ai.cn/devops/base-image-adp:0.5.34
     command:
     - "sleep"
     args:
