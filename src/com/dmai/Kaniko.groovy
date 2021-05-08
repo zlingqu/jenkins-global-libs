@@ -14,11 +14,20 @@ class Kaniko {
     }
     public void makeAndPushImage() {
         // this.script.sh 'echo quzl'
-        this.script.sh String.format('pwd && tree -L 2 && /kaniko/executor --context ${WORKSPACE} --dockerfile ${WORKSPACE}/Dockerfile --build-arg MODEL_VERSION=%s --build-arg FRONTEND_ENV=%s --build-arg VUE_APP_SCENE=%s --destination %s',
+        // this.script.sh String.format('pwd && tree -L 2 && /kaniko/executor --context ${WORKSPACE} --dockerfile ${WORKSPACE}/Dockerfile --build-arg MODEL_VERSION=%s --build-arg FRONTEND_ENV=%s --build-arg VUE_APP_SCENE=%s --destination %s',
+        // this.conf.modelVersion,
+        // this.conf.getAttr('nodeEnv'),
+        // this.conf.vueAppScene,
+        // this.conf.getAttr('buildImageAddress'))
+
+
+        this.script.sh String.format('cp -r * /workspace && cd /workspace && pwd && tree -L 2 && /kaniko/executor --context /workspace --dockerfile /workspace/Dockerfile --build-arg MODEL_VERSION=%s --build-arg FRONTEND_ENV=%s --build-arg VUE_APP_SCENE=%s --destination %s',
         this.conf.modelVersion,
         this.conf.getAttr('nodeEnv'),
         this.conf.vueAppScene,
         this.conf.getAttr('buildImageAddress'))
+
+
         // this.script.sh "pwd && tree -L 2 && executor --context " +
         // "${WORKSPACE}" +
         // "--build-arg MODEL_VERSION=${this.conf.modelVersion}" +
