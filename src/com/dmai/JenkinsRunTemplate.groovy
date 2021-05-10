@@ -356,6 +356,7 @@ spec:
     image: docker.dm-ai.cn/public/kaniko-executor:debug-v1.3.0
     command:
     - /busybox/cat
+    tty: true
 ''')
   }
 
