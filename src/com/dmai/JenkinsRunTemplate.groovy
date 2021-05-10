@@ -353,7 +353,7 @@ spec:
     return String.format('''
   - name: kaniko
     imagePullPolicy: IfNotPresent
-    image: docker.dm-ai.cn/public/kaniko-executor:debug-v1.3.0
+    image: gcr.io/kaniko-project/executor:debug-539ddefcae3fd6b411a95982a830d987f4214251
     command:
     - /busybox/cat
     tty: true
