@@ -243,7 +243,6 @@ class JenkinsRunTemplate {
     def returnString = this.templateTop() +
                 this.templateDockerCompile() +
                 this.templateADP() +
-                this.templateKaniko() +
                 this.templateSonarCheck() +
                 this.customImage() +
                 this.defaultVolumes()
