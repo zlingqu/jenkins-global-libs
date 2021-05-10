@@ -343,6 +343,8 @@ spec:
     volumeMounts:
     - name: sock
       mountPath: /var/run/docker.sock
+    - name: docker-config-json
+      mountPath: /root/.docker
 %s
     command:
     - "sleep"
