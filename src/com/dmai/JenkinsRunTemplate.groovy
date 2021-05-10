@@ -330,7 +330,7 @@ spec:
     return String.format('''
   - name: adp
     imagePullPolicy: IfNotPresent
-    image: docker.dm-ai.cn/devops/base-image-adp:0.5.39%s
+    image: docker.dm-ai.cn/devops/base-image-adp:0.5.40%s
     env:
     - name: VUE_APP_SCENE
       value: %s
@@ -347,18 +347,6 @@ spec:
     tty: true
 ''', this.conf.getAttr('envType') == 'arm' ? '-arm' : '', this.conf.vueAppScene, this.useModelPath())
   }
-
-  private String templateKaniko() {
-    return String.format('''
-  - name: kaniko
-    imagePullPolicy: IfNotPresent
-    image: gcr.io/kaniko-project/executor:v1.6.0-debug
-    command:
-    - /busybox/cat
-    tty: true
-''')
-  }
-
 
 
 
