@@ -734,12 +734,9 @@ def call(Map map, env) {
                             }
                         }
                         steps {
-                            container('adp') {
-                                // sh '''
-                                // /kaniko/executor --ignore-path /busybox -f `pwd`/Dockerfile -c `pwd` --destination=docker.dm-ai.cn/devops/quzl:v0.1
-                                // '''
+                            container('kaniko') {
                                 script {
-                                        makeDockerImage.makeDockerComposeYml()
+                                        // makeDockerImage.makeDockerComposeYml()
                                         kaniko.makeAndPushImage()
                                 }
                             }
