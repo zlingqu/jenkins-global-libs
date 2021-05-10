@@ -353,7 +353,7 @@ spec:
     return String.format('''
   - name: kaniko
     imagePullPolicy: IfNotPresent
-    image: gcr.io/kaniko-project/executor:debug-539ddefcae3fd6b411a95982a830d987f4214251
+    image: gcr.io/kaniko-project/executor:v1.6.0-debug
     command:
     - /busybox/cat
     tty: true
