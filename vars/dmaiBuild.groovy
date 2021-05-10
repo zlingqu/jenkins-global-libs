@@ -734,9 +734,9 @@ def call(Map map, env) {
                             }
                         }
                         steps {
-                            container('kaniko') {
+                            container(name: 'kaniko', shell: '/busybox/sh') {
                                 script {
-                                        makeDockerImage.makeDockerComposeYml()
+                                        // makeDockerImage.makeDockerComposeYml()
                                         kaniko.makeAndPushImage()
                                 }
                             }
