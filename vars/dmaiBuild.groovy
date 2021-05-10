@@ -735,7 +735,10 @@ def call(Map map, env) {
                         }
                         steps {
                             container(name: 'kaniko',shell: '/busybox/sh') {
-                                sh 'pwd && tree -L 2'
+                                sh '''
+                                #!/busybox/sh
+                                pwd && tree -L 2
+                                '''
                                 script {
                                         // makeDockerImage.makeDockerComposeYml()
                                         kaniko.makeAndPushImage()
