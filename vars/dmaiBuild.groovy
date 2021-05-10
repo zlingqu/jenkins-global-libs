@@ -734,7 +734,7 @@ def call(Map map, env) {
                             }
                         }
                         steps {
-                            container('adp') {
+                            container('kaniko') {
                                 script {
                                         makeDockerImage.makeDockerComposeYml()
                                         kaniko.makeAndPushImage()

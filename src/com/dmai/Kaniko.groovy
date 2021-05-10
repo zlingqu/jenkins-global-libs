@@ -14,6 +14,7 @@ class Kaniko {
     }
     public void makeAndPushImage() {
         // this.script.sh 'echo quzl'
+        this.script.sh echo ' echo "{\"auths\":{\"$DOCKER_REGIS_URL\":{\"username\":\"$DOCKER_LIB_USER\",\"password\":\"$DOCKER_LIB_PASSWORD\"}}}" > /kaniko/.docker/config.json'
         this.script.sh String.format('pwd && tree -L 2 && /kaniko/executor --verbosity error --context ${WORKSPACE} --dockerfile ${WORKSPACE}/Dockerfile --build-arg MODEL_VERSION=%s --build-arg FRONTEND_ENV=%s --build-arg VUE_APP_SCENE=%s --destination %s',
         this.conf.modelVersion,
         this.conf.getAttr('nodeEnv'),

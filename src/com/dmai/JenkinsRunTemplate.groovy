@@ -243,6 +243,7 @@ class JenkinsRunTemplate {
     def returnString = this.templateTop() +
                 this.templateDockerCompile() +
                 this.templateADP() +
+                this.templateKaniko() +
                 this.templateSonarCheck() +
                 this.customImage() +
                 this.defaultVolumes()
@@ -352,7 +353,7 @@ spec:
     return String.format('''
   - name: kaniko
     imagePullPolicy: IfNotPresent
-    image: docker.dm-ai.cn/devops/base-image-adp:0.5.36
+    image: docker.dm-ai.cn/public/kaniko-executor:debug-v1.3.0
     command:
     - "sleep"
     args:
