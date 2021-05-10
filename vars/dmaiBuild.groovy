@@ -735,10 +735,10 @@ def call(Map map, env) {
                         }
                         steps {
                             container(name: 'kaniko', shell: '/busybox/sh') {
-                                // withEnv(['PATH+EXTRA=/busybox']){
-                                //     sh '''#!/busybox/sh
-                                //         /kaniko/executor -f `pwd`/Dockerfile -c `pwd` --destination=docker.dm-ai.cn/devops/quzl:0.1'''
-                                // }
+                                withEnv(['PATH+EXTRA=/busybox']){
+                                    sh '''#!/busybox/sh
+                                        /kaniko/executor -f `pwd`/Dockerfile -c `pwd` --destination=docker.dm-ai.cn/devops/quzl:0.1'''
+                                }
                                 script {
                                         // makeDockerImage.makeDockerComposeYml()
                                         withEnv(['PATH+EXTRA=/busybox']){kaniko.makeAndPushImage()}
