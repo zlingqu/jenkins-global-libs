@@ -311,6 +311,9 @@ spec:
   - name: jenkins-build-path
     persistentVolumeClaim:
       claimName: jenkins-pvc
+  - name: docker-config-json
+    configMap:
+      name: docker-config-json
 ''')
   }
 
@@ -353,13 +356,16 @@ spec:
     return '''
   - name: kaniko
     imagePullPolicy: IfNotPresent
-    image: docker.dm-ai.cn/public/kaniko:v1.6.0-debug-0.1
+    image: docker.dm-ai.cn/public/kaniko:v1.6.0-debug
     command:
     - "sleep"
     args:
     - "3600"
     tty: true
-    '''
+    volumeMounts:
+    - name: docker-config-json
+      mountPath: /kaniko/.docker
+'''
   }
 
 
