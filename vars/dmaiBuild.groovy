@@ -734,7 +734,7 @@ def call(Map map, env) {
                             }
                         }
                         steps {
-                            container(name: 'kaniko',shell: '/busybox/sh') {
+                            container('kaniko') {
                                 sh '/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --destination=docker.dm-ai.cn/devops/quzl:v0.1'
                                 sh '''
                                 #!/busybox/sh
