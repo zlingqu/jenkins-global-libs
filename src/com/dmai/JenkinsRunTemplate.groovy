@@ -394,7 +394,7 @@ spec:
   - name: custom-image
     image: %s
     imagePullPolicy: IfNotPresent
-    env: 
+    env:
     - name: DMAI_PRIVATE_DOCKER_REGISTRY
       value: docker.dm-ai.cn
     command:
