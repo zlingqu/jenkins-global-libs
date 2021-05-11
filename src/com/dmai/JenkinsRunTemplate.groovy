@@ -184,6 +184,7 @@ class JenkinsRunTemplate {
     this.conf.setAttr('domainMiddle', 'None')
     this.conf.setAttr('domainAfter', 'None')
     this.conf.setAttr('domainPath', 'None')
+    this.conf.setAttr('nodeSpecialFor', 'None')
     this.conf.setAttr('ifUsePodAntiAffinity', false)
 
     if (params.GLOABL_STRING != '') {
@@ -214,7 +215,8 @@ class JenkinsRunTemplate {
       tmpStringList.length >= 23 ? this.conf.setAttr('domainMiddle', tmpStringList[22]) : this.conf.setAttr('domainMiddle', 'None')
       tmpStringList.length >= 24 ? this.conf.setAttr('domainAfter', tmpStringList[23]) : this.conf.setAttr('domainAfter', 'None')
       tmpStringList.length >= 25 ? this.conf.setAttr('domainPath', tmpStringList[24]) : this.conf.setAttr('domainPath', 'None')
-      tmpStringList.length >= 26 ? this.conf.setAttr('ifUsePodAntiAffinity', Boolean.parseBoolean(tmpStringList[25])) : this.conf.setAttr('ifUsePodAntiAffinity', false)
+      tmpStringList.length >= 26 ? this.conf.setAttr('nodeSpecialFor', tmpStringList[25]) : this.conf.setAttr('nodeSpecialFor', 'None')
+      tmpStringList.length >= 27 ? this.conf.setAttr('ifUsePodAntiAffinity', Boolean.parseBoolean(tmpStringList[26])) : this.conf.setAttr('ifUsePodAntiAffinity', false)
 
 
     }
@@ -334,7 +336,7 @@ spec:
     return String.format('''
   - name: adp
     imagePullPolicy: IfNotPresent
-    image: docker.dm-ai.cn/devops/base-image-adp:0.5.46%s
+    image: docker.dm-ai.cn/devops/base-image-adp:0.5.47%s
     env:
     - name: VUE_APP_SCENE
       value: %s
