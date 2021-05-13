@@ -704,44 +704,45 @@ def call(Map map, env) {
                             }
                         }
                     }
-                    stage('镜像制作、镜像上传') {
+                    stage('镜像处理 by docker-compose') {
                         when {
                             allOf {
                                 expression { return conf.ifBuild() };
-                                expression { return conf.getAttr('codeLanguage') != 'android'};
-                                expression { return conf.getAttr('codeLanguage') != 'unity' };
+                                expression { return !['android','unity'].contains(conf.getAttr('codeLanguage'))};
+                                expression { return conf.getAttr('makeImage') };
+                                expression { return conf.ifMakeImage() };
+                                expression { return conf.getAttr('useModel') };
                             }
                         }
                         steps {
                             container('adp') {
                                 script {
-                                    if (conf.ifMakeImage() && conf.getAttr('makeImage')) {
-                                        makeDockerImage.makeDockerComposeYml()
-                                        makeDockerImage.makeImage()
-                                        makeDockerImage.pushImage()
-                                    }
+                                    makeDockerImage.makeDockerComposeYml()
+                                    makeDockerImage.makeImage()
+                                    makeDockerImage.pushImage()
                                 }
                             }
                         }
                     }
-                    // stage('镜像处理 by kaniko') {
-                    //     when {
-                    //         allOf {
-                    //             expression { return conf.ifBuild() };
-                    //             expression { return !['android','unity'].contains(conf.getAttr('codeLanguage'))};
-                    //             expression { return conf.getAttr('makeImage') };
-                    //             expression { return conf.ifMakeImage() };
-                    //         }
-                    //     }
-                    //     steps {
-                    //         container(name: 'kaniko', shell: '/busybox/sh') { //指定特殊的sh，kaniko基础镜像比较特殊
-                    //             script {
-                    //                     // makeDockerImage.makeDockerComposeYml()
-                    //                     withEnv(['PATH+EXTRA=/busybox']){kaniko.makeAndPushImage()}
-                    //             }
-                    //         }
-                    //     }
-                    // }
+                    stage('镜像处理 by kaniko') {
+                        when {
+                            allOf {
+                                expression { return conf.ifBuild() };
+                                expression { return !['android','unity'].contains(conf.getAttr('codeLanguage'))};
+                                expression { return conf.getAttr('makeImage') };
+                                expression { return conf.ifMakeImage() };
+                                expression { return !conf.getAttr('useModel') }
+                            }
+                        }
+                        steps {
+                            container(name: 'kaniko', shell: '/busybox/sh') { //指定特殊的sh，kaniko基础镜像比较特殊
+                                script {
+                                        // makeDockerImage.makeDockerComposeYml()
+                                        withEnv(['PATH+EXTRA=/busybox']){kaniko.makeAndPushImage()}
+                                }
+                            }
+                        }
+                    }
                 }
             }
             stage('部署') {
