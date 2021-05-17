@@ -16,7 +16,8 @@ class Kaniko {
         this.script.sh String.format('''#!/busybox/sh 
         pwd
         /kaniko/executor \
-        -v info -c ${WORKSPACE} \
+        -v info \
+        -c ${WORKSPACE} \
         -f ${WORKSPACE}/Dockerfile \
         --cache=true \
         --cache-dir=/kaniko-cache \
