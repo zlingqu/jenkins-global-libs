@@ -711,7 +711,7 @@ def call(Map map, env) {
                                 expression { return !['android','unity'].contains(conf.getAttr('codeLanguage'))};
                                 expression { return conf.getAttr('makeImage') };
                                 expression { return conf.ifMakeImage() };
-                                expression { return !conf.getAttr('useModel') };
+                                expression { return conf.getAttr('useModel') };
                             }
                         }
                         steps {
@@ -731,7 +731,7 @@ def call(Map map, env) {
                                 expression { return !['android','unity'].contains(conf.getAttr('codeLanguage'))};
                                 expression { return conf.getAttr('makeImage') };
                                 expression { return conf.ifMakeImage() };
-                                expression { return conf.getAttr('useModel') }
+                                expression { return !conf.getAttr('useModel') }
                             }
                         }
                         steps {
