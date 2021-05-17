@@ -17,7 +17,14 @@ class Kaniko {
         pwd
         /kaniko/executor \
         -v info -c ${WORKSPACE} \
-        -f ${WORKSPACE}/Dockerfile --build-arg MODEL_VERSION=%s --build-arg FRONTEND_ENV=%s --build-arg VUE_APP_SCENE=%s --destination %s --push-retry 3''',
+        -f ${WORKSPACE}/Dockerfile \
+        --cache=true \
+        --cache-dir=/kaniko/cache \
+        --build-arg MODEL_VERSION=%s \
+        --build-arg FRONTEND_ENV=%s \
+        --build-arg VUE_APP_SCENE=%s \
+        --destination %s \
+        --push-retry 3''',
         this.conf.modelVersion,
         this.conf.getAttr('nodeEnv'),
         this.conf.vueAppScene,
