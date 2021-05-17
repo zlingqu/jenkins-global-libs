@@ -316,9 +316,6 @@ spec:
   - name: docker-config-json
     configMap:
       name: docker-config-json
-  - name: kaniko-cache
-    hostPath:
-      path: /kaniko-cache
 ''')
   }
 
@@ -372,8 +369,6 @@ spec:
     volumeMounts:
     - name: docker-config-json
       mountPath: /kaniko/.docker
-    - name: kaniko-cache
-      mountPath: /kaniko-cache
 '''
   }
 
