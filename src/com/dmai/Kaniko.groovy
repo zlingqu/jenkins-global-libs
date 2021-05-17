@@ -20,7 +20,7 @@ class Kaniko {
         -c ${WORKSPACE} \
         -f ${WORKSPACE}/Dockerfile \
         --cache=true \
-        --cache-dir=/kaniko-cache \
+        --cache-dir=/workspace/cache \
         --build-arg MODEL_VERSION=%s \
         --build-arg FRONTEND_ENV=%s \
         --build-arg VUE_APP_SCENE=%s \
