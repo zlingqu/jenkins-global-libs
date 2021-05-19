@@ -19,8 +19,6 @@ class Kaniko {
         -v info \
         -c ${WORKSPACE} \
         -f ${WORKSPACE}/Dockerfile \
-        --cache=true \
-        --cache-ttl=8h \
         --build-arg MODEL_VERSION=%s \
         --build-arg FRONTEND_ENV=%s \
         --build-arg VUE_APP_SCENE=%s \
