@@ -39,7 +39,12 @@ class MakeDockerfile {
         if (this.conf.getAttr('ifUseApolloForDockerfile')) {
             this.script.sh "echo -e '\n' >> Dockerfile"
             try {
-                this.script.sh String.format('/usr/bin/tools-get-apollo-data-write-dockerfile --config_server_url=http://%s-conf.apollo.cc.dm-ai.cn  --appId=%s  --clusterName="%s"  --namespaceName="%s"  --Dockerfile=`pwd`/Dockerfile',
+                this.script.sh String.format('''/usr/bin/get-apollo-to-file \
+                        -configServerUrl=http://%s-conf.apollo.cc.dm-ai.cn  \
+                        -appId=%s  \
+                        -clusterName="%s"  \
+                        -namespaceName="%s"  \
+                        -destFilePath=`pwd`/Dockerfile''',
                         this.conf.getAttr('apolloEnvForDockerfile'),
                         this.conf.getAttr('jobName'),
                         this.conf.getAttr('apolloClusterForDockerfile'),
