@@ -566,16 +566,19 @@ def call(Map map, env) {
             }
 
             stage('切换镜像仓库地址') {
+                when {
+                    allOf {
+                        expression { return conf.ifBuild() }
+                        expression { return !['android','unity'].contains(conf.getAttr('codeLanguage'))};
+                    }
+                }
                 parallel {
                     stage('公司对外rdac仓库') {
                         when {
                             allOf {
-                                expression { return conf.ifBuild() }
                                 expression { return conf.getAttr('deployEnvStatus') == 'stop' }
                                 expression { return conf.getAttr('deployEnv') != 'not-deploy' }
                                 expression { return conf.getAttr('deployEnv') != 'chuanyin' }
-                                expression { return conf.getAttr('codeLanguage') != 'android'}
-                                expression { return conf.getAttr('codeLanguage') != 'unity' }
                             }
                         }
                         steps {
@@ -591,7 +594,6 @@ def call(Map map, env) {
                     stage('阿里云华北3仓库') {
                         when {
                             allOf {
-                                expression { return conf.ifBuild() }
                                 expression { return conf.getAttr('deployEnvStatus') == 'stop' }
                                 expression { return conf.getAttr('deployEnv') == 'not-deploy' }
                                 expression { return conf.getAttr('appName') in ['base-dingding-api-gateway','base-dingding-auth-service','base-dingding-message-service','base-dingding-tuoke-live-classroom','base-dingding-frontend','base-dingding-content-security'] }
@@ -611,18 +613,12 @@ def call(Map map, env) {
                         when {
                             anyOf{
                                 allOf {
-                                    expression { return conf.ifBuild() }
                                     expression { return conf.getAttr('deployEnvStatus') == 'start'}
-                                    expression { return conf.getAttr('codeLanguage') != 'android'}
-                                    expression { return conf.getAttr('codeLanguage') != 'unity' }
                                 }
                                 allOf {
-                                    expression { return conf.ifBuild() }
                                     expression { return !(conf.getAttr('appName') in ['base-dingding-api-gateway','base-dingding-auth-service','base-dingding-message-service','base-dingding-tuoke-live-classroom','base-dingding-frontend','base-dingding-content-security']) }
                                     expression { return conf.getAttr('deployEnvStatus') == 'stop'}
                                     expression { return conf.getAttr('deployEnv') == 'not-deploy' }
-                                    expression { return conf.getAttr('codeLanguage') != 'android'}
-                                    expression { return conf.getAttr('codeLanguage') != 'unity' }
                                 }
                             }
                         }
@@ -725,6 +721,20 @@ def call(Map map, env) {
                                         // makeDockerImage.makeDockerComposeYml()
                                         withEnv(['PATH+EXTRA=/busybox']){kaniko.makeAndPushImage()}
                                 }
+                            }
+                        }
+                    }
+                    stage('by kaniko') {
+                        when {
+                            allOf {
+                                expression { return conf.getAttr('appName') == 'service-adp-env' }
+                            }
+                        }
+                        steps {
+                            container('adp') {
+                                docker.withRegistry('https://'+conf.setAttr('buildImageAddress'), conf.setAttr('buildImageAddress')) {
+                                def customImage = docker.build("my-image:${env.BUILD_ID}")
+                                customImage.push()
                             }
                         }
                     }
