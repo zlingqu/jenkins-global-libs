@@ -688,7 +688,7 @@ def call(Map map, env) {
             }
             stage('镜像处理') {
                 when {
-                    allof {
+                    allOf {
                         expression { return conf.ifBuild() };
                         expression { return !['android','unity'].contains(conf.getAttr('codeLanguage'))};
                         expression { return conf.getAttr('makeImage') };
