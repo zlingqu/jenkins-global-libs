@@ -724,7 +724,7 @@ def call(Map map, env) {
                             }
                         }
                     }
-                    stage('by kaniko') {
+                    stage('by docker-plugin') {
                         when {
                             allOf {
                                 expression { return conf.getAttr('appName') == 'service-adp-env' }
@@ -733,9 +733,9 @@ def call(Map map, env) {
                         steps {
                             container('adp') {
                                 docker.withRegistry('https://'+conf.setAttr('buildImageAddress'), conf.setAttr('buildImageAddress')) {
-                                def customImage = docker.build("my-image:${env.BUILD_ID}")
-                                customImage.push()
-                            }
+                                    def customImage = docker.build("my-image:${env.BUILD_ID}")
+                                    customImage.push()
+                                }
                         }
                     }
                 }
