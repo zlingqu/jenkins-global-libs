@@ -586,6 +586,7 @@ def call(Map map, env) {
                                 script {
                                     conf.setAttr('buildImageTag', conf.getBuildImageAddressTag())
                                     conf.setAttr('buildImageAddress', conf.getBuildImageAddress('rdac-docker.dm-ai.cn'))
+                                    conf.setAttr('docker_registry_host','rdac-docker.dm-ai.cn')
                                     conf.printAppConf()
                                 }
                             }
@@ -604,6 +605,7 @@ def call(Map map, env) {
                                 script {
                                     conf.setAttr('buildImageTag', conf.getBuildImageAddressTag())
                                     conf.setAttr('buildImageAddress', conf.getBuildImageAddress('registry.cn-zhangjiakou.aliyuncs.com'))
+                                    conf.setAttr('docker_registry_host','registry.cn-zhangjiakou.aliyuncs.com')
                                     conf.printAppConf()
                                 }
                             }
@@ -627,6 +629,7 @@ def call(Map map, env) {
                                 script {
                                     conf.setAttr('buildImageTag', conf.getBuildImageAddressTag())
                                     conf.setAttr('buildImageAddress', conf.getBuildImageAddress('docker.dm-ai.cn'))
+                                    conf.setAttr('docker_registry_host','docker.dm-ai.cn')
                                     conf.printAppConf()
                                 }
                             }
@@ -734,9 +737,9 @@ def call(Map map, env) {
                             container('adp') {
                                 script {
                                     sh 'echo docker plugin quzhognling'
-                                    docker.withRegistry(conf.getAttr('buildImageAddress'), conf.getAttr('buildImageAddress')) {
+                                    docker.withRegistry(conf.getAttr('docker_registry_host'), conf.getAttr('docker_registry_host')) {
                                     // docker.withRegistry('https://docker.dm-ai.cn', 'docker.dm-ai.cn') {
-                                        def customImage = docker.build("my-image:${env.BUILD_ID}")
+                                        def customImage = docker.build(conf.getAttr('buildImageAddress'))
                                         customImage.push()
                                     }
                                 }
