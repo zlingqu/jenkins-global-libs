@@ -686,31 +686,20 @@ def call(Map map, env) {
                     }
                 }
             }
-            stage('构建') {
-                parallel {
-                    // unity需要 TODO 整合android加固流程
-                    stage('安卓app加固') {
-                        when {
-                            anyOf {
-                                expression { return conf.getAttr('codeLanguage') == 'unity' };
-                            }
-                        }
+            stage('镜像处理') {
+                when {
+                    allof {
+                        expression { return conf.ifBuild() };
+                        expression { return !['android','unity'].contains(conf.getAttr('codeLanguage'))};
+                        expression { return conf.getAttr('makeImage') };
+                        expression { return conf.ifMakeImage() };
 
-                        steps {
-                            container('jiagu') {
-                                script {
-                                    sh 'sh -x /opt/jiagu.sh'
-                                }
-                            }
-                        }
                     }
-                    stage('镜像处理 by docker-compose') {
+                }
+                parallel {
+                    stage('by docker-compose') {
                         when {
                             allOf {
-                                expression { return conf.ifBuild() };
-                                expression { return !['android','unity'].contains(conf.getAttr('codeLanguage'))};
-                                expression { return conf.getAttr('makeImage') };
-                                expression { return conf.ifMakeImage() };
                                 expression { return conf.getAttr('useModel') };
                             }
                         }
@@ -724,13 +713,9 @@ def call(Map map, env) {
                             }
                         }
                     }
-                    stage('镜像处理 by kaniko') {
+                    stage('by kaniko') {
                         when {
                             allOf {
-                                expression { return conf.ifBuild() };
-                                expression { return !['android','unity'].contains(conf.getAttr('codeLanguage'))};
-                                expression { return conf.getAttr('makeImage') };
-                                expression { return conf.ifMakeImage() };
                                 expression { return !conf.getAttr('useModel') }
                             }
                         }
