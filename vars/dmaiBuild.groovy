@@ -700,6 +700,7 @@ def call(Map map, env) {
                         when {
                             allOf {
                                 expression { return conf.getAttr('useModel') };
+                                expression { return conf.getAttr('appName') == 'service-adp-env-xxxx' }
                             }
                         }
                         steps {
@@ -716,14 +717,16 @@ def call(Map map, env) {
                         when {
                             allOf {
                                 expression { return !conf.getAttr('useModel') }
-                                expression { return conf.getAttr('appName') != 'service-adp-env' }
+                                // expression { return conf.getAttr('appName') == 'service-adp-env' }
                             }
                         }
                         steps {
                             container(name: 'kaniko', shell: '/busybox/sh') { //指定特殊的sh，kaniko基础镜像比较特殊
                                 script {
                                         // makeDockerImage.makeDockerComposeYml()
-                                        withEnv(['PATH+EXTRA=/busybox']){kaniko.makeAndPushImage()}
+                                        withEnv(['PATH+EXTRA=/busybox']){
+                                            kaniko.makeAndPushImage()
+                                        }
                                 }
                             }
                         }
@@ -731,15 +734,14 @@ def call(Map map, env) {
                     stage('by docker-plugin') {
                         when {
                             allOf {
-                                expression { return conf.getAttr('appName') == 'service-adp-env' }
+                                expression { return conf.getAttr('useModel') };
                             }
                         }
                         steps {
                             container('adp') {
                                 script {
-                                    sh 'echo docker plugin quzhognling'
+                                    sh '使用docker插件处理镜像！'
                                     docker.withRegistry("https://"+conf.getAttr('docker_registry_host'), conf.getAttr('docker_registry_host')) {
-                                    // docker.withRegistry('https://docker.dm-ai.cn', 'docker.dm-ai.cn') {
                                         def customImage = docker.build(conf.getAttr('buildImageAddress'))
                                         customImage.push()
                                     }
