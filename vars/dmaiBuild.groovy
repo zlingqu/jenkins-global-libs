@@ -586,7 +586,7 @@ def call(Map map, env) {
                                 script {
                                     conf.setAttr('buildImageTag', conf.getBuildImageAddressTag())
                                     conf.setAttr('buildImageAddress', conf.getBuildImageAddress('rdac-docker.dm-ai.cn'))
-                                    conf.setAttr('docker_registry_host','rdac-docker.dm-ai.cn')
+                                    conf.setAttr('docker_registry_host','https://rdac-docker.dm-ai.cn')
                                     conf.printAppConf()
                                 }
                             }
@@ -605,7 +605,7 @@ def call(Map map, env) {
                                 script {
                                     conf.setAttr('buildImageTag', conf.getBuildImageAddressTag())
                                     conf.setAttr('buildImageAddress', conf.getBuildImageAddress('registry.cn-zhangjiakou.aliyuncs.com'))
-                                    conf.setAttr('docker_registry_host','registry.cn-zhangjiakou.aliyuncs.com')
+                                    conf.setAttr('docker_registry_host','https://registry.cn-zhangjiakou.aliyuncs.com')
                                     conf.printAppConf()
                                 }
                             }
@@ -629,7 +629,7 @@ def call(Map map, env) {
                                 script {
                                     conf.setAttr('buildImageTag', conf.getBuildImageAddressTag())
                                     conf.setAttr('buildImageAddress', conf.getBuildImageAddress('docker.dm-ai.cn'))
-                                    conf.setAttr('docker_registry_host','docker.dm-ai.cn')
+                                    conf.setAttr('docker_registry_host','https://docker.dm-ai.cn')
                                     conf.printAppConf()
                                 }
                             }
