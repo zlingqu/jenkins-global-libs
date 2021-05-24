@@ -733,7 +733,7 @@ def call(Map map, env) {
                         steps {
                             container('adp') {
                                 script {
-                                    docker.withRegistry(conf.setAttr('buildImageAddress'), conf.setAttr('buildImageAddress')) {
+                                    docker.withRegistry(conf.getAttr('buildImageAddress'), conf.getAttr('buildImageAddress')) {
                                     // docker.withRegistry('https://docker.dm-ai.cn', 'docker.dm-ai.cn') {
                                         def customImage = docker.build("my-image:${env.BUILD_ID}")
                                         customImage.push()
