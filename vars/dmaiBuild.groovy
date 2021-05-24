@@ -716,6 +716,7 @@ def call(Map map, env) {
                         when {
                             allOf {
                                 expression { return !conf.getAttr('useModel') }
+                                expression { return conf.getAttr('appName') != 'service-adp-env' }
                             }
                         }
                         steps {
