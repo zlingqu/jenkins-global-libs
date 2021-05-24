@@ -732,10 +732,12 @@ def call(Map map, env) {
                         }
                         steps {
                             container('adp') {
-                                // docker.withRegistry('https://'+conf.setAttr('buildImageAddress'), conf.setAttr('buildImageAddress')) {
-                                docker.withRegistry('https://docker.dm-ai.cn', 'docker.dm-ai.cn') {
-                                    def customImage = docker.build("my-image:${env.BUILD_ID}")
-                                    customImage.push()
+                                script {
+                                    // docker.withRegistry('https://'+conf.setAttr('buildImageAddress'), conf.setAttr('buildImageAddress')) {
+                                    docker.withRegistry('https://docker.dm-ai.cn', 'docker.dm-ai.cn') {
+                                        def customImage = docker.build("my-image:${env.BUILD_ID}")
+                                        customImage.push()
+                                    }
                                 }
                             }
                         }
