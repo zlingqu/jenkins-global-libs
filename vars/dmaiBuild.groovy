@@ -736,6 +736,7 @@ def call(Map map, env) {
                                     def customImage = docker.build("my-image:${env.BUILD_ID}")
                                     customImage.push()
                                 }
+                            }
                         }
                     }
                 }
