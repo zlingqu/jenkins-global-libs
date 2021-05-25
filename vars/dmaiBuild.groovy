@@ -723,8 +723,9 @@ def call(Map map, env) {
                         steps {
                             container(name: 'kaniko', shell: '/busybox/sh') { //指定特殊的sh，kaniko基础镜像比较特殊
                                 script {
-                                        // makeDockerImage.makeDockerComposeYml()
+                                        sh 'printenv'
                                         withEnv(['PATH+EXTRA=/busybox']){
+                                            
                                             kaniko.makeAndPushImage()
                                         }
                                 }
