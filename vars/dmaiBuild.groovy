@@ -742,6 +742,7 @@ def call(Map map, env) {
                             container('adp') {
                                 script {
                                     sh 'echo 使用docker插件处理镜像!'
+                                    sh 'printenv'
                                     docker.withRegistry("https://"+conf.getAttr('docker_registry_host'), conf.getAttr('docker_registry_host')) {
                                         def customImage = docker.build(conf.getAttr('buildImageAddress'))
                                         customImage.push()
