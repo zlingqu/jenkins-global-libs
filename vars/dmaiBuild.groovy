@@ -97,7 +97,7 @@ def call(Map map, env) {
 
     // default node env
     //    def defaultNodeEnvList = Tools.addItemToListHead(['dev', 'prod', 'test', 'stage', 'jenkins', 'mlcloud-dev', 'lexue', 'tuoke', 'not-deploy'], conf.getDeployEnv() ? conf.getDeployEnv().replaceAll('prd', 'prod') : 'dev')
-    def defaultNodeEnvList = Tools.addItemToListHead(['dev', 'prd', 'test', 'stage', 'jenkins', 'mlcloud-dev', 'lexue', 'tuoke', 'not-deploy'], conf.getDeployEnv())
+    // def defaultNodeEnvList = Tools.addItemToListHead(['dev', 'prd', 'test', 'stage', 'jenkins', 'mlcloud-dev', 'lexue', 'tuoke', 'not-deploy'], conf.getDeployEnv())
 
     //
     def topEnvType = Tools.addItemToListHead(['cpu', 'gpu', 'arm', 'all'], defaultEnvType)
@@ -189,7 +189,7 @@ def call(Map map, env) {
             string(name: 'BRANCH_NAME', defaultValue: branchName, description: '代码分支名')
 
             choice(name: 'VUE_APP_SCENE', choices: ['school', 'agency'], description: 'xmc2-frontend项目使用，其他不关注')
-            choice(name: 'NODE_ENV', choices: defaultNodeEnvList, description: '前端专用，其他不关注')
+            // choice(name: 'NODE_ENV', choices: defaultNodeEnvList, description: '前端专用，其他不关注')
 
             string(name: 'DEPLOY_MASTER_PASSWORD', defaultValue: 'please-input-password', description: '部署master分支请找运维人员输入密码自动部署')
 
