@@ -270,7 +270,7 @@ def call(Map map, env) {
         environment {
             gitVersion = "${params.GIT_VERSION}"
             deployMasterPassword = "${params.DEPLOY_MASTER_PASSWORD}"
-            NODE_ENV = conf.getAttr('deployEnv')
+            NODE_ENV = conf.getAttr('deployEnv') //用于前端项目npm run build时使用，不同的环境编译出的静态文件不同
         }
 
         agent {
