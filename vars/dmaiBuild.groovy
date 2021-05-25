@@ -707,6 +707,7 @@ def call(Map map, env) {
                         steps {
                             container('adp') {
                                 script {
+                                    sh 'printenv'
                                     makeDockerImage.makeDockerComposeYml()
                                     makeDockerImage.makeImage()
                                     makeDockerImage.pushImage()
