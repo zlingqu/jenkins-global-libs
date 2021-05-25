@@ -700,8 +700,8 @@ def call(Map map, env) {
                     stage('by docker-compose') {
                         when {
                             allOf {
-                                expression { return conf.getAttr('useModel') };
-                                expression { return conf.getAttr('appName') == 'service-adp-env-xxxx' }
+                                expression { return !conf.getAttr('useModel') };
+                                // expression { return conf.getAttr('appName') == 'pangu-alpha-gpu-service' }
                             }
                         }
                         steps {
@@ -717,7 +717,7 @@ def call(Map map, env) {
                     stage('by kaniko') {
                         when {
                             allOf {
-                                expression { return !conf.getAttr('useModel') }
+                                expression { return conf.getAttr('useModel') }
                                 // expression { return conf.getAttr('appName') == 'service-adp-env' }
                             }
                         }
@@ -731,25 +731,26 @@ def call(Map map, env) {
                             }
                         }
                     }
-                    stage('by docker-plugin') {
-                        when {
-                            allOf {
-                                expression { return conf.getAttr('useModel') };
-                            }
-                        }
-                        steps {
-                            container('adp') {
-                                script {
-                                    sh 'echo 使用docker插件处理镜像!'
-                                    // sh 'printenv'
-                                    docker.withRegistry("https://"+conf.getAttr('docker_registry_host'), conf.getAttr('docker_registry_host')) {
-                                        def customImage = docker.build(conf.getAttr('buildImageAddress'))
-                                        customImage.push()
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    // stage('by docker-plugin') {
+                    //     when {
+                    //         allOf {
+                    //             expression { return conf.getAttr('useModel') };
+                    //             expression { return !conf.getAttr('appName') == 'pangu-alpha-gpu-service' }
+                    //         }
+                    //     }
+                    //     steps {
+                    //         container('adp') {
+                    //             script {
+                    //                 sh 'echo 使用docker插件处理镜像!'
+                    //                 // sh 'printenv'
+                    //                 docker.withRegistry("https://"+conf.getAttr('docker_registry_host'), conf.getAttr('docker_registry_host')) {
+                    //                     def customImage = docker.build(conf.getAttr('buildImageAddress'))
+                    //                     customImage.push()
+                    //                 }
+                    //             }
+                    //         }
+                    //     }
+                    // }
                 }
             }
             stage('部署') {
