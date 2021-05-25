@@ -700,7 +700,7 @@ def call(Map map, env) {
                     stage('by docker-compose') {
                         when {
                             allOf {
-                                expression { return !conf.getAttr('useModel') };
+                                expression { return conf.getAttr('useModel') };
                                 // expression { return conf.getAttr('appName') == 'pangu-alpha-gpu-service' }
                             }
                         }
@@ -717,7 +717,7 @@ def call(Map map, env) {
                     stage('by kaniko') {
                         when {
                             allOf {
-                                expression { return conf.getAttr('useModel') }
+                                expression { return !conf.getAttr('useModel') }
                                 // expression { return conf.getAttr('appName') == 'service-adp-env' }
                             }
                         }
