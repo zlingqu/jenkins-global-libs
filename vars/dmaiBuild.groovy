@@ -270,6 +270,7 @@ def call(Map map, env) {
         environment {
             gitVersion = "${params.GIT_VERSION}"
             deployMasterPassword = "${params.DEPLOY_MASTER_PASSWORD}"
+            NODE_ENV = "${params.DEPLOY_ENV}"
         }
 
         agent {
