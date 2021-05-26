@@ -21,8 +21,8 @@ class Conf implements Serializable {
     Conf(script, String appName, Map<String, String> userSetMap) {
         this.script = script
         this.appName = appName
-        this.jenkinsAddress = 'http://jenkins.ops.dm-ai.cn'
-        this.kubernetesStatusCheckHttpAddress = 'http://adp-api.dm-ai.cn/api/v1/app_status_check'
+        this.jenkinsAddress = 'http://jenkins.dm-ai.com'
+        this.kubernetesStatusCheckHttpAddress = 'http://adp-api.dm-ai.com/api/v1/app_status_check'
         this.checkKubernetesServiceStatusSleepTimes = 180 // 120 SECONDS
         this.userSetMap = userSetMap
         this.vueAppScene = ''

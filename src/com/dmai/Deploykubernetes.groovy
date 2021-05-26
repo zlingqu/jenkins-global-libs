@@ -35,7 +35,7 @@ class Deploykubernetes {
             }
         }
 
-        this.script.sh String.format("mkdir -p ~/.kube && wget http://adp-api.dm-ai.cn/api/v1/get-k8s-key-file?env='%s' -O ~/.kube/config", this.conf.getAttr('deployEnv'))
+        this.script.sh String.format("mkdir -p ~/.kube && wget http://adp-api.dm-ai.com/api/v1/get-k8s-key-file?env='%s' -O ~/.kube/config", this.conf.getAttr('deployEnv'))
         this.script.sh 'kubectl apply -f Deploy-k8s.yml; rm -fr Deploy-k8s.yml'
     }
 

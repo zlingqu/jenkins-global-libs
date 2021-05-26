@@ -18,10 +18,10 @@ class DmaiEmail {
     DmaiEmail(script, Conf conf) {
         this.script = script
         this.conf = conf
-        this.adpUrl = 'http://adp.dm-ai.cn/api/v1/deployments/change'
-        this.adpResultUrl = 'http://adp.dm-ai.cn/api/v1/result'
-        this.jenkinsUrl = 'http://jenkins.ops.dm-ai.cn'
-        this.adpUrlApp = 'http://adp.dm-ai.cn/#/deployment-management'
+        this.adpUrl = 'http://adp.dm-ai.com/api/v1/deployments/change'
+        this.adpResultUrl = 'http://adp.dm-ai.com/api/v1/result'
+        this.jenkinsUrl = 'http://jenkins.dm-ai.com'
+        this.adpUrlApp = 'http://adp.dm-ai.com/#/deployment-management'
     }
 
 
@@ -137,7 +137,7 @@ class DmaiEmail {
                     this.conf.getAttr('androidFlavor')
                 )
 
-            def url = 'curl -s adp-api.dm-ai.cn/api/v1/tools/qrcode?url=' + apkViewUrl + '|base64'
+            def url = 'curl -s adp-api.dm-ai.com/api/v1/tools/qrcode?url=' + apkViewUrl + '|base64'
             apkViewUrlQrcode = this.script.sh(returnStdout: true, script: url).trim()
         }
         def textComman = '''
@@ -328,7 +328,7 @@ class DmaiEmail {
                 'gitAddress'     : this.conf.getAttr('gitAddress'),
                 'k8sWebAddress'  : this.conf.getK8sWebAddress(),
                 'buildEnvInfo'   : this.buildEnvInfo(),
-                'sonarAddress'   : 'http://sonar.ops.dm-ai.cn/dashboard?id=' + this.conf.appName,
+                'sonarAddress'   : 'http://sonar.dm-ai.com/dashboard?id=' + this.conf.appName,
                 'adpUrlApp'      : this.adpUrlApp,
                 'namespace'      : this.conf.getAttr('namespace'),
                 'apkViewUrl'     : apkViewUrl,

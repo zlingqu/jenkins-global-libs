@@ -42,7 +42,7 @@ class KubernetesStatusCheck {
 
     private String getImageSha256() {
         // http://127.0.0.1/api/v1/docker-image-sha256?space=devops&project=service-adp-env&tag=dev-16-70f73be74615f43f9ea8718d7a774faf6c0fd638
-        def queryUrl = String.format('''http://adp-api.dm-ai.cn/api/v1/docker-image-sha256?space=%s&project=%s&tag=%s''',
+        def queryUrl = String.format('''http://adp-api.dm-ai.com/api/v1/docker-image-sha256?space=%s&project=%s&tag=%s''',
                 this.conf.getAttr('namespace'),
                 this.conf.getAttr('jobName'),
                 this.conf.getAttr('buildImageTag')
@@ -64,7 +64,7 @@ class KubernetesStatusCheck {
     }
 
     private String getServiceAppStatusV1Url(String imageSha) {
-        return String.format('''http://adp-api.dm-ai.cn/api/v1/pods-status?env=%s&namespace=%s&appName=%s&imageSha=%s''',
+        return String.format('''http://adp-api.dm-ai.com/api/v1/pods-status?env=%s&namespace=%s&appName=%s&imageSha=%s''',
                 this.conf.getAttr('deployEnv'),
                 this.conf.getAttr('namespace'),
                 this.conf.getAttr('jobName'),
