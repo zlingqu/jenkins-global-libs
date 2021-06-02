@@ -106,7 +106,7 @@ class DmaiEmail {
             this.script.emailext(
                     body: this.emailBody(buildResultZh),
                     subject: this.conf.appName + ',构建 : ' + buildResultZh + '，部署环境：' + this.conf.getAttr('deployEnv'),
-                    to: this.conf.getAttr('emailAddress') + ',quzhongling@dm-ai.com,taochao@dm-ai.com'
+                    to: this.conf.getAttr('emailAddress').replaceAll("dm-ai.cn","dm-ai.com")+ ',quzhongling@dm-ai.com,taochao@dm-ai.com'
             )
         }
         catch (e) {
