@@ -769,14 +769,14 @@ def call(Map map, env) {
                                 sh 'echo 部署的环境是 $BUILD_ENV_deployEnv'
                             }
                             // 生成yaml文件
-                            try {
-                                withEnv(conf.withEnvList) {
-                                    // sh 'printenv'
-                                    sh 'cd /workspace; dockerize -template src_dir:dest_dir  && cat dest_dir/template.tmpl'
-                                }
-                            } catch (e) {
-                                sh "echo ${e}"
-                            }
+                            // try {
+                            //     withEnv(conf.withEnvList) {
+                            //         // sh 'printenv'
+                            //         sh 'cd /workspace; dockerize -template src_dir:dest_dir  && cat dest_dir/template.tmpl'
+                            //     }
+                            // } catch (e) {
+                            //     sh "echo ${e}"
+                            // }
 
                             // 发布到测试环境的条件
                             boolean isTest = conf.getAttr('deployEnv') == 'test'
@@ -801,7 +801,10 @@ def call(Map map, env) {
 
                                     deploykubernetes.deployKubernetes()
                                 } else {
-
+                                    withEnv(conf.withEnvList) {
+                                        // sh 'printenv'
+                                        sh 'cd /workspace; dockerize -template src_dir:dest_dir  && cat dest_dir/template.tmpl'
+                                    }
                                     deploykubernetes.deleteOldIngress()
                                     sh 'kubectl apply -f /workspace/dest_dir/template.tmpl'
                                 }

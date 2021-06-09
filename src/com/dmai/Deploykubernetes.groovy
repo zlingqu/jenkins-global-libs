@@ -30,9 +30,9 @@ class Deploykubernetes {
                 } catch (e) {
                     this.script.sh "${e}"
                 }
-                this.script.sh "test -e  Deploy-k8s.yml && sed -i s#JENKINS_DEPLOY_IMAGE_ADDRESS#${this.conf.getAttr('buildImageAddress')}#g Deploy-k8s.yml"
-                this.script.sh 'cat Deploy-k8s.yml'
             }
+            this.script.sh "test -e  Deploy-k8s.yml && sed -i s#JENKINS_DEPLOY_IMAGE_ADDRESS#${this.conf.getAttr('buildImageAddress')}#g Deploy-k8s.yml"
+            this.script.sh 'cat Deploy-k8s.yml'
         }
 
         this.script.sh String.format("mkdir -p ~/.kube && wget http://adp-api.dm-ai.com/api/v1/get-k8s-key-file?env='%s' -O ~/.kube/config", this.conf.getAttr('deployEnv'))
